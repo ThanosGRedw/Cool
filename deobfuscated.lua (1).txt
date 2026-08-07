@@ -1,0 +1,96 @@
+game:GetService("StarterGui"):SetCore("SendNotification", {
+	Title = "By Mortal.v2 on youtube!",
+	Text = "join discord https://discord.com/invite/7xyZTnEq9K",
+	Button1 = "Yes",
+	Button2 = "later",
+	Duration = 30
+})
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+local Mouse = game.Players.LocalPlayer:GetMouse()
+local flag = false
+local cFrameNumber = 0.15634
+
+function FindNearestEnemy()
+	local huge = math.huge
+	local HumanoidRootPart = nil
+
+	for _, item in next, game:GetService("Players"):GetPlayers() do
+		if item ~= LocalPlayer then
+			local Character = item.Character
+
+			if Character and Character.Humanoid.Health > 1 then
+				local vector, condition = game:GetService("Workspace").CurrentCamera:WorldToViewportPoint(Character.HumanoidRootPart.Position)
+
+				if condition then
+					local Magnitude = (Vector2.new(Mouse.X, Mouse.Y) - Vector2.new(vector.X, vector.Y)).Magnitude
+
+					if Magnitude < huge then
+						HumanoidRootPart = item.Character.HumanoidRootPart
+						huge = Magnitude
+					end
+				end
+			end
+		end
+	end
+
+	return HumanoidRootPart, huge
+end
+
+local input = nil
+
+RunService.Heartbeat:Connect(function()
+	if flag == true and input then
+		local CurrentCamera = workspace.CurrentCamera
+
+		CurrentCamera.CFrame = CFrame.new(CurrentCamera.CFrame.p, input.Position + input.Velocity * cFrameNumber)
+	end
+end)
+
+local ScreenGui = Instance.new("ScreenGui")
+
+ScreenGui.Name = "patrickGui"
+ScreenGui.Parent = game.CoreGui
+
+local TextButton = Instance.new("TextButton")
+
+TextButton.Text = "Toggle CamLock"
+TextButton.TextSize = 24
+TextButton.TextColor3 = Color3.new(1, 1, 1)
+TextButton.BackgroundColor3 = Color3.new(0, 0, 0)
+TextButton.BorderColor3 = Color3.new(1, 1, 1)
+TextButton.BorderSizePixel = 4
+TextButton.Font = Enum.Font.Code
+TextButton.Size = UDim2.new(0.2, 0, 0.2, 0)
+TextButton.Position = UDim2.new(0, 0, 0.5, 0)
+
+local secondaryFlag = true
+
+TextButton.MouseButton1Click:Connect(function()
+	secondaryFlag = not secondaryFlag
+
+	if secondaryFlag then
+		TextButton.Text = "Mortal.v2 OFF"
+		flag = false
+		input = nil
+	else
+		TextButton.Text = "Mortal.v2 ON"
+		flag = true
+		input = FindNearestEnemy()
+	end
+end)
+TextButton.Parent = ScreenGui
+TextButton.Draggable = true
+
+local UICorner = Instance.new("UICorner")
+
+UICorner.CornerRadius = UDim.new(0, 5)
+UICorner.Parent = TextButton
+
+local UIStroke = Instance.new("UIStroke")
+
+UIStroke.Color = Color3.new(0, 0, 0)
+UIStroke.Thickness = 200
+UIStroke.Parent = TextButton
