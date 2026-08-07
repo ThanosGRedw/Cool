@@ -137,7 +137,7 @@ local v12 = t1[8]:MakeTab({
     "rbxassetid://7733658271",
 })
 local v13 = t1[8]:MakeTab({
-    "fun",
+    "Fun",
     "rbxassetid://7733765398",
 })
 t1[9] = t1[8]:MakeTab({
@@ -145,7 +145,7 @@ t1[9] = t1[8]:MakeTab({
     "rbxassetid://105837152438777",
 })
 t1[10] = t1[8]:MakeTab({
-    "ITENS ALL",
+    "Items",
     "rbxassetid://11860859170",
 })
 t1[11] = t1[8]:MakeTab({
@@ -169,11 +169,11 @@ local v16 = t1[8]:MakeTab({
     "rbxassetid://12120687742",
 })
 local v17 = t1[8]:MakeTab({
-    "skybox",
+    "Skybox",
     "rbxassetid://7733746980",
 })
 t1[13] = t1[8]:MakeTab({
-    "Music All",
+    "FE Music",
     "rbxassetid://10734900215",
 })
 t1[14] = t1[8]:MakeTab({
@@ -191,7 +191,7 @@ t1[15] = t1[8]:MakeTab({
 v12:AddSection({ "Creditos do Hub" })
 v12:AddDiscordInvite({
     Name = "Spectra Hub",
-    Description = "Comunidade oficial do Hub",
+    Description = "Spectra Hub official Discord",
     Logo = "rbxassetid://116857504291644",
     Invite = "https://discord.gg/rNeYanFFYX",
 })
@@ -226,20 +226,20 @@ v12:AddParagraph({
     end)()),
 })
 v12:AddParagraph({
-    "Jogador",
+    "Player",
     game:GetService("Players").LocalPlayer.Name,
 })
 v12:AddSection({ "devs" })
 v12:AddParagraph({
-    "Desenvolvedor Principal",
-    "assure_TV",
+    "Lead Developer",
+    "ThanosGRedw",
 })
 v12:AddParagraph({
-    "Ajudantes",
-    "denolk_new,",
+    "Helpers",
+    "ThanosGRedw,",
 })
 v12:AddParagraph({
-    "Projeto",
+    "Project",
     "Spectra Hub",
 })
 v12:AddParagraph({
