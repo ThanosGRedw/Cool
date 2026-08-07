@@ -1,6 +1,6 @@
 game:GetService("StarterGui"):SetCore("SendNotification", {
-	Title = "By Mortal.v2 on youtube!",
-	Text = "join discord https://discord.com/invite/7xyZTnEq9K",
+	Title = "By ThanosGRedw",
+	Text = "Enjoy!",
 	Button1 = "Yes",
 	Button2 = "later",
 	Duration = 30
