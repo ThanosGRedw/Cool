@@ -1,5 +1,3 @@
--- This file was generated at discord.gg/syncrypt
-
 local v1 = loadstring(game:HttpGet("https://raw.githubusercontent.com/NIcoGabrielRealYtr/Aether.lua-Library/refs/heads/main/Source"))()
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
