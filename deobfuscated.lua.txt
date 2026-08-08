@@ -1,0 +1,491 @@
+-- This file was generated at discord.gg/syncrypt
+
+local v1 = loadstring(game:HttpGet("https://raw.githubusercontent.com/NIcoGabrielRealYtr/Aether.lua-Library/refs/heads/main/Source"))()
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local LocalPlayer = Players.LocalPlayer
+local CurrentCamera = workspace.CurrentCamera
+if getgenv().Risky_ESP_Objects then
+    for _, v in pairs(getgenv().Risky_ESP_Objects) do
+        for _, v2 in pairs(v) do
+            if v2 and v2.Remove then
+                v2:Remove()
+            end
+        end
+    end
+end
+if getgenv().Risky_FOV_Circle then
+    getgenv().Risky_FOV_Circle:Remove()
+end
+getgenv().Risky_ESP_Objects = {}
+local Risky_ESP_Objects = getgenv().Risky_ESP_Objects
+local drawing = Drawing.new("Circle")
+getgenv().Risky_FOV_Circle = drawing
+drawing.Visible = false
+drawing.Thickness = 1
+drawing.Filled = false
+local u13 = false
+local u14 = false
+local u15 = false
+local n1 = 120
+local n2 = 500
+local n3 = 0.5
+local s1 = "Head"
+local s2 = "Nearest"
+local u21
+local u22 = false
+local n4 = 1
+local u24 = false
+local n5 = 2
+local u26 = false
+local n6 = 20
+local v28 = v1:CreateWindow({
+	Title = "RiskyPlayground",
+	SubText = "v1.0",
+	IsMobile = true
+})
+local v29 = v28:AddTab({
+	Text = "Aim"
+})
+local v30 = v29:AddSection({
+	Title = "Aimbot",
+	Side = "Left"
+})
+local v31 = v29:AddSection({
+	Title = "ESP",
+	Side = "Right"
+})
+v30:AddKeyPicker({
+	Text = "Aimbot Toggle",
+	Flag = "aimbot_key",
+	Default = "None",
+	Mode = "Toggle",
+	Callback = function(p1)
+    if v1.Flags.aimbot_key ~= nil then
+        u13 = p1
+    end
+end
+})
+v30:AddToggle({
+	Text = "Team Check",
+	Flag = "team_check",
+	Callback = function(p2)
+    u15 = p2
+end
+})
+v30:AddSlider({
+	Text = "FOV Size",
+	Flag = "aimbot_fov",
+	Min = 0,
+	Max = 1000,
+	Default = 120,
+	Callback = function(p3)
+    n1 = p3
+end
+})
+v30:AddSlider({
+	Text = "Max Distance",
+	Flag = "aimbot_maxdist",
+	Min = 50,
+	Max = 500,
+	Default = 500,
+	Callback = function(p4)
+    n2 = p4
+end
+})
+v30:AddSlider({
+	Text = "Smoothness",
+	Flag = "aimbot_smooth",
+	Min = 1,
+	Max = 100,
+	Default = 50,
+	Callback = function(p5)
+    n3 = p5 / 100
+end
+})
+v30:AddDropdown({
+	Text = "Target Part",
+	Options = {
+		"Head",
+		"HumanoidRootPart",
+		"Torso"
+	},
+	Default = "Head",
+	Callback = function(p6)
+    s1 = p6
+end
+})
+v30:AddDropdown({
+	Text = "Targeting Mode",
+	Options = {
+		"Nearest",
+		"Random"
+	},
+	Default = "Nearest",
+	Callback = function(p7)
+    s2 = p7
+end
+})
+v31:AddToggle({
+	Text = "Enable ESP",
+	Flag = "esp_toggle",
+	Callback = function(p8)
+    u14 = p8
+end
+})
+local v32 = v28:AddTab({
+	Text = "Players"
+})
+local v33 = v32:AddSection({
+	Title = "CFrame Movement",
+	Side = "Left"
+})
+local v34 = v32:AddSection({
+	Title = "CFrame Misc",
+	Side = "Right"
+})
+v33:AddKeyPicker({
+	Text = "CFrame Fly Toggle",
+	Flag = "cframe_fly_key",
+	Default = "None",
+	Mode = "Toggle",
+	Callback = function(p9)
+    if v1.Flags.cframe_fly_key ~= nil then
+        u24 = p9
+    end
+end
+})
+v33:AddSlider({
+	Text = "Fly Speed",
+	Flag = "cframe_fly_val",
+	Min = 1,
+	Max = 10,
+	Default = 2,
+	Callback = function(p10)
+    n5 = p10
+end
+})
+v33:AddKeyPicker({
+	Text = "CFrame Speed Toggle",
+	Flag = "cframe_speed_key",
+	Default = "None",
+	Mode = "Toggle",
+	Callback = function(p11)
+    if v1.Flags.cframe_speed_key ~= nil then
+        u22 = p11
+    end
+end
+})
+v33:AddSlider({
+	Text = "Speed Amount",
+	Flag = "cframe_speed_val",
+	Min = 0.1,
+	Max = 5,
+	Default = 1,
+	Float = 0.1,
+	Callback = function(p12)
+    n4 = p12
+end
+})
+v34:AddToggle({
+	Text = "CFrame Spinbot",
+	Flag = "cframe_spin",
+	Callback = function(p13)
+    u26 = p13
+end
+})
+v34:AddSlider({
+	Text = "Spin Speed",
+	Flag = "cframe_spin_val",
+	Min = 1,
+	Max = 100,
+	Default = 20,
+	Callback = function(p14)
+    n6 = p14
+end
+})
+v34:AddButton({
+	Text = "Teleport to Random Player",
+	Callback = function()
+    local t1 = {}
+    for v52, v53 in pairs(Players:GetPlayers()) do
+
+        local v54 = v53 ~= LocalPlayer
+
+        if v54 then
+            v54 = v53.Character
+
+            if v54 then
+                v54 = v53.Character:FindFirstChild("HumanoidRootPart")
+            end
+        end
+
+        if v54 then
+            table.insert(t1, v53)
+        end
+    end
+    if #t1 > 0 then
+        local v55 = t1[math.random(1, #t1)]
+        local Character = LocalPlayer.Character
+
+        if Character then
+            Character = LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+        end
+
+        if Character then
+            LocalPlayer.Character.HumanoidRootPart.CFrame = v55.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 3)
+        end
+    end
+end
+})
+v34:AddButton({
+	Text = "Teleport Up (100 Studs)",
+	Callback = function()
+    local Character = LocalPlayer.Character
+
+    if Character then
+        Character = LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    end
+
+    if Character then
+        LocalPlayer.Character.HumanoidRootPart.CFrame = LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 100, 0)
+    end
+end
+})
+v28:AddTab({
+	Text = "Credits"
+}):AddSection({
+	Title = "Owner",
+	Side = "Left"
+}):AddLabel({
+	Text = "Framed4Hacks"
+})
+RunService.Heartbeat:Connect(function()
+    local Character = LocalPlayer.Character
+    local v59 = Character
+
+    if Character then
+        v59 = Character:FindFirstChild("HumanoidRootPart") and Character:FindFirstChild("Humanoid")
+    end
+
+    if v59 then
+        local HumanoidRootPart = Character.HumanoidRootPart
+        local Humanoid = Character.Humanoid
+        local v62 = u22
+
+        if v62 then
+            v62 = Humanoid.MoveDirection.Magnitude > 0
+        end
+
+        if v62 then
+            HumanoidRootPart.CFrame = HumanoidRootPart.CFrame + Humanoid.MoveDirection * n4
+        end
+
+        if u24 then
+            HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
+
+            local vector3 = Vector3.new()
+
+            if UserInputService:IsKeyDown(Enum.KeyCode.W) then
+                vector3 += CurrentCamera.CFrame.LookVector
+            end
+
+            if UserInputService:IsKeyDown(Enum.KeyCode.S) then
+                vector3 -= CurrentCamera.CFrame.LookVector
+            end
+
+            if UserInputService:IsKeyDown(Enum.KeyCode.A) then
+                vector3 -= CurrentCamera.CFrame.RightVector
+            end
+
+            if UserInputService:IsKeyDown(Enum.KeyCode.D) then
+                vector3 += CurrentCamera.CFrame.RightVector
+            end
+
+            if UserInputService:IsKeyDown(Enum.KeyCode.Space) then
+                vector3 += CurrentCamera.CFrame.UpVector
+            end
+
+            if UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+                vector3 -= CurrentCamera.CFrame.UpVector
+            end
+
+            if vector3.Magnitude > 0 then
+                HumanoidRootPart.CFrame = HumanoidRootPart.CFrame + vector3.Unit * n5
+            end
+        end
+
+        if u26 then
+            HumanoidRootPart.CFrame = HumanoidRootPart.CFrame * CFrame.Angles(0, math.rad(n6), 0)
+        end
+    end
+end)
+RunService:BindToRenderStep("RiskyLoop", Enum.RenderPriority.Camera.Value + 1, function()
+    drawing.Visible = u13
+    drawing.Radius = n1
+    drawing.Position = Vector2.new(CurrentCamera.ViewportSize.X / 2, CurrentCamera.ViewportSize.Y / 2)
+
+    if u13 then
+        local v64 = u21
+
+        if v64 then
+            v64 = u21.Character
+
+            if v64 then
+                v64 = u21.Character:FindFirstChild("Humanoid")
+            end
+        end
+
+        if v64 then
+            local Magnitude = (CurrentCamera.CFrame.Position - u21.Character.HumanoidRootPart.Position).Magnitude
+
+            if u21.Character.Humanoid.Health <= 0 or Magnitude > n2 then
+                u21 = nil
+            end
+        else
+            u21 = nil
+        end
+
+        if not u21 then
+            local t2 = {}
+            for v69, v70 in pairs(Players:GetPlayers()) do
+
+                local v71 = v70 ~= LocalPlayer
+
+                if v71 then
+                    v71 = v70.Character
+
+                    if v71 then
+                        v71 = v70.Character:FindFirstChild(s1)
+
+                        if v71 then
+                            v71 = v70.Character:FindFirstChild("Humanoid")
+
+                            if v71 then
+                                v71 = v70.Character.Humanoid.Health > 0
+                            end
+                        end
+                    end
+                end
+
+                if v71 then
+                    local v72 = u15
+
+                    if v72 then
+                        v72 = v70.Team == LocalPlayer.Team
+                    end
+
+                    if not v72 and (CurrentCamera.CFrame.Position - v70.Character[s1].Position).Magnitude <= n2 then
+                        local v73, v74 = CurrentCamera:WorldToViewportPoint(v70.Character[s1].Position)
+                        local Magnitude = (Vector2.new(v73.X, v73.Y) - Vector2.new(CurrentCamera.ViewportSize.X / 2, CurrentCamera.ViewportSize.Y / 2)).Magnitude
+
+                        if v74 and Magnitude < n1 then
+                            table.insert(t2, {
+								player = v70,
+								dist = Magnitude
+							})
+                        end
+                    end
+                end
+            end
+            if #t2 > 0 then
+                if s2 == "Nearest" then
+                    table.sort(t2, function(p15, p16)
+                        return p15.dist < p16.dist
+                    end)
+                    u21 = t2[1].player
+                else
+                    u21 = t2[math.random(1, #t2)].player
+                end
+            end
+        end
+
+        local v76 = u21
+
+        if v76 then
+            v76 = u21.Character
+
+            if v76 then
+                v76 = u21.Character:FindFirstChild(s1)
+            end
+        end
+
+        if v76 then
+            CurrentCamera.CFrame = CurrentCamera.CFrame:Lerp(CFrame.lookAt(CurrentCamera.CFrame.Position, u21.Character[s1].Position), n3)
+        end
+    end
+
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer then
+            if not Risky_ESP_Objects[player] then
+                local v79 = Risky_ESP_Objects
+                local drawing2 = Drawing.new("Square")
+                local drawing3 = Drawing.new("Line")
+                local drawing4 = Drawing.new("Text")
+
+                v79[player] = {
+					box = drawing2,
+					health = drawing3,
+					dist = drawing4
+				}
+                Risky_ESP_Objects[player].box.Filled = false
+                Risky_ESP_Objects[player].box.Transparency = 0.5
+                Risky_ESP_Objects[player].health.Thickness = 2
+                Risky_ESP_Objects[player].dist.Center = true
+            end
+
+            local Character = player.Character
+            local v84 = u14
+
+            if v84 then
+                v84 = Character
+
+                if Character then
+                    v84 = Character:FindFirstChild("HumanoidRootPart")
+
+                    if v84 then
+                        v84 = Character:FindFirstChild("Humanoid")
+
+                        if v84 then
+                            v84 = Character.Humanoid.Health > 0
+                        end
+                    end
+                end
+            end
+
+            if v84 then
+                local v85, v86 = CurrentCamera:WorldToViewportPoint(Character.HumanoidRootPart.Position)
+
+                if v86 then
+                    local v87 = CurrentCamera:WorldToViewportPoint(Character.HumanoidRootPart.Position + Vector3.new(0, 3, 0))
+                    local v88 = CurrentCamera:WorldToViewportPoint(Character.HumanoidRootPart.Position - Vector3.new(0, 3.5, 0))
+                    local v89 = math.abs(v87.Y - v88.Y)
+                    local v90 = v89 * 0.6
+
+                    Risky_ESP_Objects[player].box.Size = Vector2.new(v90, v89)
+                    Risky_ESP_Objects[player].box.Position = Vector2.new(v85.X - v90 / 2, v87.Y)
+                    Risky_ESP_Objects[player].box.Visible = true
+
+                    local v91 = math.clamp(Character.Humanoid.Health / Character.Humanoid.MaxHealth, 0, 1)
+
+                    Risky_ESP_Objects[player].health.From = Vector2.new(Risky_ESP_Objects[player].box.Position.X - 5, Risky_ESP_Objects[player].box.Position.Y + v89)
+                    Risky_ESP_Objects[player].health.To = Vector2.new(Risky_ESP_Objects[player].box.Position.X - 5, Risky_ESP_Objects[player].box.Position.Y + v89 * (1 - v91))
+                    Risky_ESP_Objects[player].health.Color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+                    Risky_ESP_Objects[player].health.Visible = true
+                    Risky_ESP_Objects[player].dist.Position = Vector2.new(v85.X, Risky_ESP_Objects[player].box.Position.Y + v89 + 5)
+                    Risky_ESP_Objects[player].dist.Text = math.floor((Character.HumanoidRootPart.Position - CurrentCamera.CFrame.Position).Magnitude) .. " studs"
+                    Risky_ESP_Objects[player].dist.Visible = true
+                else
+                    Risky_ESP_Objects[player].box.Visible = false
+                    Risky_ESP_Objects[player].health.Visible = false
+                    Risky_ESP_Objects[player].dist.Visible = false
+                end
+            else
+                Risky_ESP_Objects[player].box.Visible = false
+                Risky_ESP_Objects[player].health.Visible = false
+                Risky_ESP_Objects[player].dist.Visible = false
+            end
+        end
+    end
+end)
