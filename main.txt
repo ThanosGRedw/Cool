@@ -6253,7 +6253,7 @@ t1[257] = function()
     t1[249] = {}
 end
 v16:AddToggle({
-    Name = "kill player",
+    Name = "Kill player",
     Default = false,
     Callback = function(p139)
         t1[248] = p139
@@ -10154,7 +10154,7 @@ for k in pairs(t1[305]) do
 end
 table.sort(t89)
 v17:AddDropdown({
-    Name = "Camisas",
+    Name = "Shirts",
     Options = t89,
     Callback = function(p220)
         local v797 = t1[305][p220]
@@ -10167,8 +10167,8 @@ v17:AddDropdown({
     end,
 })
 v17:AddTextBox({
-    Name = "ID da Camisa",
-    PlaceholderText = "Insira o ID da camisa",
+    Name = "Shirt ID",
+    PlaceholderText = "Insirt the shirt ID you want to wear",
     Callback = function(p221)
         local num = tonumber(p221)
 
