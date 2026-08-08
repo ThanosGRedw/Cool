@@ -75,7 +75,7 @@ print([[
 local v3 = loadstring(game:HttpGet("https://pastefy.app/ptT2xWaK/raw"))()
 t1[8] = v3:MakeWindow({
     Title = " Spectra HUB   | Brookhaven RP 🏡",
-    SubTitle = "炎  by assure | version hub 1.92.8",
+    SubTitle = "炎  by ThanosGRedw | Version 2.0",
     Logo = "rbxassetid://15464429993",
     TitleSize = 19,
     SaveFolder = "Spectra hub",
@@ -116,7 +116,7 @@ t1[8]:Dialog({
         {
             "Discord",
             function()
-                setclipboard("https://discord.gg/rNeYanFFYX")
+                setclipboard("https://discord.com/channels/@me")
                 Library:Notify(10709806740, "Discord link copied to clipboard!", 5)
             end,
         },
