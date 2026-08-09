@@ -3875,7 +3875,7 @@ LocalPlayer.CharacterAdded:Connect(function()
     end
 end)
 
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/miroeramaa/TurtleLib/main/TurtleUiLib.lua"))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs/heads/main/TurtleUiLib.lua"))()
 local window = library:Window("Projeto LKB")
 
 window:Slider("Radius Blackhole",1,100,10, function(Value)
