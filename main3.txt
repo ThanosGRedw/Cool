@@ -21,11 +21,7 @@ do
     if not getgenv().SPHubIsFirstTime then
         pcall(function()
             loadstring(game:HttpGet("https://pastebin.com/raw/jdQ2nAWw"))()
-            game:GetService("CoreGui"):FindFirstChild("DiscordAdUI")
 
-            repeat
-                task.wait(1)
-            until not game:GetService("CoreGui"):FindFirstChild("DiscordAdUI")
         end)
     end
     do
