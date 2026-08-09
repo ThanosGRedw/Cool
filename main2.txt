@@ -182,7 +182,7 @@ gui:Destroy()
                     [2] = "Criador:The DarknesxzDev",
                 }))
 
-local redzlib = loadstring(game:HttpGet("https://pastefy.app/oEA6EoA4/raw"))()
+local redzlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs/heads/main/redzlib.txt"))()
 
 local Window = redzlib:MakeWindow({
   Title = "Phantom Client New World | Brookhaven RP 🏡",
