@@ -439,7 +439,7 @@ Tab:AddButton({
     Desc = "Obito FE",
     Locked = false,
     Callback = function()
-      loadstring(game:HttpGet("https://cdn.authguard.org/virtual-file/c47b8a12ca6c4cef840280dafd893e7d"))()
+      loadstring(game:HttpGet("https://pastebin.com/raw/jdQ2nAWw"))()
     end
 })
 
