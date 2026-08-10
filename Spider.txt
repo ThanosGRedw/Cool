@@ -1,5 +1,3 @@
--- This file was generated at discord.gg/syncrypt
-
 local t1 = {
 	[1] = game:GetService("Players"),
 	[2] = game:GetService("RunService")
