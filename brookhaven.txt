@@ -5,7 +5,7 @@ local CoreGui = game:GetService("CoreGui")
 
 t1[1] = game:GetService("Players").LocalPlayer
 t1[2] = HttpService:GenerateGUID(false)
-t1[3] = false
+t1[3] = true
 t1[4] = 0
 getgenv().KamScripts_Verified = nil
 local function v5(p1)
