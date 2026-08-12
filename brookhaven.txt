@@ -7,62 +7,7 @@ t1[1] = game:GetService("Players").LocalPlayer
 t1[2] = HttpService:GenerateGUID(false)
 t1[3] = true
 t1[4] = 0
-getgenv().KamScripts_Verified = nil
-local function v5(p1)
-    local timestamp = tick()
-    local ok, result = pcall(function()
-        return game:HttpGet(p1)
-    end)
-
-    if tick() - timestamp < 0.03 then
-        error("Hook detected!", 0)
-
-        return nil
-    end
-
-    if ok and result then
-        return result:gsub("^%s*(.-)%s*$", "%1")
-    end
-
-    return nil
-end
-local function v6(p2)
-    t1[4] = t1[4] + 1
-
-    if t1[4] > 3 then
-        error("Too many attempts!", 0)
-    end
-
-    local v159 = v5("https://kamscripts-key-server.kamscripts-key.workers.dev/raw")
-
-    if not v159 then
-        return false
-    end
-
-    local v160 = math.floor(#v159 / 2)
-
-    if v159:sub(1, v160) ~= p2:sub(1, v160) then
-        return false
-    end
-
-    if v159:sub(v160 + 1) ~= p2:sub(v160 + 1) then
-        return false
-    end
-
-    t1[3] = true
-
-    return true
-end
-t1[5] = function()
-    if not t1[3] then
-        error("Unauthorized!", 0)
-
-        return
-    end
-
-    local t2 = {}
-
-    getgenv().KamScripts_Verified = t1[2]
+getgenv().KamScripts_Verified = t1[2]
     print("[KamScripts] Authenticated! Loading...")
     pcall(function()
         game:GetService("StarterGui"):SetCore("SendNotification", {
