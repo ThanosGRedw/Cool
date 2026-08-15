@@ -4691,7 +4691,7 @@ v16:AddToggle({
 })
 v16:AddSection({ "Anti-Sit" })
 v16:AddToggle({
-    Name = "Anti Sent",
+    Name = "Anti Sit",
     Default = false,
     Callback = function(p97)
         antiSit = p97
@@ -9539,7 +9539,7 @@ local ok, result = pcall(function()
     end
 
     t1[15]:AddToggle({
-        Name = "Anti Sent",
+        Name = "Anti Sit",
         Default = false,
         Callback = function(p203)
             t87[9] = p203
@@ -9910,7 +9910,7 @@ local ok, result = pcall(function()
         end)
     end)
     t1[15]:AddToggle({
-        Name = "anti Skybox | Nuke",
+        Name = "Anti skybox nuke",
         Default = false,
         Callback = function(p214)
             t87[25] = p214
