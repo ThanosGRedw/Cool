@@ -251,7 +251,7 @@ v12:AddButton({
     Name = "Copy ThanosGRedw's channel",
     Callback = function()
         if setclipboard then
-            setclipboard("assure_TV\nhttps://www.youtube.com/@Rankinhooo")
+            setclipboard("Rankinhooo\nhttps://www.youtube.com/@Rankinhooo")
         end
     end,
 })
