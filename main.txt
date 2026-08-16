@@ -243,15 +243,15 @@ v12:AddParagraph({
     "Spectra Hub",
 })
 v12:AddParagraph({
-    "Contas Roblox do assure_TV",
-    "udydydi2usy6d6d",
+    "@Thanosgredw",
+    "yall are the goats",
 })
 v12:AddSection({ "midia" })
 v12:AddButton({
-    Name = "Copiar Canal do YouTube do assure",
+    Name = "Copy ThanosGRedw's channel",
     Callback = function()
         if setclipboard then
-            setclipboard("assure_TV\nhttps://www.youtube.com/@assure_TV")
+            setclipboard("assure_TV\nhttps://www.youtube.com/@Rankinhooo")
         end
     end,
 })
