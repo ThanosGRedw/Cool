@@ -3809,8 +3809,148 @@ t1[12]:AddButton({
     Name = "Fling sofa (1x)",
     Description = "Executa o fling apenas uma vez",
     Callback = function()
-        t1[128]()
-    end,
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        local UserInputService = game:GetService("UserInputService")
+        local LocalPlayer = Players.LocalPlayer
+        local CurrentCamera = workspace.CurrentCamera
+        local u463 = false
+        local Backpack = LocalPlayer:WaitForChild("Backpack")
+
+        if not Backpack:FindFirstChild("Click Fling Couch") and (not LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Click Fling Couch")) then
+            local Tool = Instance.new("Tool")
+
+            Tool.Name = "Click Fling Couch"
+            Tool.RequiresHandle = false
+            Tool.CanBeDropped = false
+            Tool.Equipped:Connect(function()
+                u463 = true
+            end)
+            Tool.Unequipped:Connect(function()
+                u463 = false
+            end)
+            Tool.Parent = Backpack
+        end
+
+        local function v466(p32)
+            if not u463 then
+                return
+            end
+
+            if not p32 or (not p32.Character or p32 == LocalPlayer) then
+                return
+            end
+
+            local u1422 = true
+            local v1423 = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+            local v1424 = p32.Character and p32.Character:FindFirstChild("HumanoidRootPart")
+
+            if not v1423 or not v1424 then
+                return
+            end
+
+            local Character = LocalPlayer.Character
+            local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+            local CFrame5 = v1423.CFrame
+
+            ReplicatedStorage:WaitForChild("RE"):WaitForChild("1Clea1rTool1s"):FireServer("ClearAllTools")
+            task.wait(0.2)
+            ReplicatedStorage.RE:FindFirstChild("1Too1l"):InvokeServer("PickingTools", "Couch")
+            task.wait(0.3)
+
+            local Couch = LocalPlayer.Backpack:FindFirstChild("Couch")
+
+            if Couch then
+                Couch.Parent = Character
+            end
+
+            task.wait(0.1)
+            game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.F, false, game)
+            task.wait(0.25)
+            workspace.FallenPartsDestroyHeight = (0/0)
+
+            local BodyVelocity = Instance.new("BodyVelocity")
+
+            BodyVelocity.Name = "ForcaJogada"
+            BodyVelocity.Velocity = Vector3.new(900000000, 900000000, 900000000)
+            BodyVelocity.MaxForce = Vector3.new(1e999, 1e999, 1e999)
+            BodyVelocity.Parent = v1423
+            Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+            Humanoid.PlatformStand = false
+            CurrentCamera.CameraSubject = p32.Character:FindFirstChild("Head") or (v1424 or Humanoid)
+            task.spawn(function()
+                local v1703
+                local t32 = { v1423 }
+                while true do
+                    local v1705 = u1422
+
+                    if v1705 then
+                        v1705 = p32 and (p32.Character and p32.Character:FindFirstChildOfClass("Humanoid"))
+                    end
+
+                    if not v1705 or p32.Character:FindFirstChildOfClass("Humanoid").Sit then
+                        break
+                    end
+
+                    v1703 += 50
+
+                    for _, _ in ipairs(t32) do
+                        local HumanoidRootPart = p32.Character.HumanoidRootPart
+                        local v1709 = HumanoidRootPart.Position + HumanoidRootPart.Velocity / 1.5
+
+                        v1423.CFrame = CFrame.new(v1709) * CFrame.Angles(math.rad(v1703), 0, 0)
+                    end
+
+                    v1423.Velocity = Vector3.new(900000000, 900000000, 900000000)
+                    v1423.RotVelocity = Vector3.new(900000000, 900000000, 900000000)
+                    task.wait()
+                end
+                u1422 = false
+                BodyVelocity:Destroy()
+                Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
+                Humanoid.PlatformStand = false
+                v1423.CFrame = CFrame5
+                CurrentCamera.CameraSubject = Humanoid
+                for _, descendant in pairs(Character:GetDescendants()) do
+                    if descendant:IsA("BasePart") then
+                        descendant.Velocity = Vector3.zero
+                        descendant.RotVelocity = Vector3.zero
+                    end
+                end
+                Humanoid:UnequipTools()
+                ReplicatedStorage.RE:FindFirstChild("1Too1l"):InvokeServer("PickingTools", "Couch")
+            end)
+
+            while u1422 do
+                task.wait()
+            end
+        end
+
+        UserInputService.TouchTap:Connect(function(p33, p34)
+            if not p34 then
+                p34 = not u463
+            end
+
+            if p34 then
+                return
+            end
+
+            local v1432 = p33[1]
+            local v1433 = CurrentCamera:ScreenPointToRay(v1432.X, v1432.Y)
+            local raycastResult = workspace:Raycast(v1433.Origin, v1433.Direction * 1000)
+
+            if raycastResult and raycastResult.Instance then
+                local player = Players:GetPlayerFromCharacter(raycastResult.Instance:FindFirstAncestorOfClass("Model"))
+
+                if player and player ~= LocalPlayer then
+                    v466(player)
+                    task.delay(2, function()
+                    end)
+                end
+            end
+        end)
+    end
+end,
 })
 t1[12]:AddSection({ "Spamm bomb: By Lyra Hub só que eu modifiquei 😁👍" })
 t1[129] = 15
