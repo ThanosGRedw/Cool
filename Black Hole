@@ -1,0 +1,205 @@
+local HumanoidRootPart = (LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()):WaitForChild("HumanoidRootPart")
+            local Folder = Instance.new("Folder", Workspace2)
+            local Part = Instance.new("Part", Folder)
+            local Attachment = Instance.new("Attachment", Part)
+
+            Part.Anchored = true
+            Part.CanCollide = false
+            Part.Transparency = 1
+
+            return HumanoidRootPart, Attachment
+        end
+
+        local v171, v172 = v170()
+        local v173 = v171
+        local v174 = v172
+
+        if not getgenv().Network then
+            local v175 = getgenv()
+            local vector3 = Vector3.new(14.46262424, 14.46262424, 14.46262424)
+
+            v175.Network = {
+					BaseParts = {},
+					Velocity = vector3
+				}
+
+            function Network.RetainPart(p3)
+                local v1277 = typeof(p3) == "Instance"
+
+                if v1277 then
+                    v1277 = p3:IsA("BasePart")
+
+                    if v1277 then
+                        v1277 = p3:IsDescendantOf(Workspace2)
+                    end
+                end
+
+                if v1277 then
+                    table.insert(Network.BaseParts, p3)
+                    p3.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0, 0, 0)
+                    p3.CanCollide = false
+                end
+            end
+
+            LocalPlayer.ReplicationFocus = Workspace2
+            RunService.Heartbeat:Connect(function()
+                sethiddenproperty(LocalPlayer, "SimulationRadius", 1e999)
+
+                for _, v in pairs(Network.BaseParts) do
+                    if v:IsDescendantOf(Workspace2) then
+                        v.Velocity = Network.Velocity
+                    end
+                end
+            end)
+        end
+
+        local function v177(p4)
+            local v1281 = p4:IsA("Part")
+
+            if v1281 then
+                v1281 = not p4.Anchored
+
+                if v1281 then
+                    v1281 = not p4.Parent:FindFirstChild("Humanoid") and (not p4.Parent:FindFirstChild("Head") and p4.Name ~= "Handle")
+                end
+            end
+
+            if v1281 then
+                local _next = next
+                local v1283, v1284 = p4:GetChildren()
+
+                while true do
+                    local v1285
+
+                    v1284, v1285 = _next(v1283, v1284)
+
+                    if not v1284 then
+                        break
+                    end
+
+                    local v1286 = v1285:IsA("BodyAngularVelocity")
+
+                    if not v1286 then
+                        v1286 = v1285:IsA("BodyForce")
+
+                        if not v1286 then
+                            v1286 = v1285:IsA("BodyGyro")
+
+                            if not v1286 then
+                                v1286 = v1285:IsA("BodyPosition")
+
+                                if not v1286 then
+                                    v1286 = v1285:IsA("BodyThrust") or (v1285:IsA("BodyVelocity") or v1285:IsA("RocketPropulsion"))
+                                end
+                            end
+                        end
+                    end
+
+                    if v1286 then
+                        v1285:Destroy()
+                    end
+                end
+
+                if p4:FindFirstChild("Attachment") then
+                    p4:FindFirstChild("Attachment"):Destroy()
+                end
+
+                if p4:FindFirstChild("AlignPosition") then
+                    p4:FindFirstChild("AlignPosition"):Destroy()
+                end
+
+                if p4:FindFirstChild("Torque") then
+                    p4:FindFirstChild("Torque"):Destroy()
+                end
+
+                p4.CanCollide = false
+
+                local Torque = Instance.new("Torque", p4)
+
+                Torque.Torque = Vector3.new(1000000, 1000000, 1000000)
+
+                local AlignPosition = Instance.new("AlignPosition", p4)
+                local Attachment = Instance.new("Attachment", p4)
+
+                Torque.Attachment0 = Attachment
+                AlignPosition.MaxForce = 1e999
+                AlignPosition.MaxVelocity = 1e999
+                AlignPosition.Responsiveness = 500
+                AlignPosition.Attachment0 = Attachment
+                AlignPosition.Attachment1 = v174
+            end
+        end
+        local function v178()
+            u169 = not u169
+
+            if u169 then
+                local _next = next
+                local v1291, v1292 = Workspace2:GetDescendants()
+
+                while true do
+                    local v1293
+
+                    v1292, v1293 = _next(v1291, v1292)
+
+                    if not v1292 then
+                        break
+                    end
+
+                    v177(v1293)
+                end
+
+                Workspace2.DescendantAdded:Connect(function(descendant)
+                    if u169 then
+                        v177(descendant)
+                    end
+                end)
+                spawn(function()
+                    while u169 and RunService.RenderStepped:Wait() do
+                        n1 += 0.03490658503988659
+
+                        local v1681 = math.cos(n1) * n2
+                        local v1682 = math.sin(n1) * n2
+
+                        v174.WorldCFrame = v173.CFrame * CFrame.new(v1681, 0, v1682)
+                    end
+                end)
+
+                return
+            end
+
+            v174.WorldCFrame = CFrame.new(0, -1000, 0)
+        end
+
+        LocalPlayer.CharacterAdded:Connect(function()
+            local _, _ = v170()
+
+            if u169 then
+                v178()
+            end
+        end)
+
+        local v179 = loadstring(game:HttpGet("https://raw.githubusercontent.com/miroeramaa/TurtleLib/main/TurtleUiLib.lua"))():Window("Projeto LKB")
+
+        v179:Slider("Radius Blackhole", 1, 100, 10, function(p5)
+            n2 = p5
+        end)
+        v179:Toggle("Blackhole", true, function(p6)
+            if p6 then
+                v178()
+
+                return
+            end
+
+            u169 = false
+        end)
+        spawn(function()
+            while true do
+                RunService.RenderStepped:Wait()
+
+                if u169 then
+                    n1 += math.rad(angleSpeed)
+                end
+            end
+        end)
+        v178()
+    end
