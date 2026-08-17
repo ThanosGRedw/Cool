@@ -1,3 +1,12 @@
+local Players = game:GetService("Players")
+        local RunService = game:GetService("RunService")
+        local LocalPlayer = Players.LocalPlayer
+        local Workspace2 = game:GetService("Workspace")
+        local n1 = 1
+        local n2 = 10
+        local u169 = false
+
+        local function v170()
 local HumanoidRootPart = (LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()):WaitForChild("HumanoidRootPart")
             local Folder = Instance.new("Folder", Workspace2)
             local Part = Instance.new("Part", Folder)
