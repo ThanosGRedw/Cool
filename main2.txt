@@ -270,61 +270,7 @@ do
             return nil
         end
         t1[16] = function(p10)
-            local _tostring = tostring
-            if not p10 then
-                p10 = ""
-            end
-            local v344 = _tostring(p10):gsub("%s+", "")
-            if v344 == "" then
-                return false, "No Key", "Please enter a key"
-            end
-            local ClientId = game:GetService("RbxAnalyticsService"):GetClientId()
-            local Name = t1[6].Name
-            local t5 = {
-				key = v344,
-				hwid = ClientId,
-				user_id = Name
-			}
-            local u348 = t5
-            local ok, result = pcall(function()
-                local v1377 = t1[15]()
-
-                if not v1377 then
-                    return nil
-                end
-
-                local API_URL = t1[11].API_URL
-                local t6 = {
-					["Content-Type"] = "application/json"
-				}
-                local json = t1[3]:JSONEncode(u348)
-
-                return v1377({
-					Url = API_URL,
-					Method = "POST",
-					Headers = t6,
-					Body = json
-				})
-            end)
-            local v351 = result
-            if not ok or not v351 then
-                return false, "Connection Error", "Failed to contact verification server"
-            end
-            local ok2, result2 = pcall(function()
-                return t1[3]:JSONDecode(v351.Body)
-            end)
-            local v354 = not ok2
-            if not v354 then
-                v354 = not result2
-            end
-            if v354 then
-                return false, "Decode Error", "Failed to parse API response"
-            end
-            if result2.valid then
-                return true, result2.expires_formatted or "Unknown", result2.expires or 0
-            end
-
-            return false, tostring(result2.reason or "Invalid"), tostring(result2.error or "Invalid Key")
+            return true, "Lifetime", os.time() + 315360000
         end
         pcall(function()
             if isfile(t1[11].KEY_FILE) then
