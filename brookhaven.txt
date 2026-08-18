@@ -9,27 +9,11 @@ t1[3] = false
 t1[4] = 0
 getgenv().KamScripts_Verified = nil
 local function v5(p1)
-    local timestamp = tick()
-    local ok, result = pcall(function()
-        return game:HttpGet(p1)
-    end)
 
-    if tick() - timestamp < 0.03 then
-        error("Hook detected!", 0)
-
-        return nil
-    end
-
-    if ok and result then
-        return result:gsub("^%s*(.-)%s*$", "%1")
-    end
-
-    return nil
+    return "KAMSCRIPTS_PREMIUM_BYPASS"
 end
 local function v6(p2)
-  t1[3] = true
- return true
-end
+
 t1[5] = function()
 
     local t2 = {}
