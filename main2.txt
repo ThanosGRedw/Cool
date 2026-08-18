@@ -172,7 +172,7 @@ do
 			API_URL = "https://sphub.lol/api/check",
 			GET_KEY_URL = "https://sphub.lol/get-key",
 			KEY_FILE = "sphub_key.txt",
-			savedKey = ""
+			savedKey = "BYPASSED_KEY"
 		}
         t1[12] = function(p3, p4, p5)
             local str = tostring(p3 or "SP Hub")
