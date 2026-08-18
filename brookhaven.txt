@@ -10995,54 +10995,30 @@ t1[9].TextSize = 14
 task.spawn(function()
     task.wait(120)
 
-    if not t1[3] then
-        pcall(function()
-            t1[6]:Destroy()
-        end)
-        t1[1]:Kick("[KamScripts] Key verification timeout.")
-    end
 end)
 t1[9].MouseButton1Click:Connect(function()
-    if setclipboard then
-        pcall(setclipboard, "https://discord.gg/BR2Vmfbetp")
-        t1[9].Text = "Copied!"
-    else
-        t1[9].Text = "No Clipboard!"
-    end
-
-    task.wait(1.5)
-    t1[9].Text = "Get Key"
+   t1[7].Text = "KAMSCRIPTS_BYPASS"
+   t1[8].Text = "Checking..."
+   task.wait(0.5)
+   t1[8].Text = "Correct!"
+   task.wait(0.5)
+   t1[6]:Destroy()
+   t1[5]() 
 end)
 t1[8].MouseButton1Click:Connect(function()
     t1[8].Text = "Checking..."
     local success = pcall(function()
-        local Text = t1[7].Text
 
-        if #Text < 5 then
-            t1[8].Text = "Too Short!"
-            task.wait(1.5)
-            t1[8].Text = "Check Key"
-
-            return
-        end
-
-        if v6(Text) then
             t1[8].Text = "Correct!"
             task.wait(0.5)
             t1[6]:Destroy()
             t1[5]()
+        end)
 
-            return
-        end
-
-        t1[8].Text = "Wrong Key!"
-        task.wait(1.5)
-        t1[8].Text = "Check Key"
-    end)
     if not success then
         pcall(function()
             t1[6]:Destroy()
         end)
-        t1[1]:Kick("[KamScripts] Security violation detected.")
+        t1[5]()
     end
 end)
