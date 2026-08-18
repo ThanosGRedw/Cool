@@ -378,7 +378,7 @@ do
 			Name = "SP Hub | Brookhaven | 1.6v",
 			SaveConfig = true,
 			Setting = true,
-			IsPremium = false,
+			IsPremium = true,
 			CloseCallback = true
 		})
 
