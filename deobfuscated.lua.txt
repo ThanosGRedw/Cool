@@ -1,0 +1,1599 @@
+-- This file was generated at discord.gg/syncrypt
+
+local t1 = {
+	value1 = game:GetService("Players")
+}
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+
+t1.value2 = game:GetService("TweenService")
+t1.value3 = game:GetService("Debris")
+t1.value4 = t1.value1.LocalPlayer
+t1.value5 = workspace.CurrentCamera
+t1.value6 = false
+t1.value7 = true
+t1.value8 = nil
+t1.value9 = "Head"
+t1.value10 = {
+	boot = "rbxassetid://137955043051820",
+	click = "rbxassetid://6895079853"
+}
+local color3 = Color3.fromRGB(11, 11, 14)
+local color3_2 = Color3.fromRGB(15, 15, 18)
+local color3_3 = Color3.fromRGB(20, 20, 24)
+local color3_4 = Color3.fromRGB(28, 28, 34)
+local color3_5 = Color3.fromRGB(23, 23, 28)
+local color3_6 = Color3.fromRGB(96, 72, 200)
+local color3_7 = Color3.fromRGB(48, 36, 110)
+local color3_8 = Color3.fromRGB(132, 104, 245)
+local color3_9 = Color3.fromRGB(24, 19, 48)
+local color3_10 = Color3.fromRGB(195, 195, 205)
+local color3_11 = Color3.fromRGB(68, 68, 80)
+local color3_12 = Color3.fromRGB(32, 32, 40)
+local color3_13 = Color3.fromRGB(22, 22, 27)
+local color3_14 = Color3.fromRGB(175, 46, 50)
+local color3_15 = Color3.fromRGB(40, 170, 85)
+local color3_16 = Color3.fromRGB(175, 158, 46)
+local color3_17 = Color3.fromRGB(225, 225, 232)
+
+t1.value11 = {
+	bg = color3,
+	panel = color3_2,
+	raised = color3_3,
+	border = color3_4,
+	stroke = color3_5,
+	accent = color3_6,
+	accentLo = color3_7,
+	accentHi = color3_8,
+	accentBg = color3_9,
+	text = color3_10,
+	sub = color3_11,
+	mute = color3_12,
+	faint = color3_13,
+	red = color3_14,
+	green = color3_15,
+	yellow = color3_16,
+	white = color3_17
+}
+function t1.value12(p1, p2, p3, p4, p5)
+    local value2 = t1.value2
+    local new = TweenInfo.new
+    local v164 = p3 or 0.18
+
+    if not p4 then
+        p4 = Enum.EasingStyle.Quint
+    end
+
+    if not p5 then
+        p5 = Enum.EasingDirection.Out
+    end
+
+    value2:Create(p1, new(v164, p4, p5), p2):Play()
+end
+function t1.value13(p6, p7, p8)
+    local Sound = Instance.new("Sound")
+    local v169 = p8 or 1
+    local v170 = p7 or 0.5
+
+    Sound.SoundId = p6
+    Sound.Volume = v170
+    Sound.PlaybackSpeed = v169
+    Sound.Parent = workspace
+    Sound:Play()
+    t1.value3:AddItem(Sound, 6)
+end
+function t1.value14(p9, p10)
+    Instance.new("UICorner", p9).CornerRadius = UDim.new(0, p10 or 6)
+end
+function t1.value15(p11, p12, p13)
+    local UIStroke = Instance.new("UIStroke", p11)
+
+    if not p12 then
+        p12 = t1.value11.stroke
+    end
+
+    UIStroke.Color = p12
+    UIStroke.Thickness = p13 or 1
+
+    return UIStroke
+end
+function t1.value16(p14, p15, p16)
+    local v180 = Instance.new(p14, p15)
+    local _pairs = pairs
+
+    if not p16 then
+        p16 = {}
+    end
+
+    for v182, v183 in _pairs(p16) do
+        v180[v182] = v183
+    end
+
+    return v180
+end
+local value16 = t1.value16
+local PlayerGui = t1.value4:WaitForChild("PlayerGui")
+local Sibling = Enum.ZIndexBehavior.Sibling
+local v24 = value16("ScreenGui", PlayerGui, {
+	Name = "windyBtn",
+	ResetOnSpawn = false,
+	DisplayOrder = 1001,
+	IgnoreGuiInset = false,
+	ZIndexBehavior = Sibling
+})
+local value16_2 = t1.value16
+local PlayerGui2 = t1.value4:WaitForChild("PlayerGui")
+local Sibling2 = Enum.ZIndexBehavior.Sibling
+t1.value17 = value16_2("ScreenGui", PlayerGui2, {
+	Name = "windyMain",
+	ResetOnSpawn = false,
+	DisplayOrder = 999,
+	IgnoreGuiInset = false,
+	ZIndexBehavior = Sibling2
+})
+function t1.value18()
+    local value16_3 = t1.value16
+    local value17 = t1.value17
+    local uDim2 = UDim2.new(0, 260, 0, 0)
+    local uDim2_2 = UDim2.new(0.5, 0, 0.5, 0)
+    local vector2 = Vector2.new(0.5, 0.5)
+    local panel = t1.value11.panel
+    local v190 = value16_3("Frame", value17, {
+		Size = uDim2,
+		Position = uDim2_2,
+		AnchorPoint = vector2,
+		BackgroundColor3 = panel,
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ClipsDescendants = true,
+		ZIndex = 1000
+	})
+    t1.value14(v190, 8)
+    local v191 = t1.value15(v190, t1.value11.stroke, 1)
+    v191.Transparency = 1
+    local value16_4 = t1.value16
+    local uDim2_3 = UDim2.new(1, 0, 0, 36)
+    local raised = t1.value11.raised
+    local v195 = value16_4("Frame", v190, {
+		Size = uDim2_3,
+		BackgroundColor3 = raised,
+		BorderSizePixel = 0,
+		ZIndex = 1001
+	})
+    t1.value14(v195, 8)
+    local value16_5 = t1.value16
+    local uDim2_4 = UDim2.new(1, 0, 0, 8)
+    local uDim2_5 = UDim2.new(0, 0, 1, -8)
+    local raised2 = t1.value11.raised
+    value16_5("Frame", v195, {
+		Size = uDim2_4,
+		Position = uDim2_5,
+		BackgroundColor3 = raised2,
+		BorderSizePixel = 0,
+		ZIndex = 1001
+	})
+    local value16_6 = t1.value16
+    local uDim2_6 = UDim2.new(1, 0, 0, 1)
+    local uDim2_7 = UDim2.new(0, 0, 0, 36)
+    local border = t1.value11.border
+    value16_6("Frame", v190, {
+		Size = uDim2_6,
+		Position = uDim2_7,
+		BackgroundColor3 = border,
+		BorderSizePixel = 0,
+		ZIndex = 1001
+	})
+    local value16_7 = t1.value16
+    local uDim2_8 = UDim2.new(0, 0, 0, 1)
+    local uDim2_9 = UDim2.new(0, 12, 0, 36)
+    local accent = t1.value11.accent
+    local v208 = value16_7("Frame", v190, {
+		Size = uDim2_8,
+		Position = uDim2_9,
+		BackgroundColor3 = accent,
+		BorderSizePixel = 0,
+		ZIndex = 1002
+	})
+    local value16_8 = t1.value16
+    local uDim2_10 = UDim2.new(1, -24, 1, 0)
+    local uDim2_11 = UDim2.new(0, 12, 0, 0)
+    local GothamBold = Enum.Font.GothamBold
+    local Left = Enum.TextXAlignment.Left
+    local v214 = value16_8("TextLabel", v195, {
+		Size = uDim2_10,
+		Position = uDim2_11,
+		BackgroundTransparency = 1,
+		RichText = true,
+		Text = "<font color=\"#c8c8d2\">windy</font><font color=\"#5c44c0\">.lua</font>",
+		TextSize = 13,
+		Font = GothamBold,
+		TextXAlignment = Left,
+		TextTransparency = 1,
+		ZIndex = 1002
+	})
+    local value16_9 = t1.value16
+    local uDim2_12 = UDim2.new(0, 22, 0, 11)
+    local uDim2_13 = UDim2.new(1, -30, 0.5, -5)
+    local Gotham = Enum.Font.Gotham
+    local mute = t1.value11.mute
+    local Right = Enum.TextXAlignment.Right
+    local v221 = value16_9("TextLabel", v195, {
+		Size = uDim2_12,
+		Position = uDim2_13,
+		BackgroundTransparency = 1,
+		Text = "0.9",
+		TextSize = 9,
+		Font = Gotham,
+		TextColor3 = mute,
+		TextTransparency = 1,
+		TextXAlignment = Right,
+		ZIndex = 1002
+	})
+    local value16_10 = t1.value16
+    local uDim2_14 = UDim2.new(0.55, -12, 0, 12)
+    local uDim2_15 = UDim2.new(0, 12, 0, 44)
+    local Gotham2 = Enum.Font.Gotham
+    local sub = t1.value11.sub
+    local Left2 = Enum.TextXAlignment.Left
+    local v228 = value16_10("TextLabel", v190, {
+		Size = uDim2_14,
+		Position = uDim2_15,
+		BackgroundTransparency = 1,
+		Text = "",
+		TextSize = 9,
+		Font = Gotham2,
+		TextColor3 = sub,
+		TextTransparency = 1,
+		TextXAlignment = Left2,
+		ZIndex = 1002
+	})
+    local value16_11 = t1.value16
+    local uDim2_16 = UDim2.new(0.45, -12, 0, 12)
+    local uDim2_17 = UDim2.new(0.55, 0, 0, 44)
+    local GothamBold2 = Enum.Font.GothamBold
+    local accent2 = t1.value11.accent
+    local Right2 = Enum.TextXAlignment.Right
+    local v235 = value16_11("TextLabel", v190, {
+		Size = uDim2_16,
+		Position = uDim2_17,
+		BackgroundTransparency = 1,
+		Text = "0%",
+		TextSize = 9,
+		Font = GothamBold2,
+		TextColor3 = accent2,
+		TextTransparency = 1,
+		TextXAlignment = Right2,
+		ZIndex = 1002
+	})
+    local value16_12 = t1.value16
+    local uDim2_18 = UDim2.new(1, -24, 0, 2)
+    local uDim2_19 = UDim2.new(0, 12, 0, 62)
+    local mute2 = t1.value11.mute
+    local v240 = value16_12("Frame", v190, {
+		Size = uDim2_18,
+		Position = uDim2_19,
+		BackgroundColor3 = mute2,
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ZIndex = 1002
+	})
+    t1.value14(v240, 1)
+    local value16_13 = t1.value16
+    local uDim2_20 = UDim2.new(0, 0, 1, 0)
+    local accent3 = t1.value11.accent
+    local v244 = value16_13("Frame", v240, {
+		Size = uDim2_20,
+		BackgroundColor3 = accent3,
+		BorderSizePixel = 0,
+		ZIndex = 1003
+	})
+    t1.value14(v244, 1)
+    local value16_14 = t1.value16
+    local uDim2_21 = UDim2.new(1, -24, 0, 92)
+    local uDim2_22 = UDim2.new(0, 12, 0, 74)
+    local v248 = value16_14("Frame", v190, {
+		Size = uDim2_21,
+		Position = uDim2_22,
+		BackgroundTransparency = 1,
+		ClipsDescendants = true,
+		ZIndex = 1002
+	})
+    local t2 = {}
+    local value16_15 = t1.value16
+    local uDim2_23 = UDim2.new(1, -24, 0, 1)
+    local uDim2_24 = UDim2.new(0, 12, 1, -22)
+    local border2 = t1.value11.border
+    value16_15("Frame", v190, {
+		Size = uDim2_23,
+		Position = uDim2_24,
+		BackgroundColor3 = border2,
+		BorderSizePixel = 0,
+		ZIndex = 1002
+	})
+    local value16_16 = t1.value16
+    local uDim2_25 = UDim2.new(0.5, -12, 0, 14)
+    local uDim2_26 = UDim2.new(0, 12, 1, -18)
+    local Gotham3 = Enum.Font.Gotham
+    local faint = t1.value11.faint
+    local Left3 = Enum.TextXAlignment.Left
+    local v260 = value16_16("TextLabel", v190, {
+		Size = uDim2_25,
+		Position = uDim2_26,
+		BackgroundTransparency = 1,
+		Text = "windy.lua",
+		TextSize = 8,
+		Font = Gotham3,
+		TextColor3 = faint,
+		TextTransparency = 1,
+		TextXAlignment = Left3,
+		ZIndex = 1002
+	})
+    local value16_17 = t1.value16
+    local uDim2_27 = UDim2.new(0.5, -12, 0, 14)
+    local uDim2_28 = UDim2.new(0.5, 0, 1, -18)
+    local value4Name = t1.value4.Name
+    local Gotham4 = Enum.Font.Gotham
+    local faint2 = t1.value11.faint
+    local Right3 = Enum.TextXAlignment.Right
+    local v268 = value16_17("TextLabel", v190, {
+		Size = uDim2_27,
+		Position = uDim2_28,
+		BackgroundTransparency = 1,
+		Text = value4Name,
+		TextSize = 8,
+		Font = Gotham4,
+		TextColor3 = faint2,
+		TextTransparency = 1,
+		TextXAlignment = Right3,
+		ZIndex = 1002
+	})
+    t1.value13(t1.value10.boot, 0.4, 1)
+    local value12 = t1.value12
+    local uDim2_29 = UDim2.new(0, 260, 0, 200)
+    value12(v190, {
+		BackgroundTransparency = 0,
+		Size = uDim2_29
+	}, 0.42)
+    t1.value12(v191, {
+		Transparency = 0
+	}, 0.28)
+    task.wait(0.24)
+    t1.value12(v214, {
+		TextTransparency = 0
+	}, 0.22)
+    t1.value12(v221, {
+		TextTransparency = 0
+	}, 0.22)
+    task.wait(0.08)
+    t1.value12(v208, {
+		Size = UDim2.new(0, 28, 0, 1)
+	}, 0.26)
+    t1.value12(v228, {
+		TextTransparency = 0
+	}, 0.16)
+    t1.value12(v235, {
+		TextTransparency = 0
+	}, 0.16)
+    t1.value12(v240, {
+		BackgroundTransparency = 0
+	}, 0.16)
+    t1.value12(v260, {
+		TextTransparency = 0
+	}, 0.16)
+    t1.value12(v268, {
+		TextTransparency = 0
+	}, 0.16)
+    local t3 = {
+		p = 0.14,
+		t = "checking env",
+		l = "env validated"
+	}
+    local t4 = {
+		p = 0.28,
+		t = "loading modules",
+		l = "modules ready"
+	}
+    local t5 = {
+		p = 0.44,
+		t = "init raycast",
+		l = "wall check armed"
+	}
+    local t6 = {
+		p = 0.6,
+		t = "compiling ui",
+		l = "interface built"
+	}
+    local t7 = {
+		p = 0.76,
+		t = "binding signals",
+		l = "signals connected"
+	}
+    local t8 = {
+		p = 0.9,
+		t = "diagnostics",
+		l = "checks passed"
+	}
+    local t9 = {
+		p = 1,
+		t = "finalizing",
+		l = "ready"
+	}
+    for i, v in ipairs({
+		t3,
+		t4,
+		t5,
+		t6,
+		t7,
+		t8,
+		t9
+	}) do
+        v228.Text = v.t
+        v235.Text = math.floor(v.p * 100) .. "%";
+        (function(p17)
+            local v438 = #t2 * 13
+            local value16_18 = t1.value16
+            local v440 = v248
+            local uDim2_30 = UDim2.new(1, 0, 0, 12)
+            local uDim2_31 = UDim2.new(0, 0, 0, v438)
+            local v443 = value16_18("Frame", v440, {
+				Size = uDim2_30,
+				Position = uDim2_31,
+				BackgroundTransparency = 1,
+				ZIndex = 1003
+			})
+            local value16_19 = t1.value16
+            local uDim2_32 = UDim2.new(0, 3, 0, 3)
+            local uDim2_33 = UDim2.new(0, 0, 0.5, -1)
+            local accent4 = t1.value11.accent
+            local v448 = value16_19("Frame", v443, {
+				Size = uDim2_32,
+				Position = uDim2_33,
+				BackgroundColor3 = accent4,
+				BorderSizePixel = 0,
+				ZIndex = 1004
+			})
+
+            t1.value14(v448, 2)
+
+            local value16_20 = t1.value16
+            local uDim2_34 = UDim2.new(1, -8, 1, 0)
+            local uDim2_35 = UDim2.new(0, 8, 0, 0)
+            local Gotham5 = Enum.Font.Gotham
+            local text = t1.value11.text
+            local Left4 = Enum.TextXAlignment.Left
+            local v455 = value16_20("TextLabel", v443, {
+				Size = uDim2_34,
+				Position = uDim2_35,
+				BackgroundTransparency = 1,
+				Text = p17,
+				TextSize = 9,
+				Font = Gotham5,
+				TextColor3 = text,
+				TextTransparency = 1,
+				TextXAlignment = Left4,
+				ZIndex = 1004
+			})
+
+            t1.value12(v455, {
+				TextTransparency = 0
+			}, 0.16)
+            table.insert(t2, {
+				d = v448,
+				l = v455
+			})
+        end)(v.l)
+        t1.value12(v244, {
+			Size = UDim2.new(v.p, 0, 1, 0)
+		}, 0.24, Enum.EasingStyle.Quad)
+        t1.value12(v208, {
+			Size = UDim2.new(0, 28 + v.p * 168, 0, 1)
+		}, 0.24, Enum.EasingStyle.Quad)
+        task.wait(0.26);
+        (function(p18)
+            if t2[p18] then
+                t1.value12(t2[p18].d, {
+					BackgroundColor3 = t1.value11.green
+				}, 0.12)
+                t1.value12(t2[p18].l, {
+					TextColor3 = t1.value11.sub
+				}, 0.12)
+            end
+        end)(i)
+    end
+    task.wait(0.14)
+    v228.Text = "complete"
+    t1.value12(v228, {
+		TextColor3 = t1.value11.green
+	}, 0.12)
+    t1.value12(v244, {
+		BackgroundColor3 = t1.value11.green
+	}, 0.14)
+    task.wait(0.38)
+    for v282, v283 in ipairs({
+		v228,
+		v235,
+		v260,
+		v268
+	}) do
+
+        t1.value12(v283, {
+			TextTransparency = 1
+		}, 0.12)
+    end
+    t1.value12(v240, {
+		BackgroundTransparency = 1
+	}, 0.12)
+    t1.value12(v244, {
+		BackgroundTransparency = 1
+	}, 0.12)
+    for _, v in ipairs(t2) do
+        t1.value12(v.d, {
+			BackgroundTransparency = 1
+		}, 0.08)
+        t1.value12(v.l, {
+			TextTransparency = 1
+		}, 0.08)
+    end
+    task.wait(0.08)
+    t1.value12(v208, {
+		Size = UDim2.new(0, 0, 0, 1)
+	}, 0.18)
+    t1.value12(v214, {
+		TextTransparency = 1
+	}, 0.14)
+    t1.value12(v221, {
+		TextTransparency = 1
+	}, 0.14)
+    task.wait(0.04)
+    t1.value12(v190, {
+		Size = UDim2.new(0, 260, 0, 0),
+		BackgroundTransparency = 1
+	}, 0.28, Enum.EasingStyle.Quint, Enum.EasingDirection.In)
+    t1.value12(v191, {
+		Transparency = 1
+	}, 0.2)
+    task.wait(0.3)
+    v190:Destroy()
+end
+t1.value19 = {}
+t1.value20 = 46
+t1.value21 = nil
+t1.value21 = 4
+function t1.value22(p19, p20, p21)
+    local v293 = p21 or 3
+    local v294 = -(t1.value20 + t1.value21) * (#t1.value19 + 1) - 10
+    local value16_21 = t1.value16
+    local value17 = t1.value17
+    local uDim2 = UDim2.new(0, 232, 0, t1.value20)
+    local uDim2_36 = UDim2.new(1, 250, 1, v294)
+    local panel = t1.value11.panel
+    local v300 = value16_21("Frame", value17, {
+		Size = uDim2,
+		Position = uDim2_36,
+		BackgroundColor3 = panel,
+		BorderSizePixel = 0,
+		ZIndex = 800
+	})
+
+    t1.value14(v300, 6)
+
+    local v301 = t1.value15(v300, t1.value11.stroke, 1)
+    local value16_22 = t1.value16
+    local uDim2_37 = UDim2.new(0, 2, 0, t1.value20 - 12)
+    local uDim2_38 = UDim2.new(0, 5, 0, 6)
+    local accent = t1.value11.accent
+
+    value16_22("Frame", v300, {
+		Size = uDim2_37,
+		Position = uDim2_38,
+		BackgroundColor3 = accent,
+		BorderSizePixel = 0,
+		ZIndex = 801
+	})
+
+    local value16_23 = t1.value16
+    local uDim2_39 = UDim2.new(1, -18, 0, 15)
+    local uDim2_40 = UDim2.new(0, 14, 0, 5)
+    local GothamBold = Enum.Font.GothamBold
+    local white = t1.value11.white
+    local Left = Enum.TextXAlignment.Left
+
+    value16_23("TextLabel", v300, {
+		Size = uDim2_39,
+		Position = uDim2_40,
+		BackgroundTransparency = 1,
+		Text = p19,
+		TextSize = 10,
+		Font = GothamBold,
+		TextColor3 = white,
+		TextXAlignment = Left,
+		ZIndex = 801
+	})
+
+    local value16_24 = t1.value16
+    local uDim2_41 = UDim2.new(1, -18, 0, 12)
+    local uDim2_42 = UDim2.new(0, 14, 0, 21)
+    local Gotham = Enum.Font.Gotham
+    local sub = t1.value11.sub
+    local Left5 = Enum.TextXAlignment.Left
+
+    value16_24("TextLabel", v300, {
+		Size = uDim2_41,
+		Position = uDim2_42,
+		BackgroundTransparency = 1,
+		Text = p20,
+		TextSize = 9,
+		Font = Gotham,
+		TextColor3 = sub,
+		TextXAlignment = Left5,
+		ZIndex = 801
+	})
+
+    local value16_25 = t1.value16
+    local uDim2_43 = UDim2.new(1, -10, 0, 1)
+    local uDim2_44 = UDim2.new(0, 5, 1, -4)
+    local mute = t1.value11.mute
+    local v322 = value16_25("Frame", v300, {
+		Size = uDim2_43,
+		Position = uDim2_44,
+		BackgroundColor3 = mute,
+		BorderSizePixel = 0,
+		ZIndex = 801
+	})
+    local value16_26 = t1.value16
+    local uDim2_45 = UDim2.new(1, 0, 1, 0)
+    local accent5 = t1.value11.accent
+    local v326 = value16_26("Frame", v322, {
+		Size = uDim2_45,
+		BackgroundColor3 = accent5,
+		BorderSizePixel = 0,
+		ZIndex = 802
+	})
+
+    table.insert(t1.value19, v300)
+    t1.value12(v300, {
+		Position = UDim2.new(1, -246, 1, v294)
+	}, 0.3)
+    t1.value2:Create(v326, TweenInfo.new(v293, Enum.EasingStyle.Linear), {
+		Size = UDim2.new(0, 0, 1, 0)
+	}):Play()
+    task.delay(v293, function()
+        t1.value12(v300, {
+			Position = UDim2.new(1, 250, 1, v294)
+		}, 0.24)
+        t1.value12(v300, {
+			BackgroundTransparency = 1
+		}, 0.2)
+        t1.value12(v301, {
+			Transparency = 1
+		}, 0.2)
+        task.delay(0.28, function()
+            local v457 = table.find(t1.value19, v300)
+
+            if v457 then
+                table.remove(t1.value19, v457)
+            end
+
+            v300:Destroy()
+
+            for i, v in ipairs(t1.value19) do
+                t1.value12(v, {
+					Position = UDim2.new(1, -246, 1, -(t1.value20 + t1.value21) * i - 10)
+				}, 0.2)
+            end
+        end)
+    end)
+end
+t1.value23 = nil
+function t1.value23(p22)
+    if not p22 then
+        return false
+    end
+
+    local t1value9 = p22:FindFirstChild(t1.value9)
+    local Character = t1.value4.Character
+
+    if not t1value9 or not Character then
+        return false
+    end
+
+    local raycastParams = RaycastParams.new()
+
+    raycastParams.FilterDescendantsInstances = {
+		Character,
+		p22
+	}
+    raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+
+    return workspace:Raycast(t1.value5.CFrame.Position, t1value9.Position - t1.value5.CFrame.Position, raycastParams) == nil
+end
+function t1.value24()
+    local v327
+    local n1 = 1e999
+    local v329 = t1.value5.ViewportSize / 2
+    for _, player in ipairs(t1.value1:GetPlayers()) do
+        if player ~= t1.value4 and player.Character then
+            local t1value9 = player.Character:FindFirstChild(t1.value9)
+            local Humanoid = player.Character:FindFirstChild("Humanoid")
+            local v334 = t1value9
+
+            if t1value9 then
+                v334 = Humanoid and Humanoid.Health > 0
+            end
+
+            if v334 then
+                local v335, v336 = t1.value5:WorldToViewportPoint(t1value9.Position)
+
+                if v336 then
+                    v336 = t1.value23(player.Character)
+                end
+
+                if v336 then
+                    local Magnitude = (Vector2.new(v335.X, v335.Y) - v329).Magnitude
+
+                    if Magnitude < n1 then
+                        v327 = player
+                        n1 = Magnitude
+                    end
+                end
+            end
+        end
+    end
+
+    return v327
+end
+local value16_27 = t1.value16
+local uDim2 = UDim2.new(0, 30, 0, 30)
+local uDim2_46 = UDim2.new(0, 12, 0, 12)
+local panel = t1.value11.panel
+t1.value25 = value16_27("TextButton", v24, {
+	Size = uDim2,
+	Position = uDim2_46,
+	BackgroundColor3 = panel,
+	BorderSizePixel = 0,
+	Text = "",
+	AutoButtonColor = false,
+	Visible = false,
+	ZIndex = 10
+})
+t1.value14(t1.value25, 6)
+t1.value26 = t1.value15(t1.value25, t1.value11.stroke, 1)
+t1.value27 = {}
+for _, v in ipairs({
+	{
+		w = 12,
+		y = 9
+	},
+	{
+		w = 8,
+		y = 13.5
+	},
+	{
+		w = 12,
+		y = 18
+	}
+}) do
+    local value16_28 = t1.value16
+    local value25 = t1.value25
+    local uDim2_47 = UDim2.new(0, v.w, 0, 1.5)
+    local uDim2_48 = UDim2.new(0.5, 0, 0, v.y)
+    local vector2 = Vector2.new(0.5, 0)
+    local sub = t1.value11.sub
+    local v40 = value16_28("Frame", value25, {
+		Size = uDim2_47,
+		Position = uDim2_48,
+		AnchorPoint = vector2,
+		BackgroundColor3 = sub,
+		BorderSizePixel = 0,
+		ZIndex = 11
+	})
+
+    t1.value14(v40, 1)
+    table.insert(t1.value27, v40)
+end
+local value16_29 = t1.value16
+local value25 = t1.value25
+local uDim2_49 = UDim2.new(0, 5, 0, 5)
+local uDim2_50 = UDim2.new(1, -7, 0, 2)
+local accent = t1.value11.accent
+t1.value28 = value16_29("Frame", value25, {
+	Size = uDim2_49,
+	Position = uDim2_50,
+	BackgroundColor3 = accent,
+	BackgroundTransparency = 1,
+	BorderSizePixel = 0,
+	ZIndex = 12
+})
+t1.value14(t1.value28, 3)
+t1.value25.MouseEnter:Connect(function()
+    t1.value12(t1.value25, {
+		BackgroundColor3 = t1.value11.raised
+	}, 0.1)
+
+    for _, v in ipairs(t1.value27) do
+        t1.value12(v, {
+			BackgroundColor3 = t1.value11.text
+		}, 0.1)
+    end
+end)
+t1.value25.MouseLeave:Connect(function()
+    t1.value12(t1.value25, {
+		BackgroundColor3 = t1.value11.panel
+	}, 0.1)
+
+    for _, v in ipairs(t1.value27) do
+        t1.value12(v, {
+			BackgroundColor3 = t1.value11.sub
+		}, 0.1)
+    end
+end)
+t1.value29 = 186
+t1.value30 = 204
+local value16_30 = t1.value16
+local value17 = t1.value17
+local uDim2_51 = UDim2.new(0, t1.value29, 0, 0)
+local uDim2_52 = UDim2.new(0, 12, 0, 48)
+local panel2 = t1.value11.panel
+t1.value31 = value16_30("Frame", value17, {
+	Size = uDim2_51,
+	Position = uDim2_52,
+	BackgroundColor3 = panel2,
+	BorderSizePixel = 0,
+	ClipsDescendants = true,
+	Active = true,
+	Visible = false,
+	BackgroundTransparency = 1
+})
+t1.value14(t1.value31, 8)
+t1.value32 = t1.value15(t1.value31, t1.value11.stroke, 1)
+t1.value32.Transparency = 1
+local value16_31 = t1.value16
+local value31 = t1.value31
+local uDim2_53 = UDim2.new(1, 0, 0, 34)
+local raised = t1.value11.raised
+local v55 = value16_31("Frame", value31, {
+	Size = uDim2_53,
+	BackgroundColor3 = raised,
+	BorderSizePixel = 0
+})
+t1.value14(v55, 8)
+
+local value16_32 = t1.value16
+local uDim2_54 = UDim2.new(1, 0, 0, 8)
+local uDim2_55 = UDim2.new(0, 0, 1, -8)
+local raised3 = t1.value11.raised
+value16_32("Frame", v55, {
+	Size = uDim2_54,
+	Position = uDim2_55,
+	BackgroundColor3 = raised3,
+	BorderSizePixel = 0
+})
+local value16_33 = t1.value16
+local value31_2 = t1.value31
+local uDim2_56 = UDim2.new(1, 0, 0, 1)
+local uDim2_57 = UDim2.new(0, 0, 0, 34)
+local border = t1.value11.border
+value16_33("Frame", value31_2, {
+	Size = uDim2_56,
+	Position = uDim2_57,
+	BackgroundColor3 = border,
+	BorderSizePixel = 0
+})
+local value16_34 = t1.value16
+local uDim2_58 = UDim2.new(0, 96, 1, 0)
+local uDim2_59 = UDim2.new(0, 10, 0, 0)
+local GothamBold = Enum.Font.GothamBold
+local Left = Enum.TextXAlignment.Left
+value16_34("TextLabel", v55, {
+	Size = uDim2_58,
+	Position = uDim2_59,
+	BackgroundTransparency = 1,
+	RichText = true,
+	Text = "<font color=\"#c8c8d0\">windy</font><font color=\"#5c44c0\">.lua</font>",
+	TextSize = 12,
+	Font = GothamBold,
+	TextXAlignment = Left
+})
+local value16_35 = t1.value16
+local uDim2_60 = UDim2.new(0, 20, 0, 10)
+local uDim2_61 = UDim2.new(1, -28, 0.5, -5)
+local Gotham = Enum.Font.Gotham
+local mute = t1.value11.mute
+local Right = Enum.TextXAlignment.Right
+value16_35("TextLabel", v55, {
+	Size = uDim2_60,
+	Position = uDim2_61,
+	BackgroundTransparency = 1,
+	Text = "0.9",
+	TextSize = 8,
+	Font = Gotham,
+	TextColor3 = mute,
+	TextXAlignment = Right
+})
+local value16_36 = t1.value16
+local value31_3 = t1.value31
+local uDim2_62 = UDim2.new(1, -20, 0, 11)
+local uDim2_63 = UDim2.new(0, 10, 0, 39)
+local GothamBold3 = Enum.Font.GothamBold
+local mute3 = t1.value11.mute
+local Left6 = Enum.TextXAlignment.Left
+value16_36("TextLabel", value31_3, {
+	Size = uDim2_62,
+	Position = uDim2_63,
+	BackgroundTransparency = 1,
+	Text = "CONTROL",
+	TextSize = 8,
+	Font = GothamBold3,
+	TextColor3 = mute3,
+	TextXAlignment = Left6
+})
+local value16_37 = t1.value16
+local value31_4 = t1.value31
+local uDim2_64 = UDim2.new(1, -20, 0, 26)
+local uDim2_65 = UDim2.new(0, 10, 0, 51)
+local raised4 = t1.value11.raised
+t1.value33 = value16_37("Frame", value31_4, {
+	Size = uDim2_64,
+	Position = uDim2_65,
+	BackgroundColor3 = raised4,
+	BorderSizePixel = 0
+})
+t1.value14(t1.value33, 5)
+t1.value15(t1.value33, t1.value11.border, 1)
+
+local value16_38 = t1.value16
+local value33 = t1.value33
+local uDim2_66 = UDim2.new(0, 55, 1, 0)
+local uDim2_67 = UDim2.new(0, 8, 0, 0)
+local Gotham6 = Enum.Font.Gotham
+local text = t1.value11.text
+local Left7 = Enum.TextXAlignment.Left
+value16_38("TextLabel", value33, {
+	Size = uDim2_66,
+	Position = uDim2_67,
+	BackgroundTransparency = 1,
+	Text = "aimlock",
+	TextSize = 10,
+	Font = Gotham6,
+	TextColor3 = text,
+	TextXAlignment = Left7
+})
+local value16_39 = t1.value16
+local value33_2 = t1.value33
+local uDim2_68 = UDim2.new(0, 28, 0, 12)
+local uDim2_69 = UDim2.new(1, -60, 0.5, -6)
+local mute4 = t1.value11.mute
+t1.value34 = value16_39("Frame", value33_2, {
+	Size = uDim2_68,
+	Position = uDim2_69,
+	BackgroundColor3 = mute4,
+	BorderSizePixel = 0
+})
+t1.value14(t1.value34, 3)
+
+local value16_40 = t1.value16
+local value34 = t1.value34
+local uDim2_70 = UDim2.new(1, 0, 1, 0)
+local GothamBold4 = Enum.Font.GothamBold
+local sub = t1.value11.sub
+local Center = Enum.TextXAlignment.Center
+t1.value35 = value16_40("TextLabel", value34, {
+	Size = uDim2_70,
+	BackgroundTransparency = 1,
+	Text = "OFF",
+	TextSize = 8,
+	Font = GothamBold4,
+	TextColor3 = sub,
+	TextXAlignment = Center
+})
+local value16_41 = t1.value16
+local value33_3 = t1.value33
+local uDim2_71 = UDim2.new(0, 22, 0, 11)
+local uDim2_72 = UDim2.new(1, -27, 0.5, -5)
+local mute5 = t1.value11.mute
+t1.value36 = value16_41("TextButton", value33_3, {
+	Size = uDim2_71,
+	Position = uDim2_72,
+	BackgroundColor3 = mute5,
+	BorderSizePixel = 0,
+	Text = "",
+	AutoButtonColor = false,
+	ZIndex = 5
+})
+t1.value14(t1.value36, 6)
+
+local value16_42 = t1.value16
+local value36 = t1.value36
+local uDim2_73 = UDim2.new(0, 7, 0, 7)
+local uDim2_74 = UDim2.new(0, 2, 0.5, -3)
+local sub2 = t1.value11.sub
+t1.value37 = value16_42("Frame", value36, {
+	Size = uDim2_73,
+	Position = uDim2_74,
+	BackgroundColor3 = sub2,
+	BorderSizePixel = 0,
+	ZIndex = 6
+})
+t1.value14(t1.value37, 4)
+
+local value16_43 = t1.value16
+local value31_5 = t1.value31
+local uDim2_75 = UDim2.new(1, -20, 0, 11)
+local uDim2_76 = UDim2.new(0, 10, 0, 82)
+local GothamBold5 = Enum.Font.GothamBold
+local mute6 = t1.value11.mute
+local Left8 = Enum.TextXAlignment.Left
+value16_43("TextLabel", value31_5, {
+	Size = uDim2_75,
+	Position = uDim2_76,
+	BackgroundTransparency = 1,
+	Text = "STATUS",
+	TextSize = 8,
+	Font = GothamBold5,
+	TextColor3 = mute6,
+	TextXAlignment = Left8
+})
+local value16_44 = t1.value16
+local value31_6 = t1.value31
+local uDim2_77 = UDim2.new(1, -20, 0, 74)
+local uDim2_78 = UDim2.new(0, 10, 0, 94)
+local raised5 = t1.value11.raised
+t1.value38 = value16_44("Frame", value31_6, {
+	Size = uDim2_77,
+	Position = uDim2_78,
+	BackgroundColor3 = raised5,
+	BorderSizePixel = 0
+})
+t1.value14(t1.value38, 5)
+t1.value15(t1.value38, t1.value11.border, 1)
+
+local function v128(p23, p24)
+    local value16_45 = t1.value16
+    local value38 = t1.value38
+    local uDim2_79 = UDim2.new(0.4, 0, 0, 20)
+    local uDim2_80 = UDim2.new(0, 8, 0, p23)
+    local Gotham7 = Enum.Font.Gotham
+    local sub3 = t1.value11.sub
+    local Left9 = Enum.TextXAlignment.Left
+
+    value16_45("TextLabel", value38, {
+		Size = uDim2_79,
+		Position = uDim2_80,
+		BackgroundTransparency = 1,
+		Text = p24,
+		TextSize = 9,
+		Font = Gotham7,
+		TextColor3 = sub3,
+		TextXAlignment = Left9
+	})
+
+    local value16_46 = t1.value16
+    local value38_2 = t1.value38
+    local uDim2_81 = UDim2.new(0.6, -8, 0, 20)
+    local uDim2_82 = UDim2.new(0.4, 0, 0, p23)
+    local GothamBold6 = Enum.Font.GothamBold
+    local mute7 = t1.value11.mute
+    local Right4 = Enum.TextXAlignment.Right
+
+    return value16_46("TextLabel", value38_2, {
+		Size = uDim2_81,
+		Position = uDim2_82,
+		BackgroundTransparency = 1,
+		Text = "—",
+		TextSize = 9,
+		Font = GothamBold6,
+		TextColor3 = mute7,
+		TextXAlignment = Right4
+	})
+end
+t1.value39 = v128(4, "target")
+t1.value40 = v128(26, "distance")
+t1.value41 = v128(48, "wall")
+
+local value16_47 = t1.value16
+local value31_7 = t1.value31
+local uDim2_83 = UDim2.new(1, -20, 0, 1)
+local uDim2_84 = UDim2.new(0, 10, 0, 174)
+local border3 = t1.value11.border
+value16_47("Frame", value31_7, {
+	Size = uDim2_83,
+	Position = uDim2_84,
+	BackgroundColor3 = border3,
+	BorderSizePixel = 0
+})
+local value16_48 = t1.value16
+local value31_8 = t1.value31
+local uDim2_85 = UDim2.new(1, -20, 0, 14)
+local uDim2_86 = UDim2.new(0, 10, 0, 179)
+local v138 = value16_48("Frame", value31_8, {
+	Size = uDim2_85,
+	Position = uDim2_86,
+	BackgroundTransparency = 1
+})
+local value16_49 = t1.value16
+local uDim2_87 = UDim2.new(0, 36, 1, 0)
+local Gotham8 = Enum.Font.Gotham
+local faint = t1.value11.faint
+local Left10 = Enum.TextXAlignment.Left
+t1.value42 = value16_49("TextLabel", v138, {
+	Size = uDim2_87,
+	BackgroundTransparency = 1,
+	Text = "—",
+	TextSize = 8,
+	Font = Gotham8,
+	TextColor3 = faint,
+	TextXAlignment = Left10
+})
+local value16_50 = t1.value16
+local uDim2_88 = UDim2.new(0, 36, 1, 0)
+local uDim2_89 = UDim2.new(0.5, -18, 0, 0)
+local Gotham9 = Enum.Font.Gotham
+local faint3 = t1.value11.faint
+local Center2 = Enum.TextXAlignment.Center
+t1.value43 = value16_50("TextLabel", v138, {
+	Size = uDim2_88,
+	Position = uDim2_89,
+	BackgroundTransparency = 1,
+	Text = "—",
+	TextSize = 8,
+	Font = Gotham9,
+	TextColor3 = faint3,
+	TextXAlignment = Center2
+})
+local value16_51 = t1.value16
+local uDim2_90 = UDim2.new(0, 28, 1, 0)
+local uDim2_91 = UDim2.new(1, -28, 0, 0)
+local Gotham10 = Enum.Font.Gotham
+local color3_18 = Color3.fromRGB(16, 16, 20)
+local Right5 = Enum.TextXAlignment.Right
+value16_51("TextLabel", v138, {
+	Size = uDim2_90,
+	Position = uDim2_91,
+	BackgroundTransparency = 1,
+	Text = "windy",
+	TextSize = 8,
+	Font = Gotham10,
+	TextColor3 = color3_18,
+	TextXAlignment = Right5
+})
+t1.value44 = false
+t1.value45 = nil
+t1.value46 = nil
+v55.InputBegan:Connect(function(input)
+    local v359 = input.UserInputType == Enum.UserInputType.MouseButton1
+
+    if not v359 then
+        v359 = input.UserInputType == Enum.UserInputType.Touch
+    end
+
+    if v359 then
+        local inputPosition = input.Position
+        local value31Position = t1.value31.Position
+
+        t1.value44 = true
+        t1.value45 = inputPosition
+        t1.value46 = value31Position
+    end
+end)
+v55.InputEnded:Connect(function(input)
+    local v363 = input.UserInputType == Enum.UserInputType.MouseButton1
+
+    if not v363 then
+        v363 = input.UserInputType == Enum.UserInputType.Touch
+    end
+
+    if v363 then
+        t1.value44 = false
+    end
+end)
+UserInputService.InputChanged:Connect(function(input)
+    local value44 = t1.value44
+
+    if value44 then
+        value44 = input.UserInputType == Enum.UserInputType.MouseMovement
+
+        if not value44 then
+            value44 = input.UserInputType == Enum.UserInputType.Touch
+        end
+    end
+
+    if value44 then
+        local v366 = input.Position - t1.value45
+
+        t1.value31.Position = UDim2.new(0, t1.value46.X.Offset + v366.X, 0, t1.value46.Y.Offset + v366.Y)
+    end
+end)
+
+function t1.value47()
+    t1.value7 = true
+    t1.value31.Visible = true
+
+    local value12 = t1.value12
+    local value31_9 = t1.value31
+    local uDim2_92 = UDim2.new(0, t1.value29, 0, t1.value30)
+
+    value12(value31_9, {
+		BackgroundTransparency = 0,
+		Size = uDim2_92
+	}, 0.28)
+    t1.value12(t1.value32, {
+		Transparency = 0
+	}, 0.2)
+
+    local value12_2 = t1.value12
+    local v371 = t1.value27[1]
+    local uDim2_93 = UDim2.new(0.5, 0, 0, 13.5)
+    local uDim2_94 = UDim2.new(0, 12, 0, 1.5)
+    local accent6 = t1.value11.accent
+
+    value12_2(v371, {
+		Rotation = 45,
+		Position = uDim2_93,
+		Size = uDim2_94,
+		BackgroundColor3 = accent6
+	}, 0.18)
+
+    local value12_3 = t1.value12
+    local v376 = t1.value27[2]
+    local uDim2_95 = UDim2.new(0, 0, 0, 1.5)
+
+    value12_3(v376, {
+		BackgroundTransparency = 1,
+		Size = uDim2_95
+	}, 0.1)
+
+    local value12_4 = t1.value12
+    local v379 = t1.value27[3]
+    local uDim2_96 = UDim2.new(0.5, 0, 0, 13.5)
+    local uDim2_97 = UDim2.new(0, 12, 0, 1.5)
+    local accent7 = t1.value11.accent
+
+    value12_4(v379, {
+		Rotation = -45,
+		Position = uDim2_96,
+		Size = uDim2_97,
+		BackgroundColor3 = accent7
+	}, 0.18)
+    t1.value12(t1.value26, {
+		Color = t1.value11.accentLo
+	}, 0.18)
+    t1.value12(t1.value28, {
+		BackgroundTransparency = 1
+	}, 0.1)
+    t1.value13(t1.value10.click, 0.14, 1.2)
+end
+local function v156()
+    t1.value7 = false
+    t1.value12(t1.value31, {
+		Size = UDim2.new(0, t1.value29, 0, 0),
+		BackgroundTransparency = 1
+	}, 0.24, Enum.EasingStyle.Quint, Enum.EasingDirection.In)
+    t1.value12(t1.value32, {
+		Transparency = 1
+	}, 0.18)
+
+    local value12 = t1.value12
+    local v384 = t1.value27[1]
+    local uDim2_98 = UDim2.new(0.5, 0, 0, 9)
+    local uDim2_99 = UDim2.new(0, 12, 0, 1.5)
+    local sub4 = t1.value11.sub
+
+    value12(v384, {
+		Rotation = 0,
+		Position = uDim2_98,
+		Size = uDim2_99,
+		BackgroundColor3 = sub4
+	}, 0.18)
+
+    local value12_5 = t1.value12
+    local v389 = t1.value27[2]
+    local sub5 = t1.value11.sub
+    local uDim2_100 = UDim2.new(0, 8, 0, 1.5)
+
+    value12_5(v389, {
+		BackgroundTransparency = 0,
+		BackgroundColor3 = sub5,
+		Size = uDim2_100
+	}, 0.14)
+
+    local value12_6 = t1.value12
+    local v393 = t1.value27[3]
+    local uDim2_101 = UDim2.new(0.5, 0, 0, 18)
+    local uDim2_102 = UDim2.new(0, 12, 0, 1.5)
+    local sub6 = t1.value11.sub
+
+    value12_6(v393, {
+		Rotation = 0,
+		Position = uDim2_101,
+		Size = uDim2_102,
+		BackgroundColor3 = sub6
+	}, 0.18)
+    t1.value12(t1.value26, {
+		Color = t1.value11.stroke
+	}, 0.18)
+
+    if t1.value6 then
+        t1.value12(t1.value28, {
+			BackgroundTransparency = 0
+		}, 0.14)
+    end
+
+    t1.value13(t1.value10.click, 0.14, 0.9)
+    task.delay(0.26, function()
+        if not t1.value7 then
+            t1.value31.Visible = false
+        end
+    end)
+end
+t1.value25.MouseButton1Click:Connect(function()
+    if t1.value7 then
+        v156()
+
+        return
+    end
+
+    t1.value47()
+end)
+
+function t1.value48()
+    if t1.value6 then
+        t1.value12(t1.value36, {
+			BackgroundColor3 = t1.value11.accent
+		}, 0.16)
+
+        local value12 = t1.value12
+        local value37 = t1.value37
+        local white = t1.value11.white
+        local uDim2_103 = UDim2.new(0, 13, 0.5, -3)
+
+        value12(value37, {
+			BackgroundColor3 = white,
+			Position = uDim2_103
+		}, 0.16)
+        t1.value12(t1.value34, {
+			BackgroundColor3 = t1.value11.accentBg
+		}, 0.16)
+        t1.value12(t1.value35, {
+			TextColor3 = t1.value11.accentHi
+		}, 0.16)
+        t1.value12(t1.value32, {
+			Color = t1.value11.accentLo
+		}, 0.2)
+        t1.value12(t1.value33, {
+			BackgroundColor3 = t1.value11.accentBg
+		}, 0.2)
+        t1.value35.Text = "ON"
+
+        if t1.value8 then
+            t1.value39.Text = t1.value8.DisplayName
+            t1.value12(t1.value39, {
+				TextColor3 = t1.value11.text
+			}, 0.1)
+        end
+
+        if not t1.value7 then
+            t1.value12(t1.value28, {
+				BackgroundTransparency = 0
+			}, 0.12)
+
+            return
+        end
+    else
+        t1.value12(t1.value36, {
+			BackgroundColor3 = t1.value11.mute
+		}, 0.16)
+
+        local value12 = t1.value12
+        local value37 = t1.value37
+        local sub7 = t1.value11.sub
+        local uDim2_104 = UDim2.new(0, 2, 0.5, -3)
+
+        value12(value37, {
+			BackgroundColor3 = sub7,
+			Position = uDim2_104
+		}, 0.16)
+        t1.value12(t1.value34, {
+			BackgroundColor3 = t1.value11.mute
+		}, 0.16)
+        t1.value12(t1.value35, {
+			TextColor3 = t1.value11.sub
+		}, 0.16)
+        t1.value12(t1.value32, {
+			Color = t1.value11.stroke
+		}, 0.2)
+        t1.value12(t1.value33, {
+			BackgroundColor3 = t1.value11.raised
+		}, 0.2)
+        t1.value35.Text = "OFF"
+
+        local value39 = t1.value39
+        local value40 = t1.value40
+        local value41 = t1.value41
+
+        value39.Text = "—"
+        value40.Text = "—"
+        value41.Text = "—"
+
+        local value39_2 = t1.value39
+        local value40_2 = t1.value40
+        local value41_2 = t1.value41
+        local mute8 = t1.value11.mute
+        local mute9 = t1.value11.mute
+        local mute10 = t1.value11.mute
+
+        value39_2.TextColor3 = mute8
+        value40_2.TextColor3 = mute9
+        value41_2.TextColor3 = mute10
+        t1.value12(t1.value28, {
+			BackgroundTransparency = 1
+		}, 0.1)
+    end
+end
+t1.value36.MouseButton1Click:Connect(function()
+    t1.value6 = not t1.value6
+    t1.value8 = t1.value6 and t1.value24() or nil
+    t1.value13(t1.value10.click, 0.2, not t1.value6 and 0.85 or 1.4)
+    t1.value22("windy.lua", not t1.value6 and "aimlock off" or "aimlock on", 2)
+    t1.value48()
+end)
+t1.value49 = 0
+t1.value50 = 0
+RunService.RenderStepped:Connect(function(dt)
+    local v415 = t1
+    v415.value49 = v415.value49 + 1
+    local v416 = t1
+    v416.value50 = v416.value50 + dt
+    if t1.value50 >= 1 then
+        local value49 = t1.value49
+
+        t1.value43.Text = value49 .. " fps"
+
+        local value43 = t1.value43
+        local v419 = value49 >= 55
+
+        if v419 then
+            v419 = t1.value11.green
+        end
+
+        if not v419 then
+            v419 = value49 >= 30
+
+            if v419 then
+                v419 = t1.value11.yellow
+            end
+
+            if not v419 then
+                v419 = t1.value11.red
+            end
+        end
+
+        value43.TextColor3 = v419
+    end
+    local success, result = pcall(function()
+        return (math.floor(t1.value4:GetNetworkPing() * 1000))
+    end)
+    if success then
+        t1.value42.Text = result .. " ms"
+
+        local value42 = t1.value42
+        local v423 = result < 80
+
+        if v423 then
+            v423 = t1.value11.green
+        end
+
+        if not v423 then
+            v423 = result < 150
+
+            if v423 then
+                v423 = t1.value11.yellow
+            end
+
+            if not v423 then
+                v423 = t1.value11.red
+            end
+        end
+
+        value42.TextColor3 = v423
+    end
+    if not t1.value6 then
+        return
+    end
+    local v424 = not t1.value8
+    if not v424 then
+        v424 = not t1.value8.Character
+
+        if not v424 then
+            v424 = not t1.value8.Character:FindFirstChild(t1.value9)
+        end
+    end
+    if v424 then
+        t1.value8 = t1.value24()
+
+        if t1.value8 then
+            t1.value48()
+        end
+
+        return
+    end
+    local Humanoid = t1.value8.Character:FindFirstChild("Humanoid")
+    if not Humanoid or Humanoid.Health <= 0 then
+        t1.value8 = t1.value24()
+
+        if t1.value8 then
+            t1.value22("windy.lua", "target reacquired", 1.5)
+            t1.value48()
+        end
+
+        return
+    end
+    if t1.value23(t1.value8.Character) then
+        local value41 = t1.value41
+        local value41_3 = t1.value41
+        local green = t1.value11.green
+
+        value41.Text = "clear"
+        value41_3.TextColor3 = green
+
+        local Character = t1.value4.Character
+
+        if Character then
+            Character = t1.value4.Character:FindFirstChild("HumanoidRootPart")
+        end
+
+        if Character then
+            local v430 = math.floor((Character.Position - t1.value8.Character[t1.value9].Position).Magnitude)
+
+            t1.value40.Text = v430 .. " studs"
+
+            local value40 = t1.value40
+            local v432 = v430 < 50
+
+            if v432 then
+                v432 = t1.value11.red
+            end
+
+            if not v432 then
+                v432 = v430 < 150
+
+                if v432 then
+                    v432 = t1.value11.yellow
+                end
+
+                if not v432 then
+                    v432 = t1.value11.text
+                end
+            end
+
+            value40.TextColor3 = v432
+        end
+
+        t1.value39.Text = t1.value8.DisplayName
+        t1.value5.CFrame = t1.value5.CFrame:Lerp(CFrame.new(t1.value5.CFrame.Position, t1.value8.Character[t1.value9].Position), 0.25)
+
+        return
+    end
+    local value41 = t1.value41
+    local value41_4 = t1.value41
+    local red = t1.value11.red
+    value41.Text = "blocked"
+    value41_4.TextColor3 = red
+    local v436 = t1.value24()
+    if v436 and v436 ~= t1.value8 then
+        t1.value22("windy.lua", "switched", 1.2)
+        t1.value48()
+    end
+end)
+task.spawn(function()
+    t1.value18()
+    t1.value25.Visible = true
+    t1.value25.BackgroundTransparency = 1
+    t1.value12(t1.value25, {
+		BackgroundTransparency = 0
+	}, 0.2)
+    task.wait(0.08)
+    t1.value47()
+    task.wait(0.22)
+    t1.value22("windy.lua", "ready · v0.9", 3)
+end)
+print("windy.lua v0.9")
