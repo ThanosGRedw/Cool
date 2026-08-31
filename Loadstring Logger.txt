@@ -1,0 +1,109 @@
+-- ============================================================================
+-- THE SANDBOX-CRACKER LOGGER
+-- ============================================================================
+
+local log_file = "sandbox_cracked_log.txt"
+
+local function write_log(source, data)
+    local timestamp = os.date("%Y-%m-%d %H:%M:%S")
+    local entry = string.format("[%s] [%s]: %s\n", timestamp, source, tostring(data))
+    print(entry:sub(1, -2)) -- Print to console
+    
+    if writefile then
+        appendfile(log_file, entry)
+    elseif io and io.open then
+        local f = io.open(log_file, "a")
+        if f then f:write(entry) f:close() end
+    end
+end
+
+local env = (getgenv and getgenv()) or _G
+
+-- ============================================================================
+-- 1. CLONE-PROOF HOOKING (Using hookfunction if available)
+-- ============================================================================
+-- Obfuscated loaders often clone functions to bypass standard hooking. 
+-- 'hookfunction' replaces the function at the C-level, making clones useless.
+local function force_c_hook(target_name, hook_callback)
+    local target = env[target_name]
+    if not target and debug and debug.getregistry then
+        -- Find it in the registry if hidden
+        for _, v in pairs(debug.getregistry()) do
+            if type(v) == "table" and rawget(v, target_name) then
+                target = v[target_name]
+                break
+            end
+        end
+    end
+    
+    if target then
+        if hookfunction then
+            -- C-level hook: Bypasses environment sandboxing entirely
+            local original
+            original = hookfunction(target, function(...)
+                hook_callback(...)
+                return original(...)
+            end)
+        else
+            -- Fallback standard hook
+            env[target_name] = function(...)
+                hook_callback(...)
+                return target(...)
+            end
+        end
+    end
+end
+
+-- ============================================================================
+-- 2. HOOK THE ENGINE LOADERS
+-- ============================================================================
+force_c_hook("loadstring", function(code, chunk)
+    write_log("SANDBOXED LOADSTRING", string.format("Chunk: %s\nCode:\n%s", tostring(chunk or "Unknown"), tostring(code)))
+end)
+
+force_c_hook("load", function(ld, source)
+    write_log("SANDBOXED LOAD", string.format("Source: %s\nData: %s", tostring(source or "Unknown"), tostring(ld)))
+end)
+
+-- ============================================================================
+-- 3. INTERCEPT THE HTTP RAW DATA (The Ultimate Fallback)
+-- ============================================================================
+-- If they use a custom interpreter (VM), they don't use 'loadstring' for child scripts. 
+-- Instead, they fetch the raw text over HTTP and parse it in pure Lua.
+-- Hooking the HTTP request forces them to leak the code before their VM compiles it.
+
+if typeof and game then
+    local old_namecall
+    old_namecall = hookmetamethod(game, "__namecall", function(self, ...)
+        local method = getnamecallmethod()
+        local args = {...}
+        
+        if method == "HttpGet" or method == "HttpGetAsync" then
+            local url = args[1]
+            write_log("HTTP GET DETECTED", "Fetching URL: " .. tostring(url))
+            
+            -- Optional: Spawn a task to fetch and log exactly what code is at that URL
+            task.spawn(function()
+                local success, content = pcall(game.HttpGet, game, url)
+                if success then
+                    write_log("FETCHED SCRIPT CONTENT (" .. tostring(url) .. ")", content)
+                end
+            end)
+        end
+        
+        return old_namecall(self, ...)
+    end)
+end
+
+-- If the executor has a custom request function (like syn.request or http.request)
+if request then
+    local original_request = request
+    env.request = function(options)
+        if options and options.Url then
+            write_log("HTTP REQUEST", string.format("URL: %s | Method: %s", options.Url, options.Method or "GET"))
+        end
+        return original_request(options)
+    end
+end
+
+write_log("SYSTEM", "Sandbox Cracking Engine Loaded.")

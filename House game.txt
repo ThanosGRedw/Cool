@@ -1,0 +1,2148 @@
+------- HOUSE OF THE LO
+
+--[[
+    ██ HOUSE GAME ██  all-in-one
+    ESP + Credits + Protection + Auto Escape
+
+    Tabs: Home | ESP | Auto Escape | Protection | Settings | Credits
+    Drag the CM square to move it, tap it to hide/show the hub.
+
+    -- CREDIT CAPTAIN MANJIRO
+
+    Each part below is wrapped in its own function so one failure cannot
+    take the rest down, and so per-file locals stay scoped.
+]]
+
+-- ============================ esp.lua ============================
+local function _part1()
+--[[
+    The Lust - ESP  (Monster / Cabinets / Escape objectives)
+    UI: Fluent (dawid-scripts)
+
+    Escape chain discovered in-game:
+      Search cabinets (28x)  -> KEY        -> Workspace.Keyhole        "KEY NEEDED"
+      Grab off the Locust    -> KEYCARD    -> Workspace.KeycardReader  "KEYCARD NEEDED"
+      Workspace.WireCutter   -> WIRECUTTER -> Workspace.DoorWire       "WIRECUTTER NEEDED"
+      Cubes (Red/Yellow/Blue) puzzle
+      -> Workspace.ExitDoor
+]]
+
+-- Re-running the script must not stack a second render loop / window.
+if _G.__LustESP_Unload then pcall(_G.__LustESP_Unload) end
+
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
+local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
+
+local ScreenParent = (typeof(gethui) == "function" and gethui())
+    or (typeof(get_hidden_gui) == "function" and get_hidden_gui())
+    or game:GetService("CoreGui")
+
+local DIM = Color3.fromRGB(120, 120, 120)
+
+--=========================================================================--
+--                                 SETTINGS                                --
+--=========================================================================--
+
+local S = {
+    -- monster
+    Monster        = false,
+    MonsterChams   = true,
+    MonsterTracer  = false,
+    MonsterColor   = Color3.fromRGB(255, 45, 45),
+
+    -- cabinets
+    Cabinets       = false,
+    CabinetChams   = 5,   -- highlight only the N nearest (Roblox stops rendering past ~31 Highlights)
+    HideSearched   = false,
+    CabinetColor   = Color3.fromRGB(255, 190, 60),
+
+    -- objectives
+    Objectives     = false,
+    ObjChams       = true,
+    ObjColor       = Color3.fromRGB(80, 255, 140),
+
+    -- shared
+    ShowDistance   = true,
+    MaxDistance    = 0,   -- 0 = unlimited
+}
+
+-- exposed so you can flip things from a console without the UI
+_G.__LustESP = S
+
+--=========================================================================--
+--                             TARGET RESOLUTION                           --
+--=========================================================================--
+
+local OBJECTIVES = {
+    { path = "ExitDoor",      label = "EXIT" },
+    { path = "Keyhole",       label = "KEYHOLE" },
+    { path = "KeycardReader", label = "KEYCARD READER" },
+    { path = "DoorWire",      label = "DOOR WIRE" },
+    { path = "WireCutter",    label = "WIRECUTTER" },
+    { path = "CubeRed",       label = "RED CUBE" },
+    { path = "CubeYellow",    label = "YELLOW CUBE" },
+    { path = "CubeBlue",      label = "BLUE CUBE" },
+}
+
+local function getMonster()
+    local entities = workspace:FindFirstChild("Entities")
+    if not entities then return nil end
+    local locust = entities:FindFirstChild("Locust")
+    if locust and locust:IsA("Model") and locust:FindFirstChildOfClass("Humanoid") then
+        return locust
+    end
+    for _, v in ipairs(entities:GetChildren()) do
+        if v:IsA("Model") and v:FindFirstChildOfClass("Humanoid") then return v end
+    end
+    return nil
+end
+
+local function getAnchor(inst)
+    if not inst then return nil end
+    if inst:IsA("BasePart") then return inst end
+    if inst:IsA("Tool") then return inst:FindFirstChild("Handle") or inst:FindFirstChildWhichIsA("BasePart") end
+    if inst:IsA("Model") then
+        return inst.PrimaryPart
+            or inst:FindFirstChild("Interact")
+            or inst:FindFirstChild("HumanoidRootPart")
+            or inst:FindFirstChild("Head")
+            or inst:FindFirstChildWhichIsA("BasePart")
+    end
+    return nil
+end
+
+local function cabinetPrompt(model)
+    local inter = model:FindFirstChild("Interact")
+    return inter and inter:FindFirstChildOfClass("ProximityPrompt")
+end
+
+-- The game NEVER disables a searched cabinet's prompt (verified: prompt stays
+-- Enabled after the server accepts a search), so "searched" cannot be read off
+-- the game. It is only what the auto-escape has already been through.
+_G.__LustSearched = _G.__LustSearched or {}
+local function cabinetSearched(model)
+    local pp = cabinetPrompt(model)
+    if pp == nil then return true end
+    return _G.__LustSearched[model] == true
+end
+
+--=========================================================================--
+--                                ESP TAGS                                 --
+--=========================================================================--
+
+local Tags = {}      -- [anchorPart] = { hl, bb, lbl, used }
+local Tracer = nil
+
+local function makeTag()
+    local hl = Instance.new("Highlight")
+    hl.FillTransparency = 0.65
+    hl.OutlineTransparency = 0
+    hl.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+    hl.Enabled = false
+    hl.Parent = ScreenParent
+
+    local bb = Instance.new("BillboardGui")
+    bb.Size = UDim2.fromOffset(240, 32)
+    bb.StudsOffsetWorldSpace = Vector3.new(0, 3, 0)
+    bb.AlwaysOnTop = true
+    bb.MaxDistance = math.huge
+    bb.Enabled = false
+    bb.Parent = ScreenParent
+
+    local lbl = Instance.new("TextLabel")
+    lbl.BackgroundTransparency = 1
+    lbl.Size = UDim2.fromScale(1, 1)
+    lbl.Font = Enum.Font.GothamBold
+    lbl.TextSize = 14
+    lbl.TextStrokeTransparency = 0.35
+    lbl.TextStrokeColor3 = Color3.new(0, 0, 0)
+    lbl.Parent = bb
+
+    return { hl = hl, bb = bb, lbl = lbl }
+end
+
+-- adornee: what the Highlight wraps (model or part). anchor: what the label sits on.
+local function drawTag(anchor, adornee, text, color, chams)
+    local tag = Tags[anchor]
+    if not tag then
+        tag = makeTag()
+        Tags[anchor] = tag
+    end
+    tag.used = true
+
+    tag.hl.Adornee = adornee
+    tag.hl.FillColor = color
+    tag.hl.OutlineColor = color
+    tag.hl.Enabled = chams
+
+    tag.bb.Adornee = anchor
+    tag.bb.Enabled = true
+    tag.lbl.Text = text
+    tag.lbl.TextColor3 = color
+end
+
+local function sweepUnused()
+    for anchor, tag in pairs(Tags) do
+        if not tag.used then
+            tag.hl:Destroy()
+            tag.bb:Destroy()
+            Tags[anchor] = nil
+        else
+            tag.used = false
+        end
+    end
+end
+
+local function clearAll()
+    for anchor, tag in pairs(Tags) do
+        tag.hl:Destroy()
+        tag.bb:Destroy()
+        Tags[anchor] = nil
+    end
+    if Tracer then Tracer.Visible = false end
+end
+
+local function label(name, dist)
+    if S.ShowDistance then
+        return string.format("%s  [%dm]", name, math.floor(dist + 0.5))
+    end
+    return name
+end
+
+local function inRange(dist)
+    return S.MaxDistance <= 0 or dist <= S.MaxDistance
+end
+
+--=========================================================================--
+--                              REFRESH (15 Hz)                            --
+--=========================================================================--
+
+local function refresh()
+    local eye = Camera.CFrame.Position
+
+    ------------------------------------------------ monster
+    if S.Monster then
+        local m = getMonster()
+        local a = getAnchor(m)
+        if a then
+            local d = (a.Position - eye).Magnitude
+            if inRange(d) then
+                local head = m:FindFirstChild("Head") or a
+                drawTag(head, m, label("LOCUST", d), S.MonsterColor, S.MonsterChams)
+            end
+        end
+    end
+
+    ------------------------------------------------ cabinets
+    if S.Cabinets then
+        local folder = workspace:FindFirstChild("Cabinets")
+        if folder then
+            local list = {}
+            for _, c in ipairs(folder:GetChildren()) do
+                local a = getAnchor(c)
+                if a then
+                    local d = (a.Position - eye).Magnitude
+                    local searched = cabinetSearched(c)
+                    if inRange(d) and not (searched and S.HideSearched) then
+                        table.insert(list, { model = c, anchor = a, dist = d, searched = searched })
+                    end
+                end
+            end
+            table.sort(list, function(x, y) return x.dist < y.dist end)
+
+            for i, e in ipairs(list) do
+                local color = e.searched and DIM or S.CabinetColor
+                local name = e.searched and "CABINET (searched)" or "CABINET"
+                local chams = (not e.searched) and (i <= S.CabinetChams)
+                drawTag(e.anchor, e.model, label(name, e.dist), color, chams)
+            end
+        end
+    end
+
+    ------------------------------------------------ objectives
+    if S.Objectives then
+        for _, o in ipairs(OBJECTIVES) do
+            local inst = workspace:FindFirstChild(o.path)
+            local a = getAnchor(inst)
+            if a then
+                local d = (a.Position - eye).Magnitude
+                if inRange(d) then
+                    local pp = inst:FindFirstChildWhichIsA("ProximityPrompt", true)
+                    local status = pp and pp.ObjectText or nil
+                    local name = o.label
+                    -- ObjectText carries the live requirement, e.g. "KEY NEEDED"
+                    if status and status ~= "" and status:upper() ~= o.label then
+                        name = o.label .. " - " .. status
+                    end
+                    drawTag(a, inst, label(name, d), S.ObjColor, S.ObjChams)
+                end
+            end
+        end
+
+        -- the Keycard hangs off the monster itself
+        local m = getMonster()
+        local handle = m and m:FindFirstChild("Handle")
+        if handle then
+            local d = (handle.Position - eye).Magnitude
+            if inRange(d) then
+                drawTag(handle, handle, label("KEYCARD (on Locust)", d), S.ObjColor, S.ObjChams)
+            end
+        end
+    end
+
+    sweepUnused()
+end
+
+--=========================================================================--
+--                                  LOOPS                                  --
+--=========================================================================--
+
+if typeof(Drawing) == "table" or typeof(Drawing) == "userdata" then
+    local ok, line = pcall(function()
+        local l = Drawing.new("Line")
+        l.Thickness = 1.5
+        l.Transparency = 1
+        l.Visible = false
+        return l
+    end)
+    if ok then Tracer = line end
+end
+
+local acc = 0
+local conn
+conn = RunService.RenderStepped:Connect(function(dt)
+    if Fluent.Unloaded then
+        conn:Disconnect()
+        clearAll()
+        if Tracer then pcall(function() Tracer:Remove() end) end
+        return
+    end
+
+    acc = acc + dt
+    if acc >= 1 / 15 then
+        acc = 0
+        local ok, err = pcall(refresh)
+        if not ok then warn("[ESP] " .. tostring(err)) end
+    end
+
+    -- tracer to the monster, every frame so it doesn't lag behind the camera
+    if Tracer then
+        Tracer.Visible = false
+        if S.Monster and S.MonsterTracer then
+            local a = getAnchor(getMonster())
+            if a then
+                local pos, onScreen = Camera:WorldToViewportPoint(a.Position)
+                if onScreen then
+                    local vp = Camera.ViewportSize
+                    Tracer.Color = S.MonsterColor
+                    Tracer.From = Vector2.new(vp.X / 2, vp.Y)
+                    Tracer.To = Vector2.new(pos.X, pos.Y)
+                    Tracer.Visible = true
+                end
+            end
+        end
+    end
+end)
+
+local camConn = workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
+    Camera = workspace.CurrentCamera or Camera
+end)
+
+_G.__LustESP_Unload = function()
+    if conn then conn:Disconnect() end
+    if camConn then camConn:Disconnect() end
+    clearAll()
+    if Tracer then pcall(function() Tracer:Remove() end) end
+    Tracer = nil
+    pcall(function() Fluent:Destroy() end)
+    _G.__LustESP_Unload = nil
+end
+
+--=========================================================================--
+--                                   UI                                    --
+--=========================================================================--
+
+-- snapshot the GUI parent so we can identify the ScreenGui Fluent creates
+-- (it never exposes it, and credits.lua needs it to hide/show the hub)
+-- NOTE: gethui() and CoreGui are different containers here, and Fluent parents
+-- its window to CoreGui - so both roots have to be watched.
+local _guiRoots = { ScreenParent, game:GetService("CoreGui") }
+local _guiBefore = {}
+for _, root in ipairs(_guiRoots) do
+    for _, v in ipairs(root:GetChildren()) do
+        if v:IsA("ScreenGui") then _guiBefore[v] = true end
+    end
+end
+
+local Window = Fluent:CreateWindow({
+    Title = "House of The Locust",
+    SubTitle = "v1." .. Fluent.Version,
+    TabWidth = 150,
+    Size = UDim2.fromOffset(560, 460),
+    Acrylic = false,
+    Theme = "Darker",
+    MinimizeKey = Enum.KeyCode.RightControl,
+})
+
+-- shared so auto.lua / anti.lua / credits.lua can use this same window
+_G.__LustFluent, _G.__LustWindow = Fluent, Window
+
+-- Only accept a new ScreenGui that actually contains the window title; Roblox
+-- creates unrelated CoreGui ScreenGuis all the time and picking the newest one
+-- silently grabs the wrong object.
+local function _holdsTitle(gui)
+    for _, d in ipairs(gui:GetDescendants()) do
+        if d:IsA("TextLabel") and d.Text == "House of The Locust" then return true end
+    end
+    return false
+end
+for _, root in ipairs(_guiRoots) do
+    for _, v in ipairs(root:GetChildren()) do
+        if v:IsA("ScreenGui") and not _guiBefore[v] and _holdsTitle(v) then
+            _G.__LustFluentGui = v
+            break
+        end
+    end
+    if _G.__LustFluentGui then break end
+end
+
+-- Every tab is created HERE, in one place, so the order is fixed and readable.
+-- The other files fill in their own tab instead of appending one on load,
+-- which is what previously scattered Credits into the middle of the menu.
+local Tabs = {
+    Home       = Window:AddTab({ Title = "Home",        Icon = "home"     }),
+    ESP        = Window:AddTab({ Title = "ESP",         Icon = "eye"      }),
+    Auto       = Window:AddTab({ Title = "Auto Escape", Icon = "play"     }),
+    Protection = Window:AddTab({ Title = "Protection",  Icon = "shield"   }),
+    Settings   = Window:AddTab({ Title = "Settings",    Icon = "settings" }),
+    Credits    = Window:AddTab({ Title = "Credits",     Icon = "heart"    }),
+}
+_G.__LustTabs = Tabs
+
+local V = Tabs.ESP
+
+----------------------------------------------------------------- home
+Tabs.Home:AddParagraph({
+    Title = "House of The Locust",
+    Content = "ESP - see the monster, cabinets and objectives.\n"
+           .. "Auto Escape - runs the whole escape for you.\n"
+           .. "Protection - keeps the Locust off you.\n\n"
+           .. "In a hurry: press AUTO ESCAPE below.",
+})
+
+----------------------------------------------------------------- monster
+V:AddSection("Monster")
+
+local ToggleMonster = V:AddToggle("Monster", {
+    Title = "Monster ESP",
+    Description = "Highlights the Locust through walls",
+    Default = false,
+})
+ToggleMonster:OnChanged(function(v) S.Monster = v end)
+
+V:AddToggle("MonsterChams", { Title = "Monster Chams", Default = true })
+    :OnChanged(function(v) S.MonsterChams = v end)
+
+V:AddToggle("MonsterTracer", {
+    Title = "Monster Tracer",
+    Description = "Line from the bottom of your screen to the Locust",
+    Default = false,
+}):OnChanged(function(v) S.MonsterTracer = v end)
+
+local MonsterColor = V:AddColorpicker("MonsterColor", { Title = "Monster Color", Default = S.MonsterColor })
+MonsterColor:OnChanged(function() S.MonsterColor = MonsterColor.Value end)
+
+----------------------------------------------------------------- cabinets
+V:AddSection("Cabinets")
+
+V:AddToggle("Cabinets", {
+    Title = "Cabinet ESP",
+    Description = "Tags all 28 searchable cabinets",
+    Default = false,
+}):OnChanged(function(v) S.Cabinets = v end)
+
+V:AddToggle("HideSearched", {
+    Title = "Hide Searched",
+    Description = "Off = searched cabinets go grey instead",
+    Default = false,
+}):OnChanged(function(v) S.HideSearched = v end)
+
+V:AddSlider("CabinetChams", {
+    Title = "Cabinet Chams",
+    Description = "Fill only the N nearest unsearched (Roblox caps ~31 highlights)",
+    Default = 5, Min = 0, Max = 15, Rounding = 0,
+    Callback = function(v) S.CabinetChams = v end,
+})
+
+local CabinetColor = V:AddColorpicker("CabinetColor", { Title = "Cabinet Color", Default = S.CabinetColor })
+CabinetColor:OnChanged(function() S.CabinetColor = CabinetColor.Value end)
+
+----------------------------------------------------------------- objectives
+V:AddSection("Objectives")
+
+V:AddToggle("Objectives", {
+    Title = "Objective ESP",
+    Description = "Exit, Keyhole, Keycard Reader, Door Wire, Wirecutter, Cubes",
+    Default = false,
+}):OnChanged(function(v) S.Objectives = v end)
+
+V:AddToggle("ObjChams", { Title = "Objective Chams", Default = true })
+    :OnChanged(function(v) S.ObjChams = v end)
+
+local ObjColor = V:AddColorpicker("ObjColor", { Title = "Objective Color", Default = S.ObjColor })
+ObjColor:OnChanged(function() S.ObjColor = ObjColor.Value end)
+
+Tabs.Home:AddButton({
+    Title = "Where am I up to?",
+    Description = "Shows the escape task and what is still outstanding",
+    Callback = function()
+        local function status(n)
+            local o = workspace:FindFirstChild(n)
+            if not o then return "gone/done" end
+            local pp = o:FindFirstChildWhichIsA("ProximityPrompt", true)
+            return pp and pp.ObjectText or "ready"
+        end
+        local left = 0
+        local cab = workspace:FindFirstChild("Cabinets")
+        if cab then
+            for _, c in ipairs(cab:GetChildren()) do
+                if not cabinetSearched(c) then left = left + 1 end
+            end
+        end
+        local lines = {
+            "===== HOUSE OF THE LOCUST - ESCAPE ROUTE =====",
+            ("1. Search cabinets for the KEY  (%d unsearched left)"):format(left),
+            ("2. Keyhole ...... %s"):format(status("Keyhole")),
+            ("3. Grab the KEYCARD off the Locust (prompt on its Handle)"),
+            ("4. KeycardReader  %s"):format(status("KeycardReader")),
+            ("5. Pick up the WIRECUTTER (%s)"):format(workspace:FindFirstChild("WireCutter") and "still on the floor" or "picked up / gone"),
+            ("6. DoorWire ..... %s"):format(status("DoorWire")),
+            ("7. Cubes: Red / Yellow / Blue - jiggle them if they get stuck"),
+            ("8. Leave through the ExitDoor"),
+        }
+        for _, l in ipairs(lines) do print(l) end
+        Fluent:Notify({
+            Title = "Escape route",
+            Content = ("%d cabinets left | Keyhole: %s | Reader: %s | Wire: %s")
+                :format(left, status("Keyhole"), status("KeycardReader"), status("DoorWire")),
+            Duration = 10,
+        })
+    end,
+})
+
+----------------------------------------------------------------- display
+V:AddSection("Display")
+
+V:AddToggle("ShowDistance", { Title = "Show Distance", Default = true })
+    :OnChanged(function(v) S.ShowDistance = v end)
+
+V:AddSlider("MaxDistance", {
+    Title = "Max Distance",
+    Description = "0 = unlimited (studs)",
+    Default = 0, Min = 0, Max = 1000, Rounding = 0,
+    Callback = function(v) S.MaxDistance = v end,
+})
+
+local KeyAll = V:AddKeybind("ToggleAll", { Title = "Toggle All ESP", Mode = "Toggle", Default = "F" })
+KeyAll:OnClick(function()
+    local on = not (S.Monster and S.Cabinets and S.Objectives)
+    S.Monster, S.Cabinets, S.Objectives = on, on, on
+    if not on then clearAll() end
+end)
+
+--------------------------- Settings tab ---------------------------
+
+SaveManager:SetLibrary(Fluent)
+InterfaceManager:SetLibrary(Fluent)
+SaveManager:IgnoreThemeSettings()
+SaveManager:SetIgnoreIndexes({ "ToggleAll" })
+InterfaceManager:SetFolder("TheLust")
+SaveManager:SetFolder("TheLust/configs")
+InterfaceManager:BuildInterfaceSection(Tabs.Settings)
+SaveManager:BuildConfigSection(Tabs.Settings)
+
+Window:SelectTab(1)
+
+Fluent:Notify({
+    Title = "House of The Locust",
+    Content = "ESP loaded - Monster, Cabinets, Escape objectives. F toggles all.",
+    Duration = 6,
+})
+
+SaveManager:LoadAutoloadConfig()
+
+end
+do local ok, err = pcall(_part1)
+   if not ok then warn('[TheLust] esp.lua failed: ' .. tostring(err)) end end
+
+-- ============================ credits.lua ============================
+local function _part2()
+--[[
+    The Lust - Credits tab + CM floating launcher
+    Load AFTER esp.lua (so the tab lands directly under Settings) and
+    BEFORE anti.lua / auto.lua.
+
+    -- CREDIT CAPTAIN MANJIRO
+]]
+
+if _G.__LustCM_Unload then pcall(_G.__LustCM_Unload) end
+
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+
+local Fluent = _G.__LustFluent
+local Window = _G.__LustWindow
+if not (Fluent and Window) then
+    warn("[CM] Load esp.lua first - it creates the window.")
+    return
+end
+
+local function getGuiParent()
+    if typeof(gethui) == "function" then
+        local ok, result = pcall(gethui)
+        if ok and result then return result end
+    end
+    return game:GetService("CoreGui")
+end
+
+-- ==========================================================
+-- CM HUB - REUSABLE CREDITS & SOCIALS
+-- Creator: Captain Manjiro
+-- Fluent UI compatible
+-- ==========================================================
+
+local function installCMCredits(CreditsTab, State)
+    State = State or {}
+
+    local function showSupportToast(socialName)
+        if State.supportToastGui and State.supportToastGui.Parent then
+            State.supportToastGui:Destroy()
+        end
+
+        local parent = getGuiParent()
+        local old = parent:FindFirstChild("CMHubSupportToast")
+        if old then old:Destroy() end
+
+        local gui = Instance.new("ScreenGui")
+        gui.Name = "CMHubSupportToast"
+        gui.IgnoreGuiInset = true
+        gui.ResetOnSpawn = false
+        gui.DisplayOrder = 1000001
+        gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+        gui.Parent = parent
+        State.supportToastGui = gui
+
+        local frame = Instance.new("Frame")
+        frame.AnchorPoint = Vector2.new(0.5, 0)
+        frame.Position = UDim2.new(0.5, 0, 0, -90)
+        frame.Size = UDim2.fromOffset(360, 76)
+        frame.BackgroundColor3 = Color3.fromRGB(18, 20, 32)
+        frame.BorderSizePixel = 0
+        frame.Parent = gui
+
+        local corner = Instance.new("UICorner")
+        corner.CornerRadius = UDim.new(0, 12)
+        corner.Parent = frame
+
+        local gradient = Instance.new("UIGradient")
+        gradient.Color = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(45, 92, 255)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(152, 60, 255)),
+        })
+        gradient.Rotation = 12
+        gradient.Parent = frame
+
+        local stroke = Instance.new("UIStroke")
+        stroke.Color = Color3.fromRGB(255, 255, 255)
+        stroke.Transparency = 0.55
+        stroke.Thickness = 1.5
+        stroke.Parent = frame
+
+        local badge = Instance.new("TextLabel")
+        badge.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        badge.BorderSizePixel = 0
+        badge.Position = UDim2.fromOffset(14, 16)
+        badge.Size = UDim2.fromOffset(44, 44)
+        badge.Font = Enum.Font.GothamBlack
+        badge.Text = "CM"
+        badge.TextColor3 = Color3.fromRGB(30, 35, 55)
+        badge.TextSize = 17
+        badge.ZIndex = 2
+        badge.Parent = frame
+
+        local badgeCorner = Instance.new("UICorner")
+        badgeCorner.CornerRadius = UDim.new(0, 9)
+        badgeCorner.Parent = badge
+
+        local title = Instance.new("TextLabel")
+        title.BackgroundTransparency = 1
+        title.Position = UDim2.fromOffset(72, 12)
+        title.Size = UDim2.new(1, -84, 0, 27)
+        title.Font = Enum.Font.GothamBold
+        title.Text = "Thank You for Supporting :3"
+        title.TextColor3 = Color3.fromRGB(255, 255, 255)
+        title.TextSize = 17
+        title.TextXAlignment = Enum.TextXAlignment.Left
+        title.ZIndex = 2
+        title.Parent = frame
+
+        local subtitle = Instance.new("TextLabel")
+        subtitle.BackgroundTransparency = 1
+        subtitle.Position = UDim2.fromOffset(72, 38)
+        subtitle.Size = UDim2.new(1, -84, 0, 25)
+        subtitle.Font = Enum.Font.Gotham
+        subtitle.Text = socialName .. " link copied - you are awesome!"
+        subtitle.TextColor3 = Color3.fromRGB(235, 239, 255)
+        subtitle.TextSize = 13
+        subtitle.TextXAlignment = Enum.TextXAlignment.Left
+        subtitle.ZIndex = 2
+        subtitle.Parent = frame
+
+        task.spawn(function()
+            local showTween = TweenService:Create(
+                frame,
+                TweenInfo.new(0.35, Enum.EasingStyle.Back, Enum.EasingDirection.Out),
+                {Position = UDim2.new(0.5, 0, 0, 98)}
+            )
+            showTween:Play()
+
+            task.wait(4.65)
+            if not frame.Parent then return end
+
+            local hideTween = TweenService:Create(
+                frame,
+                TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.In),
+                {Position = UDim2.new(0.5, 0, 0, -90)}
+            )
+            hideTween:Play()
+            hideTween.Completed:Wait()
+
+            if gui.Parent then gui:Destroy() end
+            if State.supportToastGui == gui then
+                State.supportToastGui = nil
+            end
+        end)
+    end
+
+    local function copySocialLink(url, socialName)
+        local executorEnv = getgenv()
+        local copy = rawget(executorEnv, "setclipboard")
+            or rawget(executorEnv, "toclipboard")
+            or rawget(executorEnv, "set_clipboard")
+        local copied = typeof(copy) == "function" and pcall(copy, url)
+
+        State.lastCopiedSocial = socialName
+        State.lastCopySucceeded = copied
+
+        if copied then
+            showSupportToast(socialName)
+        elseif State.fluent then
+            pcall(function()
+                State.fluent:Notify({
+                    Title = "Clipboard unavailable",
+                    Content = "Copy manually: " .. url,
+                    Duration = 5,
+                })
+            end)
+        end
+    end
+
+    CreditsTab:AddParagraph({
+        Title = "Support the Creator - Captain Manjiro :3",
+        Content = "Join the community and check out the official channel. Every click means a lot - thank you!",
+    })
+
+    CreditsTab:AddButton({
+        Title = "Copy YouTube Channel",
+        Description = "Copies theofficial YouTube channel link",
+        Callback = function()
+            copySocialLink("https://www.youtube.com/@CaptainManjiro", "YouTube")
+        end,
+    })
+
+    CreditsTab:AddButton({
+        Title = "Copy Discord Invite",
+        Description = "Copies the community Discord invite",
+        Callback = function()
+            copySocialLink("https://discord.com/invite/WS9vzUWM4R", "Discord")
+        end,
+    })
+
+    return {
+        ShowSupportToast = showSupportToast,
+        CopySocialLink = copySocialLink,
+        Cleanup = function()
+            if State.supportToastGui and State.supportToastGui.Parent then
+                State.supportToastGui:Destroy()
+            end
+            State.supportToastGui = nil
+        end,
+    }
+end
+
+--=========================================================================--
+--                            INSTALL THE TAB                              --
+--=========================================================================--
+
+-- Fluent has no way to remove a tab, so re-running this file would stack a
+-- second "Credits" tab every time. Only build it once per window.
+local State = _G.__LustCM_State or { fluent = Fluent }
+_G.__LustCM_State = State
+
+local CM
+if _G.__LustCM_Tab and _G.__LustCM_TabWindow == Window then
+    CM = _G.__LustCM_API          -- tab already exists on this window, reuse
+else
+    local CreditsTab = (_G.__LustTabs and _G.__LustTabs.Credits)
+                    or Window:AddTab({ Title = "Credits", Icon = "heart" })
+    CM = installCMCredits(CreditsTab, State)
+    _G.__LustCM_Tab = CreditsTab
+    _G.__LustCM_TabWindow = Window
+    _G.__LustCM_API = CM
+end
+
+--=========================================================================--
+--                          CM FLOATING LAUNCHER                           --
+--=========================================================================--
+
+-- Fluent does not hand out its ScreenGui, so find it: it is the ScreenGui in
+-- our GUI parent that contains the window title text.
+local function isHub(gui)
+    if not (gui and gui.Parent) then return false end
+    for _, d in ipairs(gui:GetDescendants()) do
+        if d:IsA("TextLabel") and d.Text == "House of The Locust" then return true end
+    end
+    return false
+end
+
+local function findHubGui()
+    -- Only trust a cached handle if it really is the window. Roblox spawns
+    -- CoreGui ScreenGuis constantly, so "the newest one" is not reliable.
+    if isHub(_G.__LustFluentGui) then return _G.__LustFluentGui end
+    _G.__LustFluentGui = nil
+    -- gethui() and CoreGui are separate containers; Fluent lands in CoreGui
+    for _, root in ipairs({ getGuiParent(), game:GetService("CoreGui") }) do
+        for _, v in ipairs(root:GetChildren()) do
+            if v:IsA("ScreenGui") and v.Name ~= "CMHubLauncher" and v.Name ~= "CMHubSupportToast" then
+                for _, d in ipairs(v:GetDescendants()) do
+                    if d:IsA("TextLabel") and d.Text == "House of The Locust" then
+                        _G.__LustFluentGui = v
+                        return v
+                    end
+                end
+            end
+        end
+    end
+    return nil
+end
+
+local parent = getGuiParent()
+local old = parent:FindFirstChild("CMHubLauncher")
+if old then old:Destroy() end
+
+local launcher = Instance.new("ScreenGui")
+launcher.Name = "CMHubLauncher"
+launcher.IgnoreGuiInset = true
+launcher.ResetOnSpawn = false
+launcher.DisplayOrder = 1000002
+launcher.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+launcher.Parent = parent
+
+local btn = Instance.new("TextButton")
+btn.Name = "CMToggle"
+btn.AnchorPoint = Vector2.new(0, 0)
+btn.Position = UDim2.new(0, 18, 0, 120)
+btn.Size = UDim2.fromOffset(40, 40)
+btn.AutoButtonColor = false
+btn.BorderSizePixel = 0
+btn.Font = Enum.Font.GothamBlack
+btn.Text = "CM"
+btn.TextSize = 13
+btn.Parent = launcher
+
+local btnCorner = Instance.new("UICorner")
+btnCorner.CornerRadius = UDim.new(0, 8)
+btnCorner.Parent = btn
+
+local btnStroke = Instance.new("UIStroke")
+btnStroke.Thickness = 1
+btnStroke.Transparency = 0.5
+btnStroke.Parent = btn
+
+-- closed  = black square, white "CM"
+-- open    = white square, black "CM"  (reversed)
+local hubOpen = true
+local function paint()
+    if hubOpen then
+        btn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        btn.TextColor3 = Color3.fromRGB(0, 0, 0)
+        btnStroke.Color = Color3.fromRGB(0, 0, 0)
+    else
+        btn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+        btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+        btnStroke.Color = Color3.fromRGB(255, 255, 255)
+    end
+end
+
+local function setHub(open)
+    hubOpen = open
+    local gui = findHubGui()
+    if gui then gui.Enabled = open end
+    paint()
+end
+
+-- sync colours AND the window's real state on startup, rather than assuming
+setHub(true)
+
+--------------------------------------------------- drag + click
+-- Previous version decided click-vs-drag inside InputBegan with a 4px
+-- threshold. Ordinary mouse jitter between press and release exceeded that,
+-- so the press was classed as a drag and the toggle was skipped - which is
+-- why it took two clicks. Now the click comes from Activated (Roblox only
+-- fires it for a genuine click) and a drag merely suppresses it.
+local DRAG_SLOP = 10          -- px of movement before it counts as a drag
+
+local conns = {}
+local function track(c) table.insert(conns, c) return c end
+
+local dragging, dragStart, startPos, draggedFar = false, nil, nil, false
+
+track(btn.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1
+    or input.UserInputType == Enum.UserInputType.Touch then
+        dragging, draggedFar = true, false
+        dragStart = input.Position
+        startPos = btn.Position
+    end
+end))
+
+track(UserInputService.InputChanged:Connect(function(input)
+    if not dragging then return end
+    if input.UserInputType == Enum.UserInputType.MouseMovement
+    or input.UserInputType == Enum.UserInputType.Touch then
+        local delta = input.Position - dragStart
+        if math.abs(delta.X) > DRAG_SLOP or math.abs(delta.Y) > DRAG_SLOP then
+            draggedFar = true
+        end
+        if draggedFar then
+            btn.Position = UDim2.new(
+                startPos.X.Scale, startPos.X.Offset + delta.X,
+                startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        end
+    end
+end))
+
+track(UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1
+    or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = false
+        -- clear the drag flag a frame later so Activated (which fires first)
+        -- still sees it and can suppress itself
+        task.defer(function() draggedFar = false end)
+    end
+end))
+
+track(btn.Activated:Connect(function()
+    if draggedFar then return end       -- that was a drag, not a click
+    setHub(not hubOpen)
+end))
+
+track(btn.MouseEnter:Connect(function() btnStroke.Transparency = 0.1 end))
+track(btn.MouseLeave:Connect(function() btnStroke.Transparency = 0.5 end))
+
+_G.__LustCM_Toggle = setHub
+_G.__LustCM_Unload = function()
+    -- these live on UserInputService, not on the button, so destroying the
+    -- GUI does not remove them; without this every reload leaked a handler
+    for _, c in ipairs(conns) do pcall(function() c:Disconnect() end) end
+    conns = {}
+    if launcher then launcher:Destroy() end
+    if CM and CM.Cleanup then pcall(CM.Cleanup) end
+    _G.__LustCM_Unload = nil
+end
+
+Fluent:Notify({
+    Title = "Credits",
+    Content = "CM tab added. Drag the CM square to move it, tap it to hide/show the hub.",
+    Duration = 6,
+})
+
+end
+do local ok, err = pcall(_part2)
+   if not ok then warn('[TheLust] credits.lua failed: ' .. tostring(err)) end end
+
+-- ============================ anti.lua ============================
+local function _part3()
+--[[
+    The Lust - Anti-Monster protections
+    Adds a "Protection" tab. Load esp.lua first (shares its window).
+
+    ---------------------------------------------------------------------
+    HOW THE LOCUST ACTUALLY KILLS YOU (checked in-game)
+    ---------------------------------------------------------------------
+    Workspace.Entities.Locust.Detectz - an invisible 20 x 2.4 x 2.4 reach
+    box welded to the monster, CanCollide=false, CanTouch=true. The kill is
+    a server-side Touched event on that box.
+
+    That means there is NO client-side godmode here. The Locust model is
+    owned by the server, so setting CanTouch=false / anchoring it / zeroing
+    its WalkSpeed locally changes nothing the server can see. Anything that
+    claims otherwise is lying to you.
+
+    What DOES work is never letting the box overlap you: your own character
+    is client-owned, so moving yourself is authoritative. Auto-Dodge below
+    watches the monster every frame and relocates you before contact.
+
+    PlayerGui.Jumpscare is cosmetic only - it plays a scream and points the
+    camera at Workspace.Jumpscare.Locust.Camera for 1 second. Killing that
+    connection removes the screen takeover but does not stop the damage.
+    ---------------------------------------------------------------------
+]]
+
+if _G.__LustAnti_Unload then pcall(_G.__LustAnti_Unload) end
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local RS = game:GetService("ReplicatedStorage")
+local LocalPlayer = Players.LocalPlayer
+
+local Fluent = _G.__LustFluent
+    or loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+
+--=========================================================================--
+--                                 SETTINGS                                --
+--=========================================================================--
+
+local S = {
+    AutoDodge     = false,
+    SafeDistance  = 70,    -- start dodging when the Locust is this close
+    EmergencyDistance = 22,-- while auto-escape is driving, only dodge inside this
+    AntiJumpscare = false,
+    AutoRevive    = false,
+    KeepCamera    = true,  -- undo a stuck Scriptable camera
+}
+_G.__LustAnti = S
+
+local Stats = { dodges = 0, blockedScares = 0, revives = 0 }
+
+local function char() return LocalPlayer.Character end
+local function hrp()
+    local c = char()
+    return c and c:FindFirstChild("HumanoidRootPart")
+end
+local function alive()
+    local c = char()
+    local h = c and c:FindFirstChildOfClass("Humanoid")
+    return h and h.Health > 0
+end
+
+local function locust()
+    local e = workspace:FindFirstChild("Entities")
+    local l = e and e:FindFirstChild("Locust")
+    if not l then return nil end
+    return l, (l.PrimaryPart or l:FindFirstChild("HumanoidRootPart")), l:FindFirstChild("Detectz")
+end
+
+--=========================================================================--
+--                              AUTO DODGE                                 --
+--=========================================================================--
+
+-- Somewhere to stand that is far from the monster but still near us, so we
+-- are not flung to the opposite corner of the map on every twitch.
+local function dodgeTarget(myPos, monsterPos, minDist)
+    local cands = {}
+    local f = workspace:FindFirstChild("Cabinets")
+    if f then
+        for _, c in ipairs(f:GetChildren()) do
+            local i = c:FindFirstChild("Interact")
+            if i then table.insert(cands, i.Position + Vector3.new(0, 3, 0)) end
+        end
+    end
+    for _, n in ipairs({ "RedDetector", "YellowDetector", "BlueDetector",
+                         "ExitDoor", "SpawnLocation", "CubeRed", "CubeYellow", "CubeBlue" }) do
+        local o = workspace:FindFirstChild(n)
+        local a = o and (o:IsA("BasePart") and o or o:FindFirstChildWhichIsA("BasePart"))
+        if a then table.insert(cands, a.Position + Vector3.new(0, 4, 0)) end
+    end
+
+    local best, bestScore
+    for _, p in ipairs(cands) do
+        if (p - monsterPos).Magnitude >= minDist then
+            local score = (p - myPos).Magnitude          -- nearest safe spot
+            if not bestScore or score < bestScore then best, bestScore = p, score end
+        end
+    end
+    if best then return best end
+
+    -- nothing on the list is safe: shove straight away from the monster
+    local away = (myPos - monsterPos)
+    if away.Magnitude < 1 then away = Vector3.new(1, 0, 0) end
+    return monsterPos + away.Unit * (minDist + 20) + Vector3.new(0, 3, 0)
+end
+
+-- Distance to the nearest point ON a part, not to its centre. Detectz is a
+-- 20-stud-long box, so its edge reaches ~10 studs beyond its origin - using
+-- the centre badly underestimates the threat and gets you killed.
+local function distToPart(part, pos)
+    local lp = part.CFrame:PointToObjectSpace(pos)
+    local h = part.Size * 0.5
+    local c = Vector3.new(
+        math.clamp(lp.X, -h.X, h.X),
+        math.clamp(lp.Y, -h.Y, h.Y),
+        math.clamp(lp.Z, -h.Z, h.Z))
+    return (lp - c).Magnitude
+end
+
+local lastDodge = 0
+local function dodgeStep()
+    if not S.AutoDodge or not alive() then return end
+    -- auto.lua sets this while it is deliberately standing in the Locust's
+    -- blind spot to take the keycard; dodging would drag us straight out
+    if _G.__LustNoDodge then return end
+    local r = hrp()
+    if not r then return end
+    local _, root, detect = locust()
+    if not root then return end
+
+    local d = (root.Position - r.Position).Magnitude
+    if detect then d = math.min(d, distToPart(detect, r.Position)) end
+
+    -- While auto.lua is driving the character it does its own spacing via
+    -- evade(). If we also dodge at the full radius the two fight each other
+    -- and nothing ever completes, so back off to emergency-only.
+    local threshold = S.SafeDistance
+    if _G.__LustBusy then threshold = math.min(S.SafeDistance, S.EmergencyDistance) end
+    if d >= threshold then return end
+
+    -- normally rate-limit, but when it is genuinely on top of us, move NOW
+    local urgent = d < S.SafeDistance * 0.5
+    if not urgent and os.clock() - lastDodge < 0.2 then return end
+    lastDodge = os.clock()
+
+    local dest = dodgeTarget(r.Position, root.Position, S.SafeDistance * 2)
+    r.CFrame = CFrame.new(dest)
+    r.AssemblyLinearVelocity = Vector3.zero
+    Stats.dodges = Stats.dodges + 1
+end
+
+--=========================================================================--
+--                           ANTI JUMPSCARE                                --
+--=========================================================================--
+
+local scareBlocked = false
+local function applyAntiJumpscare(on)
+    local ev = RS:FindFirstChild("JumpscareEvent")
+    if not ev or typeof(getconnections) ~= "function" then return false end
+    local n = 0
+    for _, c in ipairs(getconnections(ev.OnClientEvent)) do
+        pcall(function()
+            if on then c:Disable() else c:Enable() end
+            n = n + 1
+        end)
+    end
+    scareBlocked = on
+    return n > 0
+end
+
+--=========================================================================--
+--                             AUTO REVIVE                                 --
+--=========================================================================--
+
+local function tryRevive()
+    if not S.AutoRevive then return end
+    -- the game's own death screen offers Revive; use that path rather than
+    -- inventing one. Fall back to the remote if the button is not present.
+    local gui = LocalPlayer:FindFirstChild("PlayerGui")
+    local clicked = false
+    if gui then
+        for _, v in ipairs(gui:GetDescendants()) do
+            if (v:IsA("TextButton") or v:IsA("ImageButton")) and v.Visible then
+                local t = (v:IsA("TextButton") and v.Text or v.Name):lower()
+                if t:find("revive") then
+                    pcall(function()
+                        for _, c in ipairs(getconnections(v.MouseButton1Click)) do c:Fire() end
+                    end)
+                    clicked = true
+                    break
+                end
+            end
+        end
+    end
+    if not clicked then
+        local ev = RS:FindFirstChild("ReviveEvent")
+        if ev then pcall(function() ev:FireServer() end) end
+    end
+    Stats.revives = Stats.revives + 1
+end
+
+local diedConn
+local function hookDeath()
+    if diedConn then diedConn:Disconnect() end
+    local c = char()
+    local h = c and c:FindFirstChildOfClass("Humanoid")
+    if h then
+        diedConn = h.Died:Connect(function()
+            task.wait(1)
+            tryRevive()
+        end)
+    end
+end
+hookDeath()
+LocalPlayer.CharacterAdded:Connect(function()
+    task.wait(0.5)
+    hookDeath()
+end)
+
+--=========================================================================--
+--                                 LOOP                                    --
+--=========================================================================--
+
+local conn
+conn = RunService.RenderStepped:Connect(function()
+    if Fluent.Unloaded then conn:Disconnect() return end
+    pcall(dodgeStep)
+
+    -- the jumpscare leaves the camera Scriptable if it is interrupted
+    if S.KeepCamera then
+        local cam = workspace.CurrentCamera
+        if cam and cam.CameraType == Enum.CameraType.Scriptable and scareBlocked then
+            cam.CameraType = Enum.CameraType.Custom
+        end
+    end
+end)
+
+_G.__LustAnti_Unload = function()
+    if conn then conn:Disconnect() end
+    if diedConn then diedConn:Disconnect() end
+    applyAntiJumpscare(false)
+    _G.__LustAnti_Unload = nil
+end
+
+--=========================================================================--
+--                                   UI                                    --
+--=========================================================================--
+
+local Window = _G.__LustWindow
+if not Window then
+    Window = Fluent:CreateWindow({
+        Title = "House of The Locust", SubTitle = "Protection",
+        TabWidth = 150, Size = UDim2.fromOffset(560, 460),
+        Acrylic = false, Theme = "Darker",
+        MinimizeKey = Enum.KeyCode.RightControl,
+    })
+    _G.__LustWindow = Window
+end
+
+-- esp.lua owns the tab layout; only make our own if loaded standalone
+local P = (_G.__LustTabs and _G.__LustTabs.Protection)
+       or Window:AddTab({ Title = "Protection", Icon = "shield" })
+
+P:AddParagraph({
+    Title = "How this works",
+    Content = "so there is no real godmode. "
+           .. "Auto-Dodge moves YOU before contact, which is the part the lust.",
+})
+
+P:AddSection("Anti-hit")
+
+P:AddToggle("AutoDodge", {
+    Title = "Auto-Dodge",
+    Description = "Relocate you the moment the Locust closes in",
+    Default = false,
+}):OnChanged(function(v) S.AutoDodge = v end)
+
+P:AddSlider("SafeDistance", {
+    Title = "Safe distance",
+    Description = "Dodge when the Locust gets this close (studs)",
+    Default = 70, Min = 20, Max = 250, Rounding = 0,
+    Callback = function(v) S.SafeDistance = v end,
+})
+
+P:AddSlider("EmergencyDistance", {
+    Title = "Emergency distance",
+    Description = "While Auto-Escape runs, only dodge inside this (they share the character)",
+    Default = 22, Min = 10, Max = 80, Rounding = 0,
+    Callback = function(v) S.EmergencyDistance = v end,
+})
+
+P:AddSection("Jumpscare")
+
+P:AddToggle("AntiJumpscare", {
+    Title = "Anti-Jumpscare",
+    Description = "Kills the scream and camera takeover",
+    Default = false,
+}):OnChanged(function(v)
+    S.AntiJumpscare = v
+    local ok = applyAntiJumpscare(v)
+    if not ok then
+        Fluent:Notify({ Title = "Anti-Jumpscare", Content = "getconnections unavailable - cannot block", Duration = 6 })
+    end
+end)
+
+P:AddToggle("KeepCamera", {
+    Title = "Unstick camera",
+    Description = "Restore the camera if a jumpscare leaves it locked",
+    Default = true,
+}):OnChanged(function(v) S.KeepCamera = v end)
+
+P:AddSection("Death")
+
+P:AddToggle("AutoRevive", {
+    Title = "Auto-Revive",
+    Description = "Press the game's own Revive button when you die",
+    Default = false,
+}):OnChanged(function(v) S.AutoRevive = v end)
+
+P:AddButton({
+    Title = "Panic - teleport away now",
+    Description = "Jump to the point farthest from the Locust",
+    Callback = function()
+        local r = hrp()
+        local _, root = locust()
+        if r and root then
+            r.CFrame = CFrame.new(dodgeTarget(r.Position, root.Position, 250))
+            r.AssemblyLinearVelocity = Vector3.zero
+            Stats.dodges = Stats.dodges + 1
+        end
+    end,
+})
+
+local Info = P:AddParagraph({ Title = "Status", Content = "idle" })
+task.spawn(function()
+    while not Fluent.Unloaded do
+        task.wait(0.5)
+        local _, root, detect = locust()
+        local r = hrp()
+        local d = (root and r) and math.floor((root.Position - r.Position).Magnitude) or -1
+        pcall(function()
+            Info:SetDesc(("Locust %s  |  dodges %d  |  scare blocked: %s  |  revives %d")
+                :format(d >= 0 and (d .. "m") or "?", Stats.dodges, tostring(scareBlocked), Stats.revives))
+        end)
+    end
+end)
+
+Fluent:Notify({ Title = "Protection", Content = "Loaded - Protection tab.", Duration = 5 })
+
+end
+do local ok, err = pcall(_part3)
+   if not ok then warn('[TheLust] anti.lua failed: ' .. tostring(err)) end end
+
+-- ============================ auto.lua ============================
+local function _part4()
+--[[
+    The Lust - Auto Escape
+    Appends an "Auto" tab. Load esp.lua first, or run this on its own.
+
+    ---------------------------------------------------------------------
+    MECHANICS (all verified live in-game, not guessed)
+    ---------------------------------------------------------------------
+    Cube puzzle   Cubes are unanchored. Stand next to one to take network
+                  ownership, then step its CFrame toward the matching
+                  detector pad. Seating all 3 makes the server DESTROY
+                  Workspace.ColorDoor -> the WireCutter room opens.
+
+    Cabinets      HoldDuration = 5, and the server VALIDATES that hold.
+                  fireproximityprompt does NOT work (Triggered fires
+                  client-side, server ignores it). What works:
+                  teleport within ~3 studs, then prompt:InputHoldBegin()
+                  and wait out the 5s. Confirmed by the rummage Sound
+                  firing, which only the server can start.
+                  NOTE: the game never disables a searched cabinet's
+                  prompt, so "searched" can only be tracked locally.
+
+    Everything    HoldDuration = 0 -> plain fireproximityprompt works.
+    else          Range IS enforced, with roughly 2x slack: the WireCutter
+                  went through at 19 studs against a 10-stud prompt, but
+                  firing at 268 studs did nothing. So every step still
+                  teleports into range first.
+
+    KEYCARD       The prompt sits on the Locust's own Handle. You must be
+                  next to the monster, and the moment you arrive it drags
+                  you off (3 studs -> 22 studs in 1.5s). What works is
+                  teleport + fire in the SAME frame, retried. Expect to
+                  die doing it - it cost a life during testing. That is
+                  why it is its own opt-in step, not part of the chain.
+    ---------------------------------------------------------------------
+]]
+
+if _G.__LustAuto_Stop then pcall(_G.__LustAuto_Stop) end
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+
+local Fluent = _G.__LustFluent
+    or loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+
+--=========================================================================--
+--                                 HELPERS                                 --
+--=========================================================================--
+
+local Running, Abort = false, false
+local HomeCF = nil
+local Status = "idle"
+-- shared with esp.lua so searched cabinets grey out in the ESP
+_G.__LustSearched = _G.__LustSearched or {}
+local Searched = _G.__LustSearched
+
+local function char()  return LocalPlayer.Character end
+local function hrp()
+    local c = char()
+    return c and c:FindFirstChild("HumanoidRootPart")
+end
+local function alive()
+    local c = char()
+    local h = c and c:FindFirstChildOfClass("Humanoid")
+    return h and h.Health > 0
+end
+
+local function say(fmt, ...)
+    Status = select("#", ...) > 0 and string.format(fmt, ...) or fmt
+    print("[AutoEscape] " .. Status)
+end
+
+-- wait for a live character again after a death
+local function waitAlive(timeout)
+    local t = 0
+    while not alive() and t < (timeout or 20) do
+        task.wait(0.25); t = t + 0.25
+        if Abort then return false end
+    end
+    return alive()
+end
+
+local function tp(cf)
+    local r = hrp()
+    if not r then return false end
+    r.CFrame = cf
+    r.AssemblyLinearVelocity = Vector3.zero
+    return true
+end
+
+local function anchorOf(inst)
+    if not inst then return nil end
+    if inst:IsA("BasePart") then return inst end
+    if inst:IsA("Tool") then return inst:FindFirstChild("Handle") end
+    if inst:IsA("Model") then return inst.PrimaryPart or inst:FindFirstChildWhichIsA("BasePart") end
+    return nil
+end
+
+local function promptOf(inst)
+    return inst and inst:FindFirstChildWhichIsA("ProximityPrompt", true)
+end
+
+-- hold=0 prompts: range is enforced, so teleport in first, then fire
+local function fireInstant(inst, label)
+    local p = promptOf(inst)
+    if not p or not p.Enabled then return false end
+    local a = anchorOf(inst)
+    if a then
+        tp(CFrame.new(a.Position + Vector3.new(0, 2, 3), a.Position))
+        task.wait(0.7)
+    end
+    say("firing %s", label)
+    pcall(fireproximityprompt, p)
+    task.wait(0.6)
+    return true
+end
+
+-- hold>0 prompts (the cabinets).
+--   * Triggered fires on RELEASE after the hold has run long enough, so
+--     InputHoldEnd() is mandatory - waiting past HoldDuration alone does nothing.
+--   * Moving during the hold CANCELS it. Teleport once, then stand still.
+--     (An earlier version re-teleported every 0.2s to stay in range and
+--      silently cancelled all 28 searches.)
+local FleeRadius = 45      -- bail out of a hold if the Locust gets this close
+local InstantSearch = true -- patch HoldDuration to 0 instead of waiting 5.3s
+
+local PPS = game:GetService("ProximityPromptService")
+
+-- Walk a ring of offsets until the engine actually SHOWS the prompt.
+-- A fixed "+LookVector * 2.5" lands inside geometry on some cabinets, and a
+-- prompt that never shows can never be triggered - that silently ate 8 of the
+-- 28 cabinets on the previous run.
+local function approach(part, prompt)
+    prompt.RequiresLineOfSight = false          -- client-side gate only
+    local shown = false
+    local c = PPS.PromptShown:Connect(function(p) if p == prompt then shown = true end end)
+
+    local offsets = {
+        part.CFrame.LookVector * 2.5,
+        part.CFrame.LookVector * -2.5,
+        part.CFrame.RightVector * 2.5,
+        part.CFrame.RightVector * -2.5,
+        Vector3.new(0, 2.5, 0),
+    }
+    for _, off in ipairs(offsets) do
+        tp(CFrame.new(part.Position + off + Vector3.new(0, 0.5, 0), part.Position))
+        local t = 0
+        while t < 0.8 do
+            task.wait(0.1); t = t + 0.1
+            if shown then c:Disconnect() return true end
+        end
+    end
+    c:Disconnect()
+    return shown
+end
+
+local function locustPos()
+    local e = workspace:FindFirstChild("Entities")
+    local l = e and e:FindFirstChild("Locust")
+    local a = l and (l.PrimaryPart or l:FindFirstChild("HumanoidRootPart"))
+    return a and a.Position or nil
+end
+
+-- The spot on the map currently farthest from the Locust, used as a bolt-hole.
+local function safeSpot()
+    local mp = locustPos()
+    if not mp then return nil end
+    local cands = {}
+    local f = workspace:FindFirstChild("Cabinets")
+    if f then
+        for _, c in ipairs(f:GetChildren()) do
+            local i = c:FindFirstChild("Interact")
+            if i then table.insert(cands, i.Position + Vector3.new(0, 3, 0)) end
+        end
+    end
+    for _, n in ipairs({ "RedDetector", "YellowDetector", "BlueDetector", "ExitDoor", "SpawnLocation" }) do
+        local o = workspace:FindFirstChild(n)
+        local a = o and (o:IsA("BasePart") and o or o:FindFirstChildWhichIsA("BasePart"))
+        if a then table.insert(cands, a.Position + Vector3.new(0, 4, 0)) end
+    end
+    local best, bd
+    for _, p in ipairs(cands) do
+        local d = (p - mp).Magnitude
+        if not bd or d > bd then best, bd = p, d end
+    end
+    return best, bd
+end
+
+-- Before working at a spot: if the Locust is near it, run to the far side of
+-- the map and wait there until it wanders off, then come back.
+local function evade(targetPos, minDist)
+    minDist = minDist or (FleeRadius * 2)
+    local hidden, waited = false, 0
+    while waited < 40 do
+        if Abort then return false end
+        local mp = locustPos()
+        if not mp then return true end
+        if (mp - targetPos).Magnitude >= minDist then
+            if hidden then say("Locust clear - back to work") end
+            return true
+        end
+        local spot = safeSpot()
+        if spot then tp(CFrame.new(spot)) end
+        if not hidden then
+            say("Locust %dm from target - hiding", math.floor((mp - targetPos).Magnitude))
+            hidden = true
+        end
+        task.wait(1)
+        waited = waited + 1
+    end
+    return false
+end
+
+local function holdPrompt(part, p, seconds)
+    if not (part and p) then return false end
+    if not approach(part, p) then return false end   -- prompt never activated
+    if not alive() then return false end
+
+    local done = false
+    local c = p.Triggered:Connect(function() done = true end)
+
+    if InstantSearch then
+        -- HoldDuration is a client-side gate: zero it and the trigger fires at
+        -- once, so we stand still for ~0.3s instead of 5.3s. Far less exposure.
+        p.HoldDuration = 0
+        task.wait(0.2)
+        pcall(function() p:InputHoldBegin() end)
+        pcall(function() p:InputHoldEnd() end)
+    else
+        pcall(function() p:InputHoldBegin() end)
+        local t = 0
+        while t < (seconds or 5.3) do        -- do NOT move in here
+            task.wait(0.1); t = t + 0.1
+            local mp = locustPos()
+            local r = hrp()
+            local tooClose = mp and r and (mp - r.Position).Magnitude < FleeRadius
+            if Abort or not alive() or tooClose then
+                pcall(function() p:InputHoldEnd() end)
+                c:Disconnect()
+                if tooClose then say("Locust closing in - aborting this cabinet") end
+                return false
+            end
+        end
+        pcall(function() p:InputHoldEnd() end)
+    end
+
+    local w = 0
+    while not done and w < 1.2 do task.wait(0.1); w = w + 0.1 end
+    c:Disconnect()
+    return done
+end
+
+--=========================================================================--
+--                               OBJECTIVES                                --
+--=========================================================================--
+
+local function objText(name)
+    local o = workspace:FindFirstChild(name)
+    local p = promptOf(o)
+    return p and p.ObjectText or nil
+end
+
+-- The lock prompts keep saying "KEY NEEDED" / "KEYCARD NEEDED" even once you
+-- are carrying the item - ObjectText is static flavour text, not state. What
+-- actually tells you is a Tool of that name in the backpack or equipped.
+local function hasTool(name)
+    local c = char()
+    if c and c:FindFirstChild(name) then return true end
+    return LocalPlayer.Backpack:FindFirstChild(name) ~= nil
+end
+
+local function equipTool(name)
+    local c = char()
+    local h = c and c:FindFirstChildOfClass("Humanoid")
+    local t = LocalPlayer.Backpack:FindFirstChild(name)
+    if t and h then pcall(function() h:EquipTool(t) end); task.wait(0.4); return true end
+    return c and c:FindFirstChild(name) ~= nil
+end
+
+-- Reading lock progress is genuinely awkward here:
+--   * ObjectText is static flavour text ("KEY NEEDED" forever), useless.
+--   * prompt.Enabled going false is a TRANSIENT cooldown while the server
+--     chews on an interaction - it flips back to true a few seconds later.
+--     It means neither success nor "burned", so never treat it as either;
+--     just wait for it to come back before firing again.
+-- The only trustworthy success signal is the item being consumed.
+local Unlocked = {}
+local LOCKS = { "Keyhole", "KeycardReader", "DoorWire" }
+local UNLOCK_SETTLE = 8   -- seconds disabled before we call it genuinely done
+
+-- true while the lock's prompt is disabled (cooldown OR done - see below)
+local function lockBusy(name)
+    local o = workspace:FindFirstChild(name)
+    if not o then return false end
+    local p = o:FindFirstChildWhichIsA("ProximityPrompt", true)
+    return p ~= nil and not p.Enabled
+end
+
+-- Watch when each lock was last seen ENABLED. A failed attempt disables the
+-- prompt for a few seconds and then it comes back; a real unlock disables it
+-- for good. So "disabled continuously for UNLOCK_SETTLE seconds" is the only
+-- reliable done signal - the tool is NOT consumed, you keep it.
+-- Seed every lock at load time. Without this, a lock that is ALREADY disabled
+-- when the script starts never gets a timestamp and can never settle, so it
+-- reads as "on cooldown" forever.
+local LastEnabled = {}
+for _, n in ipairs(LOCKS) do LastEnabled[n] = os.clock() end
+
+task.spawn(function()
+    while not Fluent.Unloaded do
+        for _, n in ipairs(LOCKS) do
+            if not lockBusy(n) then LastEnabled[n] = os.clock() end
+        end
+        task.wait(0.5)
+    end
+end)
+
+local function lockSettled(name)
+    if workspace:FindFirstChild(name) == nil then return true end
+    local last = LastEnabled[name]
+    return last ~= nil and lockBusy(name) and (os.clock() - last) >= UNLOCK_SETTLE
+end
+
+local function waitLockReady(name, timeout)
+    local t = 0
+    while lockBusy(name) and t < (timeout or 10) do
+        task.wait(0.5); t = t + 0.5
+        if Abort or lockSettled(name) then return false end
+    end
+    return not lockBusy(name)
+end
+
+local function lockDone(name)
+    if Unlocked[name] then return true end
+    if workspace:FindFirstChild(name) == nil then return true end
+    if lockSettled(name) then Unlocked[name] = true; return true end
+    return false
+end
+
+local function haveKey()     return hasTool("Key")     end
+local function haveKeycard() return hasTool("Keycard") end
+local function haveCutter()  return hasTool("WireCutter") end
+
+--------------------------------------------------- STEP 1: cube puzzle
+local CUBES = {
+    { "CubeRed",    "RedDetector"    },
+    { "CubeYellow", "YellowDetector" },
+    { "CubeBlue",   "BlueDetector"   },
+}
+
+local function cubesDone()
+    if not workspace:FindFirstChild("ColorDoor") then return true end
+    for _, e in ipairs(CUBES) do
+        local c, d = workspace:FindFirstChild(e[1]), workspace:FindFirstChild(e[2])
+        if not (c and d) then return false end
+        if (c.Position - d.Position).Magnitude > 4 then return false end
+    end
+    return true
+end
+
+local function doCubes()
+    if cubesDone() then say("cube puzzle already solved"); return true end
+    for _, e in ipairs(CUBES) do
+        if Abort then return false end
+        local cube, det = workspace:FindFirstChild(e[1]), workspace:FindFirstChild(e[2])
+        if cube and det then
+            say("moving %s", e[1])
+            evade(cube.Position)
+            tp(CFrame.new(cube.Position + Vector3.new(0, 4, 6)))
+            task.wait(1.2)
+            for _ = 1, 80 do
+                if Abort then return false end
+                local a = cube.Position
+                local b = det.Position + Vector3.new(0, 3, 0)
+                if (b - a).Magnitude < 2 then break end
+                local nextPos = a + (b - a).Unit * math.min(25, (b - a).Magnitude)
+                cube.CFrame = CFrame.new(nextPos)
+                cube.AssemblyLinearVelocity = Vector3.zero
+                tp(CFrame.new(nextPos + Vector3.new(0, 4, 8)))
+                task.wait(0.1)
+            end
+            task.wait(0.5)
+        end
+    end
+    task.wait(2)
+    say(cubesDone() and "cube puzzle solved - ColorDoor open" or "cube puzzle incomplete")
+    return cubesDone()
+end
+
+--------------------------------------------------- STEP 2: wirecutter
+local function doCutter()
+    if haveCutter() then say("already have the wirecutter"); return true end
+    local wc = workspace:FindFirstChild("WireCutter")
+    if not wc then say("wirecutter not in workspace"); return false end
+    tp(CFrame.new(anchorOf(wc).Position + Vector3.new(0, 3, 4)))
+    task.wait(0.8)
+    fireInstant(wc, "wirecutter")
+    task.wait(1)
+    say(haveCutter() and "wirecutter acquired" or "wirecutter pickup failed")
+    return haveCutter()
+end
+
+--------------------------------------------------- STEP 3: cabinets -> key
+local function doCabinets()
+    if haveKey() then say("already have the key"); return true end
+    local folder = workspace:FindFirstChild("Cabinets")
+    if not folder then return false end
+
+    local function remaining()
+        local t = {}
+        for _, c in ipairs(folder:GetChildren()) do
+            local i = c:FindFirstChild("Interact")
+            local p = i and i:FindFirstChildOfClass("ProximityPrompt")
+            if p and p.Enabled and not Searched[c] then
+                table.insert(t, { model = c, part = i, prompt = p })
+            end
+        end
+        return t
+    end
+
+    -- Each cabinet needs 5.3s of standing perfectly still, so always take the
+    -- one FARTHEST from the Locust right now rather than a fixed route.
+    local total = #remaining()
+    local failures = {}
+    for n = 1, total * 6 do
+        if Abort then return false end
+        -- stop the moment we have it, the rest of the cabinets do not matter
+        if haveKey() then
+            say("KEY FOUND - stopping search, %d cabinets left unopened", #remaining())
+            return true
+        end
+        local list = remaining()
+        if #list == 0 then break end
+        if not alive() then
+            say("died - waiting to respawn")
+            if not waitAlive(25) then return false end
+        end
+
+        local mp = locustPos()
+        local pick, best
+        for _, e in ipairs(list) do
+            if (failures[e.model] or 0) < 4 then
+                local score = mp and (e.part.Position - mp).Magnitude or 0
+                if not best or score > best then pick, best = e, score end
+            end
+        end
+        -- everything left has failed a lot: clear the strikes and go round again
+        if not pick then
+            if next(failures) == nil then break end
+            failures = {}
+            say("retrying the cabinets that kept failing")
+            pick, best = list[1], 0
+        end
+
+        -- wait out the Locust rather than dying at this cabinet
+        if not evade(pick.part.Position) then
+            failures[pick.model] = (failures[pick.model] or 0) + 1
+        else
+            local ok = holdPrompt(pick.part, pick.prompt, 5.3)
+            if ok then
+                Searched[pick.model] = true
+                say("searched %d/%d (Locust was %dm away)", total - #remaining() + 1, total, math.floor(best or 0))
+            else
+                failures[pick.model] = (failures[pick.model] or 0) + 1
+            end
+        end
+    end
+    if haveKey() then return true end
+    say("no key after searching everything reachable")
+    return false
+end
+
+--------------------------------------------------- STEP 4: keycard off the Locust
+local function doKeycard()
+    if haveKeycard() then say("already have the keycard"); return true end
+    local ent = workspace:FindFirstChild("Entities")
+    local locust = ent and ent:FindFirstChild("Locust")
+    local handle = locust and locust:FindFirstChild("Handle")
+    if not handle then say("locust handle not found"); return false end
+    local p = handle:FindFirstChildOfClass("ProximityPrompt")
+    if not p then say("no keycard prompt"); return false end
+    local root = locust.PrimaryPart or locust:FindFirstChild("HumanoidRootPart")
+    local dz = locust:FindFirstChild("Detectz")
+    if not root then say("locust root missing"); return false end
+
+    -- Detectz is a 20-stud-WIDE bar at head height (local Y +3.6, 2.4 tall),
+    -- centred on the monster - a sideways sweep, not a forward reach. The
+    -- Handle dangles in front at local Z +2.9. That leaves a pocket in front
+    -- of and beside the monster that is inside prompt range but outside the
+    -- bar. Ride that pocket instead of teleporting onto its face.
+    local POCKETS = {
+        Vector3.new(6, 0, 6), Vector3.new(4, 0, 8),
+        Vector3.new(-6, 0, 6), Vector3.new(6, 2, 6),
+    }
+
+    local function boxClearance(pos)
+        if not dz then return 99 end
+        local l = dz.CFrame:PointToObjectSpace(pos)
+        local hs = dz.Size * 0.5
+        local c = Vector3.new(math.clamp(l.X,-hs.X,hs.X), math.clamp(l.Y,-hs.Y,hs.Y), math.clamp(l.Z,-hs.Z,hs.Z))
+        return (l - c).Magnitude
+    end
+
+    -- stop anti.lua yanking us out of the pocket mid-grab
+    _G.__LustNoDodge = true
+    local home = hrp() and hrp().CFrame
+    say("grabbing keycard from the Locust's blind spot")
+
+    local got = false
+    for attempt = 1, #POCKETS * 3 do
+        if Abort or not alive() then break end
+        local pocket = POCKETS[((attempt - 1) % #POCKETS) + 1]
+
+        -- hold the pocket for a moment, re-solving it every frame because the
+        -- monster keeps turning; bail instantly if the bar sweeps onto us
+        local t = 0
+        while t < 1.2 do
+            if Abort or not alive() then break end
+            local r = hrp()
+            if not r then break end
+            local dest = root.CFrame:PointToWorldSpace(pocket)
+            if boxClearance(dest) < 3 then break end        -- pocket collapsed
+            r.CFrame = CFrame.new(dest, handle.Position)
+            r.AssemblyLinearVelocity = Vector3.zero
+            pcall(fireproximityprompt, p)
+            if p.Parent == nil or haveKeycard() then got = true break end
+            task.wait(0.1); t = t + 0.1
+        end
+        if got then say("keycard grabbed (attempt %d)", attempt) break end
+    end
+
+    _G.__LustNoDodge = false
+    if home and alive() then pcall(tp, home) end
+    task.wait(0.8)
+    got = got or haveKeycard() or (p.Parent == nil)
+    say(got and "keycard acquired" or "keycard grab failed")
+    return got
+end
+
+--------------------------------------------------- STEP 5: the three locks
+local function doLocks()
+    -- each lock wants its item actually equipped, not just carried
+    local order = {
+        { "Keyhole",       "keyhole",        "Key"        },
+        { "KeycardReader", "keycard reader", "Keycard"    },
+        { "DoorWire",      "door wire",      "WireCutter" },
+    }
+    for _, e in ipairs(order) do
+        if Abort then return false end
+        local name, label, toolName = e[1], e[2], e[3]
+
+        if lockDone(name) then
+            say("%s already done", label)
+        elseif not hasTool(toolName) then
+            say("skipping %s - no %s yet", label, toolName)
+        else
+            -- retryable: the prompt is not one-shot, it just goes on cooldown
+            for attempt = 1, 4 do
+                if Abort or lockDone(name) then break end
+                local o = workspace:FindFirstChild(name)
+                local p = promptOf(o)
+                local a = anchorOf(o)
+                if not (o and p and a) then break end
+
+                if a then evade(a.Position) end
+                if not waitLockReady(name, 8) then
+                    say("%s still on cooldown, waiting", label)
+                end
+                if not alive() then
+                    if not waitAlive(25) then return false end
+                end
+                -- the tool must be EQUIPPED, not just carried, and it has to
+                -- stay equipped through the teleporting that approach() does
+                if not hasTool(toolName) then
+                    say("lost the %s (died?) - cannot do %s", toolName, label)
+                    break
+                end
+                equipTool(toolName)
+
+                -- All three locks are E / OnePerButton and sit ~18 studs apart,
+                -- so only the nearest is live. approach() walks offsets until
+                -- the engine reports this exact prompt as shown.
+                if not approach(a, p) then
+                    say("%s attempt %d - prompt would not show", label, attempt)
+                else
+                    equipTool(toolName)          -- re-equip after the hops
+                    task.wait(0.3)
+                    pcall(fireproximityprompt, p)
+                    -- give it longer than the cooldown so a failed attempt's
+                    -- prompt has time to come back before we judge it
+                    local waited = 0
+                    while waited < UNLOCK_SETTLE + 2 do
+                        task.wait(0.5); waited = waited + 0.5
+                        if lockDone(name) then break end
+                        if not lockBusy(name) then break end   -- came back = failed
+                    end
+                    if lockDone(name) then
+                        say("%s UNLOCKED", label)
+                        break
+                    end
+                    say("%s attempt %d - prompt came back, did not take", label, attempt)
+                end
+            end
+            if not lockDone(name) then say("%s did NOT unlock", label) end
+        end
+    end
+    return true
+end
+
+--------------------------------------------------- STEP 6: leave
+local function doExit()
+    local tpPart = workspace:FindFirstChild("ExitTeleport")
+    local door = workspace:FindFirstChild("ExitDoor")
+    local target = anchorOf(tpPart) or anchorOf(door)
+    if not target then say("no exit part found"); return false end
+    say("heading for the exit")
+    tp(CFrame.new(target.Position + Vector3.new(0, 2, 0)))
+    task.wait(2)
+    return true
+end
+
+--=========================================================================--
+--                                 RUNNER                                  --
+--=========================================================================--
+
+-- Now part of the normal chain: the blind-spot approach keeps us outside the
+-- sweep bar, so this is no longer the guaranteed death it used to be.
+local RiskKeycard = true
+
+local Steps = {
+    { name = "Cube puzzle",  fn = doCubes   },
+    { name = "Wirecutter",   fn = doCutter  },
+    { name = "Key",          fn = doCabinets},
+    { name = "Keycard",      fn = doKeycard, risky = true },
+    { name = "Unlock",       fn = doLocks   },
+    { name = "Exit",         fn = doExit    },
+}
+
+local function runFrom(first)
+    if Running then say("already running"); return end
+    Running, Abort = true, false
+    HomeCF = hrp() and hrp().CFrame or nil
+
+    -- Tell anti.lua we are driving the character. Its Auto-Dodge drops to an
+    -- emergency-only threshold while this is set; otherwise both scripts
+    -- teleport the player every frame and neither ever converges.
+    _G.__LustBusy = true
+
+    task.spawn(function()
+        for i = first or 1, #Steps do
+            if Abort then break end
+            local s = Steps[i]
+            if s.risky and not RiskKeycard then
+                say("skipping %s (enable 'Allow lethal keycard grab')", s.name)
+                continue
+            end
+            say("STEP %d/%d - %s", i, #Steps, s.name)
+            local ok, err = pcall(s.fn)
+            if not ok then warn("[AutoEscape] " .. s.name .. ": " .. tostring(err)) end
+            task.wait(0.4)
+        end
+        if Abort and HomeCF then pcall(tp, HomeCF) end
+        say(Abort and "aborted" or "sequence finished")
+        Running = false
+        _G.__LustBusy = false
+    end)
+end
+
+_G.__LustAuto_Stop = function()
+    Abort = true
+    Running = false
+    _G.__LustBusy = false
+end
+
+-- console handles: __LustAuto_Run(1) full chain, __LustAuto_Step("Key"), __LustAuto_Status()
+_G.__LustAuto_Run = runFrom
+_G.__LustAuto_Status = function() return Status, Running end
+_G.__LustAuto_Step = function(name)
+    for _, s in ipairs(Steps) do
+        if s.name:lower() == tostring(name):lower() then
+            Running, Abort = true, false
+            task.spawn(function() pcall(s.fn); Running = false end)
+            return true
+        end
+    end
+    return false
+end
+
+--=========================================================================--
+--                                   UI                                    --
+--=========================================================================--
+
+local Window = _G.__LustWindow
+if not Window then
+    Window = Fluent:CreateWindow({
+        Title = "House of The Locust", SubTitle = "Auto Escape",
+        TabWidth = 150, Size = UDim2.fromOffset(560, 460),
+        Acrylic = false, Theme = "Darker",
+        MinimizeKey = Enum.KeyCode.RightControl,
+    })
+    _G.__LustWindow = Window
+end
+
+local A = (_G.__LustTabs and _G.__LustTabs.Auto)
+       or Window:AddTab({ Title = "Auto Escape", Icon = "play" })
+-- the one-button flow lives on Home; this tab is the detailed controls
+local H = (_G.__LustTabs and _G.__LustTabs.Home) or A
+
+------------------------------------------------------------------ HOME
+H:AddButton({
+    Title = "AUTO ESCAPE",
+    Description = "Does the whole escape start to finish",
+    Callback = function() runFrom(1) end,
+})
+
+H:AddButton({
+    Title = "STOP",
+    Description = "Cancels the run and puts you back where you started",
+    Callback = function()
+        Abort = true
+        say("abort requested")
+    end,
+})
+
+local StatusPara = H:AddParagraph({ Title = "Now doing", Content = "idle" })
+task.spawn(function()
+    while not Fluent.Unloaded do
+        task.wait(0.4)
+        pcall(function() StatusPara:SetDesc(Status) end)
+    end
+end)
+
+------------------------------------------------------------------ AUTO TAB
+A:AddParagraph({
+    Title = "The escape, in order",
+    Content = "1. Cube puzzle  - opens the ColorDoor\n"
+           .. "2. Wirecutter   - behind that door\n"
+           .. "3. Cabinets     - one of the 28 holds the Key\n"
+           .. "4. Keycard      - taken off the Locust itself\n"
+           .. "5. Unlock       - Keyhole, Keycard Reader, Door Wire\n"
+           .. "6. Exit         - leave through the ExitDoor",
+})
+
+A:AddSection("Run one step at a time")
+for i, s in ipairs(Steps) do
+    A:AddButton({
+        Title = i .. ". " .. s.name,
+        Description = "Runs only this step",
+        Callback = function()
+            if Running then return say("busy") end
+            Running, Abort = true, false
+            task.spawn(function()
+                local ok, err = pcall(s.fn)
+                if not ok then warn("[AutoEscape] " .. tostring(err)) end
+                Running = false
+            end)
+        end,
+    })
+end
+
+A:AddSection("Cabinet searching")
+
+A:AddToggle("InstantSearch", {
+    Title = "Instant search",
+    Description = "On: ~1s per cabinet. Off: stand still for the real 5.3s hold.",
+    Default = true,
+}):OnChanged(function(v) InstantSearch = v end)
+
+A:AddSection("Safety")
+
+A:AddSlider("FleeRadius", {
+    Title = "Keep away from the Locust",
+    Description = "Hide and wait if it comes within this many studs",
+    Default = 45, Min = 0, Max = 200, Rounding = 0,
+    Callback = function(v) FleeRadius = v end,
+})
+
+A:AddToggle("RiskKeycard", {
+    Title = "Include the keycard grab",
+    Description = "Get The Keycard From The Lust.",
+    Default = true,
+}):OnChanged(function(v) RiskKeycard = v end)
+
+H:AddButton({
+    Title = "Progress report",
+    Description = "What is done and what is left",
+    Callback = function()
+        local left = 0
+        local f = workspace:FindFirstChild("Cabinets")
+        if f then for _, c in ipairs(f:GetChildren()) do if not Searched[c] then left = left + 1 end end end
+        local function lockState(n)
+            if lockDone(n) then return "OK" end
+            if lockBusy(n) then return "cooldown" end
+            return "open"
+        end
+        local txt = ("cubes:%s cutter:%s key:%s keycard:%s | keyhole:%s reader:%s wire:%s | cabinets left:%d")
+            :format(cubesDone() and "OK" or "no", haveCutter() and "OK" or "no",
+                    haveKey() and "OK" or "no", haveKeycard() and "OK" or "no",
+                    lockState("Keyhole"), lockState("KeycardReader"),
+                    lockState("DoorWire"), left)
+        print("[AutoEscape] " .. txt)
+        Fluent:Notify({ Title = "Progress", Content = txt, Duration = 10 })
+    end,
+})
+
+Fluent:Notify({ Title = "Auto Escape", Content = "Loaded. Auto tab -> AUTO ESCAPE.", Duration = 6 })
+
+end
+do local ok, err = pcall(_part4)
+   if not ok then warn('[TheLust] auto.lua failed: ' .. tostring(err)) end end
+

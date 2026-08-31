@@ -1,0 +1,2056 @@
+local runService = game:GetService("RunService")
+local beanzUi = "https://raw.githubusercontent.com/pid4k/scripts/main/BeanzUI.lua"
+local uiLibraryOption = (runService:IsStudio() and require(script.Parent.BeanzUI))
+    or loadstring(game:HttpGet(beanzUi))()
+local text = "BeanzHub/"
+local secondaryText = "BeanzLS.txt"
+local flag = false
+if runService:IsStudio() then
+    task.wait(1)
+end
+local alternateText = tostring(text .. secondaryText)
+function resetdefault(argument, secondaryText, tertiaryArgument)
+    local text = tostring(secondaryText .. ",")
+    text = text:rep(tertiaryArgument)
+    text = text:sub(0, text:len() - 1)
+    writefile(argument, text)
+end
+function installfile()
+    if isfile then
+        if not isfolder("BeanzHub") then
+            makefolder("BeanzHub")
+        end
+        if not isfile(alternateText) then
+            writefile(alternateText, "")
+            resetdefault(alternateText, "nil", 10)
+        end
+    end
+    task.wait()
+end
+installfile()
+function checkvariable(variableName, secondaryArgument)
+    if isfile then
+        if readfile(variableName) == nil then
+            resetdefault(variableName, "nil", 20)
+        end
+        local readfileResult = readfile(variableName)
+        local split = readfileResult:split(",")
+        local text = ""
+        for key, item in split do
+            if key == secondaryArgument then
+                return item
+            end
+        end
+        resetdefault(variableName, "nil", 20)
+    end
+end
+function writevariable(argument, secondaryArgument, secondaryText)
+    if isfile then
+        if readfile(argument) == nil then
+            resetdefault(argument, "nil", 20)
+        end
+        local readfileResult = readfile(argument)
+        local split = readfileResult:split(",")
+        local text = ""
+        for key, item in split do
+            if key == secondaryArgument then
+                text = tostring(text .. secondaryText .. ",")
+            elseif item ~= "" then
+                text = tostring(text .. item .. ",")
+            end
+        end
+        text = text:sub(0, text:len() - 1)
+        writefile(argument, text)
+    end
+end
+local resultCallback = (syn and syn.request)
+    or (http and http.request)
+    or http_request
+    or (fluxus and fluxus.request)
+    or request
+local callback = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
+local httpService = game:GetService("HttpService")
+local tweenService = game:GetService("TweenService")
+local additionalText = "Life Sentence Script V2"
+local uiLibrary = uiLibraryOption:new({
+    ["Name"] = additionalText,
+    ["Movable"] = true,
+    ["Size"] = UDim2.new(0.2, 200, 0.2, 200),
+    ["MinimizedSize"] = UDim2.new(0.2, 200, 0, 40),
+})
+local function handleCFrame(cFrameArgument)
+    if fireproximityprompt then
+        fireproximityprompt(cFrameArgument, 1)
+    end
+end
+local fromRgbResult = Color3.fromRGB(195, 194, 199)
+local secondaryFromRgbResult = Color3.fromRGB(148, 110, 39)
+local function handler(argument, secondaryArgument, tertiaryArgument)
+    local success, result = pcall(function()
+        keypress(argument)
+        task.wait(tertiaryArgument)
+        keyrelease(argument)
+    end)
+    if result then
+        keypress(secondaryArgument)
+        task.wait(tertiaryArgument)
+        keyrelease(secondaryArgument)
+    end
+end
+do
+    local nameData = {}
+    nameData["121"] = Instance.new("Frame", uiLibrary["2"])
+    nameData["121"]["Visible"] = false
+    nameData["121"]["ZIndex"] = 5
+    nameData["121"]["BorderSizePixel"] = 0
+    nameData["121"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+    nameData["121"]["Size"] = UDim2.new(0.44969, 0, 0.3516, 0)
+    nameData["121"]["Position"] = UDim2.new(0.27387, 0, 0.28093, 0)
+    nameData["121"]["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["121"]["Name"] = "Whitelistkey"
+    nameData["121"]["BackgroundTransparency"] = 0.25
+    nameData["122"] = Instance.new("TextLabel", nameData["121"])
+    nameData["122"]["TextWrapped"] = true
+    nameData["122"]["ZIndex"] = 6
+    nameData["122"]["BorderSizePixel"] = 0
+    nameData["122"]["TextScaled"] = true
+    nameData["122"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+    nameData["122"]["TextSize"] = 14
+    nameData["122"]["FontFace"] =
+        Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+    nameData["122"]["TextColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["122"]["BackgroundTransparency"] = 1
+    nameData["122"]["Size"] = UDim2.new(1, 0, 0.28028, 0)
+    nameData["122"]["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["122"]["Text"] = "Insert Gold Key"
+    nameData["123"] = Instance.new("TextBox", nameData["121"])
+    nameData["123"]["TextColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["123"]["ZIndex"] = 6
+    nameData["123"]["BorderSizePixel"] = 0
+    nameData["123"]["TextWrapped"] = true
+    nameData["123"]["TextSize"] = 14
+    nameData["123"]["TextScaled"] = true
+    nameData["123"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+    nameData["123"]["FontFace"] =
+        Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+    nameData["123"]["ClearTextOnFocus"] = false
+    nameData["123"]["Size"] = UDim2.new(0.49708, 0, 0.38033, 0)
+    nameData["123"]["Position"] = UDim2.new(0.09973, 0, 0.44525, 0)
+    nameData["123"]["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["123"]["Text"] = [[]]
+    nameData["124"] = Instance.new("TextButton", nameData["121"])
+    nameData["124"]["TextWrapped"] = true
+    nameData["124"]["BorderSizePixel"] = 0
+    nameData["124"]["TextSize"] = 14
+    nameData["124"]["TextColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["124"]["TextScaled"] = true
+    nameData["124"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+    nameData["124"]["FontFace"] =
+        Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+    nameData["124"]["ZIndex"] = 6
+    nameData["124"]["Size"] = UDim2.new(0.33157, 0, 0.21319, 0)
+    nameData["124"]["Name"] = "Copy"
+    nameData["124"]["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["124"]["Text"] = "Copy Link"
+    nameData["124"]["Position"] = UDim2.new(0.63872, 0, 0.68668, 0)
+    nameData["125"] = Instance.new("TextButton", nameData["121"])
+    nameData["125"]["TextWrapped"] = true
+    nameData["125"]["BorderSizePixel"] = 0
+    nameData["125"]["TextSize"] = 14
+    nameData["125"]["TextColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["125"]["TextScaled"] = true
+    nameData["125"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+    nameData["125"]["FontFace"] =
+        Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+    nameData["125"]["ZIndex"] = 6
+    nameData["125"]["Size"] = UDim2.new(0.13688, 0, 0.26534, 0)
+    nameData["125"]["BackgroundTransparency"] = 1
+    nameData["125"]["Name"] = "Exit"
+    nameData["125"]["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["125"]["Text"] = [[X]]
+    nameData["125"]["Position"] = UDim2.new(0.85888, 0, 0.0122, 0)
+    nameData["126"] = Instance.new("TextButton", nameData["121"])
+    nameData["126"]["TextWrapped"] = true
+    nameData["126"]["BorderSizePixel"] = 0
+    nameData["126"]["TextSize"] = 14
+    nameData["126"]["TextColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["126"]["TextScaled"] = true
+    nameData["126"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+    nameData["126"]["FontFace"] =
+        Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+    nameData["126"]["ZIndex"] = 6
+    nameData["126"]["Size"] = UDim2.new(0.33157, 0, 0.21319, 0)
+    nameData["126"]["Name"] = "Confirm"
+    nameData["126"]["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["126"]["Text"] = "Confirm"
+    nameData["126"]["Position"] = UDim2.new(0.63872, 0, 0.41168, 0)
+end
+do
+    local nameData = {}
+    nameData["103"] = Instance.new("Frame", uiLibrary["2"])
+    nameData["103"]["Visible"] = false
+    nameData["103"]["ZIndex"] = 5
+    nameData["103"]["BorderSizePixel"] = 0
+    nameData["103"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+    nameData["103"]["Size"] = UDim2.new(0.44969, 0, 0.3516, 0)
+    nameData["103"]["Position"] = UDim2.new(0.27387, 0, 0.28093, 0)
+    nameData["103"]["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["103"]["Name"] = "Key"
+    nameData["103"]["BackgroundTransparency"] = 0.25
+    nameData["104"] = Instance.new("TextLabel", nameData["103"])
+    nameData["104"]["TextWrapped"] = true
+    nameData["104"]["ZIndex"] = 6
+    nameData["104"]["BorderSizePixel"] = 0
+    nameData["104"]["TextScaled"] = true
+    nameData["104"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+    nameData["104"]["TextSize"] = 14
+    nameData["104"]["FontFace"] =
+        Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+    nameData["104"]["TextColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["104"]["BackgroundTransparency"] = 1
+    nameData["104"]["Size"] = UDim2.new(1, 0, 0.28028, 0)
+    nameData["104"]["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["104"]["Text"] = "Insert Silver Key"
+    nameData["105"] = Instance.new("TextBox", nameData["103"])
+    nameData["105"]["TextColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["105"]["ZIndex"] = 6
+    nameData["105"]["BorderSizePixel"] = 0
+    nameData["105"]["TextWrapped"] = true
+    nameData["105"]["TextSize"] = 14
+    nameData["105"]["TextScaled"] = true
+    nameData["105"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+    nameData["105"]["FontFace"] =
+        Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+    nameData["105"]["Size"] = UDim2.new(0.49708, 0, 0.38033, 0)
+    nameData["105"]["Position"] = UDim2.new(0.09973, 0, 0.44525, 0)
+    nameData["105"]["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["105"]["Text"] = [[]]
+    nameData["106"] = Instance.new("TextButton", nameData["103"])
+    nameData["106"]["TextWrapped"] = true
+    nameData["106"]["BorderSizePixel"] = 0
+    nameData["106"]["TextSize"] = 14
+    nameData["106"]["TextColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["106"]["TextScaled"] = true
+    nameData["106"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+    nameData["106"]["FontFace"] =
+        Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+    nameData["106"]["ZIndex"] = 6
+    nameData["106"]["Size"] = UDim2.new(0.33157, 0, 0.21319, 0)
+    nameData["106"]["Name"] = "Confirm"
+    nameData["106"]["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["106"]["Text"] = "Confirm"
+    nameData["106"]["Position"] = UDim2.new(0.63872, 0, 0.56113, 0)
+    nameData["107"] = Instance.new("TextButton", nameData["103"])
+    nameData["107"]["TextWrapped"] = true
+    nameData["107"]["BorderSizePixel"] = 0
+    nameData["107"]["TextSize"] = 14
+    nameData["107"]["TextColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["107"]["TextScaled"] = true
+    nameData["107"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+    nameData["107"]["FontFace"] =
+        Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+    nameData["107"]["ZIndex"] = 6
+    nameData["107"]["Size"] = UDim2.new(0.13688, 0, 0.26534, 0)
+    nameData["107"]["BackgroundTransparency"] = 1
+    nameData["107"]["Name"] = "Exit"
+    nameData["107"]["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+    nameData["107"]["Text"] = [[X]]
+    nameData["107"]["Position"] = UDim2.new(0.85888, 0, 0.0122, 0)
+end
+local key = uiLibrary["2"].Key
+local whitelistkey = uiLibrary["2"].Whitelistkey
+local fallbackText = "veryoriginalkey"
+local secondaryFlag = false
+local updateCFrameFlag = false
+local players = game:GetService("Players")
+local userInputService = game:GetService("UserInputService")
+local localValuePlayer = players.LocalPlayer
+local jobId = game.JobId
+local function secondaryHandler(displayValue)
+    if callback then
+        callback(tostring(displayValue))
+    end
+end
+local updateCFrameData = {
+    ["Workshop"] = CFrame.new(
+        1094.84644,
+        5.18829727,
+        -104.25605,
+        -0.12874198,
+        1.6843973e-8,
+        -0.991678119,
+        2.3398972e-8,
+        1,
+        1.3947613e-8,
+        0.991678119,
+        -2.1408605e-8,
+        -0.12874198
+    ),
+    ["Sewers"] = CFrame.new(
+        978.041138,
+        -36.7074013,
+        -144.309418,
+        0.439968348,
+        -4.2129507e-8,
+        -0.898013294,
+        -8.1422136e-10,
+        1,
+        -4.731304e-8,
+        0.898013294,
+        2.1547422e-8,
+        0.439968348
+    ),
+    ["Mines"] = CFrame.new(
+        839.288757,
+        4.247859,
+        -206.344833,
+        -0.825273693,
+        0,
+        -0.564733028,
+        0,
+        1,
+        "-0",
+        0.564733028,
+        "-0",
+        -0.825273693
+    ),
+    ["SafeZone"] = CFrame.new(
+        850.167908,
+        4.96147585,
+        53.656353,
+        -0.986939073,
+        6.745879e-8,
+        -0.16109401,
+        7.213704e-8,
+        1,
+        -2.3191877e-8,
+        0.16109401,
+        -3.4509814e-8,
+        -0.986939073
+    ),
+    ["Laundry"] = CFrame.new(
+        784.98114,
+        5.18828392,
+        -77.2798309,
+        -0.11736463,
+        0,
+        -0.993088901,
+        0,
+        1,
+        "-0",
+        0.993088901,
+        "-0",
+        -0.11736463
+    ),
+    ["Bounty"] = CFrame.new(
+        1010.23859,
+        4.59183168,
+        -91.2799454,
+        0.260227412,
+        0,
+        -0.965547383,
+        "-0",
+        1,
+        "-0",
+        0.965547383,
+        0,
+        0.260227412
+    ),
+    ["CriminalBase"] = CFrame.new(
+        1439.27087,
+        2.41515756,
+        2279.43359,
+        0.0456298031,
+        0,
+        -0.998958349,
+        "-0",
+        0.99999994,
+        "-0",
+        0.998958468,
+        0,
+        0.0456297994
+    ),
+    ["LockedRoom"] = CFrame.new(
+        849.260925,
+        5.18829203,
+        34.9711075,
+        -0.454783201,
+        3.0836507e-8,
+        -0.890602171,
+        -2.7488595e-8,
+        1,
+        4.8661295e-8,
+        0.890602171,
+        4.6611742e-8,
+        -0.454783201
+    ),
+    ["Showers"] = CFrame.new(
+        966.587952,
+        4.97065783,
+        163.413269,
+        -0.948072255,
+        3.617532e-8,
+        0.318054974,
+        6.4565135e-8,
+        1,
+        7.87194e-8,
+        -0.318054974,
+        9.5166946e-8,
+        -0.948072255
+    ),
+    ["StorageRoom"] = CFrame.new(
+        800.035767,
+        4.97097921,
+        84.2680817,
+        0.531447887,
+        -1.7874504e-8,
+        0.84709096,
+        1.0293123e-7,
+        1,
+        -4.3475946e-8,
+        -0.84709096,
+        1.10297314e-7,
+        0.531447887
+    ),
+    ["GunStore"] = CFrame.new(
+        959.024475,
+        2.85768723,
+        2041.53406,
+        0.554941595,
+        6.606871e-8,
+        -0.831889331,
+        -7.450563e-8,
+        1,
+        2.9718418e-8,
+        0.831889331,
+        4.548845e-8,
+        0.554941595
+    ),
+    ["Gym"] = CFrame.new(
+        1094.45386,
+        5.16586781,
+        74.2670822,
+        0.448878676,
+        2.9108199e-8,
+        -0.893592715,
+        8.186718e-8,
+        1,
+        7.369871e-8,
+        0.893592715,
+        -1.0623769e-7,
+        0.448878676
+    ),
+    ["ClosestHouse"] = CFrame.new(
+        772.488037,
+        4.66011286,
+        1506.62512,
+        -0.147377893,
+        -2.8774757e-8,
+        0.98908025,
+        5.0898564e-8,
+        1,
+        3.6676578e-8,
+        -0.98908025,
+        5.574808e-8,
+        -0.147377893
+    ),
+    ["Bank"] = CFrame.new(
+        923.075195,
+        2.78868818,
+        2587.39697,
+        -0.999015689,
+        1.6477953e-9,
+        -0.0443586931,
+        1.5359365e-9,
+        1,
+        2.555772e-9,
+        0.0443586931,
+        2.485124e-9,
+        -0.999015689
+    ),
+}
+local safeZone = CFrame.new(
+    977.436829,
+    -36.9321289,
+    83.7444839,
+    0.0836226642,
+    4.8527626e-9,
+    0.996497512,
+    -2.6360016e-9,
+    1,
+    -4.6486153e-9,
+    -0.996497512,
+    -2.2380395e-9,
+    0.0836226642
+)
+if checkvariable(alternateText, 7) == "true" then
+    updateCFrameData.SafeZone = safeZone
+end
+local function alternateHandler()
+    localValuePlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+    localValuePlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Running)
+    task.wait(1)
+    localValuePlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
+end
+local function updateCFrame(updateCFrameNumber, cFrame, input, instance, cFrameCallback)
+    instance.CFrame = cFrame
+    local tweenInfo = TweenInfo.new(
+        (cFrame.Position - input.Position).Magnitude / updateCFrameNumber,
+        Enum.EasingStyle.Linear,
+        Enum.EasingDirection.In,
+        0,
+        false
+    )
+    local create = tweenService:Create(instance, tweenInfo, { ["CFrame"] = input })
+    create:Play()
+    create.Completed:Once(function()
+        if cFrameCallback then
+            cFrameCallback()
+        end
+    end)
+end
+task.spawn(function()
+    if resultCallback then
+        function SendMessage(argument, secondaryArgument)
+            local httpService = game:GetService("HttpService")
+            local resultData = { ["Content-Type"] = "application/json" }
+            local jsonencodeConfig = { ["content"] = secondaryArgument }
+            local encodedData = httpService:JSONEncode(jsonencodeConfig)
+            local result = resultCallback({
+                ["Url"] = argument,
+                ["Method"] = "POST",
+                ["Headers"] = resultData,
+                ["Body"] = encodedData,
+            })
+        end
+        function SendMessageEMBED(argument, secondaryArgument)
+            local httpService = game:GetService("HttpService")
+            local resultData = { ["Content-Type"] = "application/json" }
+            local jsonencodeConfig = {
+                ["embeds"] = {
+                    {
+                        ["title"] = secondaryArgument.title,
+                        ["description"] = secondaryArgument.description,
+                        ["color"] = secondaryArgument.color,
+                        ["fields"] = secondaryArgument.fields,
+                        ["footer"] = { ["text"] = secondaryArgument.footer.text },
+                    },
+                },
+            }
+            local encodedData = httpService:JSONEncode(jsonencodeConfig)
+            local result = resultCallback({
+                ["Url"] = argument,
+                ["Method"] = "POST",
+                ["Headers"] = resultData,
+                ["Body"] = encodedData,
+            })
+        end
+        local url =
+            "https://webhook.lewisakura.moe/api/webhooks/1540989964567707658/9U6o6QactLCU1KISE06IZ-WfyAXt6n0r6l0TI4zKug5sxVNp9BRkp8i3SDyUcplSaHwk"
+        local thisIsAnEmbeddedMessageConfig = {
+            ["title"] = "This is an embedded message",
+            ["description"] = "This message has an embed with fields and a footer",
+            ["color"] = 15548997,
+            ["fields"] = {
+                { ["name"] = "Field 1", ["value"] = "This is the first field" },
+                { ["name"] = "Field 2", ["value"] = "This is the second field" },
+            },
+            ["footer"] = { ["text"] = "This is the footer text" },
+        }
+        local text = "Without a key"
+        local flag = false
+        local aScriptHasBeenExecutedConfigNumber = 15548997
+        local aScriptHasBeenExecutedConfig = {
+            ["title"] = "A script has been executed",
+            ["description"] = tostring(localValuePlayer.Name .. " has executed " .. additionalText),
+            ["color"] = aScriptHasBeenExecutedConfigNumber,
+            ["fields"] = {
+                {
+                    ["name"] = "Player profile",
+                    ["value"] = tostring("https://www.roblox.com/users/" .. localValuePlayer.UserId .. "/profile"),
+                },
+                { ["name"] = "Server", ["value"] = tostring("JobID: " .. jobId) },
+            },
+            ["footer"] = { ["text"] = text },
+        }
+        local power = 2 ^ 32
+        local difference = power - 1
+        local function bitXor(leftValue, rightValue)
+            local bitXorNumber, sumNumber = 0, 1
+            while (leftValue ~= 0) or (rightValue ~= 0) do
+                local remainder, number = leftValue % 2, rightValue % 2
+                local secondaryRemainder = (remainder + number) % 2
+                bitXorNumber = bitXorNumber + (secondaryRemainder * sumNumber)
+                leftValue = math.floor(leftValue / 2)
+                rightValue = math.floor(rightValue / 2)
+                sumNumber = sumNumber * 2
+            end
+            return bitXorNumber % power
+        end
+        local function bitXorMany(value, nextValue, additionalValue, ...)
+            local leftValue
+            if nextValue then
+                value = value % power
+                nextValue = nextValue % power
+                leftValue = bitXor(value, nextValue)
+                if additionalValue then
+                    leftValue = bitXorMany(leftValue, additionalValue, ...)
+                end
+                return leftValue
+            elseif value then
+                return value % power
+            else
+                return 0
+            end
+        end
+        local function bitAnd(leftValue, rightValue, additionalValue, ...)
+            local xorResult
+            if rightValue then
+                leftValue = leftValue % power
+                rightValue = rightValue % power
+                xorResult = ((leftValue + rightValue) - bitXor(leftValue, rightValue)) / 2
+                if additionalValue then
+                    xorResult = bitAnd(xorResult, additionalValue, ...)
+                end
+                return xorResult
+            elseif leftValue then
+                return leftValue % power
+            else
+                return difference
+            end
+        end
+        local function handleNumber(number)
+            return difference - number
+        end
+        local function floor(floorNumber, number)
+            if number < 0 then
+                return lshift(floorNumber, -number)
+            end
+            return math.floor((floorNumber % (2 ^ 32)) / (2 ^ number))
+        end
+        local function handler(number, floorNumber)
+            if (floorNumber > 31) or (floorNumber < -31) then
+                return 0
+            end
+            return floor(number % power, floorNumber)
+        end
+        local function secondaryHandleNumber(number, secondaryNumber)
+            if secondaryNumber < 0 then
+                return handler(number, -secondaryNumber)
+            end
+            return (number * (2 ^ secondaryNumber)) % (2 ^ 32)
+        end
+        local function alternateHandleNumber(leftValue, rotationAmount)
+            leftValue = leftValue % power
+            rotationAmount = rotationAmount % 32
+            local xorResult = bitAnd(leftValue, (2 ^ rotationAmount) - 1)
+            return handler(leftValue, rotationAmount) + secondaryHandleNumber(xorResult, 32 - rotationAmount)
+        end
+        local remainderData = {
+            1116352408,
+            1899447441,
+            3049323471,
+            3921009573,
+            961987163,
+            1508970993,
+            2453635748,
+            2870763221,
+            3624381080,
+            310598401,
+            607225278,
+            1426881987,
+            1925078388,
+            2162078206,
+            2614888103,
+            3248222580,
+            3835390401,
+            4022224774,
+            264347078,
+            604807628,
+            770255983,
+            1249150122,
+            1555081692,
+            1996064986,
+            2554220882,
+            2821834349,
+            2952996808,
+            3210313671,
+            3336571891,
+            3584528711,
+            113926993,
+            338241895,
+            666307205,
+            773529912,
+            1294757372,
+            1396182291,
+            1695183700,
+            1986661051,
+            2177026350,
+            2456956037,
+            2730485921,
+            2820302411,
+            3259730800,
+            3345764771,
+            3516065817,
+            3600352804,
+            4094571909,
+            275423344,
+            430227734,
+            506948616,
+            659060556,
+            883997877,
+            958139571,
+            1322822218,
+            1537002063,
+            1747873779,
+            1955562222,
+            2024104815,
+            2227730452,
+            2361852424,
+            2428436474,
+            2756734187,
+            3204031479,
+            3329325298,
+        }
+        local function bytesToHex(bytes)
+            return string.gsub(bytes, ".", function(bytesToHexArgument)
+                return string.format("%02x", string.byte(bytesToHexArgument))
+            end)
+        end
+        local function integerToBytes(value, byteCount)
+            local integerToBytesText = ""
+            for index = 1, byteCount do
+                local byteValue = value % 256
+                integerToBytesText = string.char(byteValue) .. integerToBytesText
+                value = (value - byteValue) / 256
+            end
+            return integerToBytesText
+        end
+        local function bytesToInteger(bytes, offset)
+            local bytesToIntegerNumber = 0
+            for index = offset, offset + 3 do
+                bytesToIntegerNumber = (bytesToIntegerNumber * 256) + string.byte(bytes, index)
+            end
+            return bytesToIntegerNumber
+        end
+        local function padMessage(message, messageLength)
+            local difference = 64 - ((messageLength + 9) % 64)
+            messageLength = integerToBytes(8 * messageLength, 8)
+            message = message .. "\128" .. string.rep("\0", difference) .. messageLength
+            assert((#message % 64) == 0)
+            return message
+        end
+        local function initializeSha256State(state)
+            state[1] = 1779033703
+            state[2] = 3144134277
+            state[3] = 1013904242
+            state[4] = 2773480762
+            state[5] = 1359893119
+            state[6] = 2600822924
+            state[7] = 528734635
+            state[8] = 1541459225
+            return state
+        end
+        local function secondaryHandler(bytes, number, hashState)
+            local data = {}
+            for index = 1, 16 do
+                data[index] = bytesToInteger(bytes, number + ((index - 1) * 4))
+            end
+            for index = 17, 64 do
+                local leftValue = data[index - 15]
+                local xorResult = bitXorMany(
+                    alternateHandleNumber(leftValue, 7),
+                    alternateHandleNumber(leftValue, 18),
+                    handler(leftValue, 3)
+                )
+                leftValue = data[index - 2]
+                data[index] = (
+                    data[index - 16]
+                    + xorResult
+                    + data[index - 7]
+                    + bitXorMany(
+                        alternateHandleNumber(leftValue, 17),
+                        alternateHandleNumber(leftValue, 19),
+                        handler(leftValue, 10)
+                    )
+                ) % power
+            end
+            local leftValue, rightValue, secondaryRightValue, alternateRightValue, remainder, additionalRightValue, fallbackRightValue, nestedRightValue =
+                hashState[1],
+                hashState[2],
+                hashState[3],
+                hashState[4],
+                hashState[5],
+                hashState[6],
+                hashState[7],
+                hashState[8]
+            for index = 1, 64 do
+                local xorResult = bitXorMany(
+                    alternateHandleNumber(leftValue, 2),
+                    alternateHandleNumber(leftValue, 13),
+                    alternateHandleNumber(leftValue, 22)
+                )
+                local secondaryXorResult = bitXorMany(
+                    bitAnd(leftValue, rightValue),
+                    bitAnd(leftValue, secondaryRightValue),
+                    bitAnd(rightValue, secondaryRightValue)
+                )
+                local number = (xorResult + secondaryXorResult) % power
+                local alternateXorResult = bitXorMany(
+                    alternateHandleNumber(remainder, 6),
+                    alternateHandleNumber(remainder, 11),
+                    alternateHandleNumber(remainder, 25)
+                )
+                local additionalXorResult = bitXorMany(
+                    bitAnd(remainder, additionalRightValue),
+                    bitAnd(handleNumber(remainder), fallbackRightValue)
+                )
+                local secondaryRemainder = (
+                    nestedRightValue
+                    + alternateXorResult
+                    + additionalXorResult
+                    + remainderData[index]
+                    + data[index]
+                ) % power
+                nestedRightValue = fallbackRightValue
+                fallbackRightValue = additionalRightValue
+                additionalRightValue = remainder
+                remainder = (alternateRightValue + secondaryRemainder) % power
+                alternateRightValue = secondaryRightValue
+                secondaryRightValue = rightValue
+                rightValue = leftValue
+                leftValue = (secondaryRemainder + number) % power
+            end
+            hashState[1] = (hashState[1] + leftValue) % power
+            hashState[2] = (hashState[2] + rightValue) % power
+            hashState[3] = (hashState[3] + secondaryRightValue) % power
+            hashState[4] = (hashState[4] + alternateRightValue) % power
+            hashState[5] = (hashState[5] + remainder) % power
+            hashState[6] = (hashState[6] + additionalRightValue) % power
+            hashState[7] = (hashState[7] + fallbackRightValue) % power
+            hashState[8] = (hashState[8] + nestedRightValue) % power
+        end
+        local function dataCallback(message)
+            message = padMessage(message, #message)
+            local hashState = initializeSha256State({})
+            for index = 1, #message, 64 do
+                secondaryHandler(message, index, hashState)
+            end
+            return bytesToHex(
+                integerToBytes(hashState[1], 4)
+                    .. integerToBytes(hashState[2], 4)
+                    .. integerToBytes(hashState[3], 4)
+                    .. integerToBytes(hashState[4], 4)
+                    .. integerToBytes(hashState[5], 4)
+                    .. integerToBytes(hashState[6], 4)
+                    .. integerToBytes(hashState[7], 4)
+                    .. integerToBytes(hashState[8], 4)
+            )
+        end
+        local handleJsonEncode
+        local jsonEscapeSequences =
+            { ["\\"] = "\\", ['"'] = '"', ["\b"] = "b", ["\f"] = "f", ["\n"] = "n", ["\r"] = "r", ["\t"] = "t" }
+        local jsonUnescapeSequences = { ["/"] = "/" }
+        for key, escapeCharacter in pairs(jsonEscapeSequences) do
+            jsonUnescapeSequences[escapeCharacter] = key
+        end
+        local escapeJsonCharacter = function(character)
+            return "\\" .. (jsonEscapeSequences[character] or string.format("u%04x", character:byte()))
+        end
+        local handleData = function(dataArgument)
+            return "null"
+        end
+        local callback = function(secondaryData, dataOption)
+            local data = {}
+            dataOption = dataOption or {}
+            if dataOption[secondaryData] then
+                error("circular reference")
+            end
+            dataOption[secondaryData] = true
+            if (rawget(secondaryData, 1) ~= nil) or (next(secondaryData) == nil) then
+                local dataNumber = 0
+                for key in pairs(secondaryData) do
+                    if type(key) ~= "number" then
+                        error("invalid table: mixed or invalid key types")
+                    end
+                    dataNumber = dataNumber + 1
+                end
+                if dataNumber ~= #secondaryData then
+                    error("invalid table: sparse array")
+                end
+                for index, item in ipairs(secondaryData) do
+                    table.insert(data, handleJsonEncode(item, dataOption))
+                end
+                dataOption[secondaryData] = nil
+                return "[" .. table.concat(data, ",") .. "]"
+            else
+                for key, item in pairs(secondaryData) do
+                    if type(key) ~= "string" then
+                        error("invalid table: mixed or invalid key types")
+                    end
+                    table.insert(data, handleJsonEncode(key, dataOption) .. ":" .. handleJsonEncode(item, dataOption))
+                end
+                dataOption[secondaryData] = nil
+                return "{" .. table.concat(data, ",") .. "}"
+            end
+        end
+        local secondaryHandleData = function(dataArgument)
+            return '"' .. dataArgument:gsub('[%z\1-\31\\"]', escapeJsonCharacter) .. '"'
+        end
+        local format = function(displayValue)
+            if (displayValue ~= displayValue) or (displayValue <= -math.huge) or (displayValue >= math.huge) then
+                error("unexpected number value '" .. tostring(displayValue) .. "'")
+            end
+            return string.format("%.14g", displayValue)
+        end
+        local jsonEncoders = {
+            ["nil"] = handleData,
+            ["table"] = callback,
+            ["string"] = secondaryHandleData,
+            ["number"] = format,
+            ["boolean"] = tostring,
+        }
+        function handleJsonEncode(key, dataOption)
+            local valueType = type(key)
+            local dataCallback = jsonEncoders[valueType]
+            if dataCallback then
+                return dataCallback(key, dataOption)
+            end
+            error("unexpected type '" .. valueType .. "'")
+        end
+        local jsonEncode = function(updateNonceData)
+            return handleJsonEncode(updateNonceData)
+        end
+        local parseJsonValue
+        local createLookupSet = function(...)
+            local createLookupSetData = {}
+            for index = 1, select("#", ...) do
+                createLookupSetData[select(index, ...)] = true
+            end
+            return createLookupSetData
+        end
+        local whitespaceCharacters = createLookupSet(" ", "\t", "\r", "\n")
+        local valueDelimiterCharacters = createLookupSet(" ", "\t", "\r", "\n", "]", "}", ",")
+        local validEscapeCharacters = createLookupSet("\\", "/", '"', "b", "f", "n", "r", "t", "u")
+        local jsonLiteralTokens = createLookupSet("true", "false", "null")
+        local jsonLiteralValues = { ["true"] = true, ["false"] = false, ["null"] = nil }
+        local findCharacterBoundary = function(text, startIndex, characterSet, expectedMembership)
+            for index = startIndex, #text do
+                if characterSet[text:sub(index, index)] ~= expectedMembership then
+                    return index
+                end
+            end
+            return #text + 1
+        end
+        local raiseParseError = function(text, index, message)
+            local line = 1
+            local column = 1
+            for index = 1, index - 1 do
+                column = column + 1
+                if text:sub(index, index) == "\n" then
+                    line = line + 1
+                    column = 1
+                end
+            end
+            error(string.format("%s at line %d col %d", message, line, column))
+        end
+        local char = function(charNumber)
+            local floor = math.floor
+            if charNumber <= 127 then
+                return string.char(charNumber)
+            elseif charNumber <= 2047 then
+                return string.char(floor(charNumber / 64) + 192, (charNumber % 64) + 128)
+            elseif charNumber <= 65535 then
+                return string.char(
+                    floor(charNumber / 4096) + 224,
+                    floor((charNumber % 4096) / 64) + 128,
+                    (charNumber % 64) + 128
+                )
+            elseif charNumber <= 1114111 then
+                return string.char(
+                    floor(charNumber / 262144) + 240,
+                    floor((charNumber % 262144) / 4096) + 128,
+                    floor((charNumber % 4096) / 64) + 128,
+                    (charNumber % 64) + 128
+                )
+            end
+            error(string.format("invalid unicode codepoint '%x'", charNumber))
+        end
+        local handleTextPrefix = function(sumOption)
+            local textPrefixNumber = tonumber(sumOption:sub(1, 4), 16)
+            local number = tonumber(sumOption:sub(7, 10), 16)
+            if number then
+                return char(((((textPrefixNumber - 55296) * 1024) + number) - 56320) + 65536)
+            else
+                return char(textPrefixNumber)
+            end
+        end
+        local joinValues = function(values, separator)
+            local textPrefix = ""
+            local index = separator + 1
+            local sum = index
+            while index <= #values do
+                local byte = values:byte(index)
+                if byte < 32 then
+                    raiseParseError(values, index, "control character in string")
+                elseif byte == 92 then
+                    textPrefix = textPrefix .. values:sub(sum, index - 1)
+                    index = index + 1
+                    local escapeCharacter = values:sub(index, index)
+                    if escapeCharacter == "u" then
+                        local sumOption = values:match("^[dD][89aAbB]%x%x\\u%x%x%x%x", index + 1)
+                            or values:match("^%x%x%x%x", index + 1)
+                            or raiseParseError(values, index - 1, "invalid unicode escape in string")
+                        textPrefix = textPrefix .. handleTextPrefix(sumOption)
+                        index = index + #sumOption
+                    else
+                        if not validEscapeCharacters[escapeCharacter] then
+                            raiseParseError(
+                                values,
+                                index - 1,
+                                "invalid escape char '" .. escapeCharacter .. "' in string"
+                            )
+                        end
+                        textPrefix = textPrefix .. jsonUnescapeSequences[escapeCharacter]
+                    end
+                    sum = index + 1
+                elseif byte == 34 then
+                    textPrefix = textPrefix .. values:sub(sum, index - 1)
+                    return textPrefix, index + 1
+                end
+                index = index + 1
+            end
+            raiseParseError(values, separator, "expected closing quote for string")
+        end
+        local parseJsonNumber = function(text, startIndex)
+            local nextIndex = findCharacterBoundary(text, startIndex, valueDelimiterCharacters)
+            local parseJsonNumberText = text:sub(startIndex, nextIndex - 1)
+            local parseJsonNumber = tonumber(parseJsonNumberText)
+            if not parseJsonNumber then
+                raiseParseError(text, startIndex, "invalid number '" .. parseJsonNumberText .. "'")
+            end
+            return parseJsonNumber, nextIndex
+        end
+        local parseJsonLiteral = function(text, startIndex)
+            local nextIndex = findCharacterBoundary(text, startIndex, valueDelimiterCharacters)
+            local parseJsonLiteralText = text:sub(startIndex, nextIndex - 1)
+            if not jsonLiteralTokens[parseJsonLiteralText] then
+                raiseParseError(text, startIndex, "invalid literal '" .. parseJsonLiteralText .. "'")
+            end
+            return jsonLiteralValues[parseJsonLiteralText], nextIndex
+        end
+        local alternateHandleData = function(text, index)
+            local data = {}
+            local dataNumber = 1
+            index = index + 1
+            while 1 do
+                local dataResult
+                index = findCharacterBoundary(text, index, whitespaceCharacters, true)
+                if text:sub(index, index) == "]" then
+                    index = index + 1
+                    break
+                end
+                dataResult, index = parseJsonValue(text, index)
+                data[dataNumber] = dataResult
+                dataNumber = dataNumber + 1
+                index = findCharacterBoundary(text, index, whitespaceCharacters, true)
+                local delimiter = text:sub(index, index)
+                index = index + 1
+                if delimiter == "]" then
+                    break
+                end
+                if delimiter ~= "," then
+                    raiseParseError(text, index, "expected ']' or ','")
+                end
+            end
+            return data, index
+        end
+        local additionalHandleData = function(text, index)
+            local data = {}
+            index = index + 1
+            while 1 do
+                local dataResult, result
+                index = findCharacterBoundary(text, index, whitespaceCharacters, true)
+                if text:sub(index, index) == "}" then
+                    index = index + 1
+                    break
+                end
+                if text:sub(index, index) ~= '"' then
+                    raiseParseError(text, index, "expected string for key")
+                end
+                dataResult, index = parseJsonValue(text, index)
+                index = findCharacterBoundary(text, index, whitespaceCharacters, true)
+                if text:sub(index, index) ~= ":" then
+                    raiseParseError(text, index, "expected ':' after key")
+                end
+                index = findCharacterBoundary(text, index + 1, whitespaceCharacters, true)
+                result, index = parseJsonValue(text, index)
+                data[dataResult] = result
+                index = findCharacterBoundary(text, index, whitespaceCharacters, true)
+                local delimiter = text:sub(index, index)
+                index = index + 1
+                if delimiter == "}" then
+                    break
+                end
+                if delimiter ~= "," then
+                    raiseParseError(text, index, "expected '}' or ','")
+                end
+            end
+            return data, index
+        end
+        local jsonValueParsers = {
+            ['"'] = joinValues,
+            ["0"] = parseJsonNumber,
+            ["1"] = parseJsonNumber,
+            ["2"] = parseJsonNumber,
+            ["3"] = parseJsonNumber,
+            ["4"] = parseJsonNumber,
+            ["5"] = parseJsonNumber,
+            ["6"] = parseJsonNumber,
+            ["7"] = parseJsonNumber,
+            ["8"] = parseJsonNumber,
+            ["9"] = parseJsonNumber,
+            ["-"] = parseJsonNumber,
+            t = parseJsonLiteral,
+            f = parseJsonLiteral,
+            n = parseJsonLiteral,
+            ["["] = alternateHandleData,
+            ["{"] = additionalHandleData,
+        }
+        function parseJsonValue(text, startIndex)
+            local token = text:sub(startIndex, startIndex)
+            local valueParser = jsonValueParsers[token]
+            if valueParser then
+                return valueParser(text, startIndex)
+            end
+            raiseParseError(text, startIndex, "unexpected character '" .. token .. "'")
+        end
+        local jsonDecode = function(text)
+            if type(text) ~= "string" then
+                error("expected argument of type string, got " .. type(text))
+            end
+            local parsedValue, nextIndex =
+                parseJsonValue(text, findCharacterBoundary(text, 1, whitespaceCharacters, true))
+            nextIndex = findCharacterBoundary(text, nextIndex, whitespaceCharacters, true)
+            if nextIndex <= #text then
+                raiseParseError(text, nextIndex, "trailing garbage")
+            end
+            return parsedValue
+        end
+        local capturedJsonEncode, capturedJsonDecode, capturedDataCallback = jsonEncode, jsonDecode, dataCallback
+        local getValueNumber = 76
+        local getValueText = "7bad4770-614b-4d10-aad1-38de05fe3f7a"
+        local getValueFlag = true
+        local handleNonce = function(nonceText)
+            uiLibrary:Notify(nonceText)
+        end
+        repeat
+            task.wait(0.2)
+        until game:IsLoaded()
+        local secondaryFlag = false
+        local secondaryCallback, nonceCallback, textCallback, tostringFunction, sub, time, random, secondaryFloor, assetPathCallback =
+            setclipboard or toclipboard,
+            request or http_request or syn_request,
+            string.char,
+            tostring,
+            string.sub,
+            os.time,
+            math.random,
+            math.floor,
+            gethwid or function()
+                return game:GetService("players").LocalPlayer.UserId
+            end
+        local secondaryUrl, number = "", 0
+        local updateNonceText = "https://api.platoboost.com"
+        local result = nonceCallback({ ["Url"] = updateNonceText .. "/public/connectivity", ["Method"] = "GET" })
+        if (result.StatusCode ~= 200) or (result.StatusCode ~= 429) then
+            updateNonceText = "https://api.platoboost.net"
+        end
+        function cacheLink()
+            if (number + (10 * 60)) < time() then
+                local result = nonceCallback({
+                    ["Url"] = updateNonceText .. "/public/start",
+                    ["Method"] = "POST",
+                    ["Body"] = capturedJsonEncode({
+                        ["service"] = getValueNumber,
+                        ["identifier"] = capturedDataCallback(assetPathCallback()),
+                    }),
+                    ["Headers"] = { ["Content-Type"] = "application/json" },
+                })
+                if result.StatusCode == 200 then
+                    local decodedData = capturedJsonDecode(result.Body)
+                    if decodedData.success == true then
+                        secondaryUrl = decodedData.data.url
+                        number = time()
+                        return true, secondaryUrl
+                    else
+                        handleNonce(decodedData.message)
+                        return false, decodedData.message
+                    end
+                elseif result.StatusCode == 429 then
+                    local text = "you are being rate limited, please wait 20 seconds and try again."
+                    handleNonce(text)
+                    return false, text
+                end
+                local text = "Failed to cache link."
+                handleNonce(text)
+                return false, text
+            else
+                return true, secondaryUrl
+            end
+        end
+        cacheLink()
+        local handleText = function()
+            local text = ""
+            for index = 1, 16 do
+                text = text .. textCallback(secondaryFloor(random() * ((122 - 97) + 1)) + 97)
+            end
+            return text
+        end
+        for index = 1, 5 do
+            local result = handleText()
+            task.wait(0.2)
+            if handleText() == result then
+                local text = "platoboost nonce error."
+                handleNonce(text)
+                error(text)
+            end
+        end
+        function copyLink()
+            local condition, cacheLinkResult = cacheLink()
+            if condition then
+                secondaryCallback(cacheLinkResult)
+            end
+        end
+        local updateNonce = function(text, secondaryArgument)
+            local nonce = handleText()
+            local assetPath = updateNonceText .. "/public/redeem/" .. tostringFunction(getValueNumber)
+            local updateNonceData = { ["identifier"] = capturedDataCallback(assetPathCallback()), ["key"] = text }
+            if getValueFlag then
+                updateNonceData.nonce = nonce
+            end
+            local updateNonceResult = nonceCallback({
+                ["Url"] = assetPath,
+                ["Method"] = "POST",
+                ["Body"] = capturedJsonEncode(updateNonceData),
+                ["Headers"] = { ["Content-Type"] = "application/json" },
+            })
+            if updateNonceResult.StatusCode == 200 then
+                local decodedData = capturedJsonDecode(updateNonceResult.Body)
+                if decodedData.success == true then
+                    if decodedData.data.valid == true then
+                        if getValueFlag then
+                            if
+                                decodedData.data.hash
+                                == capturedDataCallback("true" .. "-" .. nonce .. "-" .. getValueText)
+                            then
+                                return true
+                            else
+                                handleNonce("failed to verify integrity.")
+                                return false
+                            end
+                        else
+                            return true
+                        end
+                    else
+                        handleNonce("key is invalid.")
+                        return false
+                    end
+                elseif sub(decodedData.message, 1, 27) == "unique constraint violation" then
+                    handleNonce("you already have an active key, please wait for it to expire before redeeming it.")
+                    return false
+                else
+                    handleNonce(decodedData.message)
+                    return false
+                end
+            elseif updateNonceResult.StatusCode == 429 then
+                handleNonce("you are being rate limited, please wait 20 seconds and try again.")
+                return false
+            else
+                handleNonce("server returned an invalid status code, please try again later.")
+                return false
+            end
+        end
+        function verifyKey(secondaryText)
+            if secondaryFlag == true then
+                handleNonce("a request is already being sent, please slow down.")
+                return false
+            else
+                secondaryFlag = true
+            end
+            local text = handleText()
+            local assetPath = updateNonceText
+                .. "/public/whitelist/"
+                .. tostringFunction(getValueNumber)
+                .. "?identifier="
+                .. capturedDataCallback(assetPathCallback())
+                .. "&key="
+                .. secondaryText
+            if getValueFlag then
+                assetPath = assetPath .. "&nonce=" .. text
+            end
+            local result = nonceCallback({ ["Url"] = assetPath, ["Method"] = "GET" })
+            secondaryFlag = false
+            if result.StatusCode == 200 then
+                local decodedData = capturedJsonDecode(result.Body)
+                if decodedData.success == true then
+                    if decodedData.data.valid == true then
+                        if getValueFlag then
+                            if
+                                decodedData.data.hash
+                                == capturedDataCallback("true" .. "-" .. text .. "-" .. getValueText)
+                            then
+                                return true
+                            else
+                                handleNonce("failed to verify integrity.")
+                                return false
+                            end
+                        else
+                            return true
+                        end
+                    elseif sub(secondaryText, 1, 4) == "KEY_" then
+                        return updateNonce(secondaryText)
+                    else
+                        handleNonce("key is invalid.")
+                        return false
+                    end
+                else
+                    handleNonce(decodedData.message)
+                    return false
+                end
+            elseif result.StatusCode == 429 then
+                handleNonce("you are being rate limited, please wait 20 seconds and try again.")
+                return false
+            else
+                handleNonce("server returned an invalid status code, please try again later.")
+                return false
+            end
+        end
+        local getValue = function(secondaryGetValueText)
+            local text = handleText()
+            local assetPath = updateNonceText
+                .. "/public/flag/"
+                .. tostringFunction(getValueNumber)
+                .. "?name="
+                .. secondaryGetValueText
+            if getValueFlag then
+                assetPath = assetPath .. "&nonce=" .. text
+            end
+            local getValueResult = nonceCallback({ ["Url"] = assetPath, ["Method"] = "GET" })
+            if getValueResult.StatusCode == 200 then
+                local decodedData = capturedJsonDecode(getValueResult.Body)
+                if decodedData.success == true then
+                    if getValueFlag then
+                        if
+                            decodedData.data.hash
+                            == capturedDataCallback(
+                                tostringFunction(decodedData.data.value) .. "-" .. text .. "-" .. getValueText
+                            )
+                        then
+                            return decodedData.data.value
+                        else
+                            handleNonce("failed to verify integrity.")
+                            return nil
+                        end
+                    else
+                        return decodedData.data.value
+                    end
+                else
+                    handleNonce(decodedData.message)
+                    return nil
+                end
+            else
+                return nil
+            end
+        end
+        SendMessageEMBED(url, aScriptHasBeenExecutedConfig)
+    end
+end)
+function getplayersByName(argument)
+    local lowercaseText, result = string.lower(argument), #argument
+    for key, item in pairs(players:Getplayers()) do
+        if item == localValuePlayer then
+            continue
+        end
+        if string.sub(string.lower(item.DisplayName), 1, result) == lowercaseText then
+            return item
+        end
+    end
+    for key, item in pairs(players:Getplayers()) do
+        if item == localValuePlayer then
+            continue
+        end
+        if string.sub(string.lower(item.Name), 1, result) == lowercaseText then
+            return item
+        end
+    end
+end
+key.Visible = false
+local buttonData = {
+    ["autofarm"] = uiLibrary:CreateTab({ ["Name"] = "Autofarm" }),
+    ["tools"] = uiLibrary:CreateTab({ ["Name"] = "Tools" }),
+    ["teleports"] = uiLibrary:CreateTab({ ["Name"] = "Teleports" }),
+    ["combat"] = uiLibrary:CreateTab({ ["Name"] = "Combat" }),
+    ["misc"] = uiLibrary:CreateTab({ ["Name"] = "Misc" }),
+}
+local button = buttonData.autofarm:Button({ ["ButtonText"] = "Auto Collect" })
+local dropdown = buttonData.autofarm:Dropdown({ ["Name"] = "Collect Parts" })
+dropdown:Option({ ["Name"] = "All" })
+dropdown:Option({ ["Name"] = "Blades" })
+dropdown:Option({ ["Name"] = "Springs" })
+dropdown:Option({ ["Name"] = "Gears" })
+dropdown:Option({ ["Name"] = "Candy" })
+button:SetCallback(function()
+    button:Toggle()
+    local option = dropdown:GetOption()
+    if option == "All" then
+        option = nil
+    elseif option == "Blades" then
+        option = "Blade"
+    elseif option == "Springs" then
+        option = "Spring"
+    elseif option == "Gears" then
+        option = "Gear"
+    end
+    while button:IsOn() do
+        local flag = false
+        if option == nil then
+            for key, item in workspace.SpawnsLoot:GetChildren() do
+                if not button:IsOn() then
+                    return
+                end
+                if item.Name == "SpawnForLoot" then
+                    for key, item in item:GetChildren() do
+                        if item.Transparency == 0 then
+                            flag = true
+                            localValuePlayer.Character.HumanoidRootPart.CFrame = item.CFrame + Vector3.new(0, 6, 0)
+                            task.wait(0.2)
+                            handleCFrame(item.Parent.Part.Attachment:FindFirstChildOfClass("ProximityPrompt"))
+                            task.wait(0.3)
+                        end
+                    end
+                end
+            end
+        else
+            for key, item in workspace.SpawnsLoot:GetChildren() do
+                if not button:IsOn() then
+                    return
+                end
+                if item.Name == "SpawnForLoot" then
+                    for key, item in item:GetChildren() do
+                        if item.Transparency == 0 then
+                            if item.Name == option then
+                                flag = true
+                                localValuePlayer.Character.HumanoidRootPart.CFrame = item.CFrame + Vector3.new(0, 6, 0)
+                                task.wait(0.2)
+                                handleCFrame(item.Parent.Part.Attachment:FindFirstChildOfClass("ProximityPrompt"))
+                                task.wait(0.3)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+        if flag then
+            localValuePlayer.Character.HumanoidRootPart.CFrame = updateCFrameData.SafeZone
+        end
+        task.wait(0.1)
+    end
+end)
+local secondaryButton = buttonData.autofarm:Button({ ["ButtonText"] = "Autodrop Cash" })
+local textBox = buttonData.autofarm:TextBox({ ["Text"] = "Drop Amount", ["PlaceholderText"] = "0-5000" })
+secondaryButton:SetCallback(function()
+    secondaryButton:Toggle()
+    local dataNumber = tonumber(textBox:GetText())
+    if dataNumber == nil then
+        uiLibrary:Notify("Pick a number bruh")
+        return
+    end
+    if dataNumber < 35 then
+        uiLibrary:Notify("Number is too small")
+        return
+    end
+    if dataNumber > 5000 then
+        uiLibrary:Notify("Number is too big")
+        return
+    end
+    while secondaryButton:IsOn() do
+        local data = { [1] = "DropCash", [2] = dataNumber }
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DropEvent"):FireServer(unpack(data))
+        task.wait(0.5)
+    end
+end)
+local alternateButton = buttonData.autofarm:Button({ ["ButtonText"] = "Autodrop Parts" })
+local secondaryDropdown = buttonData.autofarm:Dropdown({ ["Name"] = "Drop Parts" })
+secondaryDropdown:Option({ ["Name"] = "All" })
+secondaryDropdown:Option({ ["Name"] = "Blades" })
+secondaryDropdown:Option({ ["Name"] = "Springs" })
+secondaryDropdown:Option({ ["Name"] = "Gears" })
+alternateButton:SetCallback(function()
+    alternateButton:Toggle()
+    local firstChildOption = secondaryDropdown:GetOption()
+    if firstChildOption == "All" then
+        firstChildOption = nil
+    elseif firstChildOption == "Blades" then
+        firstChildOption = "Blade"
+    elseif firstChildOption == "Springs" then
+        firstChildOption = "Spring"
+    elseif firstChildOption == "Gears" then
+        firstChildOption = "Gear"
+    end
+    while alternateButton:IsOn() do
+        if firstChildOption ~= nil then
+            local firstChild = players.LocalPlayer.Backpack:FindFirstChild(firstChildOption)
+            if firstChild then
+                players.LocalPlayer.Character.Humanoid:UnequipTools()
+                task.wait(0.1)
+                players.LocalPlayer.Character.Humanoid:EquipTool(firstChild)
+                task.wait(0.1)
+                game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DropEvent"):FireServer()
+            end
+        else
+            for key, item in players.LocalPlayer.Backpack:GetChildren() do
+                if (item.Name == "Blade") or (item.Name == "Spring") or (item.Name == "Gear") then
+                    players.LocalPlayer.Character.Humanoid:EquipTool(item)
+                    task.wait(0.1)
+                    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DropEvent"):FireServer()
+                    break
+                end
+            end
+        end
+        task.wait(0.2)
+    end
+end)
+local additionalButton = buttonData.autofarm:Button({ ["ButtonText"] = "Autotrain" })
+additionalButton:SetCallback(function()
+    while additionalButton:IsOn() do
+        local dumbell = localValuePlayer.Character:FindFirstChild("Dumbell")
+        if dumbell then
+            if dumbell:IsA("Tool") then
+                dumbell:Activate()
+            end
+        else
+            local dumbell = localValuePlayer.Backpack:FindFirstChild("Dumbell")
+            if dumbell then
+                localValuePlayer.Character.Humanoid:UnequipTools()
+                dumbell.Parent = localValuePlayer.Character
+            end
+        end
+        task.wait(0.2)
+    end
+end)
+local fallbackButton = buttonData.autofarm:Button({
+    ["ButtonText"] = "Bank Robbery",
+    ["Color"] = secondaryFromRgbResult,
+    function()
+        activaterobbery()
+    end,
+})
+local toggle =
+    buttonData.autofarm:Toggle({ ["Text"] = "Automatic", ["Toggled"] = false, ["Color"] = secondaryFromRgbResult })
+local function secondaryUpdateCFrame()
+    if not updateCFrameFlag then
+        uiLibrary:Notify("You need Gold Access to use this")
+        buttonData.misc:Activate()
+        buttonData.autofarm:Deactivate()
+        return
+    end
+    local flag = false
+    localValuePlayer.Character.HumanoidRootPart.CFrame = updateCFrameData.Bank
+    local bank = workspace:WaitForChild("BANK")
+    local buttonPanel = bank:WaitForChild("ButtonPanel")
+    if (buttonPanel.PromptPart.ProximityPrompt.Enabled == true) or bank:FindFirstChild("MoneyBoxes") then
+        flag = true
+    else
+        uiLibrary:Notify("Bank robbery is not ready yet.")
+    end
+    if flag then
+        localValuePlayer.Character.HumanoidRootPart.CFrame = buttonPanel:WaitForChild("PromptPart").CFrame
+        task.wait(0.1)
+        handleCFrame(buttonPanel.PromptPart.ProximityPrompt)
+        local moneyBoxes = bank:WaitForChild("MoneyBoxes")
+        while #(moneyBoxes:GetChildren()) > 1 do
+            for key, promptPartContainer in moneyBoxes:GetChildren() do
+                localValuePlayer.Character.HumanoidRootPart.CFrame = promptPartContainer:WaitForChild("PromptPart").CFrame
+                    + Vector3.new(0, 5, 0)
+                local humanoid = localValuePlayer.Character.Humanoid
+                humanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
+                task.wait(0.1)
+                local updateCFrameNumber = 0
+                repeat
+                    handleCFrame(promptPartContainer.PromptPart:WaitForChild("ProximityPrompt"))
+                    updateCFrameNumber = updateCFrameNumber + 1
+                    task.wait(0.1)
+                    if promptPartContainer.PromptPart.ProximityPrompt.Enabled == true then
+                        if updateCFrameNumber > 4 then
+                            task.wait(7)
+                        end
+                    end
+                until promptPartContainer.PromptPart.ProximityPrompt.Enabled == false
+            end
+        end
+    end
+end
+toggle:SetCallback(function()
+    if not updateCFrameFlag then
+        uiLibrary:Notify("You need Gold Access to use this")
+        buttonData.misc:Activate()
+        buttonData.autofarm:Deactivate()
+        return
+    end
+    while toggle:IsToggled() do
+        local bank = workspace:FindFirstChild("BANK")
+        if bank then
+            local buttonPanel = bank:FindFirstChild("ButtonPanel")
+            if buttonPanel then
+                if buttonPanel.PromptPart.ProximityPrompt.Enabled == true then
+                    secondaryUpdateCFrame()
+                end
+            end
+        end
+        task.wait(1)
+    end
+    uiLibrary:Notify("Please do not move too far from the bank as it will break")
+    secondaryUpdateCFrame()
+end)
+local secondaryTextBox = buttonData.tools:TextBox({
+    ["Text"] = "Walkspeed",
+    ["PlaceholderText"] = "Speed",
+    ["Color"] = secondaryFromRgbResult,
+})
+local secondaryToggle = buttonData.tools:Toggle({
+    ["Text"] = "Constant Walkspeed",
+    ["Toggled"] = false,
+    ["Color"] = secondaryFromRgbResult,
+})
+local alternateFlag = true
+local connection
+local result, secondaryResult
+local number = 16
+local additionalFlag = false
+secondaryTextBox:SetCallback(function()
+    if not updateCFrameFlag then
+        uiLibrary:Notify("You need Gold Access to use this")
+        buttonData.misc:Activate()
+        buttonData.tools:Deactivate()
+        return
+    end
+    uiLibrary:Notify("You cant really disable this lol")
+    if additionalFlag then
+        if connection then
+            connection:Disconnect()
+        end
+        connection = localValuePlayer.Character.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+            if (number > 16) and not secondaryToggle:IsToggled() then
+                localValuePlayer.Character.Humanoid.WalkSpeed = tonumber(secondaryTextBox:GetText()) or 30
+            elseif secondaryToggle:IsToggled() then
+                localValuePlayer.Character.Humanoid.WalkSpeed = tonumber(secondaryTextBox:GetText()) or 30
+            end
+        end)
+        return
+    end
+    local success, result = pcall(function()
+        local secondaryGetrawmetatable = getrawmetatable(game)
+        setreadonly(secondaryGetrawmetatable, false)
+        local index = secondaryGetrawmetatable.__index
+        secondaryGetrawmetatable.__index = newcclosure(function(argument, secondaryArgument)
+            if secondaryArgument == "WalkSpeed" then
+                if tonumber(index(argument, secondaryArgument)) then
+                    number = tonumber(index(argument, secondaryArgument))
+                end
+                return 16
+            end
+            return index(argument, secondaryArgument)
+        end)
+    end)
+    if success then
+        connection = localValuePlayer.Character.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+            if (number > 16) and not secondaryToggle:IsToggled() then
+                localValuePlayer.Character.Humanoid.WalkSpeed = tonumber(secondaryTextBox:GetText()) or 30
+            elseif secondaryToggle:IsToggled() then
+                localValuePlayer.Character.Humanoid.WalkSpeed = tonumber(secondaryTextBox:GetText()) or 30
+            end
+        end)
+        additionalFlag = true
+    else
+        uiLibrary:Notify("This feature is not supported on your executor")
+    end
+end)
+local groupService = game:GetService("GroupService")
+local creatorId = game.CreatorId
+local fallbackFlag = false
+local nestedButton = buttonData.tools:Button({ ["ButtonText"] = "Mod Watch" })
+local function additionalHandler()
+    nestedButton:Toggle()
+    if nestedButton:IsOn() then
+        fallbackFlag = true
+        for key, item in players:GetPlayers() do
+            if item:GetRankInGroup(creatorId) > 100 then
+                localValuePlayer:Kick("A mod joined the game. " .. item.DisplayName .. " (@" .. item.Name .. ")")
+            end
+        end
+    else
+        fallbackFlag = false
+    end
+end
+nestedButton:SetCallback(function()
+    additionalHandler()
+end)
+local source = buttonData.tools:Button({
+    ["ButtonText"] = "Chat Spy",
+    ["Pressed"] = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/dehoisted/Chat-Spy/main/source/main.lua"))()
+        uiLibrary:Notify("Credits: dehoisted on GitHub.")
+    end,
+})
+for key, cFrame in pairs(updateCFrameData) do
+    local button = buttonData.teleports:Button({
+        ["ButtonText"] = key,
+        ["Name"] = key,
+        ["Mini"] = true,
+        ["Pressed"] = function()
+            localValuePlayer.Character.HumanoidRootPart.CFrame = cFrame
+        end,
+    })
+end
+local replicatedStorage = game:GetService("ReplicatedStorage")
+local playerStats = replicatedStorage:WaitForChild("PlayerStats", 10)
+local promoCodesContainer = replicatedStorage.PlayerStats:WaitForChild(localValuePlayer.Name)
+local screenMessageLabel = localValuePlayer.PlayerGui.HUD.ScreenMessageLabel
+local innerButton = buttonData.tools:Button({
+    ["ButtonText"] = "100% Intelligence",
+    ["Color"] = fromRgbResult,
+    ["Pressed"] = function()
+        if not secondaryFlag then
+            uiLibrary:Notify("You need Silver Access to use this")
+            buttonData.misc:Activate()
+            buttonData.tools:Deactivate()
+            return
+        end
+        uiLibrary:Notify("Set Intelligence to 100% (doesn't apply to lockpicks)")
+        promoCodesContainer.Intelligence.Value = 100
+    end,
+})
+local outerButton = buttonData.tools:Button({
+    ["ButtonText"] = "Infinite Stamina",
+    ["Color"] = fromRgbResult,
+    ["Pressed"] = function()
+        if not secondaryFlag then
+            uiLibrary:Notify("You need Silver Access to use this")
+            buttonData.misc:Activate()
+            buttonData.tools:Deactivate()
+            return
+        end
+        local localValueMain = localValuePlayer.Backpack.LocalScripts.LocalMain
+        if setupvalue then
+            setupvalue(getsenv(localValueMain).AddStamina, 1, math.huge)
+            uiLibrary:Notify("You now have infinite stamina")
+        else
+            uiLibrary:Notify("This might not work on your executor")
+            setupvalue(getsenv(localValueMain).AddStamina, 1, math.huge)
+        end
+    end,
+})
+local nestedFlag = false
+local previousButton = buttonData.tools:Button({
+    ["ButtonText"] = "Promo Code Scout",
+    ["Color"] = fromRgbResult,
+    ["Pressed"] = function()
+        if not secondaryFlag then
+            uiLibrary:Notify("You need Silver Access to use this")
+            buttonData.misc:Activate()
+            buttonData.tools:Deactivate()
+            return
+        end
+        if nestedFlag then
+            return
+        end
+        nestedFlag = true
+        local names = {}
+        local flag = false
+        local secondaryScreenMessageLabel = game:GetService("Players").LocalPlayer.PlayerGui.HUD.ScreenMessageLabel
+        for key, item in playerStats:GetDescendants() do
+            if item.Name == "PromoCodes" then
+                for key, item in item:GetChildren() do
+                    if promoCodesContainer:FindFirstChild("PromoCodes"):FindFirstChild(item.Name) then
+                        continue
+                    end
+                    local data = { [1] = item.Name }
+                    game:GetService("ReplicatedStorage")
+                        :WaitForChild("Events")
+                        :WaitForChild("PromoCodeRedeem")
+                        :FireServer(unpack(data))
+                    task.wait(0.9)
+                    if screenMessageLabel.Text == "Promo code successfully redeemed!" then
+                        table.insert(names, item.Name)
+                        uiLibrary:Notify("Found new codes: " .. table.concat(names, ", "))
+                        flag = true
+                    end
+                    screenMessageLabel.Text = ""
+                end
+            end
+        end
+        task.wait(0.1)
+        if flag == false then
+            uiLibrary:Notify("No new codes.")
+        else
+            uiLibrary:Notify("Found new codes: " .. table.concat(names, ", "))
+        end
+        nestedFlag = false
+    end,
+})
+local secondaryUserInputService = game:GetService("UserInputService")
+local tickData = {
+    ["Enabled"] = false,
+    ["Parent"] = nil,
+    ["Dampening"] = 0,
+    ["Power"] = 0,
+    ["MaxForce"] = Vector3.zero,
+    ["Position"] = Vector3.zero,
+    ["CFrame"] = CFrame.new(),
+    ["firstconnection"] = nil,
+}
+local newData = { tickData }
+newData.new = function(argument, secondaryArgument)
+    return table.clone(newData[secondaryArgument])
+end
+local humanoid = localValuePlayer.Character.Humanoid
+local mouse = localValuePlayer:GetMouse()
+local touchEnabled = secondaryUserInputService.TouchEnabled
+tickData.Tick = function(input, enabled)
+    input.Enabled = enabled
+    while input.Enabled do
+        input.Parent = localValuePlayer.Character.HumanoidRootPart
+        local cFrame = localValuePlayer.Character.HumanoidRootPart.CFrame
+        local vector = workspace.CurrentCamera.CFrame:VectorToObjectSpace(humanoid.MoveDirection)
+        localValuePlayer.Character.Humanoid.PlatformStand = true
+        local sum = 5 * input.Power
+        if touchEnabled then
+            if vector.Y < 0 then
+                cFrame = cFrame + (workspace.CurrentCamera.CoordinateFrame.lookVector * sum * input.Power)
+                sum = (sum * input.Power) + 0
+            elseif vector.Y > 0 then
+                cFrame = cFrame - (workspace.CurrentCamera.CoordinateFrame.lookVector * sum * input.Power)
+                sum = (sum * input.Power) + 0
+            end
+            if vector.X < -0.1 then
+                cFrame = cFrame * CFrame.new(-sum * input.Power, 0, 0)
+                sum = (sum * input.Power) + 0
+            elseif vector.X > 0.1 then
+                cFrame = cFrame * CFrame.new(sum * input.Power, 0, 0)
+                sum = (sum * input.Power) + 0
+            end
+            if sum > 10 then
+                sum = 5 * input.Power
+            end
+        else
+            if secondaryUserInputService:IsKeyDown(Enum.KeyCode.W) then
+                cFrame = cFrame + (workspace.CurrentCamera.CoordinateFrame.lookVector * sum * input.Power)
+                sum = (sum * input.Power) + 0
+            elseif secondaryUserInputService:IsKeyDown(Enum.KeyCode.S) then
+                cFrame = cFrame - (workspace.CurrentCamera.CoordinateFrame.lookVector * sum * input.Power)
+                sum = (sum * input.Power) + 0
+            end
+            if secondaryUserInputService:IsKeyDown(Enum.KeyCode.A) then
+                cFrame = cFrame * CFrame.new(-sum * input.Power, 0, 0)
+                sum = (sum * input.Power) + 0
+            elseif secondaryUserInputService:IsKeyDown(Enum.KeyCode.D) then
+                cFrame = cFrame * CFrame.new(sum * input.Power, 0, 0)
+                sum = (sum * input.Power) + 0
+            end
+            if sum > 10 then
+                sum = 5 * input.Power
+            end
+        end
+        input.Position = cFrame.Position
+        local toOrientation, secondaryToOrientation, alternateToOrientation =
+            workspace.CurrentCamera.CFrame:ToOrientation()
+        input.Parent.CFrame =
+            input.Parent.CFrame:Lerp(CFrame.new(input.Position) * workspace.CurrentCamera.CFrame.Rotation, 0.9)
+        input.Parent.Velocity = Vector3.zero
+        task.wait()
+    end
+    localValuePlayer.Character.Humanoid.PlatformStand = false
+end
+local new = newData:new(1)
+new.Power = 0.1
+local nestedText = "X"
+local secondaryConnection = nil
+local currentButton = buttonData.tools:Button({
+    ["ButtonText"] = "Click X to fly",
+    ["Color"] = secondaryFromRgbResult,
+    ["Pressed"] = function() end,
+})
+currentButton:SetCallback(function()
+    if not updateCFrameFlag then
+        uiLibrary:Notify("You need Gold Access to use this")
+        buttonData.misc:Activate()
+        buttonData.tools:Deactivate()
+        return
+    end
+    currentButton:Toggle()
+    if currentButton:IsOn() then
+        if secondaryConnection then
+            secondaryConnection:DIsconnect()
+            secondaryConnection = secondaryUserInputService.InputBegan:Connect(function(input)
+                if input.KeyCode == Enum.KeyCode[nestedText] then
+                    task.spawn(function()
+                        new.Parent = localValuePlayer.Character.HumanoidRootPart
+                        new:Tick(true)
+                    end)
+                end
+            end)
+        end
+        if touchEnabled then
+            task.spawn(function()
+                new.Parent = localValuePlayer.Character.HumanoidRootPart
+                new:Tick(true)
+            end)
+        end
+    else
+        new:Tick(false)
+    end
+end)
+local innerText = "X"
+secondaryUserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode[innerText] then
+        if not currentButton:IsOn() then
+            return
+        end
+        if not new.Enabled then
+            task.spawn(function()
+                new:Tick(true)
+            end)
+        else
+            new:Tick(false)
+        end
+    end
+end)
+local slider =
+    buttonData.tools:Slider({ ["max"] = 50, ["min"] = 0, ["Text"] = "Fly Speed", ["Color"] = secondaryFromRgbResult })
+slider:SetValue(10)
+slider:SetCallback(function()
+    new.Power = slider:GetValue() / 100
+end)
+localValuePlayer.CharacterAdded:Connect(function(argument)
+    if additionalFlag then
+        if connection then
+            connection:Disconnect()
+            connection = localValuePlayer.Character.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+                if (number > 16) and not secondaryToggle:IsToggled() then
+                    localValuePlayer.Character.Humanoid.WalkSpeed = tonumber(secondaryTextBox:GetText()) or 30
+                elseif secondaryToggle:IsToggled() then
+                    localValuePlayer.Character.Humanoid.WalkSpeed = tonumber(secondaryTextBox:GetText()) or 30
+                end
+            end)
+        end
+    end
+end)
+players.PlayerAdded:Connect(function(instance)
+    if fallbackFlag then
+        if instance:GetRankInGroup(creatorId) > 100 then
+            localValuePlayer:Kick("A mod joined the game. " .. instance.DisplayName .. " (@" .. instance.Name .. ")")
+        end
+    end
+end)
+local nextButton = buttonData.combat:Button({
+    ["ButtonText"] = "Enable Silent Aim (coming soon)",
+    ["Color"] = secondaryFromRgbResult,
+    ["Pressed"] = function()
+        uiLibrary:Notify("Coming soon fr")
+    end,
+})
+local universalaimbot = buttonData.combat:Button({
+    ["ButtonText"] = "Load Aimbot Gui",
+    ["Pressed"] = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/pid4k/scripts/main/universalaimbot.lua"))()
+    end,
+})
+local sourceButton = buttonData.combat:Button({ ["ButtonText"] = "Autostomp", ["Pressed"] = function() end })
+sourceButton:SetCallback(function()
+    sourceButton:Toggle()
+    while sourceButton:IsOn() do
+        local data = { [1] = "EPress" }
+        game:GetService("ReplicatedStorage")
+            :WaitForChild("Events")
+            :WaitForChild("CarryStompEvent")
+            :FireServer(unpack(data))
+        task.wait(0.2)
+    end
+end)
+whitelistkey.Copy.MouseButton1Click:Connect(function()
+    local copyLinkResult = copyLink()
+    uiLibrary:Notify("Copied Link to clipboard!")
+end)
+key.Confirm.MouseButton1Click:Connect(function()
+    local text = tostring(key.TextBox.Text)
+    if text == fallbackText then
+        secondaryFlag = true
+        uiLibrary:Notify("sigma")
+        key.Visible = false
+        silveraccess:Toggle(true)
+        writevariable(alternateText, 1, fallbackText)
+    else
+        uiLibrary:Notify("Wrong key!")
+    end
+end)
+key.Exit.MouseButton1Click:Connect(function()
+    key.Visible = false
+end)
+whitelistkey.Exit.MouseButton1Click:Connect(function()
+    whitelistkey.Visible = false
+end)
+buttonData.misc:Button({
+    ["ButtonText"] = "Join Discord",
+    ["Name"] = "Disco",
+    ["Pressed"] = function()
+        uiLibrary:Notify("dsc.gg/beanzhub (copied to clipboard)")
+        secondaryHandler("dsc.gg/beanzhub")
+    end,
+})
+buttonData.misc:Button({
+    ["ButtonText"] = "Load old gui",
+    ["Name"] = "oldgui",
+    ["Pressed"] = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/pid4k/scripts/main/lifesentence.lua"))()
+    end,
+})
+silveraccess = buttonData.misc:Button({
+    ["ButtonText"] = "Get Silver Access",
+    ["Color"] = fromRgbResult,
+    ["Name"] = "SilverAcess",
+    ["Pressed"] = function()
+        key.Visible = true
+        uiLibrary:Notify("You can get the key at dsc.gg/beanzhub (copied to clipboard)")
+        secondaryHandler("dsc.gg/beanzhub")
+    end,
+})
+goldaccess = buttonData.misc:Button({
+    ["ButtonText"] = "Get Gold Access",
+    ["Color"] = secondaryFromRgbResult,
+    ["Name"] = "Goldaccess",
+    ["Pressed"] = function()
+        whitelistkey.Visible = true
+        uiLibrary:Notify("Whitelist to get gold access")
+    end,
+})
+if checkvariable(alternateText, 1) == fallbackText then
+    secondaryFlag = true
+    silveraccess:Toggle(true)
+end
+if verifyKey(checkvariable(alternateText, 9)) then
+    updateCFrameFlag = true
+    secondaryFlag = true
+    silveraccess:Toggle(true)
+    goldaccess:Toggle(true)
+end
+whitelistkey.Confirm.MouseButton1Click:Connect(function()
+    local text = whitelistkey.TextBox.Text
+    if verifyKey(text) then
+        updateCFrameFlag = true
+        secondaryFlag = true
+        silveraccess:Toggle(true)
+        goldaccess:Toggle(true)
+        writevariable(alternateText, 9, text)
+    end
+end)
