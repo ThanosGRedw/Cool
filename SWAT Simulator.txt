@@ -20,7 +20,7 @@ end
 
 -- ================= [ AUTO RE-EXECUTE SYSTEM ] =================
 local queue_on_teleport = queue_on_teleport or (syn and syn.queue_on_teleport) or (fluxus and fluxus.queue_on_teleport) or (identifyexecutor and select(1, identifyexecutor()))
-local SCRIPT_URL = "https://pastebin.com/raw/8VxktXUn"
+local SCRIPT_URL = "https://raw.githubusercontent.com/ThanosGRedw/Cool/refs/heads/main/SWAT%20Simulator.txt"
 
 getgenv().BrainrotQueued = getgenv().BrainrotQueued or false
 
