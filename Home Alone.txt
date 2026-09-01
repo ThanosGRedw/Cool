@@ -1,0 +1,1130 @@
+
+
+local t1 = {
+	value1 = nil,
+	value2 = loadstring(game:HttpGet("https://github.com/StyearX/Fluent-modded/releases/download/1.5.1/FluentPro"))(),
+	value3 = game:GetService("ReplicatedStorage"),
+	value4 = game:GetService("ProximityPromptService"),
+	value5 = game:GetService("RunService"),
+	value6 = game:GetService("UserInputService"),
+	value7 = game:GetService("Players").LocalPlayer
+}
+game:GetService("Workspace")
+t1.value8 = false
+t1.value9 = false
+t1.value10 = false
+t1.value11 = nil
+t1.value12 = nil
+t1.value13 = nil
+t1.value14 = {}
+t1.value15 = t1.value3:WaitForChild("Assets"):WaitForChild("Highlight"):WaitForChild("DetectionHighlight_Anomaly")
+t1.value16 = t1.value3:WaitForChild("Assets"):WaitForChild("Highlight"):WaitForChild("DetectionHighlight_Normal")
+t1.value17 = require(t1.value3:WaitForChild("Client"):WaitForChild("VisitorClient"))
+t1.value18 = false
+t1.value19 = nil
+t1.value20 = 1
+t1.value21 = false
+t1.value22 = false
+t1.value23 = 50
+t1.value24 = {}
+t1.value25 = false
+t1.value19 = nil
+t1.value26 = nil
+function t1.value26()
+    if t1.value11 then
+        t1.value11:Destroy()
+    end
+end
+function t1.value27(p1)
+    t1.value26()
+
+    if not p1 or not p1.model then
+        return
+    end;
+
+    (p1.isAnomaly and t1.value15:Clone() or t1.value16:Clone()).Parent = p1.model
+end
+function t1.value28(p2)
+    if not t1.value19 then
+        return
+    end
+
+    if not p2 then
+        t1.value19:SetDesc("No visitor present.")
+
+        return
+    end
+
+    local visitorDescription = p2.visitorDescription
+
+    if visitorDescription then
+        visitorDescription = p2.visitorDescription.displayName
+    end
+
+    local v21 = visitorDescription or "Unknown"
+    local isAnomaly = p2.isAnomaly
+    local v23 = not isAnomaly and "✅ SAFE" or "⚠\239\184\143 ANOMALY"
+    local v24 = not isAnomaly and "🟢 OPEN DOOR" or "❌ DO NOT OPEN"
+    local v25 = string.format("%s | %s | %s", v21, v23, v24)
+
+    t1.value19:SetDesc(v25)
+end
+function t1.value29(p3)
+    local visitorDescription = p3.visitorDescription
+
+    if visitorDescription then
+        visitorDescription = p3.visitorDescription.displayName
+    end
+
+    local v32 = visitorDescription or "Unknown"
+    local isAnomaly = p3.isAnomaly
+    local v34 = "Visitor: " .. v32
+    local v35 = not isAnomaly and "✅ Normal Visitor - 🟢 YOU CAN OPEN THE DOOR" or "⚠\239\184\143 ANOMALY DETECTED! ❌ DO NOT OPEN THE DOOR"
+
+    pcall(function()
+        t1.value2:Notify({
+			Title = v34,
+			Content = v35,
+			Duration = 5
+		})
+    end)
+end
+function t1.value30(p4)
+    if t1.value8 then
+        t1.value28(p4)
+
+        if p4 then
+            t1.value29(p4)
+        end
+    end
+
+    if t1.value9 then
+        if p4 then
+            t1.value27(p4)
+
+            return
+        end
+
+        t1.value26()
+    end
+end
+function t1.value31()
+    while t1.value8 or t1.value9 do
+        task.wait(0.3)
+
+        if not (t1.value8 or t1.value9) then
+            break
+        end
+
+        local ok, result = pcall(t1.value17.get)
+
+        if ok then
+            local v40 = result and result.visitorId
+
+            if v40 ~= t1.value13 then
+                t1.value13 = v40
+
+                if result then
+                    pcall(t1.value30, result)
+                else
+                    pcall(t1.value30, nil)
+                end
+            end
+        end
+    end
+
+    t1.value26()
+
+    if t1.value8 then
+        t1.value28(nil)
+    end
+end
+function t1.value32()
+    if t1.value12 then
+        return
+    end
+
+    local v41 = false
+
+    for _ = 1, 5 do
+        local v43 = t1.value17.get()
+
+        if v43 then
+            local _ = v43.visitorId
+
+            pcall(t1.value30, v43)
+            v41 = true
+
+            break
+        end
+
+        task.wait(0.2)
+    end
+
+    if not v41 and t1.value8 then
+        t1.value28(nil)
+    end
+
+    t1.value12 = task.spawn(t1.value31)
+end
+function t1.value33()
+    if (not t1.value8 or t1.value9) and t1.value12 then
+        t1.value12 = nil
+    end
+end
+function t1.value34()
+    if #t1.value14 > 0 then
+        return
+    end
+
+    t1.value4.PromptButtonHoldBegan:Connect(function(p5)
+        pcall(function()
+            p5.HoldDuration = 0
+            p5:InputHoldBegin()
+            task.spawn(function()
+                task.wait(0.05)
+                p5:InputHoldEnd()
+            end)
+        end)
+    end)
+    t1.value4.PromptTriggered:Connect(function(p6)
+        print("[PoC] Prompt Triggered (instant):", p6:GetFullName())
+    end)
+end
+function t1.value35()
+    for _, v in ipairs(t1.value14) do
+        v:Disconnect()
+    end
+
+    t1.value14 = {}
+end
+function t1.value36()
+    local Character = t1.value7.Character
+    local v29 = Character
+
+    if Character then
+        v29 = Character:FindFirstChild("HumanoidRootPart")
+    end
+
+    if v29 then
+        return Character
+    end
+
+    return nil
+end
+t1.value37 = nil
+function t1.value38()
+    if t1.value37 then
+        t1.value37:Disconnect()
+    end
+
+    if not t1.value21 and not t1.value18 then
+        return
+    end
+
+    t1.value5.Stepped:Connect(function()
+        local v136 = t1.value36()
+
+        if not v136 then
+            return
+        end
+
+        if t1.value21 then
+            for _, descendant in ipairs(v136:GetDescendants()) do
+                if descendant:IsA("BasePart") then
+                    descendant.CanCollide = false
+                end
+            end
+        end
+
+        if t1.value18 then
+            local HumanoidRootPart = v136:FindFirstChild("HumanoidRootPart")
+            local v140 = HumanoidRootPart
+            local Humanoid = v136:FindFirstChildOfClass("Humanoid")
+            if HumanoidRootPart then
+                v140 = Humanoid and Humanoid.MoveDirection.Magnitude > 0
+            end
+            if v140 then
+                HumanoidRootPart.CFrame = HumanoidRootPart.CFrame + Humanoid.MoveDirection * t1.value20
+            end
+        end
+    end)
+end
+function t1.value39()
+    t1.value25 = false
+    for v49, v50 in ipairs(t1.value24) do
+
+        v50:Disconnect()
+    end
+    t1.value24 = {}
+    local v51 = t1.value36()
+    if v51 then
+        local Humanoid = v51:FindFirstChildOfClass("Humanoid")
+
+        if Humanoid then
+            Humanoid.PlatformStand = false
+        end
+
+        local HumanoidRootPart = v51:FindFirstChild("HumanoidRootPart")
+
+        if HumanoidRootPart then
+            if HumanoidRootPart:FindFirstChild("FlyVelocity") then
+                HumanoidRootPart.FlyVelocity:Destroy()
+            end
+
+            if HumanoidRootPart:FindFirstChild("FlyGyro") then
+                HumanoidRootPart.FlyGyro:Destroy()
+            end
+        end
+    end
+    pcall(function()
+        workspace.CurrentCamera.CameraType = Enum.CameraType.Custom
+    end)
+end
+function t1.value40()
+    t1.value39()
+    t1.value25 = true
+
+    local u54 = t1.value36()
+
+    if not u54 then
+        return
+    end
+
+    local Humanoid = u54:FindFirstChildOfClass("Humanoid")
+    local HumanoidRootPart = u54:FindFirstChild("HumanoidRootPart")
+
+    if not Humanoid or not HumanoidRootPart then
+        return
+    end
+
+    Humanoid.PlatformStand = true
+    pcall(function()
+        workspace.CurrentCamera.CameraType = Enum.CameraType.Track
+    end)
+
+    local BodyGyro = Instance.new("BodyGyro")
+
+    BodyGyro.Name = "FlyGyro"
+    BodyGyro.P = 90000
+    BodyGyro.MaxTorque = Vector3.new(9000000000, 9000000000, 9000000000)
+    BodyGyro.CFrame = HumanoidRootPart.CFrame
+    BodyGyro.Parent = HumanoidRootPart
+
+    local BodyVelocity = Instance.new("BodyVelocity")
+
+    BodyVelocity.Name = "FlyVelocity"
+    BodyVelocity.Velocity = Vector3.new(0, 0, 0)
+    BodyVelocity.MaxForce = Vector3.new(9000000000, 9000000000, 9000000000)
+    BodyVelocity.Parent = HumanoidRootPart
+
+    local TouchEnabled = t1.value6.TouchEnabled
+
+    if TouchEnabled then
+        TouchEnabled = not t1.value6.KeyboardEnabled
+    end
+
+    if TouchEnabled then
+        local ControlModule
+        pcall(function()
+            ControlModule = require(t1.value7.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule"))
+        end)
+        local connection = t1.value5.RenderStepped:Connect(function()
+            if not t1.value25 then
+                return
+            end
+
+            u54 = t1.value36()
+
+            if not u54 then
+                return
+            end
+
+            HumanoidRootPart = u54:FindFirstChild("HumanoidRootPart")
+
+            if not HumanoidRootPart then
+                return
+            end
+
+            BodyGyro.CFrame = workspace.CurrentCamera.CFrame
+            BodyVelocity.Velocity = Vector3.new(0, 0, 0)
+
+            if ControlModule then
+                local MoveVector = ControlModule:GetMoveVector()
+                local CurrentCamera = workspace.CurrentCamera
+
+                if MoveVector.X > 0 then
+                    local v144 = BodyVelocity
+                    local s1 = "Velocity"
+                    local v146 = CurrentCamera.CFrame.RightVector * (MoveVector.X * t1.value23)
+
+                    v144[s1] = v144[s1] + v146
+                end
+
+                if MoveVector.X < 0 then
+                    local v147 = BodyVelocity
+                    local s2 = "Velocity"
+                    local v149 = CurrentCamera.CFrame.RightVector * (MoveVector.X * t1.value23)
+
+                    v147[s2] = v147[s2] + v149
+                end
+
+                if MoveVector.Z > 0 then
+                    local v150 = BodyVelocity
+                    local s3 = "Velocity"
+                    local v152 = CurrentCamera.CFrame.LookVector * (MoveVector.Z * t1.value23)
+
+                    v150[s3] = v150[s3] - v152
+                end
+
+                if MoveVector.Z < 0 then
+                    local v153 = BodyVelocity
+                    local s4 = "Velocity"
+                    local v155 = CurrentCamera.CFrame.LookVector * (MoveVector.Z * t1.value23)
+
+                    v153[s4] = v153[s4] - v155
+                end
+            end
+        end)
+        table.insert(t1.value24, connection)
+    else
+        local t2 = {
+			F = 0,
+			B = 0,
+			L = 0,
+			R = 0,
+			Q = 0,
+			E = 0
+		}
+        local t3 = {
+			F = 0,
+			B = 0,
+			L = 0,
+			R = 0,
+			Q = 0,
+			E = 0
+		}
+        local n1 = 0
+        local connection = t1.value6.InputBegan:Connect(function(input, gameProcessed)
+            if gameProcessed then
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.W then
+                t2.F = 1
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.S then
+                t2.B = -1
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.A then
+                t2.L = -1
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.D then
+                t2.R = 1
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.E then
+                t2.Q = 1
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.Q then
+                t2.E = -1
+            end
+        end)
+        local connection2 = t1.value6.InputEnded:Connect(function(input, gameProcessed)
+            if gameProcessed then
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.W then
+                t2.F = 0
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.S then
+                t2.B = 0
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.A then
+                t2.L = 0
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.D then
+                t2.R = 0
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.E then
+                t2.Q = 0
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.Q then
+                t2.E = 0
+            end
+        end)
+
+        table.insert(t1.value24, connection)
+        table.insert(t1.value24, connection2)
+
+        local connection3 = t1.value5.Heartbeat:Connect(function()
+            if not t1.value25 then
+                return
+            end
+
+            local CurrentCamera = workspace.CurrentCamera
+            local v161 = t2.L + t2.R ~= 0
+
+            if not v161 then
+                v161 = t2.F + t2.B ~= 0
+
+                if not v161 then
+                    v161 = t2.Q + t2.E ~= 0
+                end
+            end
+
+            if v161 then
+                n1 = t1.value23
+            elseif n1 ~= 0 then
+                n1 = 0
+            end
+
+            local v162 = t2.L + t2.R ~= 0
+
+            if not v162 then
+                v162 = t2.F + t2.B ~= 0
+
+                if not v162 then
+                    v162 = t2.Q + t2.E ~= 0
+                end
+            end
+
+            if v162 then
+                BodyVelocity.Velocity = (CurrentCamera.CFrame.LookVector * (t2.F + t2.B) + (CurrentCamera.CFrame * CFrame.new(t2.L + t2.R, (t2.F + t2.B + t2.Q + t2.E) * 0.2, 0).p - CurrentCamera.CFrame.p)) * n1
+
+                local F = t2.F
+                local B = t2.B
+                local L = t2.L
+                local R = t2.R
+
+                t3 = {
+					F = F,
+					B = B,
+					L = L,
+					R = R
+				}
+            else
+                local v167 = t2.L + t2.R == 0
+
+                if v167 then
+                    v167 = t2.F + t2.B == 0
+
+                    if v167 then
+                        v167 = t2.Q + t2.E == 0 and n1 ~= 0
+                    end
+                end
+
+                if v167 then
+                    BodyVelocity.Velocity = (CurrentCamera.CFrame.LookVector * (t3.F + t3.B) + (CurrentCamera.CFrame * CFrame.new(t3.L + t3.R, (t3.F + t3.B + t2.Q + t2.E) * 0.2, 0).p - CurrentCamera.CFrame.p)) * n1
+                else
+                    BodyVelocity.Velocity = Vector3.new(0, 0, 0)
+                end
+            end
+
+            BodyGyro.CFrame = CurrentCamera.CFrame
+        end)
+
+        table.insert(t1.value24, connection3)
+    end
+end
+t1.value7.CharacterAdded:Connect(function()
+    if t1.value22 then
+        task.wait(1)
+        t1.value40()
+    end
+end)
+t1.value41 = false
+t1.value42 = nil
+t1.value43 = nil
+t1.value44 = nil
+t1.value45 = nil
+t1.value44 = {}
+t1.value45 = {}
+function t1.value46(p7)
+    local p7Parent = p7.Parent
+
+    while p7Parent do
+        if p7Parent:IsA("Model") then
+            return p7Parent
+        end
+
+        p7Parent = p7Parent.Parent
+    end
+
+    return nil
+end
+function t1.value47(p8)
+    local v69 = p8:IsA("Highlight")
+
+    if v69 then
+        v69 = p8.Name ~= "CustomHighlight"
+
+        if v69 then
+            v69 = p8.Name ~= "DetectionHighlight_Anomaly"
+
+            if v69 then
+                v69 = p8.Name ~= "DetectionHighlight_Normal"
+
+                if v69 then
+                    v69 = p8.Name ~= "MonsterESP"
+                end
+            end
+        end
+    end
+
+    return v69
+end
+function t1.value48(p9)
+    if not p9 then
+        return
+    end
+    local v73 = false
+    local v74, v75, v76 = pairs(t1.value45)
+    local g78
+    repeat
+        local v77
+
+        v76, v77 = v74(v75, v76)
+
+        if not v76 then
+            g78 = true
+        end
+
+        if g78 then
+            break
+        end
+    until p9 == v77.model and v76.Enabled
+    if not g78 then
+        v73 = true
+    end
+    g78 = false
+    if v73 then
+        if not t1.value44[p9] then
+            local Highlight = Instance.new("Highlight")
+
+            Highlight.Name = "CustomHighlight"
+            Highlight.FillColor = Color3.fromRGB(0, 255, 0)
+            Highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+            Highlight.FillTransparency = 0.3
+            Highlight.Parent = p9
+            t1.value44[p9] = true
+
+            return
+        end
+    elseif t1.value44[p9] then
+        local CustomHighlight = p9:FindFirstChild("CustomHighlight")
+
+        if CustomHighlight then
+            CustomHighlight:Destroy()
+        end
+
+        t1.value44[p9] = nil
+    end
+end
+t1.value49 = nil
+function t1.value49(p10)
+    if t1.value45[p10] then
+        return
+    end
+
+    local v82 = t1.value46(p10)
+
+    if not v82 then
+        return
+    end
+
+    local connection = p10:GetPropertyChangedSignal("Enabled"):Connect(function()
+        if t1.value41 then
+            t1.value48(v82)
+        end
+    end)
+
+    t1.value45[p10] = {
+		model = v82,
+		conn = connection
+	}
+
+    if t1.value41 then
+        t1.value48(v82)
+    end
+end
+function t1.value50(p11)
+    local v85 = t1.value45[p11]
+
+    if not v85 then
+        return
+    end
+
+    if v85.conn then
+        v85.conn:Disconnect()
+    end
+
+    t1.value45[p11] = nil
+
+    if t1.value41 and v85.model then
+        t1.value48(v85.model)
+    end
+end
+function t1.value51(p12)
+    if not t1.value47(p12) then
+        return
+    end
+
+    t1.value49(p12)
+end
+function t1.value52(p13)
+    if not t1.value47(p13) then
+        return
+    end
+
+    t1.value50(p13)
+end
+function t1.value53()
+    local function u87(p14)
+        for _, child in pairs(p14:GetChildren()) do
+            if t1.value47(child) then
+                t1.value49(child)
+            end
+
+            local v171 = child:IsA("Model")
+
+            if not v171 then
+                v171 = child:IsA("Folder")
+            end
+
+            if v171 then
+                u87(child)
+            end
+        end
+    end
+
+    u87(workspace)
+end
+t1.value54 = false
+t1.value55 = {}
+t1.value1 = {}
+t1.value56 = nil
+t1.value57 = nil;
+(function()
+    local Assets = t1.value3:FindFirstChild("Assets")
+
+    if Assets then
+        Assets = Assets:FindFirstChild("Monsters")
+    end
+
+    if Assets then
+        local GetChildren = Assets.GetChildren
+
+        for _, v in pairs(GetChildren(Assets)) do
+            if v:IsA("Model") or v:IsA("Folder") then
+                t1.value55[v.Name] = true
+            end
+        end
+    end
+end)()
+function t1.value58(p15)
+    if t1.value1[p15] then
+        return
+    end
+
+    local Highlight = Instance.new("Highlight")
+
+    Highlight.Name = "MonsterESP"
+    Highlight.FillColor = Color3.fromRGB(255, 0, 0)
+    Highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+    Highlight.FillTransparency = 0.3
+    Highlight.Parent = p15
+    t1.value1[p15] = true
+end
+t1.value59 = nil
+function t1.value59(p16)
+    local MonsterESP = p16:FindFirstChild("MonsterESP")
+
+    if MonsterESP then
+        MonsterESP:Destroy()
+    end
+
+    t1.value1[p16] = nil
+end
+function t1.value60(p17)
+    if not t1.value54 then
+        return
+    end
+
+    local v96 = p17:IsA("Model")
+
+    if v96 then
+        v96 = t1.value55[p17.Name]
+    end
+
+    if v96 then
+        t1.value58(p17)
+    end
+end
+function t1.value61(p18)
+    if not t1.value54 then
+        return
+    end
+
+    local v94 = p18:IsA("Model")
+
+    if v94 then
+        v94 = t1.value55[p18.Name]
+    end
+
+    if v94 then
+        t1.value59(p18)
+    end
+end
+function t1.value62()
+    for _, child in pairs(workspace:GetChildren()) do
+        local v99 = child:IsA("Model")
+
+        if v99 then
+            v99 = t1.value55[child.Name]
+        end
+
+        if v99 then
+            t1.value58(child)
+        end
+    end
+end
+local value2 = t1.value2
+local uDim2 = UDim2.fromOffset(520, 480)
+local LeftControl = Enum.KeyCode.LeftControl
+local v5 = value2:CreateWindow({
+	Title = "Home Alone Anomaly Detection",
+	SubTitle = "By GAMER",
+	TabWidth = 160,
+	Size = uDim2,
+	Acrylic = true,
+	Theme = "Blood Red",
+	MinimizeKey = LeftControl,
+	Search = true
+})
+local v6 = v5:AddTab({
+	Title = "Detect",
+	Icon = "lucide/eye"
+})
+local v7 = v5:AddTab({
+	Title = "Player",
+	Icon = "lucide/user"
+})
+local v8 = v5:AddTab({
+	Title = "Task Highlight",
+	Icon = "lucide/sun"
+})
+local v9 = v5:AddTab({
+	Title = "Monster ESP",
+	Icon = "lucide/skull"
+})
+local v10 = v5:AddTab({
+	Title = "UI Settings",
+	Icon = "lucide/settings-2"
+})
+local v11 = v6:AddSection("Detection", "lucide/eye")
+
+t1.value19 = v11:AddParagraph({
+	Title = "Status",
+	Content = "No visitor present."
+})
+v11:AddToggle("HighlightAnomaly", {
+	Title = "Highlight Anomaly",
+	Default = false,
+	Callback = function(p19)
+    t1.value9 = p19
+
+    if p19 then
+        if not t1.value12 then
+            t1.value32()
+        end
+
+        for _ = 1, 5 do
+            local v108 = t1.value17.get()
+
+            if v108 and v108.model then
+                t1.value27(v108)
+
+                return
+            end
+
+            task.wait(0.2)
+        end
+
+        return
+    end
+
+    t1.value26()
+    t1.value33()
+end
+})
+v11:AddToggle("AutoDetectAnomaly", {
+	Title = "Auto Detect Anomaly",
+	Default = false,
+	Callback = function(p20)
+    t1.value8 = p20
+
+    if p20 then
+        if not t1.value12 then
+            t1.value32()
+
+            return
+        end
+
+        local v110 = t1.value17.get()
+
+        if v110 then
+            pcall(t1.value30, v110)
+
+            local _ = v110.visitorId
+
+            return
+        end
+    else
+        t1.value33()
+        t1.value28(nil)
+    end
+end
+})
+v11:AddToggle("InstantPrompts", {
+	Title = "Instant Proximity Prompts",
+	Default = false,
+	Callback = function(p21)
+    t1.value10 = p21
+
+    if p21 then
+        t1.value34()
+
+        return
+    end
+
+    t1.value35()
+end
+})
+local v12 = v7:AddSection("Player", "lucide/user")
+
+v12:AddToggle("TPWalk", {
+	Title = "TP Walk",
+	Default = false,
+	Callback = function(p22)
+    t1.value18 = p22
+    t1.value38()
+end
+})
+v12:AddSlider("TPWalkSpeed", {
+	Title = "TP Walk Speed",
+	Min = 0.1,
+	Max = 1,
+	Default = 0.4,
+	Rounding = 1,
+	Callback = function(p23)
+    t1.value20 = p23
+end
+})
+v12:AddToggle("Noclip", {
+	Title = "Noclip",
+	Default = false,
+	Callback = function(p24)
+    t1.value21 = p24
+    t1.value38()
+end
+})
+v12:AddToggle("Fly", {
+	Title = "Fly",
+	Default = false,
+	Callback = function(p25)
+    t1.value22 = p25
+
+    if p25 then
+        t1.value40()
+
+        return
+    end
+
+    t1.value39()
+end
+})
+v12:AddSlider("FlySpeed", {
+	Title = "Fly Speed",
+	Min = 10,
+	Max = 80,
+	Default = 50,
+	Rounding = 0,
+	Callback = function(p26)
+    t1.value23 = p26
+end
+})
+v8:AddSection("Task Highlight", "lucide/sun"):AddToggle("HighlightAllTasks", {
+	Title = "Highlight all Tasks",
+	Default = false,
+	Callback = function(p27)
+    if p27 then
+        if not t1.value42 then
+            t1.value42 = workspace.DescendantAdded:Connect(t1.value51)
+            t1.value43 = workspace.DescendantRemoving:Connect(t1.value52)
+        end
+
+        task.spawn(function()
+            task.wait(0.5)
+            t1.value53()
+        end)
+    else
+        if t1.value42 then
+            t1.value42:Disconnect()
+        end
+        if t1.value43 then
+            t1.value43:Disconnect()
+        end
+        for v121, v122 in pairs(t1.value45) do
+
+            if v122.conn then
+                v122.conn:Disconnect()
+            end
+        end
+        for k in pairs(t1.value44) do
+            local CustomHighlight = k:FindFirstChild("CustomHighlight")
+
+            if CustomHighlight then
+                CustomHighlight:Destroy()
+            end
+        end
+    end
+
+    local value2_2 = t1.value2
+    local v126 = not p27 and "Highlights removed." or "Zero‑lag highlighting ON."
+
+    value2_2:Notify({
+			Title = "Highlight all Tasks",
+			Content = v126,
+			Duration = 3
+		})
+end
+})
+v9:AddSection("Monster ESP", "lucide/skull"):AddToggle("MonsterESP", {
+	Title = "Enable Monster ESP",
+	Default = false,
+	Callback = function(p28)
+    if p28 then
+        if not t1.value56 then
+            t1.value56 = workspace.ChildAdded:Connect(t1.value60)
+            t1.value57 = workspace.ChildRemoved:Connect(t1.value61)
+        end
+
+        t1.value62()
+    else
+        if t1.value56 then
+            t1.value56:Disconnect()
+        end
+
+        if t1.value57 then
+            t1.value57:Disconnect()
+        end
+
+        for k in pairs(t1.value1) do
+            local MonsterESP = k:FindFirstChild("MonsterESP")
+
+            if MonsterESP then
+                MonsterESP:Destroy()
+            end
+        end
+    end
+
+    local value2_3 = t1.value2
+    local v131 = not p28 and "Highlights removed." or "Red highlights ON."
+
+    value2_3:Notify({
+			Title = "Monster ESP",
+			Content = v131,
+			Duration = 3
+		})
+end
+})
+InterfaceManager:SetLibrary(t1.value2)
+InterfaceManager:SetFolder("HomeAlone/Settings")
+InterfaceManager:BuildInterfaceSection(v10)
+v10:AddSection("Custom", "lucide/brush"):AddToggle("DisableBGToggle", {
+	Title = "Show Background Image",
+	Default = true,
+	Callback = function(p29)
+    InterfaceManager.Settings.DisableBG = not p29
+    InterfaceManager:SaveSettings()
+
+    local __ThemeBG = t1.value2.Window.AcrylicPaint.Frame:FindFirstChild("__ThemeBG")
+
+    if __ThemeBG then
+        __ThemeBG.Visible = p29
+    end
+end
+})
+local v13 = v10:AddSection("Save/Load Config", "lucide/save")
+
+SaveManager:SetLibrary(t1.value2)
+SaveManager:SetFolder("HomeAlone/Config")
+SaveManager:IgnoreThemeSettings()
+SaveManager:BuildConfigSection(v13)
+InterfaceManager:LoadSettings()
+local Settings = InterfaceManager.Settings
+if Settings.Theme then
+    t1.value2:SetTheme(Settings.Theme)
+end
+if Settings.Acrylic ~= nil then
+    t1.value2:ToggleAcrylic(Settings.Acrylic)
+end
+if Settings.Transparency ~= nil then
+    t1.value2:ToggleTransparency(Settings.Transparency)
+end
+if Settings.Animated ~= nil then
+    getgenv().ShineEnabled = Settings.Animated
+    t1.value2:SetTheme(t1.value2.Theme)
+end
+if Settings.Font then
+    InterfaceManager:ApplyFont(Settings.Font)
+end
+if Settings.MenuKeybind then
+    local value2_4 = t1.value2
+    local v16 = Enum.KeyCode[Settings.MenuKeybind]
+
+    if not v16 then
+        v16 = Enum.KeyCode.LeftControl
+    end
+
+    value2_4.MinimizeKey = v16
+end
+SaveManager:LoadAutoloadConfig()
+FloatingButtonManager:LoadAutoloadConfig()
+t1.value2:Notify({
+	Title = "Loaded",
+	Content = "Home Alone Anomaly Detection ready",
+	Type = "Success",
+	Duration = 4
+})
