@@ -1,0 +1,810 @@
+local t1 = {}
+local v2 = unpack or table.unpack
+local LocalPlayer = game:GetService("Players").LocalPlayer
+t1.value1 = game:GetService("TweenService")
+
+local UserInputService = game:GetService("UserInputService")
+
+t1.value2 = game:GetService("RunService")
+pcall(function()
+    for _, child in pairs(game.CoreGui:GetChildren()) do
+        local v22 = child.Name == "EpicSCheatGUI"
+
+        if not v22 then
+            v22 = child.Name == "EpicSInjector"
+        end
+
+        if v22 then
+            child:Destroy()
+        end
+    end
+end)
+
+local function v5()
+    if not game:IsLoaded() then
+        game.Loaded:Wait()
+    end
+    local Players = game:GetService("Players")
+    local LocalPlayer2 = Players.LocalPlayer
+    local vector3 = Vector3.new(0, 0, 0)
+    function Notify(p1, p2, p3)
+        local ScreenGui = Instance.new("ScreenGui")
+        local Frame = Instance.new("Frame", ScreenGui)
+        local TextLabel = Instance.new("TextLabel", Frame)
+        local TextLabel2 = Instance.new("TextLabel", Frame)
+
+        ScreenGui.Name = "NotificationOof"
+        ScreenGui.Parent = game.CoreGui
+        Frame.Name = "MainFrame"
+        Frame.BackgroundColor3 = Color3.new(0.156863, 0.156863, 0.156863)
+        Frame.BorderSizePixel = 0
+        Frame.Position = UDim2.new(1, 5, 0, 50)
+        Frame.Size = UDim2.new(0, 330, 0, 100)
+        TextLabel.BackgroundColor3 = Color3.new(0, 0, 0)
+        TextLabel.BackgroundTransparency = 0.9
+        TextLabel.Size = UDim2.new(1, 0, 0, 30)
+        TextLabel.Font = Enum.Font.SourceSansSemibold
+        TextLabel.Text = p1
+        TextLabel.TextColor3 = Color3.new(255, 0, 255)
+        TextLabel.TextSize = 25
+        TextLabel2.BackgroundColor3 = Color3.new(0, 0, 0)
+        TextLabel2.BackgroundTransparency = 1
+        TextLabel2.Position = UDim2.new(0, 0, 0, 30)
+        TextLabel2.Size = UDim2.new(1, 0, 1, -30)
+        TextLabel2.Font = Enum.Font.SourceSans
+        TextLabel2.Text = p2
+        TextLabel2.TextColor3 = Color3.new(255, 0, 255)
+        TextLabel2.TextSize = 15
+        wait(0.1)
+        Frame:TweenPosition(UDim2.new(1, -330, 0, 50), "Out", "Sine", 0.5)
+        wait(p3)
+        Frame:TweenPosition(UDim2.new(1, 5, 0, 50), "Out", "Sine", 0.5)
+        wait(10)
+        ScreenGui:Destroy()
+    end
+    task.spawn(function()
+        game:IsLoaded()
+        repeat
+            task.wait()
+        until game:IsLoaded()
+        local floor = math.floor
+        local cos = math.cos
+        local _ = math.sin
+        local acos = math.acos
+        local n1 = 3.141592653589793
+        local n2 = 0
+        local t2 = {
+			0.1,
+			1
+		}
+        local t3 = {
+			-200,
+			200
+		}
+        while task.wait() and n2 <= gcinfo() do
+            n2 = gcinfo()
+        end
+        task.wait(0.3)
+        local v80 = gcinfo() + 200
+        local n3 = 0
+        local function v82()
+            return floor(v80 + (acos(cos(n1 * n3)) / n1 * 400 + -200))
+        end
+        hookfunction(getrenv().gcinfo, function()
+            return v82()
+        end)
+        local u83
+        u83 = hookfunction(getrenv().collectgarbage, function(_, ...)
+            local ok, _ = pcall(u83, nil, ...)
+
+            if ok and false then
+                return v82()
+            end
+
+            return u83(nil, ...)
+        end)
+        t1.value2.Stepped:Connect(function()
+            if acos(cos(n1 * n3)) / n1 * 400 + -200 <= acos(cos(n1 * n3 + 0.01)) / n1 * 400 + -200 then
+                n3 += 0.01
+
+                return
+            end
+
+            local _ = n3 + 0.07
+        end)
+        local _next = next
+        local v85
+        while true do
+            local v86
+
+            v85, v86 = _next(t2, v85)
+
+            if v85 == nil then
+                break
+            end
+
+            t2[v85] = v86 * 10000
+        end
+        local _ = math.random(t2[1], t2[2]) / 10000
+        while wait(t2) do
+            local random = math.random
+            local v89 = t3[1]
+            local v90 = t3[2]
+
+            random(200 + v89, 200 + v90)
+
+            local _ = math.random(t2[1], t2[2]) / 10000
+        end
+    end)
+    task.spawn(function()
+        game:IsLoaded()
+        repeat
+            task.wait()
+        until game:IsLoaded()
+        local v92 = cloneref(game:GetService("RunService"))
+        local v93 = cloneref(game:GetService("Stats"))
+        local TotalMemoryUsageMb = v93:GetTotalMemoryUsageMb()
+        local n4 = 0
+        v92.Stepped:Connect(function()
+            n4 = Random.new():NextNumber(-10, 10)
+        end)
+        local function v96()
+            return TotalMemoryUsageMb + n4
+        end
+        local u97
+        u97 = hookmetamethod(game, "__namecall", function(p5, ...)
+            local v154 = getnamecallmethod()
+            local v155 = checkcaller()
+
+            if not v155 then
+                v155 = typeof(p5) ~= "Instance"
+
+                if not v155 then
+                    v155 = v154 ~= "GetTotalMemoryUsageMb" and v154 ~= "getTotalMemoryUsageMb"
+
+                    if not v155 then
+                        v155 = p5.ClassName ~= "Stats"
+                    end
+                end
+            end
+
+            if v155 then
+                return u97(p5, ...)
+            end
+
+            return v96()
+        end)
+        hookfunction(v93.GetTotalMemoryUsageMb, function(p6)
+            if not checkcaller() and typeof(p6) == "Instance" then
+                if p6.ClassName == "Stats" then
+                end
+            end
+        end)
+    end)
+    task.spawn(function()
+        game:IsLoaded()
+        repeat
+            task.wait()
+        until game:IsLoaded()
+        local v98 = cloneref(game:GetService("RunService"))
+        local v99 = cloneref(game:GetService("Stats"))
+        local MemoryUsageMbForTag = v99:GetMemoryUsageMbForTag(Enum.DeveloperMemoryTag.Gui)
+        local n5 = 0
+        v98.Stepped:Connect(function()
+            n5 = Random.new():NextNumber(-0.1, 0.1)
+        end)
+        local function v102()
+            return MemoryUsageMbForTag + n5
+        end
+        local u103
+        u103 = hookmetamethod(game, "__namecall", function(p7, ...)
+            local v158 = getnamecallmethod()
+            local v159 = checkcaller()
+
+            if not v159 then
+                v159 = typeof(p7) ~= "Instance"
+
+                if not v159 then
+                    v159 = v158 ~= "GetMemoryUsageMbForTag" and v158 ~= "getMemoryUsageMbForTag"
+
+                    if not v159 then
+                        v159 = p7.ClassName ~= "Stats"
+                    end
+                end
+            end
+
+            if v159 then
+                return u103(p7, ...)
+            end
+
+            return v102()
+        end)
+        hookfunction(v99.GetMemoryUsageMbForTag, function(p8)
+            if not checkcaller() and typeof(p8) == "Instance" then
+                if p8.ClassName == "Stats" then
+                end
+            end
+        end)
+    end)
+    local v26 = cloneref(game:GetService("ContentProvider"))
+    local _cloneref = cloneref
+    local t4 = { game:GetService("CoreGui") }
+    local v29 = _cloneref(v2(t4))
+    local u30
+    local u31
+    local t5 = {}
+    game:GetService("ContentProvider"):PreloadAsync({ v29 }, function(p9)
+        if not p9:find("rbxassetid://") then
+            table.insert(t5, p9)
+        end
+    end)
+    local v33, v34, v35 = pairs(game:GetDescendants())
+    local t6 = {}
+    while true do
+        local v37
+
+        v35, v37 = v33(v34, v35)
+
+        if v35 == nil then
+            break
+        end
+
+        local v38 = v37:IsA("ImageLabel")
+
+        if v38 then
+            local v39 = v37.Image:find("rbxassetid://")
+
+            if v39 then
+                v39 = v37:IsDescendantOf(v29)
+            end
+
+            v38 = not v39
+        end
+
+        if v38 then
+            table.insert(t6, v37.Image)
+        end
+    end
+    function randomizeTable(p10)
+        local v106 = #p10
+
+        while v106 > 0 do
+            local v107 = math.random(v106)
+            local v108 = p10[v107]
+
+            p10[v107] = p10[v106]
+            p10[v106] = v108
+            v106 -= 1
+        end
+
+        return p10
+    end
+    local u40
+    u40 = hookmetamethod(game, "__namecall", function(p11, p12, ...)
+        local v111 = getnamecallmethod()
+        local v112 = not checkcaller()
+
+        if v112 then
+            v112 = v111 == "preloadAsync" or v111 == "PreloadAsync"
+
+            if v112 then
+                v112 = p12
+
+                if p12 then
+                    v112 = p12[1]
+
+                    if v112 then
+                        v112 = p11.ClassName == "ContentProvider" and p12 ~= nil
+                    end
+                end
+
+                if v112 then
+                    v112 = typeof(p12[1]) == "Instance"
+
+                    if v112 then
+                        v112 = table.find(p12, v29) or table.find(p12, game)
+                    end
+                end
+            end
+        end
+
+        if v112 then
+            if p12[1] == v29 then
+                u30 = randomizeTable(t5)
+
+                return u40(p11, u30, ...)
+            end
+
+            if p12[1] == game then
+                u31 = randomizeTable(t6)
+
+                return u40(p11, u31, ...)
+            end
+        end
+
+        return u40(p11, p12, ...)
+    end)
+    local u41
+    u41 = hookfunction(v26.PreloadAsync, function(p13, p14, p15)
+        local v116 = not checkcaller()
+
+        if v116 then
+            v116 = typeof(p13) == "Instance"
+
+            if v116 then
+                v116 = tostring(p13) == "ContentProvider"
+            end
+
+            if v116 then
+                v116 = typeof(p14) == "table"
+
+                if v116 then
+                    v116 = table.find(p14, v29) or table.find(p14, game)
+                end
+
+                if v116 then
+                    local v117 = table.find(p14, true)
+
+                    if not v117 then
+                        v117 = table.find(p14, false)
+                    end
+
+                    v116 = not v117
+                end
+            end
+        end
+
+        if v116 then
+            if p14[1] == v29 then
+                u30 = randomizeTable(t5)
+
+                return u41(p13, u30, p15)
+            end
+
+            if p14[1] == game then
+                u31 = randomizeTable(t6)
+
+                return u41(p13, u31, p15)
+            end
+        end
+
+        return u41(p13, p14, p15)
+    end)
+    local IsDescendantOf = game.IsDescendantOf
+    local u43
+    u43 = hookmetamethod(game, "__namecall", function(p16, ...)
+        local v119 = getnamecallmethod()
+        local v120 = not checkcaller()
+
+        if v120 then
+            v120 = typeof(p16) == "Instance" and v119 == "GetFocusedTextBox"
+
+            if v120 then
+                v120 = p16.ClassName == "UserInputService"
+            end
+        end
+
+        if v120 then
+            local v121 = u43(p16, ...)
+            local v122 = v121
+
+            if v122 then
+                v122 = typeof(v121) == "Instance"
+            end
+
+            if v122 then
+                local _, result = pcall(function()
+                    IsDescendantOf(v121, Bypassed_Dex)
+                end)
+
+                if result and result:match("The current identity") then
+                    return nil
+                end
+            end
+        end
+
+        return u43(p16, ...)
+    end)
+    local t7 = {}
+    local u45
+    u45 = hookfunction(getrenv().newproxy, function(...)
+        local v125 = u45(...)
+
+        table.insert(t7, v125)
+
+        return v125
+    end)
+    cloneref(game:GetService("RunService")).Stepped:Connect(function()
+        local v126, v127, v128 = pairs(t7)
+
+        while true do
+            local v129
+
+            v128, v129 = v126(v127, v128)
+
+            if v128 == nil then
+                break
+            end
+
+            if v129 ~= nil then
+            end
+        end
+    end)
+    Players.PlayerRemoving:Connect(function(player)
+        if player == Players.LocalPlayer then
+            game:Shutdown()
+        end
+    end)
+    t1.value2.Heartbeat:Connect(function()
+        local v131 = LocalPlayer2
+
+        if v131 then
+            v131 = LocalPlayer2.Character
+        end
+
+        if v131 then
+            local Character = LocalPlayer2.Character
+            local t8 = { CFrame.new(vector3) }
+
+            Character:SetPrimaryPartCFrame(v2(t8))
+        end
+    end)
+    local LocalPlayer3 = game:GetService("Players").LocalPlayer
+    local RootPartCFrame
+    local connection
+    local function v49()
+        connection = t1.value2.Heartbeat:Connect(function()
+            RootPartCFrame = LocalPlayer3.Character:FindFirstChildOfClass("Humanoid").RootPart.CFrame
+        end)
+        LocalPlayer3.Character:FindFirstChildOfClass("Humanoid").RootPart:GetPropertyChangedSignal("CFrame"):Connect(function()
+            LocalPlayer3.Character:FindFirstChildOfClass("Humanoid").RootPart.CFrame = RootPartCFrame
+            t1.value2.Heartbeat:Wait()
+        end)
+        LocalPlayer3.Character:FindFirstChildOfClass("Humanoid").Died:Connect(function()
+            connection:Disconnect()
+        end)
+    end
+    LocalPlayer3.CharacterAdded:Connect(function(character)
+        character:FindFirstChildOfClass("Humanoid")
+
+        repeat
+            t1.value2.Heartbeat:Wait()
+        until character:FindFirstChildOfClass("Humanoid")
+
+        local _ = character:FindFirstChildOfClass("Humanoid").RootPart
+
+        repeat
+            t1.value2.Heartbeat:Wait()
+        until character:FindFirstChildOfClass("Humanoid").RootPart
+
+        v49()
+    end)
+    LocalPlayer3.CharacterRemoving:Connect(function()
+        connection:Disconnect()
+    end)
+    v49()
+    assert(getrawmetatable)
+    grm = getrawmetatable(game)
+    setreadonly(grm, false)
+    old = grm.__namecall
+    grm.__namecall = newcclosure(function(p17, ...)
+        local v137 = ...
+
+        if tostring(v137) ~= "Walkspeed" then
+            if tostring(v137) ~= "Velocity" then
+                if tostring(v137) ~= "Gravity" then
+                    if tostring(v137) ~= "Ban" then
+                        if tostring(v137) ~= "GetService" then
+                            if tostring(v137) ~= "UserId" then
+                                if tostring(v137) ~= "Name" then
+                                    if tostring(v137) ~= "Kick" then
+                                        if tostring(v137) ~= "Handle" then
+                                            if tostring(v137) ~= "Jumppower" then
+                                                if tostring(v137) ~= "Health" then
+                                                    return old(p17, ...)
+                                                end
+
+                                                return
+                                            end
+
+                                            return
+                                        end
+
+                                        return
+                                    end
+
+                                    return
+                                end
+
+                                return
+                            end
+
+                            return
+                        end
+
+                        return
+                    end
+
+                    return
+                end
+
+                return
+            end
+
+            return
+        end
+    end)
+    local LocalPlayer4 = game:GetService("Players").LocalPlayer
+    local u51
+    u51 = hookmetamethod(game, "__index", function(p18, p19)
+        local v140 = checkcaller()
+
+        if not v140 then
+            v140 = p19 ~= "PlatformStand"
+
+            if not v140 then
+                v140 = p18.ClassName ~= "Humanoid"
+            end
+
+            if not v140 then
+                local p18Parent = p18.Parent
+
+                if p18Parent then
+                    p18Parent = LocalPlayer4.Character
+                end
+
+                v140 = not p18Parent
+
+                if not v140 then
+                    v140 = p18.Parent ~= LocalPlayer4.Character
+                end
+            end
+        end
+
+        if v140 then
+            return u51(p18, p19)
+        end
+
+        return false
+    end)
+    game.DescendantAdded:Connect(function(descendant)
+        local v143 = descendant.ClassName:find("Body")
+
+        if v143 then
+            v143 = LocalPlayer4.Character
+
+            if v143 then
+                v143 = descendant:IsDescendantOf(LocalPlayer4.Character)
+            end
+        end
+
+        if v143 then
+            local u144
+            local u145
+            u144 = hookmetamethod(descendant, "__index", newcclosure(function(p20, ...)
+                if checkcaller() or p20 ~= descendant then
+                    return u144(p20, ...)
+                end
+                local success = pcall(u144, p20, ...)
+                if not success then
+                    local _ = error
+                end
+            end))
+            local _hookmetamethod = hookmetamethod
+            local t10 = { newcclosure(function(p21, ...)
+                if checkcaller() or p21 ~= descendant then
+                    return u145(p21, ...)
+                end
+
+                local ok, _ = pcall(u145, p21, ...)
+
+                if not ok then
+                    local _ = error
+                end
+            end) }
+            u145 = _hookmetamethod(descendant, "__namecall", v2(t10))
+        end
+    end)
+    t1.value2.Heartbeat:Connect(function()
+        local Character = LocalPlayer4.Character
+
+        if Character then
+            Character = LocalPlayer4.Character:FindFirstChild("Torso")
+        end
+
+        if Character then
+            LocalPlayer4.Character.Torso.Anchored = false
+        end
+    end)
+    Notify("EPIC.S BYPASS", "Anti Cheat Bypass Injecting...!", 2)
+end
+t1.value3 = Instance.new("ScreenGui")
+t1.value3.Name = "EpicSInjector"
+t1.value3.ResetOnSpawn = false
+t1.value3.Parent = LocalPlayer:WaitForChild("PlayerGui")
+t1.value4 = Instance.new("Frame")
+t1.value4.Size = UDim2.new(0, 350, 0, 280)
+t1.value4.Position = UDim2.new(0.5, -175, 0.5, -140)
+t1.value4.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+t1.value4.BackgroundTransparency = 0
+t1.value4.BorderSizePixel = 0
+t1.value4.ClipsDescendants = true
+t1.value4.Parent = t1.value3
+local UICorner = Instance.new("UICorner")
+
+UICorner.CornerRadius = UDim.new(0, 16)
+UICorner.Parent = t1.value4
+local UIStroke = Instance.new("UIStroke")
+
+UIStroke.Color = Color3.fromRGB(255, 0, 0)
+UIStroke.Thickness = 2
+UIStroke.Transparency = 0.2
+UIStroke.Parent = t1.value4
+local Frame = Instance.new("Frame")
+
+Frame.Size = UDim2.new(1, -4, 1, -4)
+Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+Frame.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+Frame.BackgroundTransparency = 0.95
+Frame.BorderSizePixel = 0
+Frame.Parent = t1.value4
+local UICorner2 = Instance.new("UICorner")
+
+UICorner2.CornerRadius = UDim.new(0, 14)
+UICorner2.Parent = Frame
+local TextLabel = Instance.new("TextLabel")
+
+TextLabel.Size = UDim2.new(1, 0, 0, 30)
+TextLabel.Position = UDim2.new(0, 0, 0, 10)
+TextLabel.Text = "ANTI CHEAT BYPASS"
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextSize = 18
+TextLabel.Font = Enum.Font.GothamBold
+TextLabel.BackgroundTransparency = 1
+TextLabel.TextStrokeTransparency = 0.3
+TextLabel.TextStrokeColor3 = Color3.fromRGB(255, 0, 0)
+TextLabel.Parent = t1.value4
+t1.value5 = Instance.new("TextButton")
+t1.value5.Size = UDim2.new(0, 180, 0, 60)
+t1.value5.Position = UDim2.new(0.5, -90, 0, 65)
+t1.value5.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+t1.value5.BorderSizePixel = 0
+t1.value5.Text = "INJECT"
+t1.value5.TextSize = 30
+t1.value5.Font = Enum.Font.GothamBold
+t1.value5.TextColor3 = Color3.fromRGB(255, 255, 255)
+t1.value5.Parent = t1.value4
+local UICorner3 = Instance.new("UICorner")
+
+UICorner3.CornerRadius = UDim.new(0, 10)
+UICorner3.Parent = t1.value5
+local UIStroke2 = Instance.new("UIStroke")
+
+UIStroke2.Color = Color3.fromRGB(255, 0, 0)
+UIStroke2.Thickness = 1.5
+UIStroke2.Transparency = 0.3
+UIStroke2.Parent = t1.value5
+t1.value6 = 0
+t1.value7 = nil
+t1.value7 = t1.value2.RenderStepped:Connect(function()
+    local v52 = not t1.value5
+
+    if not v52 then
+        v52 = not t1.value5.Parent
+    end
+
+    if v52 then
+        t1.value7:Disconnect()
+
+        return
+    end
+
+    t1.value6 = (t1.value6 + 0.005) % 1
+
+    local color3 = Color3.fromHSV(t1.value6, 1, 1)
+
+    t1.value5.TextColor3 = color3
+end)
+
+local TextLabel3 = Instance.new("TextLabel")
+
+TextLabel3.Size = UDim2.new(1, -20, 0, 40)
+TextLabel3.Position = UDim2.new(0, 10, 0, 145)
+TextLabel3.Text = "THIS SCRIPT WAS CREATED BY @EPICSCRIPTERR\nDON'T FORGET TO SUBSCRIBE TO MY CHANNEL"
+TextLabel3.TextColor3 = Color3.fromRGB(180, 180, 180)
+TextLabel3.TextSize = 13
+TextLabel3.Font = Enum.Font.GothamBold
+TextLabel3.BackgroundTransparency = 1
+TextLabel3.TextWrapped = true
+TextLabel3.TextXAlignment = Enum.TextXAlignment.Center
+TextLabel3.Parent = t1.value4
+t1.value8 = Instance.new("TextButton")
+t1.value8.Size = UDim2.new(0, 180, 0, 30)
+t1.value8.Position = UDim2.new(0.5, -90, 0, 200)
+t1.value8.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+t1.value8.BorderSizePixel = 0
+t1.value8.Text = "YOUTUBE CHANNEL LINK"
+t1.value8.TextColor3 = Color3.fromRGB(200, 200, 200)
+t1.value8.TextSize = 13
+t1.value8.Font = Enum.Font.GothamBold
+t1.value8.Parent = t1.value4
+local UICorner4 = Instance.new("UICorner")
+
+UICorner4.CornerRadius = UDim.new(0, 6)
+UICorner4.Parent = t1.value8
+t1.value8.MouseButton1Click:Connect(function()
+    local s1 = "https://youtube.com/@epicscripterr"
+    pcall(function()
+        toclipboard(s1)
+        t1.value8.Text = "✅ COPIED!"
+        task.wait(1.5)
+        t1.value8.Text = "YOUTUBE CHANNEL LINK"
+    end)
+end)
+t1.value4.Size = UDim2.new(0, 0, 0, 0)
+t1.value4.Position = UDim2.new(0.5, 0, 0.5, 0)
+
+local value1 = t1.value1
+local value4 = t1.value4
+local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
+local uDim2 = UDim2.new(0, 350, 0, 280)
+local uDim2_2 = UDim2.new(0.5, -175, 0.5, -140)
+
+value1:Create(value4, tweenInfo, {
+	Size = uDim2,
+	Position = uDim2_2
+}):Play()
+t1.value5.MouseButton1Click:Connect(function()
+    t1.value5.Text = "INJECTING..."
+    t1.value5.TextColor3 = Color3.fromRGB(255, 255, 0)
+    t1.value5.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    t1.value5.Active = false
+
+    local ok, result = pcall(v5)
+
+    if not ok then
+        warn("Bypass execution error: " .. tostring(result))
+        Notify("ERROR", "Bypass failed: " .. tostring(result), 3)
+        t1.value5.Text = "RETRY"
+        t1.value5.TextColor3 = Color3.fromRGB(255, 0, 0)
+        t1.value5.BackgroundColor3 = Color3.fromRGB(70, 20, 20)
+        t1.value5.Active = true
+
+        return
+    end
+
+    local value1_2 = t1.value1
+    local value4_2 = t1.value4
+    local tweenInfo2 = TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
+    local uDim2_3 = UDim2.new(0, 0, 0, 0)
+    local uDim2_4 = UDim2.new(0.5, 0, 0.5, 0)
+    local v62 = value1_2:Create(value4_2, tweenInfo2, {
+		Size = uDim2_3,
+		Position = uDim2_4,
+		BackgroundTransparency = 1
+	})
+
+    v62:Play()
+    v62.Completed:Connect(function()
+        t1.value3:Destroy()
+        t1.value7:Disconnect()
+        Notify("INJECTION SUCCESS", "Script injected and running!", 2)
+    end)
+end)
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then
+        return
+    end
+
+    if input.KeyCode == Enum.KeyCode.H then
+        if t1.value4.Visible then
+            t1.value4.Visible = false
+
+            return
+        end
+
+        t1.value4.Visible = true
+    end
+end)
+print("✅ EPIC.S INJECTOR LOADED - Click INJECT to start bypass")
