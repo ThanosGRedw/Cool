@@ -95,7 +95,7 @@ textLabel.Parent = screenGui
 
 -- ข้อความและความเร็วในการพิมพ์
 local fullText = " [👮] Tactical: Swat Simulator [ อดีตเบต้าเทสเตอร์งั้นหรอ ]"
-local speed = 0.5 -- ความเร็วทีละตัว (วินาที)
+local speed = 0.01 -- ความเร็วทีละตัว (วินาที)
 
 -- เริ่มเอฟเฟกต์พิมพ์ข้อความ
 task.wait(1) -- รอให้เกมโหลดสักครู่
