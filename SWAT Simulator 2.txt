@@ -1,0 +1,2367 @@
+-- This file was generated at discord.gg/syncrypt
+
+local t1 = {}
+local syn = getgenv().syn
+getgenv().syn = false
+local LocalPlayer = game:GetService("Players").LocalPlayer
+t1.value1 = loadstring(game:HttpGet("https://raw.githubusercontent.com/ySixxNz/LibraryV1/LibraryV1/Tests/SourceTester.lua"))()
+local value1 = t1.value1
+local v5 = "Welcome to Six Hub, " .. LocalPlayer.DisplayName
+local v6 = value1:MakeWindow({
+	Name = "Six Hub | Tatical Swat Simulator",
+	HidePremium = false,
+	SaveConfig = true,
+	ConfigFolder = "Sixhub",
+	IntroEnabled = true,
+	IntroText = v5,
+	IntroIcon = "rbxassetid://18503600329",
+	ShowIcon = true,
+	Icon = "rbxassetid://18503600329",
+	SearchBar = true
+})
+local value1_2 = t1.value1
+local uDim2 = UDim2.new(0, 60, 0, 60)
+local uDim2_2 = UDim2.new(0, 10, 1, -160)
+local color3 = Color3.new(0.2, 0.2, 0.2)
+local t2 = {
+	Size = uDim2,
+	Position = uDim2_2,
+	BackgroundColor3 = color3,
+	Image = "rbxassetid://18503887946"
+}
+local _UDim = UDim
+local BtnMinimize = value1_2.BtnMinimize
+local v14 = _UDim.new(0.1, 0)
+
+BtnMinimize(value1_2, {
+	Button = t2,
+	Corner = {
+		CornerRadius = v14
+	}
+});
+({}).notify = function(_, p2, p3, p4, p5, p6)
+    local value1_3 = t1.value1
+    local v127 = p6 == nil or p6
+
+    value1_3:MakeNotification({
+		Name = p2,
+		Content = p3,
+		Image = p4,
+		Time = p5,
+		Closable = v127
+	})
+end
+local v15 = v6:MakeTab({
+	Name = "Infos/Credits",
+	Icon = "rbxassetid://15841490359",
+	PremiumOnly = false
+})
+local v16 = v6:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://10723407389",
+	PremiumOnly = false
+})
+local v17 = v6:MakeTab({
+	Name = "Visual/ESP",
+	Icon = "rbxassetid://10723346959",
+	PremiumOnly = false
+})
+local v18 = v6:MakeTab({
+	Name = "Humanoid",
+	Icon = "rbxassetid://76306747363252",
+	PremiumOnly = false
+})
+local v19 = v6:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://121467841215193",
+	PremiumOnly = false
+})
+local v20 = v6:MakeTab({
+	Name = "Settings",
+	Icon = "rbxassetid://7734053495",
+	PremiumOnly = false
+})
+local v21 = v15:AddSection({
+	Name = "Credits",
+	Icon = "rbxassetid://15841490359",
+	Collapsible = false
+})
+v21:AddParagraph("<b>Made with Love by <font color='#ff6666'>ySixx</font></b>", "I disappeared, but I never really stopped. I’m back—I don’t know if it’s for good or just to make this one script and disappear again. Either way, the work continues. I hope you enjoy it and join the <b>Discord server</b>.")
+v21:AddParagraph("<b>For support and suggestions, feel free to reach out to me.</b>", "If you find any errors, have suggestions for improvements, or need help, send me a message on <b>Discord</b> or join my server using the links below:")
+v15:AddSection({
+	Name = "Server Discord",
+	Icon = "rbxassetid://130701884508915",
+	Collapsible = false
+}):AddDiscordInvite({
+	ServerName = "Six Hub Community",
+	InviteLink = "https://discord.gg/NzN4eKWx5d",
+	Icon = "rbxassetid://18503887946",
+	Description = "Join the community for scripts, updates, and support."
+})
+local v22 = v15:AddSection({
+	Name = "Social Media",
+	Icon = "rbxassetid://7734032056",
+	Collapsible = false
+})
+v22:AddLinks({
+	ServerName = "GitHub",
+	InviteLink = "https://github.com/ySixxNz",
+	Icon = "rbxassetid://140372804208079",
+	Description = "My GitHub Profile"
+})
+v22:AddLinks({
+	ServerName = "Discord Account",
+	InviteLink = "https://discord.com/users/130701884508915",
+	Icon = "rbxassetid://130701884508915",
+	Description = "My Discord Profile"
+})
+v22:AddLinks({
+	ServerName = "YouTube",
+	InviteLink = "https://youtube.com/@ysixxnz",
+	Icon = "rbxassetid://138786416771641",
+	Description = "My YouTube Channel"
+})
+v22:AddLinks({
+	ServerName = "ScriptBlox",
+	InviteLink = "https://scriptblox.com/u/ySixxNz",
+	Icon = "rbxassetid://106729456824762",
+	Description = "My ScriptBlox Profile"
+})
+v15:AddParagraph("<b>More features coming soon.</b>", "<i>Please be kind to the 'artist' (yes, that’s me lol)</i>")
+
+local RunService = game:GetService("RunService")
+
+game:GetService("UserInputService")
+t1.value2 = game:GetService("Players")
+t1.value3 = game:GetService("Workspace")
+t1.value4 = t1.value3.CurrentCamera
+t1.value5 = t1.value2.LocalPlayer
+t1.value6 = false
+t1.value7 = true
+t1.value8 = 150
+t1.value9 = 120
+t1.value10 = Drawing.new("Circle")
+t1.value10.Visible = false
+t1.value10.Thickness = 2
+t1.value10.NumSides = 100
+t1.value10.Radius = t1.value9
+t1.value10.Filled = false
+t1.value10.Color = Color3.fromRGB(128, 0, 128)
+
+function t1.value11(p7)
+    local v130 = p7:IsA("Model")
+
+    if v130 then
+        v130 = not t1.value2:GetPlayerFromCharacter(p7)
+
+        if v130 then
+            v130 = p7:FindFirstChildOfClass("Tool")
+
+            if v130 then
+                v130 = p7:FindFirstChild("Humanoid")
+
+                if v130 then
+                    v130 = p7:FindFirstChild("HumanoidRootPart") and (p7:FindFirstChild("Head") and p7.Humanoid.Health > 0)
+                end
+            end
+        end
+    end
+
+    return v130
+end
+local function v24()
+    local n1 = 1e999
+    local v141
+    local vector2 = Vector2.new(t1.value4.ViewportSize.X / 2, t1.value4.ViewportSize.Y / 2)
+    for _, descendant in ipairs(t1.value3:GetDescendants()) do
+        if t1.value11(descendant) then
+            local HumanoidRootPart = descendant.HumanoidRootPart
+            local Head = descendant.Head
+            local v147, v148 = t1.value4:WorldToViewportPoint(Head.Position)
+
+            if v148 and (Vector2.new(v147.X, v147.Y) - vector2).Magnitude <= t1.value9 then
+                local HumanoidRootPartPosition = HumanoidRootPart.Position
+                local CFramePosition = t1.value4.CFrame.Position
+                local Magnitude = (HumanoidRootPartPosition - CFramePosition).Magnitude
+
+                if Magnitude <= t1.value8 and Magnitude < n1 then
+                    if t1.value7 then
+                        local raycastParams = RaycastParams.new()
+
+                        raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+                        raycastParams.FilterDescendantsInstances = { t1.value5.Character }
+
+                        local raycastResult = t1.value3:Raycast(CFramePosition, (HumanoidRootPartPosition - CFramePosition).Unit * Magnitude, raycastParams)
+
+                        if raycastResult and raycastResult.Instance:IsDescendantOf(descendant) then
+                            v141 = descendant
+                            n1 = Magnitude
+                        end
+                    else
+                        v141 = descendant
+                        n1 = Magnitude
+                    end
+                end
+            end
+        end
+    end
+
+    return v141
+end
+function t1.value12(p8)
+    local Character = t1.value5.Character
+
+    if not Character then
+        return
+    end
+
+    local Humanoid = Character:FindFirstChild("Humanoid")
+    local HumanoidRootPart = Character:FindFirstChild("HumanoidRootPart")
+    local v135 = not Humanoid
+
+    if not v135 then
+        v135 = not HumanoidRootPart
+    end
+
+    if v135 then
+        return
+    end
+
+    local HumanoidRootPart2 = p8:FindFirstChild("HumanoidRootPart")
+    local v137 = not HumanoidRootPart2
+    local Head = p8:FindFirstChild("Head")
+
+    if not v137 then
+        v137 = not Head
+    end
+
+    if v137 then
+        return
+    end
+
+    local HeadPosition = Head.Position
+
+    t1.value4.CFrame = CFrame.new(t1.value4.CFrame.Position, HeadPosition)
+    HumanoidRootPart.CFrame = CFrame.new(HumanoidRootPart.Position, Vector3.new(HumanoidRootPart2.Position.X, HumanoidRootPart.Position.Y, HumanoidRootPart2.Position.Z))
+end
+RunService.RenderStepped:Connect(function()
+    t1.value10.Position = Vector2.new(t1.value4.ViewportSize.X / 2, t1.value4.ViewportSize.Y / 2)
+
+    if not t1.value6 then
+        t1.value10.Visible = false
+
+        return
+    end
+
+    t1.value10.Visible = true
+
+    local v154 = v24()
+
+    if v154 then
+        t1.value12(v154)
+    end
+end)
+
+local v25 = v16:AddSection({
+	Name = "Aimbot",
+	Icon = "rbxassetid://120735045634422"
+})
+v25:AddParagraph("<font size='14' color='rgb(255,180,80)'><b>Aimbot</b></font>", "<font size='11' color='rgb(180,180,180)'>Automatically locks into NPC enemies with tools.</font>")
+v25:AddToggle({
+	Name = "Wall Check",
+	Default = true,
+	Callback = function(p9)
+    t1.value7 = p9
+end
+})
+v25:AddToggle({
+	Name = "Enable Aimbot",
+	Default = false,
+	Callback = function(p10)
+    t1.value6 = p10
+    t1.value10.Visible = p10
+end
+})
+local v26 = v16:AddSection({
+	Name = "HitBox",
+	Icon = "rbxassetid://81668911543451"
+})
+t1.value13 = {
+	Blue = "Really blue",
+	Green = "Bright green",
+	Red = "Really red",
+	Yellow = "Bright yellow",
+	White = "White",
+	Black = "Black",
+	Purple = "Royal purple",
+	Cyan = "Cyan",
+	Brown = "Brown"
+}
+t1.value14 = game:GetService("Players")
+t1.value15 = game:GetService("RunService")
+t1.value16 = nil
+function t1.value17(p11)
+    return p11:FindFirstChildOfClass("Tool") ~= nil and not t1.value14:GetPlayerFromCharacter(p11)
+end
+t1.value18 = nil
+t1.value19 = "Really blue"
+t1.value20 = 1
+t1.value21 = 15
+t1.value22 = false
+t1.value18 = nil
+t1.value16 = {}
+function t1.value23(p12)
+    local HumanoidRootPart = p12:FindFirstChild("HumanoidRootPart")
+
+    if not HumanoidRootPart then
+        return
+    end
+
+    if t1.value16[p12] then
+        return
+    end
+
+    local value16 = t1.value16
+    local HumanoidRootPartSize = HumanoidRootPart.Size
+    local HumanoidRootPartTransparency = HumanoidRootPart.Transparency
+    local HumanoidRootPartMaterial = HumanoidRootPart.Material
+    local HumanoidRootPartBrickColor = HumanoidRootPart.BrickColor
+    local CanCollide = HumanoidRootPart.CanCollide
+
+    value16[p12] = {
+		size = HumanoidRootPartSize,
+		transparency = HumanoidRootPartTransparency,
+		material = HumanoidRootPartMaterial,
+		brickColor = HumanoidRootPartBrickColor,
+		canCollide = CanCollide
+	}
+end
+function t1.value24(p13)
+    local v159 = t1.value16[p13]
+
+    if not v159 then
+        return
+    end
+
+    pcall(function()
+        local HumanoidRootPart = p13:FindFirstChild("HumanoidRootPart")
+
+        if HumanoidRootPart then
+            HumanoidRootPart.Size = v159.size
+            HumanoidRootPart.Transparency = v159.transparency
+            HumanoidRootPart.Material = v159.material
+            HumanoidRootPart.BrickColor = v159.brickColor
+            HumanoidRootPart.CanCollide = v159.canCollide
+        end
+    end)
+    t1.value16[p13] = nil
+end
+local function v27()
+    for _, child in ipairs(workspace:GetChildren()) do
+        if child:IsA("Model") and (child:FindFirstChild("Humanoid") and (child:FindFirstChild("Head") and t1.value17(child))) then
+            local HumanoidRootPart = child:FindFirstChild("HumanoidRootPart")
+
+            if HumanoidRootPart then
+                t1.value23(child)
+                HumanoidRootPart.Size = Vector3.new(t1.value21, t1.value21, t1.value21)
+                HumanoidRootPart.Transparency = t1.value20
+                HumanoidRootPart.BrickColor = BrickColor.new(t1.value19)
+                HumanoidRootPart.Material = Enum.Material.Neon
+                HumanoidRootPart.CanCollide = false
+            end
+        end
+    end
+end
+function t1.value25()
+    for k, _ in pairs(t1.value16) do
+        t1.value24(k)
+    end
+end
+t1.value26 = nil
+function t1.value26()
+    if t1.value18 then
+        t1.value18:Disconnect()
+        t1.value18 = nil
+    end
+end
+function t1.value27()
+    t1.value26()
+    t1.value15.Heartbeat:Connect(v27)
+end
+workspace.ChildRemoved:Connect(function(child)
+    if t1.value16[child] then
+        t1.value16[child] = nil
+    end
+end)
+v26:AddDropdown({
+	Name = "Color",
+	Default = "Blue",
+	Options = {
+		"Blue",
+		"Green",
+		"Red",
+		"Yellow",
+		"White",
+		"Black",
+		"Purple",
+		"Cyan",
+		"Brown"
+	},
+	Callback = function(p14)
+    if not t1.value13[p14] then
+    end
+end
+})
+v26:AddSlider({
+	Name = "Transparency",
+	Min = 0,
+	Max = 100,
+	Default = 100,
+	Increment = 1,
+	ValueName = "%",
+	Callback = function(p15)
+    t1.value20 = p15 / 100
+end
+})
+v26:AddSlider({
+	Name = "Size",
+	Min = 1,
+	Max = 200,
+	Default = 15,
+	Increment = 1,
+	ValueName = "st",
+	Callback = function(p16)
+    t1.value21 = p16
+end
+})
+v26:AddToggle({
+	Name = "Enable HitBox",
+	Default = false,
+	Callback = function(p17)
+    t1.value22 = p17
+
+    if t1.value22 then
+        t1.value27()
+
+        return
+    end
+
+    t1.value26()
+    t1.value25()
+end
+})
+local v28 = v16:AddSection({
+	Name = "Remote",
+	Icon = "rbxassetid://96417680607974"
+})
+v28:AddParagraph("<b><font size='14' color='rgb(255,200,100)'>Instant Prompt</font></b>", "<font size='12' color='rgb(200,200,200)'>Automatically triggers proximity prompts without holding. Useful for <font color='rgb(255,120,120)'><b>opening doors faster</b></font>, <font color='rgb(120,255,120)'><b>capturing NPCs instantly</b></font>, and <font color='rgb(120,180,255)'><b>interacting with any object</b></font> in the game without delays.</font>")
+t1.value28 = false
+t1.value29 = nil
+v28:AddToggle({
+	Name = "Instant ProximityPrompt",
+	Default = false,
+	Callback = function(p18)
+    t1.value28 = p18
+
+    if p18 then
+        t1.value29 = game:GetService("ProximityPromptService").PromptButtonHoldBegan:Connect(function(p19)
+            if t1.value28 then
+                fireproximityprompt(p19)
+            end
+        end)
+
+        return
+    end
+
+    if t1.value29 then
+        t1.value29:Disconnect()
+    end
+end
+})
+t1.value30 = game:GetService("Players").LocalPlayer
+t1.value31 = nil
+function t1.value31(p20)
+    if not p20 then
+        return
+    end
+
+    local MaxActivationDistance = p20.MaxActivationDistance
+
+    p20.MaxActivationDistance = 9999
+    pcall(function()
+        fireproximityprompt(p20)
+    end)
+    task.delay(0.1, function()
+        if p20 then
+            p20.MaxActivationDistance = MaxActivationDistance
+        end
+    end)
+end
+function t1.value32()
+    local Map = workspace:FindFirstChild("Map")
+
+    if not Map then
+        return
+    end
+
+    local Inside = Map:FindFirstChild("Inside")
+
+    if not Inside then
+        return
+    end
+
+    local GetDescendants = Inside.GetDescendants
+
+    for _, v in ipairs(GetDescendants(Inside)) do
+        local v186 = v
+
+        if v186.Name == "EnterableDoor" then
+            local ok, result = pcall(function()
+                return v186.HingePart.Prompts.Open.ProximityPrompt
+            end)
+
+            if ok and result then
+                t1.value31(result)
+            end
+        end
+    end
+end
+v28:AddButton({
+	Name = "Open All Doors",
+	Callback = function()
+    t1.value32()
+end
+})
+function t1.value33()
+    for _, descendant in ipairs(workspace:GetDescendants()) do
+        local v191 = descendant
+
+        if v191:IsA("ProximityPrompt") and v191.Enabled then
+            local u192 = false
+
+            pcall(function()
+                local Parent = v191.Parent
+
+                if Parent then
+                    Parent = v191.Parent.Parent and (v191.Parent.Parent.Parent and v191.Parent.Parent.Parent.Name == "EnterableDoor")
+                end
+
+                if Parent then
+                    u192 = true
+                end
+            end)
+
+            if u192 then
+                if v191.Parent.Name == "Open" then
+                    t1.value31(v191)
+                end
+            else
+                t1.value31(v191)
+            end
+        end
+    end
+end
+v28:AddButton({
+	Name = "Execute All ProximityPrompts",
+	Callback = function()
+    t1.value33()
+end
+})
+t1.value34 = false
+task.spawn(function()
+    while true do
+        task.wait(0.15)
+
+        if t1.value34 then
+            local Character = t1.value30.Character
+            local v194 = Character and Character:FindFirstChild("HumanoidRootPart")
+
+            if v194 then
+                for _, descendant in ipairs(workspace:GetDescendants()) do
+                    if descendant:IsA("ProximityPrompt") and descendant.Enabled then
+                        local descendantParent = descendant.Parent
+
+                        if descendantParent and descendantParent:IsA("BasePart") and (v194.Position - descendantParent.Position).Magnitude <= 10 then
+                            t1.value31(descendant)
+                        end
+                    end
+                end
+            end
+        end
+    end
+end)
+v28:AddToggle({
+	Name = "Auto ProximityPrompt",
+	Default = false,
+	Callback = function(p21)
+    t1.value34 = p21
+end
+})
+t1.value35 = game:GetService("Players")
+t1.value36 = game:GetService("RunService")
+t1.value37 = game:GetService("CoreGui")
+t1.value38 = workspace.CurrentCamera
+t1.value39 = t1.value35.LocalPlayer
+function t1.value40(p22)
+    return p22:IsA("Model") and not t1.value35:GetPlayerFromCharacter(p22)
+end
+function t1.value41(p23)
+    return p23:FindFirstChildOfClass("Tool") ~= nil
+end
+function t1.value42(p24)
+    if not t1.value40(p24) then
+        return "Ally"
+    end
+
+    if t1.value41(p24) then
+        return "Enemy"
+    end
+
+    return "Civilian"
+end
+t1.value43 = Color3.new(0, 1, 0)
+t1.value44 = Color3.new(1, 0, 0)
+t1.value45 = Color3.new(1, 1, 0)
+
+local t3 = {
+	"Green",
+	"Red",
+	"Yellow",
+	"Blue",
+	"Cyan",
+	"Magenta",
+	"White",
+	"Black",
+	"Orange",
+	"Purple"
+}
+local color3_2 = Color3.new(0, 1, 0)
+local color3_3 = Color3.new(1, 0, 0)
+local color3_4 = Color3.new(1, 1, 0)
+local color3_5 = Color3.new(0, 0, 1)
+local color3_6 = Color3.new(0, 1, 1)
+local color3_7 = Color3.new(1, 0, 1)
+local color3_8 = Color3.new(1, 1, 1)
+local color3_9 = Color3.new(0, 0, 0)
+local color3_10 = Color3.new(1, 0.5, 0)
+local color3_11 = Color3.new(0.5, 0, 0.5)
+
+t1.value46 = {
+	Green = color3_2,
+	Red = color3_3,
+	Yellow = color3_4,
+	Blue = color3_5,
+	Cyan = color3_6,
+	Magenta = color3_7,
+	White = color3_8,
+	Black = color3_9,
+	Orange = color3_10,
+	Purple = color3_11
+}
+t1.value47 = false
+t1.value48 = false
+t1.value49 = false
+t1.value50 = nil
+t1.value51 = {}
+t1.value52 = {}
+t1.value53 = {}
+t1.value54 = {}
+t1.value55 = {}
+t1.value56 = {}
+t1.value57 = {}
+t1.value58 = {}
+t1.value59 = {}
+function t1.value60(p25)
+    local v204 = t1.value42(p25)
+
+    if v204 == "Ally" then
+        return t1.value43
+    end
+
+    if v204 == "Enemy" then
+        return t1.value44
+    end
+
+    return t1.value45
+end
+local function v40(p26)
+    local Highlight = Instance.new("Highlight")
+
+    Highlight.Adornee = p26
+    Highlight.FillColor = t1.value60(p26)
+    Highlight.OutlineColor = Highlight.FillColor
+    Highlight.FillTransparency = 0.5
+    Highlight.OutlineTransparency = 0
+    Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+    Highlight.Parent = t1.value50
+
+    return Highlight
+end
+function t1.value61(p27)
+    if p27 then
+        pcall(function()
+            p27:Destroy()
+        end)
+    end
+end
+function t1.value62(p28, p29)
+    if p28 and p28.Parent then
+        p28.Adornee = p29
+        p28.FillColor = t1.value60(p29)
+        p28.OutlineColor = p28.FillColor
+    end
+end
+function t1.value63(p30)
+    if not t1.value50 or not t1.value47 then
+        return
+    end
+
+    local v220 = t1.value42(p30)
+
+    if v220 == "Ally" then
+        local player = t1.value35:GetPlayerFromCharacter(p30)
+
+        if not player or player == t1.value39 then
+            return
+        end
+
+        pcall(function()
+            local v540 = t1.value51[player]
+
+            t1.value61(v540)
+            t1.value51[player] = v40(p30)
+        end)
+
+        return
+    end
+
+    if v220 == "Enemy" then
+        pcall(function()
+            local v541 = t1.value52[p30]
+
+            t1.value61(v541)
+            t1.value52[p30] = v40(p30)
+        end)
+
+        return
+    end
+
+    pcall(function()
+        local v542 = t1.value53[p30]
+
+        t1.value61(v542)
+        t1.value53[p30] = v40(p30)
+    end)
+end
+function t1.value64()
+    if t1.value47 then
+        return
+    end
+    t1.value47 = true
+    if t1.value50 then
+        t1.value50:Destroy()
+    end
+    t1.value50 = Instance.new("Folder")
+    t1.value50.Name = "ESP_Highlights"
+    t1.value50.Parent = t1.value37
+    for v232, v233 in ipairs(t1.value35:GetPlayers()) do
+
+        if v233 ~= t1.value39 then
+            local Character = v233.Character
+
+            if Character then
+                t1.value63(Character)
+            end
+        end
+    end
+    for _, child in ipairs(workspace:GetChildren()) do
+        if child:IsA("Model") and (child:FindFirstChild("Humanoid") and (child:FindFirstChild("Head") and t1.value40(child))) then
+            t1.value63(child)
+        end
+    end
+end
+function t1.value65()
+    t1.value47 = false
+    for _, v in pairs(t1.value51) do
+        t1.value61(v)
+    end
+    table.clear(t1.value51)
+    for v226, v227 in pairs(t1.value52) do
+
+        t1.value61(v227)
+    end
+    table.clear(t1.value52)
+    for _, v in pairs(t1.value53) do
+        t1.value61(v)
+    end
+    table.clear(t1.value53)
+    if t1.value50 then
+        pcall(function()
+            t1.value50:Destroy()
+        end)
+    end
+    t1.value50 = nil
+end
+function t1.value66(p31, p32)
+    local v207 = t1.value60(p31)
+    local v208 = p31:FindFirstChildOfClass("Humanoid").RigType == Enum.HumanoidRigType.R6
+
+    local function v209(p33, p34, p35)
+        local v409 = p32[p33]
+
+        if not v409 then
+            return
+        end
+
+        if p34 and p35 then
+            v409.From = Vector2.new(p34.X, p34.Y)
+            v409.To = Vector2.new(p35.X, p35.Y)
+            v409.Visible = true
+
+            return
+        end
+
+        v409.Visible = false
+    end
+
+    local v210 = v208
+
+    if v208 then
+        v210 = {
+			"skel_head",
+			"skel_torso",
+			"skel_leftarm",
+			"skel_rightarm",
+			"skel_leftleg",
+			"skel_rightleg"
+		}
+    end
+
+    local v211 = v210 or {
+		"head",
+		"spine_upper",
+		"left_upperarm",
+		"left_lowerarm",
+		"left_hand",
+		"right_upperarm",
+		"right_lowerarm",
+		"right_hand",
+		"left_upperleg",
+		"left_lowerleg",
+		"left_foot",
+		"right_upperleg",
+		"right_lowerleg",
+		"right_foot"
+	}
+
+    for _, v in ipairs(v211) do
+        local drawing = Drawing.new("Line")
+
+        drawing.Visible = false
+        drawing.Color = v207
+        drawing.Thickness = 1.5
+        p32[v] = drawing
+    end
+
+    return t1.value36.RenderStepped:Connect(function()
+        local v410 = not p31
+        if not v410 then
+            v410 = not p31:IsDescendantOf(workspace)
+        end
+        if v410 then
+            (nil):Disconnect()
+
+            return
+        end
+        local Humanoid = p31:FindFirstChildOfClass("Humanoid")
+        if not Humanoid or Humanoid.Health <= 0 then
+            for _, v in pairs(p32) do
+                v.Visible = false
+            end
+
+            return
+        end
+        local HumanoidRootPart = p31:FindFirstChild("HumanoidRootPart")
+        if not HumanoidRootPart then
+            return
+        end
+        local _, t4Result = t1.value38:WorldToViewportPoint(HumanoidRootPart.Position)
+        if not t4Result then
+            for _, v in pairs(p32) do
+                v.Visible = false
+            end
+
+            return
+        end
+        local v419 = t1.value60(p31)
+        for v422, v423 in pairs(p32) do
+
+            v423.Color = v419
+        end
+        if v208 then
+            local Head = p31:FindFirstChild("Head")
+            local v425
+
+            if not Head then
+                v425 = nil
+            else
+                local HeadPosition = Head.Position
+                local v427, v428 = t1.value38:WorldToViewportPoint(HeadPosition)
+
+                v425 = v428 and v427 or nil
+            end
+
+            local vector3 = Vector3.new(0, 1, 0)
+            local Torso = p31:FindFirstChild("Torso")
+            local v431
+
+            if not Torso then
+                v431 = nil
+            else
+                local v432 = vector3 and Torso.Position + vector3 or Torso.Position
+                local v433, v434 = t1.value38:WorldToViewportPoint(v432)
+
+                v431 = v434 and v433 or nil
+            end
+
+            local vector3_2 = Vector3.new(0, -1, 0)
+            local Torso2 = p31:FindFirstChild("Torso")
+            local v437
+
+            if not Torso2 then
+                v437 = nil
+            else
+                local v438 = vector3_2 and Torso2.Position + vector3_2 or Torso2.Position
+                local v439, v440 = t1.value38:WorldToViewportPoint(v438)
+
+                v437 = v440 and v439 or nil
+            end
+
+            local vector3_3 = Vector3.new(0, -1, 0)
+            local v442 = p31:FindFirstChild("Left Arm")
+            local v443
+
+            if not v442 then
+                v443 = nil
+            else
+                local v444 = vector3_3 and v442.Position + vector3_3 or v442.Position
+                local v445, v446 = t1.value38:WorldToViewportPoint(v444)
+
+                v443 = v446 and v445 or nil
+            end
+
+            local vector3_4 = Vector3.new(0, -1, 0)
+            local v448 = p31:FindFirstChild("Right Arm")
+            local v449
+
+            if not v448 then
+                v449 = nil
+            else
+                local v450 = vector3_4 and v448.Position + vector3_4 or v448.Position
+                local v451, v452 = t1.value38:WorldToViewportPoint(v450)
+
+                v449 = v452 and v451 or nil
+            end
+
+            local vector3_5 = Vector3.new(0, -1, 0)
+            local v454 = p31:FindFirstChild("Left Leg")
+            local v455
+
+            if not v454 then
+                v455 = nil
+            else
+                local v456 = vector3_5 and v454.Position + vector3_5 or v454.Position
+                local v457, v458 = t1.value38:WorldToViewportPoint(v456)
+
+                v455 = v458 and v457 or nil
+            end
+
+            local vector3_6 = Vector3.new(0, -1, 0)
+            local v460 = p31:FindFirstChild("Right Leg")
+            local v461
+
+            if not v460 then
+                v461 = nil
+            else
+                local v462 = vector3_6 and v460.Position + vector3_6 or v460.Position
+                local v463, v464 = t1.value38:WorldToViewportPoint(v462)
+
+                v461 = v464 and v463 or nil
+            end
+
+            v209("skel_head", v425, v431)
+            v209("skel_torso", v431, v437)
+            v209("skel_leftarm", v431, v443)
+            v209("skel_rightarm", v431, v449)
+            v209("skel_leftleg", v437, v455)
+            v209("skel_rightleg", v437, v461)
+
+            return
+        end
+        local Head = p31:FindFirstChild("Head")
+        local v466
+        if not Head then
+            v466 = nil
+        else
+            local HeadPosition = Head.Position
+            local v468, v469 = t1.value38:WorldToViewportPoint(HeadPosition)
+
+            v466 = v469 and v468 or nil
+        end
+        local UpperTorso = p31:FindFirstChild("UpperTorso")
+        local v471
+        if not UpperTorso then
+            v471 = nil
+        else
+            local UpperTorsoPosition = UpperTorso.Position
+            local v473, v474 = t1.value38:WorldToViewportPoint(UpperTorsoPosition)
+
+            v471 = v474 and v473 or nil
+        end
+        local LowerTorso = p31:FindFirstChild("LowerTorso")
+        local v476
+        if not LowerTorso then
+            v476 = nil
+        else
+            local LowerTorsoPosition = LowerTorso.Position
+            local v478, v479 = t1.value38:WorldToViewportPoint(LowerTorsoPosition)
+
+            v476 = v479 and v478 or nil
+        end
+        local LeftUpperArm = p31:FindFirstChild("LeftUpperArm")
+        local v481
+        if not LeftUpperArm then
+            v481 = nil
+        else
+            local LeftUpperArmPosition = LeftUpperArm.Position
+            local v483, v484 = t1.value38:WorldToViewportPoint(LeftUpperArmPosition)
+
+            v481 = v484 and v483 or nil
+        end
+        local LeftLowerArm = p31:FindFirstChild("LeftLowerArm")
+        local v486
+        if not LeftLowerArm then
+            v486 = nil
+        else
+            local LeftLowerArmPosition = LeftLowerArm.Position
+            local v488, v489 = t1.value38:WorldToViewportPoint(LeftLowerArmPosition)
+
+            v486 = v489 and v488 or nil
+        end
+        local LeftHand = p31:FindFirstChild("LeftHand")
+        local v491
+        if not LeftHand then
+            v491 = nil
+        else
+            local LeftHandPosition = LeftHand.Position
+            local v493, v494 = t1.value38:WorldToViewportPoint(LeftHandPosition)
+
+            v491 = v494 and v493 or nil
+        end
+        local RightUpperArm = p31:FindFirstChild("RightUpperArm")
+        local v496
+        if not RightUpperArm then
+            v496 = nil
+        else
+            local RightUpperArmPosition = RightUpperArm.Position
+            local v498, v499 = t1.value38:WorldToViewportPoint(RightUpperArmPosition)
+
+            v496 = v499 and v498 or nil
+        end
+        local RightLowerArm = p31:FindFirstChild("RightLowerArm")
+        local v501
+        if not RightLowerArm then
+            v501 = nil
+        else
+            local RightLowerArmPosition = RightLowerArm.Position
+            local v503, v504 = t1.value38:WorldToViewportPoint(RightLowerArmPosition)
+
+            v501 = v504 and v503 or nil
+        end
+        local RightHand = p31:FindFirstChild("RightHand")
+        local v506
+        if not RightHand then
+            v506 = nil
+        else
+            local RightHandPosition = RightHand.Position
+            local v508, v509 = t1.value38:WorldToViewportPoint(RightHandPosition)
+
+            v506 = v509 and v508 or nil
+        end
+        local LeftUpperLeg = p31:FindFirstChild("LeftUpperLeg")
+        local v511
+        if not LeftUpperLeg then
+            v511 = nil
+        else
+            local LeftUpperLegPosition = LeftUpperLeg.Position
+            local v513, v514 = t1.value38:WorldToViewportPoint(LeftUpperLegPosition)
+
+            v511 = v514 and v513 or nil
+        end
+        local LeftLowerLeg = p31:FindFirstChild("LeftLowerLeg")
+        local v516
+        if not LeftLowerLeg then
+            v516 = nil
+        else
+            local LeftLowerLegPosition = LeftLowerLeg.Position
+            local v518, v519 = t1.value38:WorldToViewportPoint(LeftLowerLegPosition)
+
+            v516 = v519 and v518 or nil
+        end
+        local LeftFoot = p31:FindFirstChild("LeftFoot")
+        local v521
+        if not LeftFoot then
+            v521 = nil
+        else
+            local LeftFootPosition = LeftFoot.Position
+            local v523, v524 = t1.value38:WorldToViewportPoint(LeftFootPosition)
+
+            v521 = v524 and v523 or nil
+        end
+        local RightUpperLeg = p31:FindFirstChild("RightUpperLeg")
+        local v526
+        if not RightUpperLeg then
+            v526 = nil
+        else
+            local RightUpperLegPosition = RightUpperLeg.Position
+            local v528, v529 = t1.value38:WorldToViewportPoint(RightUpperLegPosition)
+
+            v526 = v529 and v528 or nil
+        end
+        local RightLowerLeg = p31:FindFirstChild("RightLowerLeg")
+        local v531
+        if not RightLowerLeg then
+            v531 = nil
+        else
+            local RightLowerLegPosition = RightLowerLeg.Position
+            local v533, v534 = t1.value38:WorldToViewportPoint(RightLowerLegPosition)
+
+            v531 = v534 and v533 or nil
+        end
+        local RightFoot = p31:FindFirstChild("RightFoot")
+        local v536
+        if not RightFoot then
+            v536 = nil
+        else
+            local RightFootPosition = RightFoot.Position
+            local v538, v539 = t1.value38:WorldToViewportPoint(RightFootPosition)
+
+            v536 = v539 and v538 or nil
+        end
+        v209("head", v466, v471)
+        v209("spine_upper", v471, v476)
+        v209("left_upperarm", v471, v481)
+        v209("left_lowerarm", v481, v486)
+        v209("left_hand", v486, v491)
+        v209("right_upperarm", v471, v496)
+        v209("right_lowerarm", v496, v501)
+        v209("right_hand", v501, v506)
+        v209("left_upperleg", v476, v511)
+        v209("left_lowerleg", v511, v516)
+        v209("left_foot", v516, v521)
+        v209("right_upperleg", v476, v526)
+        v209("right_lowerleg", v526, v531)
+        v209("right_foot", v531, v536)
+    end), p32
+end
+function t1.value67(p36)
+    if not p36 then
+        return
+    end
+    for v240, v241 in pairs(p36.lines) do
+
+        local v242 = v241
+
+        pcall(function()
+            v242:Remove()
+        end)
+    end
+    if p36.connection then
+        pcall(function()
+            p36.connection:Disconnect()
+        end)
+    end
+end
+function t1.value68(p37)
+    local v244, v245 = t1.value66(p37, {})
+    local t5 = {
+		lines = v245,
+		connection = v244
+	}
+    local v247 = t1.value42(p37)
+
+    if v247 == "Ally" then
+        local player = t1.value35:GetPlayerFromCharacter(p37)
+
+        if player then
+            local v249 = t1.value54[player]
+
+            t1.value67(v249)
+            t1.value54[player] = t5
+
+            return
+        end
+    else
+        if v247 == "Enemy" then
+            local v250 = t1.value55[p37]
+
+            t1.value67(v250)
+            t1.value55[p37] = t5
+
+            return
+        end
+
+        local v251 = t1.value56[p37]
+
+        t1.value67(v251)
+        t1.value56[p37] = t5
+    end
+end
+local function v41()
+    for _, v in pairs(t1.value54) do
+        t1.value67(v)
+    end
+    table.clear(t1.value54)
+    for v256, v257 in pairs(t1.value55) do
+
+        t1.value67(v257)
+    end
+    table.clear(t1.value55)
+    for _, v in pairs(t1.value56) do
+        t1.value67(v)
+    end
+    table.clear(t1.value56)
+end
+local function v42()
+    if t1.value48 then
+        return
+    end
+    t1.value48 = true
+    v41()
+    for v262, v263 in ipairs(t1.value35:GetPlayers()) do
+
+        if v263 ~= t1.value39 then
+            local Character = v263.Character
+
+            if Character then
+                t1.value68(Character)
+            end
+        end
+    end
+    for _, child in ipairs(workspace:GetChildren()) do
+        if child:IsA("Model") and (child:FindFirstChild("Humanoid") and (child:FindFirstChild("Head") and t1.value40(child))) then
+            t1.value68(child)
+        end
+    end
+end
+function t1.value69()
+    t1.value48 = false
+    v41()
+end
+function t1.value70(p38)
+    local drawing = Drawing.new("Line")
+    drawing.Visible = false
+    drawing.Color = t1.value60(p38)
+    drawing.Thickness = 1.4
+    local connection
+    connection = t1.value36.RenderStepped:Connect(function()
+        local v543 = not p38
+
+        if not v543 then
+            v543 = not p38:IsDescendantOf(workspace)
+        end
+
+        if v543 then
+            connection:Disconnect()
+            drawing.Visible = false
+
+            return
+        end
+
+        local Humanoid = p38:FindFirstChildOfClass("Humanoid")
+
+        if not Humanoid or Humanoid.Health <= 0 then
+            drawing.Visible = false
+
+            return
+        end
+
+        local HumanoidRootPart = p38:FindFirstChild("HumanoidRootPart")
+
+        if not HumanoidRootPart then
+            drawing.Visible = false
+
+            return
+        end
+
+        local _, v547 = t1.value38:WorldToViewportPoint(HumanoidRootPart.Position)
+
+        if not v547 then
+            drawing.Visible = false
+
+            return
+        end
+
+        drawing.Color = t1.value60(p38)
+
+        local Position = (HumanoidRootPart.CFrame * CFrame.new(0, -2, 0)).Position
+        local v549 = t1.value38:WorldToViewportPoint(Position)
+
+        drawing.From = Vector2.new(t1.value38.ViewportSize.X / 2, t1.value38.ViewportSize.Y)
+        drawing.To = Vector2.new(v549.X, v549.Y)
+        drawing.Visible = true
+    end)
+
+    return drawing, connection
+end
+function t1.value71(p39)
+    if not p39 then
+        return
+    end
+
+    pcall(function()
+        p39.line:Remove()
+    end)
+    pcall(function()
+        p39.connection:Disconnect()
+    end)
+end
+function t1.value72(p40)
+    local v271, v272 = t1.value70(p40)
+    local t6 = {
+		line = v271,
+		connection = v272
+	}
+    local v274 = t1.value42(p40)
+
+    if v274 == "Ally" then
+        local player = t1.value35:GetPlayerFromCharacter(p40)
+
+        if player then
+            local v276 = t1.value57[player]
+
+            t1.value71(v276)
+            t1.value57[player] = t6
+
+            return
+        end
+    else
+        if v274 == "Enemy" then
+            local v277 = t1.value58[p40]
+
+            t1.value71(v277)
+            t1.value58[p40] = t6
+
+            return
+        end
+
+        local v278 = t1.value59[p40]
+
+        t1.value71(v278)
+        t1.value59[p40] = t6
+    end
+end
+t1.value73 = nil
+function t1.value73()
+    for _, v in pairs(t1.value57) do
+        t1.value71(v)
+    end
+    table.clear(t1.value57)
+    for v290, v291 in pairs(t1.value58) do
+
+        t1.value71(v291)
+    end
+    table.clear(t1.value58)
+    for _, v in pairs(t1.value59) do
+        t1.value71(v)
+    end
+    table.clear(t1.value59)
+end
+function t1.value74()
+    if t1.value49 then
+        return
+    end
+    t1.value73()
+    for v299, v300 in ipairs(t1.value35:GetPlayers()) do
+
+        if v300 ~= t1.value39 then
+            local Character = v300.Character
+
+            if Character then
+                t1.value72(Character)
+            end
+        end
+    end
+    for _, child in ipairs(workspace:GetChildren()) do
+        if child:IsA("Model") and (child:FindFirstChild("Humanoid") and (child:FindFirstChild("Head") and t1.value40(child))) then
+            t1.value72(child)
+        end
+    end
+end
+function t1.value75()
+    t1.value49 = false
+    t1.value73()
+end
+function t1.value76(p41, p42)
+    if p41 == t1.value39 then
+        return
+    end
+
+    if t1.value47 then
+        t1.value63(p42)
+    end
+
+    if t1.value48 then
+        t1.value68(p42)
+    end
+
+    if t1.value49 then
+        t1.value72(p42)
+    end
+end
+function t1.value77(p43)
+    if not t1.value40(p43) then
+        return
+    end
+
+    if not p43:FindFirstChild("Humanoid") or not p43:FindFirstChild("Head") then
+        return
+    end
+
+    if t1.value47 then
+        t1.value63(p43)
+    end
+
+    if t1.value48 then
+        t1.value68(p43)
+    end
+
+    if t1.value49 then
+        t1.value72(p43)
+    end
+end
+function t1.value78(p44)
+    local v280 = t1.value52[p44]
+
+    t1.value61(v280)
+    t1.value52[p44] = nil
+
+    local v281 = t1.value53[p44]
+
+    t1.value61(v281)
+    t1.value53[p44] = nil
+
+    local v282 = t1.value55[p44]
+
+    t1.value67(v282)
+    t1.value55[p44] = nil
+
+    local v283 = t1.value56[p44]
+
+    t1.value67(v283)
+    t1.value56[p44] = nil
+
+    local v284 = t1.value58[p44]
+
+    t1.value71(v284)
+    t1.value58[p44] = nil
+
+    local v285 = t1.value59[p44]
+
+    t1.value71(v285)
+    t1.value59[p44] = nil
+end
+for _, player in ipairs(t1.value35:GetPlayers()) do
+    local v45 = player
+
+    if v45 ~= t1.value39 then
+        v45.CharacterAdded:Connect(function(character)
+            t1.value76(v45, character)
+        end)
+
+        if v45.Character then
+            t1.value76(v45, v45.Character)
+        end
+    end
+end
+t1.value35.PlayerAdded:Connect(function(player)
+    if player == t1.value39 then
+        return
+    end
+
+    player.CharacterAdded:Connect(function(character)
+        t1.value76(player, character)
+    end)
+
+    if player.Character then
+        t1.value76(player, player.Character)
+    end
+end)
+t1.value35.PlayerRemoving:Connect(function(player)
+    local v305 = t1.value51[player]
+
+    t1.value61(v305)
+    t1.value51[player] = nil
+
+    local v306 = t1.value54[player]
+
+    t1.value67(v306)
+    t1.value54[player] = nil
+
+    local v307 = t1.value57[player]
+
+    t1.value71(v307)
+    t1.value57[player] = nil
+end)
+workspace.ChildAdded:Connect(function(child)
+    local v311 = child:IsA("Model")
+
+    if v311 then
+        v311 = t1.value40(child) and (child:FindFirstChild("Humanoid") and child:FindFirstChild("Head"))
+    end
+
+    if v311 then
+        t1.value77(child)
+    end
+end)
+workspace.ChildRemoved:Connect(function(child)
+    if t1.value40(child) then
+        t1.value78(child)
+    end
+end)
+
+local v46 = v17:AddSection({
+	Name = "Visual/ESPs",
+	Icon = "rbxassetid://119314285048566"
+})
+v46:AddParagraph("ESP Categories", "<font color='#00ff00'>Ally</font> = Players (no tool)   |   <font color='#ff0000'>Enemy</font> = NPCs with tool   |   <font color='#ffff00'>Civilian</font> = NPCs without tool")
+v46:AddDropdown({
+	Name = "Ally Color",
+	Options = t3,
+	Default = "Green",
+	Callback = function(p45)
+    t1.value43 = t1.value46[p45]
+    for v316, v317 in pairs(t1.value51) do
+
+        if v317 and v317.Parent then
+            t1.value62(v317, v317.Adornee)
+        end
+    end
+    for v320, v321 in pairs(t1.value54) do
+
+        if v321 and v321.lines then
+            for _, v in pairs(v321.lines) do
+                v.Color = t1.value43
+            end
+        end
+    end
+    for _, v in pairs(t1.value57) do
+        if v and v.line then
+            v.line.Color = t1.value43
+        end
+    end
+end
+})
+v46:AddDropdown({
+	Name = "Enemy Color",
+	Options = t3,
+	Default = "Red",
+	Callback = function(p46)
+    t1.value44 = t1.value46[p46]
+    for v329, v330 in pairs(t1.value52) do
+
+        if v330 and v330.Parent then
+            t1.value62(v330, v330.Adornee)
+        end
+    end
+    for v333, v334 in pairs(t1.value55) do
+
+        if v334 and v334.lines then
+            for _, v in pairs(v334.lines) do
+                v.Color = t1.value44
+            end
+        end
+    end
+    for _, v in pairs(t1.value58) do
+        if v and v.line then
+            v.line.Color = t1.value44
+        end
+    end
+end
+})
+v46:AddDropdown({
+	Name = "Civilian Color",
+	Options = t3,
+	Default = "Yellow",
+	Callback = function(p47)
+    t1.value45 = t1.value46[p47]
+    for v342, v343 in pairs(t1.value53) do
+
+        if v343 and v343.Parent then
+            t1.value62(v343, v343.Adornee)
+        end
+    end
+    for v346, v347 in pairs(t1.value56) do
+
+        if v347 and v347.lines then
+            for _, v in pairs(v347.lines) do
+                v.Color = t1.value45
+            end
+        end
+    end
+    for _, v in pairs(t1.value59) do
+        if v and v.line then
+            v.line.Color = t1.value45
+        end
+    end
+end
+})
+v46:AddToggle({
+	Name = "ESP Highlight",
+	Default = false,
+	Callback = function(p48)
+    if p48 then
+        t1.value64()
+
+        return
+    end
+
+    t1.value65()
+end
+})
+v46:AddToggle({
+	Name = "ESP Skeleton",
+	Default = false,
+	Callback = function(p49)
+    if p49 then
+        v42()
+
+        return
+    end
+
+    t1.value69()
+end
+})
+v46:AddToggle({
+	Name = "ESP Tracers",
+	Default = false,
+	Callback = function(p50)
+    if p50 then
+        t1.value74()
+
+        return
+    end
+
+    t1.value75()
+end
+})
+local v47 = v17:AddSection({
+	Name = "ESP Deads",
+	Icon = "rbxassetid://108644456440470"
+})
+t1.value79 = false
+t1.value80 = "ESPMortos_Icon"
+t1.value81 = nil
+function t1.value82(p51)
+    local player = t1.value35:GetPlayerFromCharacter(p51)
+
+    if not player then
+        return false
+    end
+
+    if player == t1.value39 then
+        return false
+    end
+
+    local Humanoid = p51:FindFirstChildOfClass("Humanoid")
+
+    return Humanoid and Humanoid.Health <= 0
+end
+t1.value83 = nil
+function t1.value83(p52)
+    if t1.value35:GetPlayerFromCharacter(p52) then
+        return false
+    end
+
+    local Humanoid = p52:FindFirstChildOfClass("Humanoid")
+
+    return Humanoid and Humanoid.Health <= 0
+end
+function t1.value84(p53)
+    return t1.value82(p53) or t1.value83(p53)
+end
+function t1.value85(p54)
+    return p54:FindFirstChild("HumanoidRootPart") or (p54:FindFirstChild("Torso") or p54:FindFirstChild("UpperTorso"))
+end
+function t1.value86(p55)
+    local v365 = t1.value85(p55)
+
+    if not v365 then
+        return
+    end
+
+    if v365:FindFirstChild(t1.value80) then
+        return
+    end
+
+    local BillboardGui = Instance.new("BillboardGui")
+
+    BillboardGui.Name = t1.value80
+    BillboardGui.Size = UDim2.new(0, 50, 0, 50)
+    BillboardGui.StudsOffset = Vector3.new(0, 3, 0)
+    BillboardGui.AlwaysOnTop = true
+    BillboardGui.Adornee = v365
+    BillboardGui.Parent = v365
+
+    local ImageLabel = Instance.new("ImageLabel", BillboardGui)
+
+    ImageLabel.Size = UDim2.new(1, 0, 1, 0)
+    ImageLabel.BackgroundTransparency = 1
+    ImageLabel.Image = "rbxassetid://108644456440470"
+end
+t1.value87 = nil
+function t1.value87(p56)
+    local v369 = t1.value85(p56)
+
+    if not v369 then
+        return
+    end
+
+    local t1value80 = v369:FindFirstChild(t1.value80)
+
+    if t1value80 then
+        t1value80:Destroy()
+    end
+end
+function t1.value88()
+    for _, descendant in ipairs(workspace:GetDescendants()) do
+        if descendant.Name == t1.value80 and descendant:IsA("BillboardGui") then
+            descendant:Destroy()
+        end
+    end
+end
+t1.value89 = nil
+function t1.value89()
+    for _, child in ipairs(workspace:GetChildren()) do
+        if child:FindFirstChildOfClass("Humanoid") then
+            if t1.value84(child) then
+                t1.value86(child)
+            else
+                t1.value87(child)
+            end
+        end
+    end
+end
+function t1.value90()
+    t1.value36.Heartbeat:Connect(t1.value89)
+end
+function t1.value91()
+    if t1.value81 then
+        t1.value81:Disconnect()
+    end
+
+    t1.value88()
+end
+v47:AddToggle({
+	Name = "ESP Deads",
+	Default = false,
+	Callback = function(p57)
+    t1.value79 = p57
+
+    if p57 then
+        t1.value90()
+
+        return
+    end
+
+    t1.value91()
+end
+})
+local v48 = v18:AddSection({
+	Name = "Humanoid",
+	Icon = "rbxassetid://102849853482918"
+})
+t1.value92 = v48:AddSlider({
+	Name = "Walkspeed",
+	Min = 16,
+	Max = 250,
+	Default = 16,
+	Increment = 1,
+	ValueName = "",
+	Callback = function(p58)
+    local Character = game.Players.LocalPlayer.Character
+
+    if Character and Character:FindFirstChild("Humanoid") then
+        Character.Humanoid.WalkSpeed = p58
+    end
+end
+})
+v48:AddDivider()
+v48:AddButton({
+	Name = "Reset Walkspeed",
+	Callback = function()
+    t1.value92:Set(16)
+
+    local Character = game.Players.LocalPlayer.Character
+
+    if Character and Character:FindFirstChild("Humanoid") then
+        Character.Humanoid.WalkSpeed = 16
+    end
+end
+})
+local v49 = v18:AddSection({
+	Name = "Others",
+	Icon = "rbxassetid://119692407666649"
+})
+local FieldOfView = workspace.CurrentCamera.FieldOfView
+v49:AddSlider({
+	Name = "FOV",
+	Min = 10,
+	Max = 120,
+	Default = FieldOfView,
+	Increment = 1,
+	ValueName = "",
+	Callback = function(p59)
+    workspace.CurrentCamera.FieldOfView = p59
+end
+})
+local v51 = v19:AddSection({
+	Name = "Resolution",
+	Icon = "rbxassetid://120385006976151"
+})
+v51:AddParagraph("<b><font size='14' color='rgb(255,200,100)'>Screen Resolution</font></b>", "<font size='12' color='rgb(200,200,200)'>Adjust the screen resolution dynamically using the slider below (from <b>0.1</b> to <b>1.0</b>). The default value is <b>1.0</b> (normal). Lower values create a stretched effect. Use the <font color='rgb(255,120,120)'><b>Reset</b></font> button to restore the default resolution at any time.</font>")
+game:GetService("UserInputService")
+t1.value93 = game:GetService("RunService")
+
+local CurrentCamera = workspace.CurrentCamera
+t1.value94 = nil
+t1.value95 = nil
+t1.value94 = CurrentCamera
+t1.value95 = 1
+t1.value96 = nil
+function t1.value97()
+    pcall(function()
+        if t1.value94 and getgenv().gg_scripters == nil then
+            t1.value94.CFrame = t1.value94.CFrame * CFrame.new(0, 0, 0, 1, 0, 0, 0, t1.value95, 0, 0, 0, 1)
+        end
+    end)
+end
+if not t1.value96 then
+    t1.value93.RenderStepped:Connect(t1.value97)
+end
+t1.value98 = v51:AddSlider({
+	Name = "Resolution Scale",
+	Min = 0.1,
+	Max = 1,
+	Increment = 0.01,
+	Default = 1,
+	ValueName = "",
+	Callback = function(p60)
+    t1.value95 = p60
+end
+})
+v51:AddButton({
+	Name = "Reset to Default (1.0)",
+	Callback = function()
+    t1.value98:Set(1)
+end
+})
+local v53 = v19:AddSection({
+	Name = "Server",
+	Icon = "rbxassetid://84449280774010"
+})
+v53:AddParagraph("<b>Server Options</b>", "<font color='#ffaa00'>Rejoin the same server, quickly teleport back, or reset your character.</font>\n<br/>")
+v53:AddButton({
+	Name = "Rejoin Server",
+	Callback = function()
+    local TeleportService = game:GetService("TeleportService")
+    local LocalPlayer2 = game.Players.LocalPlayer
+    local u381 = LocalPlayer2
+    pcall(function()
+        TeleportService:Teleport(game.PlaceId, u381)
+    end)
+end
+})
+t1.value99 = false
+v53:AddToggle({
+	Name = "Anti AFK",
+	Default = false,
+	Callback = function(p61)
+    t1.value99 = p61
+
+    if p61 then
+        task.spawn(function()
+            while t1.value99 do
+                local VirtualUser = game:GetService("VirtualUser")
+
+                pcall(function()
+                    VirtualUser:CaptureController()
+                    VirtualUser:ClickButton2(Vector2.new())
+                end)
+                task.wait(300)
+            end
+        end)
+    end
+end
+})
+v53:AddButton({
+	Name = "Server Hop",
+	Callback = function()
+    local HttpService = game:GetService("HttpService")
+    local TeleportService = game:GetService("TeleportService")
+    local PlaceId = game.PlaceId
+    local JobId = game.JobId
+    local ok, result = pcall(function()
+        local v552 = string.format("https://games.roblox.com/v1/games/%d/servers/Public?sortOrder=Desc&limit=100", PlaceId)
+        local v553 = game:HttpGet(v552)
+
+        return (HttpService:JSONDecode(v553))
+    end)
+    local v389 = not ok
+    if not v389 then
+        v389 = not result or not result.data
+    end
+    if v389 then
+        return
+    end
+    local t7 = {}
+    for v393, v394 in ipairs(result.data) do
+
+        if v394.playing < v394.maxPlayers and JobId ~= v394.id then
+            table.insert(t7, v394.id)
+        end
+    end
+    if #t7 == 0 then
+        return
+    end
+    local v395 = math.random(1, #t7)
+    local u396 = t7[v395]
+    pcall(function()
+        TeleportService:TeleportToPlaceInstance(PlaceId, u396, game.Players.LocalPlayer)
+    end)
+end
+})
+v20:AddSection({
+	Name = "Themes Library",
+	Icon = "rbxassetid://7734021595"
+}):ChooseTheme({
+	Name = "Choose a Theme",
+	Default = "Abyss",
+	Flag = "ThemeSelect"
+})
+v20:AddSection({
+	Name = "Config Transparency Ui",
+	Icon = "rbxassetid://84168862769792",
+	Collapsible = true,
+	DefaultCollapsed = false
+}):AddTransparency({
+	Toggle = {
+		Name = "Enable Transparency",
+		Default = true,
+		Flag = "UITransparencyEnabled",
+		Save = true
+	},
+	Slider = {
+		Name = "Transparency Ui",
+		Default = 0.22,
+		Flag = "UITransparencyValue",
+		Save = true
+	}
+})
+t1.value1:Init()
+getgenv().syn = syn
+local value1_4 = t1.value1
+local t8 = {
+	pt = "Infos/Creditos",
+	es = "Infos/Creditos",
+	ru = "Инфо/Кредиты"
+}
+local t9 = {
+	pt = "Principal",
+	es = "Principal",
+	ru = "Главная"
+}
+local t10 = {
+	pt = "Visual/ESP",
+	es = "Visual/ESP",
+	ru = "Визуал/ESP"
+}
+local t11 = {
+	pt = "Humanoide",
+	es = "Humanoide",
+	ru = "Гуманоид"
+}
+local t12 = {
+	pt = "Outros",
+	es = "Varios",
+	ru = "Разное"
+}
+local t13 = {
+	pt = "Configs",
+	es = "Ajustes",
+	ru = "Настройки"
+}
+local t14 = {
+	pt = "Creditos",
+	es = "Creditos",
+	ru = "Кредиты"
+}
+local t15 = {
+	pt = "Servidor Discord",
+	es = "Servidor de Discord",
+	ru = "Сервер Discord"
+}
+local t16 = {
+	pt = "Redes Sociais",
+	es = "Redes Sociales",
+	ru = "Соцсети"
+}
+local t17 = {
+	pt = "Aimbot",
+	es = "Aimbot",
+	ru = "Аимбот"
+}
+local t18 = {
+	pt = "HitBox",
+	es = "HitBox",
+	ru = "Хитбокс"
+}
+local t19 = {
+	pt = "Remote",
+	es = "Remote",
+	ru = "Remote"
+}
+local t20 = {
+	pt = "Visual/ESPs",
+	es = "Visual/ESPs",
+	ru = "Визуал/ESPs"
+}
+local t21 = {
+	pt = "ESP Mortos",
+	es = "ESP Muertos",
+	ru = "ESP Мертвых"
+}
+local t22 = {
+	pt = "Humanoide",
+	es = "Humanoide",
+	ru = "Гуманоид"
+}
+local t23 = {
+	pt = "Outros",
+	es = "Otros",
+	ru = "Прочее"
+}
+local t24 = {
+	pt = "Resolucao",
+	es = "Resolucion",
+	ru = "Разрешение"
+}
+local t25 = {
+	pt = "Servidor",
+	es = "Servidor",
+	ru = "Сервер"
+}
+local t26 = {
+	pt = "Temas da Library",
+	es = "Temas de la Libreria",
+	ru = "Темы библиотеки"
+}
+local t27 = {
+	pt = "Configurar Transparencia",
+	es = "Configurar Transparencia",
+	ru = "Настройка прозрачности"
+}
+local t28 = {
+	pt = "Verificar Parede",
+	es = "Verificar Pared",
+	ru = "Проверка стен"
+}
+local t29 = {
+	pt = "Ativar Aimbot",
+	es = "Activar Aimbot",
+	ru = "Включить аимбот"
+}
+local t30 = {
+	pt = "Ativar HitBox",
+	es = "Activar HitBox",
+	ru = "Включить хитбокс"
+}
+local t31 = {
+	pt = "ProximityPrompt Instantaneo",
+	es = "ProximityPrompt Instantaneo",
+	ru = "Мгновенный ProximityPrompt"
+}
+local t32 = {
+	pt = "ProximityPrompt Automatico",
+	es = "ProximityPrompt Automatico",
+	ru = "Авто ProximityPrompt"
+}
+local t33 = {
+	pt = "ESP Highlight",
+	es = "ESP Highlight",
+	ru = "ESP подсветка"
+}
+local t34 = {
+	pt = "ESP Esqueleto",
+	es = "ESP Esqueleto",
+	ru = "ESP скелет"
+}
+local t35 = {
+	pt = "ESP Tracers",
+	es = "ESP Tracers",
+	ru = "ESP трассеры"
+}
+local t36 = {
+	pt = "ESP Mortos",
+	es = "ESP Muertos",
+	ru = "ESP мертвых"
+}
+local t37 = {
+	pt = "Anti AFK",
+	es = "Anti AFK",
+	ru = "Анти AFK"
+}
+local t38 = {
+	pt = "Ativar Transparencia",
+	es = "Activar Transparencia",
+	ru = "Включить прозрачность"
+}
+local t39 = {
+	pt = "Cor",
+	es = "Color",
+	ru = "Цвет"
+}
+local t40 = {
+	pt = "Transparencia",
+	es = "Transparencia",
+	ru = "Прозрачность"
+}
+local t41 = {
+	pt = "Tamanho",
+	es = "Tamano",
+	ru = "Размер"
+}
+local t42 = {
+	pt = "Cor Aliado",
+	es = "Color Aliado",
+	ru = "Цвет союзника"
+}
+local t43 = {
+	pt = "Cor Inimigo",
+	es = "Color Enemigo",
+	ru = "Цвет врага"
+}
+local t44 = {
+	pt = "Cor Civil",
+	es = "Color Civil",
+	ru = "Цвет мирного"
+}
+local t45 = {
+	pt = "Velocidade",
+	es = "Velocidad",
+	ru = "Скорость"
+}
+local t46 = {
+	pt = "FOV",
+	es = "FOV",
+	ru = "FOV"
+}
+local t47 = {
+	pt = "Escala de Resolucao",
+	es = "Escala de Resolucion",
+	ru = "Масштаб разрешения"
+}
+local t48 = {
+	pt = "Transparencia da UI",
+	es = "Transparencia de la UI",
+	ru = "Прозрачность интерфейса"
+}
+local t49 = {
+	pt = "Abrir Todas as Portas",
+	es = "Abrir Todas las Puertas",
+	ru = "Открыть все двери"
+}
+local t50 = {
+	pt = "Executar Todos os ProximityPrompts",
+	es = "Ejecutar Todos los ProximityPrompts",
+	ru = "Выполнить все ProximityPrompts"
+}
+local t51 = {
+	pt = "Resetar Velocidade",
+	es = "Reiniciar Velocidad",
+	ru = "Сбросить скорость"
+}
+local t52 = {
+	pt = "Resetar para Padrao (1.0)",
+	es = "Reiniciar a Predeterminado (1.0)",
+	ru = "Сбросить до стандарта (1.0)"
+}
+local t53 = {
+	pt = "Reconectar ao Servidor",
+	es = "Reconectarse al Servidor",
+	ru = "Переподключиться к серверу"
+}
+local t54 = {
+	pt = "Trocar de Servidor",
+	es = "Cambiar de Servidor",
+	ru = "Сменить сервер"
+}
+local t55 = {
+	pt = "Escolha um Tema",
+	es = "Elige un Tema",
+	ru = "Выберите тему"
+}
+local t56 = {
+	pt = "<b>Feito com Amor por <font color='#ff6666'>ySixx</font></b>",
+	es = "<b>Hecho con Amor por <font color='#ff6666'>ySixx</font></b>",
+	ru = "<b>Сделано с любовью от <font color='#ff6666'>ySixx</font></b>"
+}
+local t57 = {
+	pt = "<b>Para suporte e sugestoes, fique a vontade para me contatar.</b>",
+	es = "<b>Para soporte y sugerencias, no dudes en contactarme.</b>",
+	ru = "<b>По вопросам поддержки и предложений, не стесняйтесь обращаться ко мне.</b>"
+}
+local t58 = {
+	pt = "<b>Mais recursos em breve.</b>",
+	es = "<b>Mas funciones proximamente.</b>",
+	ru = "<b>Больше функций скоро.</b>"
+}
+local t59 = {
+	pt = "<b>Opcoes de Servidor</b>",
+	es = "<b>Opciones de Servidor</b>",
+	ru = "<b>Параметры сервера</b>"
+}
+local t60 = {
+	pt = "<font size='14' color='rgb(255,180,80)'><b>Aimbot</b></font>",
+	es = "<font size='14' color='rgb(255,180,80)'><b>Aimbot</b></font>",
+	ru = "<font size='14' color='rgb(255,180,80)'><b>Аимбот</b></font>"
+}
+local t61 = {
+	pt = "<b><font size='14' color='rgb(255,200,100)'>Prompt Instantaneo</font></b>",
+	es = "<b><font size='14' color='rgb(255,200,100)'>Prompt Instantaneo</font></b>",
+	ru = "<b><font size='14' color='rgb(255,200,100)'>Мгновенный Prompt</font></b>"
+}
+local t62 = {
+	pt = "<b><font size='14' color='rgb(255,200,100)'>Resolucao de Tela</font></b>",
+	es = "<b><font size='14' color='rgb(255,200,100)'>Resolucion de Pantalla</font></b>",
+	ru = "<b><font size='14' color='rgb(255,200,100)'>Разрешение экрана</font></b>"
+}
+local t63 = {
+	pt = "Categorias ESP",
+	es = "Categorias ESP",
+	ru = "Категории ESP"
+}
+local t64 = {
+	pt = "<i>Fiquei ausente por um tempo, mas a chama nunca se apagou. Agora estou de volta — talvez so para este projeto, talvez por muito mais. De qualquer forma, a jornada continua.</i><br/><br/><font color='#dddddd'>Espero que aproveite a experiencia.</font> <b>Entre no servidor do Discord para ficar por dentro.</b>",
+	es = "<i>Desapareci por un tiempo, pero la chispa nunca se apago. Ahora estoy de vuelta — quizas solo para este proyecto, quizas por mucho mas. De cualquier manera, el viaje continua.</i><br/><br/><font color='#dddddd'>Espero que disfrutes la experiencia.</font> <b>Unete al servidor de Discord para estar al tanto.</b>",
+	ru = "<i>Я исчез на время, но искра не угасла. Теперь я вернулся — может, только для этого проекта, а может, надолго. В любом случае, путешествие продолжается.</i><br/><br/><font color='#dddddd'>Надеюсь, вам понравится.</font> <b>Заходите на сервер Discord, чтобы быть в курсе.</b>"
+}
+local t65 = {
+	pt = "Se encontrar erros, tiver sugestoes de melhoria ou precisar de ajuda, me mande mensagem no <b>Discord</b> ou entre no meu servidor pelos links abaixo:",
+	es = "Si encuentras errores, tienes sugerencias de mejora o necesitas ayuda, enviame un mensaje en <b>Discord</b> o unete a mi servidor usando los enlaces de abajo:",
+	ru = "Если вы найдете ошибки, у вас есть предложения по улучшению или вам нужна помощь, напишите мне в <b>Discord</b> или присоединяйтесь к моему серверу по ссылкам ниже:"
+}
+local t66 = {
+	pt = "<font size='11' color='rgb(180,180,180)'>Mira automaticamente em NPCs inimigos com ferramentas.</font>",
+	es = "<font size='11' color='rgb(180,180,180)'>Apunta automaticamente a NPCs enemigos con herramientas.</font>",
+	ru = "<font size='11' color='rgb(180,180,180)'>Автоматически прицеливается в NPC-врагов с оружием.</font>"
+}
+local t67 = {
+	pt = "<font size='12' color='rgb(200,200,200)'>Ativa prompts de proximidade automaticamente sem segurar. Util para <font color='rgb(255,120,120)'><b>abrir portas mais rapido</b></font>, <font color='rgb(120,255,120)'><b>capturar NPCs instantaneamente</b></font> e <font color='rgb(120,180,255)'><b>interagir com qualquer objeto</b></font> no jogo sem demora.</font>",
+	es = "<font size='12' color='rgb(200,200,200)'>Activa prompts de proximidad automaticamente sin mantener pulsado. Util para <font color='rgb(255,120,120)'><b>abrir puertas mas rapido</b></font>, <font color='rgb(120,255,120)'><b>capturar NPCs instantaneamente</b></font> e <font color='rgb(120,180,255)'><b>interactuar con cualquier objeto</b></font> en el juego sin demoras.</font>",
+	ru = "<font size='12' color='rgb(200,200,200)'>Автоматически активирует промпты близости без удержания. Полезно для <font color='rgb(255,120,120)'><b>быстрого открытия дверей</b></font>, <font color='rgb(120,255,120)'><b>мгновенного захвата NPC</b></font> и <font color='rgb(120,180,255)'><b>взаимодействия с любым объектом</b></font> без задержек.</font>"
+}
+local t68 = {
+	pt = "<font color='#00ff00'>Aliado</font> = Jogadores (sem ferramenta)   |   <font color='#ff0000'>Inimigo</font> = NPCs com ferramenta   |   <font color='#ffff00'>Civil</font> = NPCs sem ferramenta",
+	es = "<font color='#00ff00'>Aliado</font> = Jugadores (sin herramienta)   |   <font color='#ff0000'>Enemigo</font> = NPCs con herramienta   |   <font color='#ffff00'>Civil</font> = NPCs sin herramienta",
+	ru = "<font color='#00ff00'>Союзник</font> = Игроки (без оружия)   |   <font color='#ff0000'>Враг</font> = NPC с оружием   |   <font color='#ffff00'>Мирный</font> = NPC без оружия"
+}
+local t69 = {
+	pt = "<font color='#ffaa00'>Reconecte ao mesmo servidor, teletransporte-se rapidamente de volta ou resete seu personagem.</font>\n<br/>",
+	es = "<font color='#ffaa00'>Reconectate al mismo servidor, teletransportate rapidamente de vuelta o reinicia tu personaje.</font>\n<br/>",
+	ru = "<font color='#ffaa00'>Переподключитесь к тому же серверу, быстро телепортируйтесь обратно или сбросьте персонажа.</font>\n<br/>"
+}
+local t70 = {
+	pt = "<font size='12' color='rgb(200,200,200)'>Ajuste a resolucao de tela dinamicamente usando o slider abaixo (de <b>0.1</b> a <b>1.0</b>). O valor padrao e <b>1.0</b> (normal). Valores menores criam um efeito esticado. Use o botao <font color='rgb(255,120,120)'><b>Resetar</b></font> para restaurar a resolucao padrao a qualquer momento.</font>",
+	es = "<font size='12' color='rgb(200,200,200)'>Ajusta la resolucion de pantalla dinamicamente usando el slider de abajo (de <b>0.1</b> a <b>1.0</b>). El valor predeterminado es <b>1.0</b> (normal). Valores mas bajos crean un efecto estirado. Usa el boton <font color='rgb(255,120,120)'><b>Reiniciar</b></font> para restaurar la resolucion predeterminada en cualquier momento.</font>",
+	ru = "<font size='12' color='rgb(200,200,200)'>Динамически регулируйте разрешение экрана с помощью ползунка ниже (от <b>0.1</b> до <b>1.0</b>). Значение по умолчанию — <b>1.0</b> (нормальное). Меньшие значения создают эффект растяжения. Используйте кнопку <font color='rgb(255,120,120)'><b>Сбросить</b></font> для восстановления разрешения в любое время.</font>"
+}
+local AddTranslation = value1_4.AddTranslation
+local t71 = {
+	pt = "<i>Seja gentil com o 'artista' (sim, sou eu kkk)</i>",
+	es = "<i>Se amable con el 'artista' (si, ese soy yo jaja)</i>",
+	ru = "<i>Будьте добры к художнику (да, это я лол)</i>"
+}
+t1.value100 = AddTranslation(value1_4, {
+	Default = false,
+	Translations = {
+		["Infos/Credits"] = t8,
+		Main = t9,
+		["Visual/ESP"] = t10,
+		Humanoid = t11,
+		Misc = t12,
+		Settings = t13,
+		Credits = t14,
+		["Server Discord"] = t15,
+		["Social Media"] = t16,
+		Aimbot = t17,
+		HitBox = t18,
+		Remote = t19,
+		["Visual/ESPs"] = t20,
+		["ESP Deads"] = t21,
+		Humanoid = t22,
+		Others = t23,
+		Resolution = t24,
+		Server = t25,
+		["Themes Library"] = t26,
+		["Config Transparency Ui"] = t27,
+		["Wall Check"] = t28,
+		["Enable Aimbot"] = t29,
+		["Enable HitBox"] = t30,
+		["Instant ProximityPrompt"] = t31,
+		["Auto ProximityPrompt"] = t32,
+		["ESP Highlight"] = t33,
+		["ESP Skeleton"] = t34,
+		["ESP Tracers"] = t35,
+		["ESP Deads"] = t36,
+		["Anti AFK"] = t37,
+		["Enable Transparency"] = t38,
+		Color = t39,
+		Transparency = t40,
+		Size = t41,
+		["Ally Color"] = t42,
+		["Enemy Color"] = t43,
+		["Civilian Color"] = t44,
+		Walkspeed = t45,
+		FOV = t46,
+		["Resolution Scale"] = t47,
+		["Transparency Ui"] = t48,
+		["Open All Doors"] = t49,
+		["Execute All ProximityPrompts"] = t50,
+		["Reset Walkspeed"] = t51,
+		["Reset to Default (1.0)"] = t52,
+		["Rejoin Server"] = t53,
+		["Server Hop"] = t54,
+		["Choose a Theme"] = t55,
+		["<b>Made with Love by <font color='#ff6666'>ySixx</font></b>"] = t56,
+		["<b>For support and suggestions, feel free to reach out to me.</b>"] = t57,
+		["<b>More features coming soon.</b>"] = t58,
+		["<b>Server Options</b>"] = t59,
+		["<font size='14' color='rgb(255,180,80)'><b>Aimbot</b></font>"] = t60,
+		["<b><font size='14' color='rgb(255,200,100)'>Instant Prompt</font></b>"] = t61,
+		["<b><font size='14' color='rgb(255,200,100)'>Screen Resolution</font></b>"] = t62,
+		["ESP Categories"] = t63,
+		["I vanished for a while, but the spark never died. Now I'm back — maybe just for this project, maybe for the long run. Either way, the journey continues. Hope you enjoy the experience. Join the Discord server to stay updated."] = t64,
+		["If you find any errors, have suggestions for improvements, or need help, send me a message on <b>Discord</b> or join my server using the links below:"] = t65,
+		["<font size='11' color='rgb(180,180,180)'>Automatically locks into NPC enemies with tools.</font>"] = t66,
+		["<font size='12' color='rgb(200,200,200)'>Automatically triggers proximity prompts without holding. Useful for <font color='rgb(255,120,120)'><b>opening doors faster</b></font>, <font color='rgb(120,255,120)'><b>capturing NPCs instantly</b></font>, and <font color='rgb(120,180,255)'><b>interacting with any object</b></font> in the game without delays.</font>"] = t67,
+		["<font color='#00ff00'>Ally</font> = Players (no tool)   |   <font color='#ff0000'>Enemy</font> = NPCs with tool   |   <font color='#ffff00'>Civilian</font> = NPCs without tool"] = t68,
+		["<font color='#ffaa00'>Rejoin the same server, quickly teleport back, or reset your character.</font>\n<br/>"] = t69,
+		["<font size='12' color='rgb(200,200,200)'>Adjust the screen resolution dynamically using the slider below (from <b>0.1</b> to <b>1.0</b>). The default value is <b>1.0</b> (normal). Lower values create a stretched effect. Use the <font color='rgb(255,120,120)'><b>Reset</b></font> button to restore the default resolution at any time.</font>"] = t70,
+		["<i>Please be kind to the 'artist' (yes, that's me lol)</i>"] = t71
+	}
+})
+task.defer(function()
+    task.wait(0.5)
+    t1.value100:Enable()
+end)

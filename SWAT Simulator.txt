@@ -1,0 +1,1597 @@
+-- ================= [ SAFE CLEANUP SYSTEM ] =================
+if getgenv().FluentWindow then
+    pcall(function()
+        getgenv().FluentWindow:Destroy()
+    end)
+    getgenv().FluentWindow = nil
+end
+
+local CoreGui = game:GetService("CoreGui")
+
+for _, v in ipairs(CoreGui:GetChildren()) do
+    if v:IsA("ScreenGui") and v.Name ~= "RobloxGui" and v.Name ~= "RobloxPromptGui" and v.Name ~= "TopBar" then
+        if v.Name == "ScreenGui" or v:FindFirstChild("Frame") or v:FindFirstChild("CanvasGroup") then
+            pcall(function()
+                v:Destroy()
+            end)
+        end
+    end
+end
+
+-- ================= [ AUTO RE-EXECUTE SYSTEM ] =================
+local queue_on_teleport = queue_on_teleport or (syn and syn.queue_on_teleport) or (fluxus and fluxus.queue_on_teleport) or (identifyexecutor and select(1, identifyexecutor()))
+local SCRIPT_URL = "https://pastebin.com/raw/8VxktXUn"
+
+getgenv().BrainrotQueued = getgenv().BrainrotQueued or false
+
+local function QueueScript()
+    if queue_on_teleport and not getgenv().BrainrotQueued then
+        getgenv().BrainrotQueued = true
+        pcall(function()
+            queue_on_teleport(string.format([[
+                if not game:IsLoaded() then
+                    game.Loaded:Wait()
+                end
+                task.wait(2)
+                loadstring(game:HttpGet("%s"))()
+            ]], SCRIPT_URL))
+        end)
+    end
+end
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+LocalPlayer.OnTeleport:Connect(function(State)
+    if State == Enum.TeleportState.Started or State == Enum.TeleportState.InProgress then
+        QueueScript()
+    end
+end)
+
+local TeleportService = game:GetService("TeleportService")
+
+game:GetService("GuiService").ErrorMessageChanged:Connect(function()
+    task.wait(2)
+    QueueScript()
+    if #Players:GetPlayers() <= 1 then
+        TeleportService:Teleport(game.PlaceId, LocalPlayer)
+    else
+        TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, LocalPlayer)
+    end
+end)
+
+repeat task.wait() until game:IsLoaded()
+getgenv().BrainrotQueued = false
+
+task.spawn(function()
+    task.wait(1)
+    print("--- [CoreGui Elements Check] ---")
+    for _, v in ipairs(CoreGui:GetChildren()) do
+        print(v.Name, "->", v.ClassName)
+    end
+    print("--------------------------------")
+end)
+
+-- สร้าง ScreenGui ขึ้นมาใหม่
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "AutoTypewriterGui"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = playerGui
+
+-- สร้าง TextLabel ขึ้นมาใหม่
+local textLabel = Instance.new("TextLabel")
+textLabel.Name = "TypewriterText"
+textLabel.Size = UDim2.new(0, 400, 0, 100)
+textLabel.Position = UDim2.new(0.5, -200, 0.4, -50) -- จัดให้อยู่กลางจอ
+textLabel.BackgroundTransparency = 1
+textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+textLabel.TextScaled = true
+textLabel.Font = Enum.Font.SourceSansBold
+textLabel.Text = ""
+textLabel.Parent = screenGui
+
+-- ข้อความและความเร็วในการพิมพ์
+local fullText = " [👮] Tactical: Swat Simulator [ อดีตเบต้าเทสเตอร์งั้นหรอ ]"
+local speed = 0.1 -- ความเร็วทีละตัว (วินาที)
+
+-- เริ่มเอฟเฟกต์พิมพ์ข้อความ
+task.wait(1) -- รอให้เกมโหลดสักครู่
+for i = 1, #fullText do
+	textLabel.Text = string.sub(fullText, 1, i)
+	task.wait(speed)
+end
+
+-- รอค้างไว้อีกนิดนึง (เช่น 1 วินาที) ให้คนอ่านทัน แล้วลบ UI ทิ้ง
+task.wait(1)
+screenGui:Destroy()
+-------------------Work
+local successFluent, Fluent = pcall(function()
+    return loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+end)
+
+local successSave, SaveManager = pcall(function()
+    return loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
+end)
+
+local successInterface, InterfaceManager = pcall(function()
+    return loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
+end)
+
+if not successFluent or not Fluent or typeof(Fluent) ~= "table" or type(Fluent.CreateWindow) ~= "function" then
+    warn("[Fluent] failed to load, aborting script UI setup.")
+    return
+end
+
+if not successSave or not SaveManager then
+    SaveManager = nil
+end
+
+if not successInterface or not InterfaceManager then
+    InterfaceManager = nil
+end
+
+local Window = Fluent:CreateWindow({
+    Title = "[👮] Tactical: Swat Simulator",
+    SubTitle = "อดีดเบต้าเทสเตอร์งั้นหรอ",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(580, 460),
+    Acrylic = false,
+    Theme = "Darker",
+    MinimizeKey = Enum.KeyCode.LeftControl
+})
+
+if not Window or typeof(Window) ~= "table" then
+    warn("[Fluent] CreateWindow returned nil, aborting script.")
+    return
+end
+
+getgenv().FluentWindow = Window
+
+--Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
+local Tabs = {
+    Main = Window:AddTab({ Title = "Function", Icon = "" }),
+    Mp = Window:AddTab({ Title = "Map", Icon = "" }),
+    Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
+}
+-----------Specter
+local SpecterSection = Tabs.Main:AddSection("Specter")
+
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+
+local player = Players.LocalPlayer
+local camera = Workspace.CurrentCamera
+
+local isSpectating = false
+local cameraDistance = 2
+local renderConnection = nil
+local currentIndex = 1
+
+-- ตัวแปรเก็บค่าการหมุนกล้องด้วยเมาส์
+local cameraAngleX = 0
+local cameraAngleY = 0
+
+-- ดึงข้อมูล NPC ทั้งหมด
+local function getNPCs()
+	local npcs = {}
+	for _, obj in ipairs(Workspace:GetChildren()) do
+		if obj:IsA("Model") and not Players:GetPlayerFromCharacter(obj) then
+			local humanoid = obj:FindFirstChildOfClass("Humanoid")
+			if humanoid and humanoid.Health > 0 then
+				table.insert(npcs, obj)
+			end
+		end
+	end
+	return npcs
+end
+
+local function stopSpectating()
+	if renderConnection then
+		renderConnection:Disconnect()
+		renderConnection = nil
+	end
+	camera.CameraType = Enum.CameraType.Custom
+end
+
+local function spectateNextNPC()
+	if not isSpectating then return end
+	
+	if renderConnection then
+		renderConnection:Disconnect()
+		renderConnection = nil
+	end
+	
+	local npcList = getNPCs()
+	
+	if #npcList == 0 then
+		stopSpectating()
+		return
+	end
+	
+	if currentIndex > #npcList then
+		currentIndex = 1
+	end
+	
+	local targetNPC = npcList[currentIndex]
+	local humanoid = targetNPC and targetNPC:FindFirstChildOfClass("Humanoid")
+	local head = targetNPC and (targetNPC:FindFirstChild("Head") or targetNPC:FindFirstChild("HumanoidRootPart"))
+	
+	if targetNPC and humanoid and humanoid.Health > 0 and head then
+		camera.CameraType = Enum.CameraType.Scriptable
+		
+		renderConnection = RunService.RenderStepped:Connect(function(dt)
+			if not isSpectating or not targetNPC or not head or not humanoid or humanoid.Health <= 0 then
+				if renderConnection then renderConnection:Disconnect() end
+				if isSpectating then
+					currentIndex = currentIndex + 1
+					spectateNextNPC()
+				end
+				return
+			end
+			
+			-- คำนวณระยะห่างตาม Slider
+			local distance = cameraDistance * 4 + 4
+			
+			-- สร้าง CFrame หมุนรอบตัว NPC ตามมุมกล้องที่ผู้เล่นเลื่อนเมาส์
+			local rot = CFrame.Angles(0, cameraAngleX, 0) * CFrame.Angles(cameraAngleY, 0, 0)
+			local offset = rot * Vector3.new(0, 3, distance)
+			local targetPos = head.Position + offset
+			
+			camera.CFrame = CFrame.new(targetPos, head.Position)
+		end)
+		
+		local diedConnection
+		diedConnection = humanoid.Died:Connect(function()
+			diedConnection:Disconnect()
+			if renderConnection then renderConnection:Disconnect() end
+			if isSpectating then
+				currentIndex = currentIndex + 1
+				spectateNextNPC()
+			end
+		end)
+	else
+		currentIndex = currentIndex + 1
+		if isSpectating then
+			spectateNextNPC()
+		end
+	end
+end
+
+-- ระบบรับค่าการขยับเมาส์เฉพาะตอนคลิกขวาค้างไว้ (เหมือนโหมดส่องทั่วไป) หรือจะปรับให้หมุนเลยก็ได้
+UserInputService.InputChanged:Connect(function(input, gameProcessed)
+	if isSpectating and input.UserInputType == Enum.UserInputType.MouseMovement then
+		-- ตรวจสอบว่ากำลังกดคลิกขวาอยู่หรือไม่ (ถ้าต้องการให้หมุนได้เลยโดยไม่ต้องคลิกขวา ให้เอาเงื่อนไข MouseButton2 ออกได้)
+		if UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
+			cameraAngleX = cameraAngleX - input.Delta.X * 0.005
+			cameraAngleY = math.clamp(cameraAngleY - input.Delta.Y * 0.005, -math.pi/3, math.pi/3)
+		end
+	end
+end)
+
+-- 1. Toggle สำหรับเปิด/ปิดระบบ Spectate
+local Toggle = Tabs.Main:AddToggle("SpectateToggle", {Title = "Spectate NPC", Default = false })
+
+Toggle:OnChanged(function()
+    isSpectating = Toggle.Value
+    if isSpectating then
+        currentIndex = 1
+        cameraAngleX = 0
+        cameraAngleY = 0
+        spectateNextNPC()
+    else
+        stopSpectating()
+    end
+end)
+
+-- 2. Slider สำหรับปรับระยะห่างของกล้อง
+local Slider = Tabs.Main:AddSlider("Slider", {
+	Title = "Camera Distance",
+	Description = "Adjust spectate distance",
+	Default = 2,
+	Min = 0,
+	Max = 5,
+	Rounding = 1,
+	Callback = function(Value)
+		cameraDistance = Value
+	end
+})
+
+---------Blink NPC
+local BlinkNPCSection = Tabs.Main:AddSection("Blink NPC")
+
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+
+local NPC_NAME = "NPC"
+local SPACING = 3
+local PLAYER_OFFSET = 5
+local MOVE_INTERVAL = 0.25
+local DRIFT_THRESHOLD = 0.8
+
+local isFeatureEnabled = false
+local originalCFrames = {}
+local moveThread = nil
+local lastCheckAt = 0
+
+local function isAlive(npc)
+    if not npc or not npc.Parent then
+        return false
+    end
+
+    local humanoid = npc:FindFirstChildOfClass("Humanoid")
+    return humanoid and humanoid.Health > 0
+end
+
+local function getActiveNPCs()
+    local activeNPCs = {}
+    local localCharacter = LocalPlayer.Character
+    local localRoot = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart")
+
+    for _, obj in ipairs(Workspace:GetDescendants()) do
+        if obj:IsA("Model") and obj.Name == NPC_NAME and isAlive(obj) then
+            local npcRoot = obj:FindFirstChild("HumanoidRootPart")
+            if npcRoot then
+                table.insert(activeNPCs, obj)
+            end
+        end
+    end
+
+    table.sort(activeNPCs, function(a, b)
+        local aRoot = a:FindFirstChild("HumanoidRootPart")
+        local bRoot = b:FindFirstChild("HumanoidRootPart")
+        if not localRoot then
+            return false
+        end
+        if not aRoot or not bRoot then
+            return aRoot ~= nil
+        end
+        return (aRoot.Position - localRoot.Position).Magnitude < (bRoot.Position - localRoot.Position).Magnitude
+    end)
+
+    return activeNPCs
+end
+
+local function restoreOriginalNPCs()
+    for npc, originalCFrame in pairs(originalCFrames) do
+        if npc and npc.Parent and npc:FindFirstChild("HumanoidRootPart") and isAlive(npc) then
+            npc.HumanoidRootPart.CFrame = originalCFrame
+        end
+    end
+    originalCFrames = {}
+end
+
+local function updateNPCRow(force)
+    if not isFeatureEnabled then
+        return
+    end
+
+    local character = LocalPlayer.Character
+    if not character or not character:FindFirstChild("HumanoidRootPart") then
+        return
+    end
+
+    local hrp = character.HumanoidRootPart
+    local now = os.clock()
+    if not force and now - lastCheckAt < MOVE_INTERVAL then
+        return
+    end
+    lastCheckAt = now
+
+    local activeNPCs = getActiveNPCs()
+    if #activeNPCs == 0 then
+        return
+    end
+
+    local forwardVector = hrp.CFrame.LookVector
+    local rowCenter = hrp.Position
+
+    for i, npc in ipairs(activeNPCs) do
+        local npcRoot = npc:FindFirstChild("HumanoidRootPart")
+        if npcRoot then
+            if not originalCFrames[npc] then
+                originalCFrames[npc] = npcRoot.CFrame
+            end
+
+            local offsetDistance = PLAYER_OFFSET + ((i - 1) * SPACING)
+            local targetPos = rowCenter + (forwardVector * offsetDistance)
+            targetPos = Vector3.new(targetPos.X, rowCenter.Y + 1, targetPos.Z)
+
+            local desiredCFrame = CFrame.new(targetPos, targetPos + forwardVector)
+            local distanceFromTarget = (npcRoot.Position - targetPos).Magnitude
+
+            if force or distanceFromTarget > DRIFT_THRESHOLD then
+                npcRoot.CFrame = desiredCFrame
+            end
+
+            if npcRoot.AssemblyLinearVelocity.Magnitude > 0.5 then
+                npcRoot.AssemblyLinearVelocity = Vector3.zero
+                npcRoot.AssemblyAngularVelocity = Vector3.zero
+            end
+        end
+    end
+end
+
+local function stopFeature()
+    if moveThread then
+        pcall(function()
+            task.cancel(moveThread)
+        end)
+        moveThread = nil
+    end
+    lastCheckAt = 0
+    restoreOriginalNPCs()
+end
+
+local Toggle = Tabs.Main:AddToggle("BringNPCToggle", {
+    Title = "ดึง NPC เรียงหน้าจอ",
+    Default = false
+})
+
+Toggle:OnChanged(function(Value)
+    isFeatureEnabled = Value
+
+    if isFeatureEnabled then
+        if moveThread then
+            pcall(function()
+                task.cancel(moveThread)
+            end)
+            moveThread = nil
+        end
+
+        updateNPCRow(true)
+
+        moveThread = task.spawn(function()
+            while isFeatureEnabled do
+                updateNPCRow(false)
+                task.wait(MOVE_INTERVAL)
+            end
+        end)
+    else
+        stopFeature()
+    end
+end)
+-------Aurakill
+local AurakillSection = Tabs.Main:AddSection("Aura kill All")
+
+local Toggle = Tabs.Main:AddToggle("AurakillAllToggle", {Title = "Aura kill All Shoot one time", Default = false })
+
+getgenv().AuraKillAll = false
+getgenv().RealToken = nil
+getgenv().LastGunArgs = nil  
+getgenv().LastAttachments = nil 
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local ACS_Engine = ReplicatedStorage:FindFirstChild("ACS_Engine")
+local damageEvent = ACS_Engine and ACS_Engine:FindFirstChild("Events") and ACS_Engine.Events:FindFirstChild("Damage")
+
+-- ดักจับ Token และข้อมูลปืน
+local oldNamecall
+local function safeHook()
+    if not hookmetamethod then
+        return false
+    end
+    oldNamecall = hookmetamethod(game, "__namecall", function(self, ...)
+        local method = getnamecallmethod()
+        local args = {...}
+
+        if self == damageEvent and (method == "InvokeServer" or method == "FireServer") then
+            local tokenArg = args[#args]
+            if type(tokenArg) == "string" and string.find(tokenArg, "-") then
+                getgenv().RealToken = tokenArg
+            end
+
+            if type(args[5]) == "table" then
+                getgenv().LastGunArgs = args[5]
+            end
+            if type(args[6]) == "table" then
+                getgenv().LastAttachments = args[6]
+            end
+        end
+
+        if oldNamecall then
+            return oldNamecall(self, ...)
+        end
+        return nil
+    end)
+    return true
+end
+
+if damageEvent and not safeHook() then
+    warn("[AuraKill] hookmetamethod not supported on this executor.")
+end
+
+Toggle:OnChanged(function()
+    getgenv().AuraKillAll = Toggle.Value
+    
+    if getgenv().AuraKillAll then
+        if not getgenv().RealToken or not getgenv().LastGunArgs then
+            warn(">> กรุณาถือปืนแล้วคลิกยิงด้วยมือปกติ 1 นัดก่อน เพื่อให้สคริปต์จดจำค่าของปืนกระบอกนั้นๆ!")
+        end
+        
+        task.spawn(function()
+            while getgenv().AuraKillAll do
+                local hasTarget = false
+                
+                pcall(function()
+                    local character = player.Character
+                    if not character then return end
+                    
+                    local gun = character:FindFirstChildOfClass("Tool")
+                    if not gun then return end
+                    
+                    if getgenv().RealToken and getgenv().LastGunArgs then
+                        getgenv().LastGunArgs.gunName = gun.Name
+
+                        -- เจาะจงค้นหา Model ที่ชื่อ "NPC" โดยตรงใน Workspace ตามภาพโครงสร้างเกมของคุณ
+                        for _, obj in ipairs(workspace:GetChildren()) do
+                            if not getgenv().AuraKillAll then break end
+                            
+                            -- เช็คว่าเป็น Model ที่ชื่อ "NPC" และมี Humanoid ด้านในที่ยังมีชีวิต
+                            if obj.Name == "NPC" and obj:IsA("Model") then
+                                local humanoid = obj:FindFirstChildOfClass("Humanoid")
+                                local enemyHRP = obj:FindFirstChild("HumanoidRootPart")
+                                
+                                if humanoid and humanoid.Health > 0 and enemyHRP then
+                                    hasTarget = true -- เจอเป้าหมายแล้ว!
+                                    
+                                    -- สาดกระสุนรัวความเร็วสูงใส่ NPC ตัวนั้นทันที
+                                    for i = 1, 3 do 
+                                        if not getgenv().AuraKillAll or humanoid.Health <= 0 then break end
+                                        
+                                        damageEvent:InvokeServer(
+                                            gun,
+                                            humanoid,
+                                            math.random(1, 2) + math.random(),
+                                            1,
+                                            getgenv().LastGunArgs,
+                                            getgenv().LastAttachments or {
+                                                SpreadRM = 1,
+                                                DamageMod = 1,
+                                                MuzzleVelocity = 1
+                                            },
+                                            nil,
+                                            nil,
+                                            getgenv().RealToken
+                                        )
+                                    end
+                                    break -- จัดการทีละตัววนไปอย่างรวดเร็ว
+                                end
+                            end
+                        end
+                    end
+                end)
+                
+                -- ระบบจัดการความเร็วและหยุดพักเมื่อไม่มี NPC
+                if hasTarget then
+                    task.wait(0.01) -- ถ้ายังมี NPC อยู่ ยิงต่อเนื่องรัวๆ
+                else
+                    task.wait(0.4)  -- ถ้ากวาดดูแล้วไม่เจอ NPC เลย จะหยุดพักรอบการเช็คทันทีจนกว่าจะมีตัวใหม่โผล่มา
+                end
+            end
+        end)
+    end
+end)
+------OpenDoor
+local OpenDoorSection = Tabs.Main:AddSection("Open Door")
+
+local originalHoldDurations = {}
+local isRunning = false
+
+local Toggle = Tabs.Main:AddToggle("InstantPromptToggle", {Title = "Instant Open Door Fast", Default = false })
+
+Toggle:OnChanged(function()
+    isRunning = Toggle.Value
+    
+    if isRunning then
+        task.spawn(function()
+            local cachedDoorsFolder = nil
+            
+            -- ค้นหาตำแหน่งโฟลเดอร์ Doors แค่ครั้งเดียวตอนเปิด Toggle เพื่อความลื่นไหล
+            for _, obj in ipairs(workspace:GetDescendants()) do
+                if obj:IsA("Folder") and obj.Name == "Doors" then
+                    local hasEnterableDoor = false
+                    for _, child in ipairs(obj:GetChildren()) do
+                        if child.Name == "EnterableDoor" then
+                            hasEnterableDoor = true
+                            break
+                        end
+                    end
+                    if hasEnterableDoor then
+                        cachedDoorsFolder = obj
+                        break
+                    end
+                end
+            end
+            
+            -- วนลูปทำงานเฉพาะกับโฟลเดอร์ที่เจอแล้ว (ไม่เปลืองแรงค้นหาใหม่ทุกรอบ)
+            while isRunning do
+                if cachedDoorsFolder and cachedDoorsFolder.Parent then
+                    for _, door in ipairs(cachedDoorsFolder:GetChildren()) do
+                        if door.Name == "EnterableDoor" then
+                            local hingePart = door:FindFirstChild("HingePart", true)
+                            if hingePart then
+                                local prompts = hingePart:FindFirstChild("Prompts", true) or hingePart
+                                for _, promptChild in ipairs(prompts:GetDescendants()) do
+                                    if promptChild:IsA("ProximityPrompt") then
+                                        if originalHoldDurations[promptChild] == nil then
+                                            originalHoldDurations[promptChild] = promptChild.HoldDuration
+                                        end
+                                        if promptChild.HoldDuration ~= 0 then
+                                            promptChild.HoldDuration = 0
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end
+                else
+                    -- เผื่อกรณีหาไม่เจอรอบแรก ลองหาใหม่อีกครั้ง
+                    for _, obj in ipairs(workspace:GetDescendants()) do
+                        if obj:IsA("Folder") and obj.Name == "Doors" then
+                            for _, child in ipairs(obj:GetChildren()) do
+                                if child.Name == "EnterableDoor" then
+                                    cachedDoorsFolder = obj
+                                    break
+                                end
+                            end
+                            if cachedDoorsFolder then break end
+                        end
+                    end
+                end
+                
+                -- หน่วงเวลา 1 วินาทีแบบสบายๆ ไม่กินเครื่อง
+                task.wait(1)
+            end
+        end)
+    else
+        -- คืนค่า HoldDuration เดิมกลับทั้งหมดเมื่อปิด Toggle
+        for promptChild, originalDuration in pairs(originalHoldDurations) do
+            if promptChild and promptChild.Parent then
+                promptChild.HoldDuration = originalDuration
+            end
+        end
+        originalHoldDurations = {}
+    end
+end)
+----------------------------------------Esp Npc
+local ESpNPCSection = Tabs.Main:AddSection("Esp Npc")
+
+-------------------------------------------------------------------------
+-- [ ส่วนที่ 2: ระบบ ESP ]
+-------------------------------------------------------------------------
+local ESPSettings = {
+    ["Name Tag"] = false,
+    ["Health Bar"] = false,
+    ["Snap Lines"] = false,
+    ["Bounding Box"] = false,
+    ["Skeleton"] = false,
+    ["Weapon Info"] = false,
+    ["Distance"] = false
+}
+
+local ESPDropdown = Tabs.Main:AddDropdown("ESPOptions", {
+    Title = "ESP Options",
+    Description = "เลือกข้อมูลที่จะแสดงบน ESP",
+    Values = {"Name Tag", "Health Bar", "Snap Lines", "Bounding Box", "Skeleton", "Weapon Info", "Distance"},
+    Multi = true,
+    Default = {},
+})
+
+ESPDropdown:OnChanged(function(Value)
+    if type(Value) == "table" then
+        for opt, state in pairs(Value) do
+            if ESPSettings[opt] ~= nil then ESPSettings[opt] = state end
+        end
+    end
+end)
+
+local SnapLinePosition = "Down"
+local SnapPosDropdown = Tabs.Main:AddDropdown("SnapPosOption", {
+    Title = "Snap Line Position",
+    Description = "เลือกตำแหน่งเริ่มต้นของเส้น Snap Line",
+    Values = {"Top", "Mid", "Down"},
+    Multi = false,
+    Default = "Down",
+})
+
+SnapPosDropdown:OnChanged(function(Value) 
+    SnapLinePosition = Value 
+end)
+
+local ESPRunning = false
+local ESPCache = {}
+local ESPRenderConnection = nil
+local ESPDeathHooks = {}
+
+local function RemoveESP(model)
+    if not model then
+        return
+    end
+
+    if ESPDeathHooks[model] then
+        pcall(function()
+            ESPDeathHooks[model]:Disconnect()
+        end)
+        ESPDeathHooks[model] = nil
+    end
+
+    if ESPCache[model] then
+        for _, drawing in pairs(ESPCache[model]) do
+            if type(drawing) == "table" then
+                for _, line in pairs(drawing) do
+                    if line and line.Visible ~= nil then
+                        pcall(function() line.Visible = false end)
+                    end
+                    if line and line.Remove then
+                        pcall(function() line:Remove() end)
+                    end
+                end
+            elseif drawing and drawing.Visible ~= nil then
+                pcall(function() drawing.Visible = false end)
+            end
+
+            if drawing and drawing.Remove then
+                pcall(function() drawing:Remove() end)
+            end
+        end
+        ESPCache[model] = nil
+    end
+end
+
+local function ClearAllESP()
+    for model in pairs(ESPCache) do
+        RemoveESP(model)
+    end
+    ESPCache = {}
+end
+
+local function HookNPCDeath(model)
+    if not model or ESPDeathHooks[model] then
+        return
+    end
+
+    local humanoid = model:FindFirstChildOfClass("Humanoid")
+    if not humanoid then
+        return
+    end
+
+    ESPDeathHooks[model] = humanoid.Died:Connect(function()
+        if ESPCache[model] then
+            RemoveESP(model)
+        end
+    end)
+end
+
+local function CreateDrawing(type, props)
+    local obj = Drawing.new(type)
+    for i, v in pairs(props) do obj[i] = v end
+    return obj
+end
+
+local Bones = {
+    {"Head", "UpperTorso"}, {"UpperTorso", "LowerTorso"},
+    {"UpperTorso", "LeftUpperArm"}, {"LeftUpperArm", "LeftLowerArm"}, {"LeftLowerArm", "LeftHand"},
+    {"UpperTorso", "RightUpperArm"}, {"RightUpperArm", "RightLowerArm"}, {"RightLowerArm", "RightHand"},
+    {"LowerTorso", "LeftUpperLeg"}, {"LeftUpperLeg", "LeftLowerLeg"}, {"LeftLowerLeg", "LeftFoot"},
+    {"LowerTorso", "RightUpperLeg"}, {"RightUpperLeg", "RightLowerLeg"}, {"RightLowerLeg", "RightFoot"}
+}
+
+local function DrawSkeleton(cache, model, currentCamera)
+    if not cache.SkeletonLines then cache.SkeletonLines = {} end
+
+    local headPart = model:FindFirstChild("Head")
+    if headPart then
+        if not cache.HeadCircle then
+            cache.HeadCircle = CreateDrawing("Circle", { Filled = false, Thickness = 1.5, Color = Color3.fromRGB(128, 255, 0), Transparency = 0.8 })
+        end
+        local headPos, headOnScreen = currentCamera:WorldToViewportPoint(headPart.Position)
+        local topHeadPos = currentCamera:WorldToViewportPoint(headPart.Position + Vector3.new(0, 0.8, 0))
+        local headRadius = math.abs(headPos.Y - topHeadPos.Y) * 0.75
+
+        if headOnScreen then
+            cache.HeadCircle.Position = Vector2.new(headPos.X, headPos.Y)
+            cache.HeadCircle.Radius = math.clamp(headRadius, 3, 12)
+            cache.HeadCircle.Visible = true
+        else
+            cache.HeadCircle.Visible = false
+        end
+    else
+        if cache.HeadCircle then cache.HeadCircle.Visible = false end
+    end
+
+    for i, pair in ipairs(Bones) do
+        local partA = model:FindFirstChild(pair[1])
+        local partB = model:FindFirstChild(pair[2])
+        local line = cache.SkeletonLines[i]
+
+        if not line then
+            line = CreateDrawing("Line", { Thickness = 1.5, Color = Color3.fromRGB(128, 255, 0), Transparency = 0.8 })
+            cache.SkeletonLines[i] = line
+        end
+
+        if partA and partB then
+            local posA, onScreenA = currentCamera:WorldToViewportPoint(partA.Position)
+            local posB, onScreenB = currentCamera:WorldToViewportPoint(partB.Position)
+            if onScreenA or onScreenB then
+                line.From = Vector2.new(posA.X, posA.Y)
+                line.To = Vector2.new(posB.X, posB.Y)
+                line.Visible = true
+            else
+                line.Visible = false
+            end
+        else
+            line.Visible = false
+        end
+    end
+end
+
+local function HideSkeleton(cache)
+    if cache.HeadCircle then cache.HeadCircle.Visible = false end
+    if cache.SkeletonLines then
+        for _, line in pairs(cache.SkeletonLines) do
+            if line then line.Visible = false end
+        end
+    end
+end
+
+local function UpdateESP()
+    if not ESPRunning then
+        ClearAllESP()
+        return
+    end
+
+    local currentCamera = Workspace.CurrentCamera
+    if not currentCamera then
+        return
+    end
+
+    local activeModels = {}
+    local localCharacter = LocalPlayer and LocalPlayer.Character
+    local localRoot = localCharacter and (localCharacter:FindFirstChild("HumanoidRootPart") or localCharacter:FindFirstChild("Head"))
+
+    for _, model in ipairs(Workspace:GetChildren()) do
+        if model:IsA("Model") and model.Name == "NPC" then
+            local humanoid = model:FindFirstChildOfClass("Humanoid")
+            local rootPart = model:FindFirstChild("HumanoidRootPart") or model:FindFirstChild("Head") or model:FindFirstChild("LowerTorso")
+
+            if humanoid and humanoid.Health <= 0 then
+                if ESPCache[model] then
+                    RemoveESP(model)
+                end
+            elseif humanoid and humanoid.Health > 0 and rootPart then
+                activeModels[model] = true
+
+                if not ESPCache[model] then
+                    HookNPCDeath(model)
+                    ESPCache[model] = {
+                        Name = CreateDrawing("Text", { Size = 14, Center = true, Outline = true, Color = Color3.new(1,1,1) }),
+                        Hp = CreateDrawing("Text", { Size = 14, Center = true, Outline = true }),
+                        Line = CreateDrawing("Line", { Thickness = 1, Color = Color3.fromRGB(255, 255, 0), Transparency = 0.7 }),
+                        Box = CreateDrawing("Square", { Filled = false, Thickness = 1.5, Color = Color3.new(0.2, 0.6, 1) }),
+                        Weapon = CreateDrawing("Text", { Size = 13, Center = true, Outline = true, Color = Color3.new(0.9, 0.9, 0.9) })
+                    }
+                end
+
+                local cache = ESPCache[model]
+                local vector, onScreen = currentCamera:WorldToViewportPoint(rootPart.Position)
+
+                if onScreen then
+                    local head = model:FindFirstChild("Head") or rootPart
+                    local topVector = currentCamera:WorldToViewportPoint(head.Position + Vector3.new(0, 0.5, 0))
+                    local bottomVector = currentCamera:WorldToViewportPoint(rootPart.Position - Vector3.new(0, 2.5, 0))
+                    local height = math.abs(topVector.Y - bottomVector.Y)
+                    local width = height * 0.6
+                    local boxPos = Vector2.new(vector.X - width / 2, topVector.Y)
+                    local boxSize = Vector2.new(width, height)
+
+                    if ESPSettings["Bounding Box"] then
+                        cache.Box.Visible = true
+                        cache.Box.Size = boxSize
+                        cache.Box.Position = boxPos
+                    else
+                        cache.Box.Visible = false
+                    end
+
+                    if ESPSettings["Skeleton"] then
+                        DrawSkeleton(cache, model, currentCamera)
+                    else
+                        HideSkeleton(cache)
+                    end
+
+                    local distText = ""
+                    if ESPSettings["Distance"] and localCharacter and localRoot then
+                        local distance = (rootPart.Position - localRoot.Position).Magnitude
+                        distText = " [" .. math.floor(distance) .. "m]"
+                    end
+
+                    local offset = 0
+                    local bottomCenter = Vector2.new(vector.X, bottomVector.Y + 5)
+
+                    if ESPSettings["Name Tag"] then
+                        cache.Name.Text = model.Name .. distText
+                        cache.Name.Position = Vector2.new(bottomCenter.X, bottomCenter.Y + offset)
+                        cache.Name.Visible = true
+                        offset = offset + 15
+                    elseif ESPSettings["Distance"] then
+                        cache.Name.Text = distText:gsub("^%s*", "")
+                        cache.Name.Position = Vector2.new(bottomCenter.X, bottomCenter.Y + offset)
+                        cache.Name.Visible = true
+                        offset = offset + 15
+                    else
+                        cache.Name.Visible = false
+                    end
+
+                    if ESPSettings["Health Bar"] then
+                        local hpPercent = humanoid.Health / humanoid.MaxHealth
+                        local hpColor = hpPercent > 0.5 and Color3.fromRGB(0, 255, 0) or (hpPercent > 0.25 and Color3.fromRGB(255, 255, 0) or Color3.fromRGB(255, 0, 0))
+                        cache.Hp.Text = "HP: " .. math.floor(humanoid.Health) .. " / " .. math.floor(humanoid.MaxHealth)
+                        cache.Hp.Color = hpColor
+                        cache.Hp.Position = Vector2.new(bottomCenter.X, bottomCenter.Y + offset)
+                        cache.Hp.Visible = true
+                        offset = offset + 15
+                    else
+                        cache.Hp.Visible = false
+                    end
+
+                    if ESPSettings["Weapon Info"] then
+                        local weaponName = "Unarmed"
+                        for _, item in ipairs(model:GetChildren()) do
+                            if item:IsA("Tool") then
+                                weaponName = item.Name
+                                break
+                            end
+                        end
+                        cache.Weapon.Text = "[" .. weaponName .. "]"
+                        cache.Weapon.Position = Vector2.new(bottomCenter.X, bottomCenter.Y + offset)
+                        cache.Weapon.Visible = true
+                    else
+                        cache.Weapon.Visible = false
+                    end
+
+                    if ESPSettings["Snap Lines"] then
+                        cache.Line.Visible = true
+                        local startPos = Vector2.new(currentCamera.ViewportSize.X / 2, currentCamera.ViewportSize.Y)
+                        if SnapLinePosition == "Top" then
+                            startPos = Vector2.new(currentCamera.ViewportSize.X / 2, 0)
+                        elseif SnapLinePosition == "Mid" then
+                            startPos = Vector2.new(currentCamera.ViewportSize.X / 2, currentCamera.ViewportSize.Y / 2)
+                        elseif SnapLinePosition == "Down" then
+                            startPos = Vector2.new(currentCamera.ViewportSize.X / 2, currentCamera.ViewportSize.Y)
+                        end
+
+                        cache.Line.From = startPos
+                        cache.Line.To = Vector2.new(vector.X, bottomVector.Y)
+                    else
+                        cache.Line.Visible = false
+                    end
+                else
+                    cache.Box.Visible = false
+                    cache.Name.Visible = false
+                    cache.Hp.Visible = false
+                    cache.Line.Visible = false
+                    cache.Weapon.Visible = false
+                    HideSkeleton(cache)
+                end
+            else
+                if ESPCache[model] then
+                    RemoveESP(model)
+                end
+            end
+        end
+    end
+
+    for model in pairs(ESPCache) do
+        if not activeModels[model] then
+            RemoveESP(model)
+        end
+    end
+end
+
+local ESPToggle = Tabs.Main:AddToggle("ESPToggle", {
+    Title = "Enable ESP",
+    Description = "เปิด/ปิดการทำงานของ ESP ทั้งหมด",
+    Default = false
+})
+
+ESPToggle:OnChanged(function()
+    ESPRunning = ESPToggle.Value
+    if ESPRunning then
+        UpdateESP()
+        if not ESPRenderConnection then
+            ESPRenderConnection = RunService.RenderStepped:Connect(UpdateESP)
+        end
+    else
+        if ESPRenderConnection then
+            ESPRenderConnection:Disconnect()
+            ESPRenderConnection = nil
+        end
+        ClearAllESP()
+        for _, model in ipairs(Workspace:GetChildren()) do
+            if model:IsA("Model") and model.Name == "NPC" then
+                local humanoid = model:FindFirstChildOfClass("Humanoid")
+                if humanoid and humanoid.Health <= 0 and ESPCache[model] then
+                    RemoveESP(model)
+                end
+            end
+        end
+    end
+end)
+
+---------Aimbot
+local AimbotSection = Tabs.Main:AddSection("Aimbot Npc")
+
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+local Camera = Workspace.CurrentCamera
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local UserInputService = game:GetService("UserInputService")
+
+---------------------------------------------------------------------------
+-- [ ส่วนที่ 1: ระบบ Aimbot (ล็อกเป้าใน FOV + WallCheck Toggle) ]
+---------------------------------------------------------------------------
+local AimbotSettings = {
+    Enabled = false,
+    TargetPart = "Head",
+    ShowFOV = false,
+    FOVRadius = 150,
+    WallCheck = false -- ค่าเริ่มต้นปิดไว้
+}
+
+-- ตัวแปรเก็บเป้าหมายปัจจุบัน
+local currentTarget = nil
+
+-- สร้างวงกลม FOV
+local FOVCircle = Drawing.new("Circle")
+FOVCircle.Visible = false
+FOVCircle.Color = Color3.fromRGB(255, 255, 255)
+FOVCircle.Thickness = 1
+FOVCircle.Filled = false
+FOVCircle.Transparency = 1
+
+-- ฟังก์ชันสำหรับเช็คว่ามองเห็นเป้าหมายหรือไม่ (แก้ปัญหา Raycast และเพิ่มความเสถียร)
+local function IsVisible(targetPart, targetModel)
+    if not AimbotSettings.WallCheck then return true end
+    if not targetPart or not targetModel then return false end
+    
+    local cameraPos = Camera.CFrame.Position
+    local direction = (targetPart.Position - cameraPos)
+    
+    local raycastParams = RaycastParams.new()
+    raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+    
+    -- รวบรวมรายชื่อสิ่งที่ต้องการละเว้นไม่ให้ Raycast ชน
+    local ignoreList = {}
+    if LocalPlayer.Character then
+        table.insert(ignoreList, LocalPlayer.Character)
+    end
+    
+    if targetModel then
+        table.insert(ignoreList, targetModel)
+    end
+    
+    raycastParams.FilterDescendantsInstances = ignoreList
+    raycastParams.IgnoreWater = true
+    
+    local raycastResult = Workspace:Raycast(cameraPos, direction, raycastParams)
+    
+    -- ถ้า Raycast ชนวัตถุอื่นก่อนถึงเป้าหมาย แสดงว่ามีกำแพงบัง
+    if raycastResult then
+        local hitInstance = raycastResult.Instance
+        if hitInstance and not hitInstance:IsDescendantOf(targetModel) then
+            return false
+        end
+    end
+    
+    return true
+end
+
+-- UI สำหรับ Aimbot
+local AimToggle = Tabs.Main:AddToggle("AimToggle", {
+    Title = "Enable Aimbot (Right Click to Lock)",
+    Description = "เปิด/ปิดระบบล็อกเป้าหมาย NPC",
+    Default = false 
+})
+AimToggle:OnChanged(function() AimbotSettings.Enabled = AimToggle.Value end)
+
+-- เพิ่ม Toggle สำหรับเปิด/ปิด WallCheck
+local WallCheckToggle = Tabs.Main:AddToggle("WallCheckToggle", {
+    Title = "Wall Check (Don't lock through walls)",
+    Description = "เปิด/ปิดการเช็คกำแพง (ไม่ล็อกเป้าที่ถูกบัง)",
+    Default = false 
+})
+WallCheckToggle:OnChanged(function() AimbotSettings.WallCheck = WallCheckToggle.Value end)
+
+local AimPartDropdown = Tabs.Main:AddDropdown("AimPartOption", {
+    Title = "Select Aimbot Target ",
+    Description = "เลือกส่วนที่จะให้ล็อก",
+    Values = {"Head", "Body"},
+    Multi = false,
+    Default = "Head",
+})
+AimPartDropdown:OnChanged(function(Value) AimbotSettings.TargetPart = Value end)
+
+local FOVToggle = Tabs.Main:AddToggle("FOVToggle", {
+    Title = "Show FOV Circle",
+    Description = "แสดงวงกลมขอบเขตการล็อกเป้า",
+    Default = false 
+})
+FOVToggle:OnChanged(function() 
+    AimbotSettings.ShowFOV = FOVToggle.Value 
+    FOVCircle.Visible = AimbotSettings.ShowFOV 
+end)
+
+local FOVSlider = Tabs.Main:AddSlider("FOVSlider", {
+    Title = "FOV Radius",
+    Description = "ปรับขนาดกว้างของวงกลม FOV",
+    Default = 150,
+    Min = 50,
+    Max = 600,
+    Rounding = 1,
+})
+FOVSlider:OnChanged(function(Value) AimbotSettings.FOVRadius = Value end)
+
+-- Loop การทำงานของ Aimbot (ปรับปรุงแก้ปัญหาหลุดล็อกเวลาขยับเมาส์แรงๆ)
+RunService.RenderStepped:Connect(function()
+    local mouseLoc = UserInputService:GetMouseLocation()
+    
+    -- อัปเดตตำแหน่งและขนาดของ FOV ตามเมาส์
+    if AimbotSettings.ShowFOV then
+        FOVCircle.Position = mouseLoc
+        FOVCircle.Radius = tonumber(AimbotSettings.FOVRadius) or 150
+        FOVCircle.Visible = true
+    else
+        FOVCircle.Visible = false
+    end
+
+    -- เช็คการกดคลิกขวาค้างเพื่อล็อกเป้า
+    if AimbotSettings.Enabled and UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
+        
+        -- ตรวจสอบว่าเป้าหมายปัจจุบันยังอยู่ดี, HP > 0
+        if currentTarget then
+            local model = currentTarget.Parent
+            local humanoid = model and model:FindFirstChildOfClass("Humanoid")
+            local health = humanoid and tonumber(humanoid.Health) or 0
+            
+            -- ถ้าตัวละครตาย หรือโมเดลหายไป ให้ยกเลิกการล็อก
+            if not humanoid or health <= 0 or not model:IsDescendantOf(Workspace) then
+                currentTarget = nil
+            elseif AimbotSettings.WallCheck then
+                -- เช็ค WallCheck สำหรับเป้าหมายที่ล็อกอยู่ (ถ้าถูกบังมิดชิดค่อยหลุด)
+                if not IsVisible(currentTarget, model) then
+                    currentTarget = nil
+                end
+            end
+        end
+
+        -- ถ้ายังไม่มีเป้าหมาย ให้หาเป้าหมายใหม่ที่อยู่ใน FOV และมองเห็นได้
+        if not currentTarget then
+            local shortestDistance = tonumber(AimbotSettings.FOVRadius) or 150
+            local bestTarget = nil
+
+            for _, model in ipairs(Workspace:GetChildren()) do
+                if model:IsA("Model") and model.Name == "NPC" then
+                    local humanoid = model:FindFirstChildOfClass("Humanoid")
+                    local rootPart = model:FindFirstChild("HumanoidRootPart")
+
+                    if humanoid and rootPart then
+                        local health = tonumber(humanoid.Health) or 0
+                        if health > 0 then
+                            local partToLock = model:FindFirstChild("Head")
+                            if AimbotSettings.TargetPart == "Body" then
+                                partToLock = model:FindFirstChild("UpperTorso") or model:FindFirstChild("Torso") or rootPart
+                            end
+
+                            if partToLock and IsVisible(partToLock, model) then
+                                local screenPoint, onScreen = Camera:WorldToViewportPoint(partToLock.Position)
+                                if onScreen then
+                                    local screenPos = Vector2.new(screenPoint.X, screenPoint.Y)
+                                    local distance = (screenPos - mouseLoc).Magnitude
+
+                                    if distance < shortestDistance then
+                                        shortestDistance = distance
+                                        bestTarget = partToLock
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+            
+            currentTarget = bestTarget
+        end
+
+        -- ถ้ามีเป้าหมาย ให้ล็อกกล้อง (ต่อให้สะบัดเมาส์แรงแค่ไหน เป้าหมายก็จะไม่หลุดออกจาก FOV ระหว่างล็อก)
+        if currentTarget then
+            Camera.CFrame = CFrame.new(Camera.CFrame.Position, currentTarget.Position)
+        end
+    else
+        currentTarget = nil
+    end
+end)
+-----------------
+local AurakillSection = Tabs.Mp:AddSection("Map Cash Under Fire")
+
+local Toggle = Tabs.Mp:AddToggle("CashRecoverToggle", {Title = "CashRecoverEvidence", Default = false })
+
+    Toggle:OnChanged(function()
+        -- เช็คสถานะของ Toggle (เปิด/ปิด)
+        if Toggle.Value then
+            -- เริ่ม Loop เมื่อเปิด Toggle
+            task.spawn(function()
+                while Toggle.Value do
+                    local args = {
+                        workspace:WaitForChild("CashRecoverEvidence")
+                    }
+                    game:WaitForChild("ReplicatedStorage"):WaitForChild("Network"):WaitForChild("SecureEvidence"):FireServer(unpack(args))
+                    
+                    -- หน่วงเวลา 1 วินาทีต่อ 1 รอบ (สามารถปรับเพิ่ม/ลดได้ตามต้องการ เช่น 0.5 หรือ 2)
+                    task.wait(1)
+                end
+            end)
+        end
+    end)
+    -----------Jail NPC
+   local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+-- ใช้ pcall และ WaitForChild เพื่อป้องกัน Error กรณีหาไม่เจอหรือโหลดไม่ทัน
+local success, Event = pcall(function()
+    local network = ReplicatedStorage:WaitForChild("Network", 5)
+    return network and network:WaitForChild("ShoutNPC", 5)
+end)
+
+if not success or not Event then
+    warn("⚠️ ไม่พบ ShoutNPC ใน ReplicatedStorage.Network แต่สคริปต์ยังทำงานต่อได้ (เฉพาะส่วน ProximityPrompt)")
+end
+
+local Toggle = Tabs.Main:AddToggle("MyToggle", {
+    Title = "Auto Shout & Interact NPC", 
+    Default = false 
+})
+
+Toggle:OnChanged(function(Value)
+    while Value do
+        -- เช็คสถานะ Toggle อีกรอบเผื่อมีการปิดระหว่างลูป
+        if not Toggle.Value then break end
+
+        for _, child in ipairs(workspace:GetChildren()) do
+            -- เช็คซ้ำในลูปย่อย
+            if not Toggle.Value then break end
+            
+            if child.Name == "NPC" then
+                -- เงื่อนไข: เช็คว่า NPC ตัวนี้ไม่มี Tool อยู่ข้างใน
+                local hasTool = child:FindFirstChildOfClass("Tool")
+                
+                if not hasTool then
+                    -- 1. ส่ง Event ไปบอก Server (จะส่งก็ต่อเมื่อเจอ Event เท่านั้น ป้องกัน Error)
+                    if Event then
+                        pcall(function()
+                            Event:FireServer(child)
+                        end)
+                    end
+                    
+                    -- 2. เช็คว่ามี UpperTorso และ ProximityPrompt อยู่ไหม
+                    local upperTorso = child:FindFirstChild("UpperTorso")
+                    if upperTorso then
+                        local prompt = upperTorso:FindFirstChildOfClass("ProximityPrompt")
+                        if prompt then
+                            -- ปรับค่าความหน่วงเวลาเป็น 0 (กดปุ๊บติดปั๊บ)
+                            prompt.HoldDuration = 0
+                            
+                            -- ปรับระยะการกดให้ไกลขึ้น (ครอบคลุมทั้งแมพ)
+                            prompt.MaxActivationDistance = 9999
+                            
+                            -- สั่งกด ProximityPrompt โดยอัตโนมัติ
+                            pcall(function()
+                                fireproximityprompt(prompt)
+                            end)
+                        end
+                    end
+                end
+            end
+        end
+        
+        -- หน่วงเวลาก่อนวนลูปเช็คซ้ำ
+        task.wait(0.5)
+    end
+end)
+
+
+-------------------Work end
+-- Anti-Idle Logic
+local Players = game:GetService("Players")
+local VirtualUser = game:GetService("VirtualUser")
+local LocalPlayer = Players.LocalPlayer
+
+LocalPlayer.Idled:Connect(function()
+    pcall(function()
+        VirtualUser:CaptureController()
+        VirtualUser:ClickButton2(Vector2.new(0, 0))
+    end)
+end)
+
+--------------------------------------------------
+-- 💾 SETTINGS, AUTO-SAVE & CONFIG
+--------------------------------------------------
+local autoSaveEnabled = false
+local savedConfigLoaded = false
+
+if SaveManager and InterfaceManager then
+    SaveManager:SetLibrary(Fluent)
+    InterfaceManager:SetLibrary(Fluent)
+
+    SaveManager:IgnoreThemeSettings()
+    SaveManager:SetIgnoreIndexes({})
+
+    InterfaceManager:SetFolder("FluentScriptHub")
+    SaveManager:SetFolder("FluentScriptHub/specific-game")
+
+    local ok, err = SaveManager:Load("autosave")
+    savedConfigLoaded = ok ~= false
+    autoSaveEnabled = ok == true
+    if ok then
+        Fluent:Notify({ Title = "Auto‑Load", Content = "Loaded saved settings.", Duration = 5 })
+    end
+
+    InterfaceManager:BuildInterfaceSection(Tabs.Settings)
+    SaveManager:BuildConfigSection(Tabs.Settings)
+
+    local autoLoadToggle = Tabs.Settings:AddToggle("AutoLoadConfig", {
+        Title   = "Auto Load Config",
+        Default = autoSaveEnabled
+    }):OnChanged(function(state)
+        if state then
+            local success, _ = SaveManager:Load("autosave")
+            if success then
+                Fluent:Notify({ Title = "Auto‑Load", Content = "Loaded saved settings.", Duration = 5 })
+            else
+                Fluent:Notify({ Title = "Auto‑Load", Content = "No saved settings found.", Duration = 5 })
+            end
+        end
+    end)
+
+    Tabs.Settings:AddButton({
+        Title = "Auto Save Config",
+        Description = "Click to save your current settings.",
+        Callback = function()
+            local ok2, err3 = SaveManager:Save("autosave")
+            if ok2 then
+                Fluent:Notify({ Title = "Auto‑Save", Content = "Settings autosaved.", Duration = 5 })
+            else
+                Fluent:Notify({ Title = "Auto‑Save", Content = "Failed to save: "..tostring(err3), Duration = 5 })
+            end
+        end
+    })
+
+    task.spawn(function()
+        repeat task.wait() until Fluent.Unloaded
+        SaveManager:Save("autosave")
+    end)
+else
+    Tabs.Settings:AddParagraph({
+        Title = "Save System",
+        Content = "SaveManager/InterfaceManager failed to load. Auto-save disabled."
+    })
+    Fluent:Notify({ Title = "Fluent", Content = "Save system unavailable on this executor.", Duration = 6 })
+end
+
+Window:SelectTab(1)
+Fluent:Notify({ Title = "Fluent", Content = "The script has been loaded.", Duration = 8 })
+wait(1)
+
+local bb = game:service'VirtualUser'
+game:service'Players'.LocalPlayer.Idled:connect(function()
+    bb:CaptureController()
+    bb:ClickButton2(Vector2.new())
+end)
+
+--========================================================
+-- Quick Toggle Button: Evil (Minimize / Restore Fluent)
+--========================================================
+do
+    if _G.__EVIL_QT and _G.__EVIL_QT.cleanup then
+        pcall(_G.__EVIL_QT.cleanup)
+    end
+
+    local Players = game:GetService("Players")
+    local UIS = game:GetService("UserInputService")
+
+    local function tryDestroyOldByName(name)
+        pcall(function()
+            local cg = game:GetService("CoreGui")
+            local old1 = cg:FindFirstChild(name)
+            if old1 then old1:Destroy() end
+        end)
+        local pg = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
+        if pg then
+            local old2 = pg:FindFirstChild(name)
+            if old2 then old2:Destroy() end
+        end
+    end
+    tryDestroyOldByName("FluentQuickToggle")
+
+    local MOD = { conns = {} }
+    _G.__EVIL_QT = MOD
+
+    function MOD.cleanup()
+        for _, c in ipairs(MOD.conns) do
+            pcall(function() c:Disconnect() end)
+        end
+        if MOD.gui and MOD.gui.Parent then
+            pcall(function() MOD.gui:Destroy() end)
+        end
+        _G.__EVIL_QT = nil
+    end
+
+    if not game:IsLoaded() then pcall(function() game.Loaded:Wait() end) end
+    if not workspace.CurrentCamera then workspace:GetPropertyChangedSignal("CurrentCamera"):Wait() end
+    local Camera = workspace.CurrentCamera
+
+    local function getGuiParent()
+        local ok, host = pcall(function()
+            return (gethui and gethui()) or game:GetService("CoreGui")
+        end)
+        if ok and host then return host end
+        local pg = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui") or Players.LocalPlayer:WaitForChild("PlayerGui")
+        return pg
+    end
+
+    local quickGui = Instance.new("ScreenGui")
+    quickGui.Name = "FluentQuickToggle"
+    quickGui.ResetOnSpawn = false
+    quickGui.IgnoreGuiInset = true
+    quickGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    quickGui.DisplayOrder = 9999
+    pcall(function() if syn and syn.protect_gui then syn.protect_gui(quickGui) end end)
+    quickGui.Parent = getGuiParent()
+    MOD.gui = quickGui
+
+    local evilButton = Instance.new("TextButton")
+    evilButton.Name = "Evil"
+    evilButton.Parent = quickGui
+    evilButton.Size = UDim2.fromOffset(120, 40)
+    evilButton.Position = UDim2.fromOffset(20, 120)
+    evilButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    evilButton.BorderSizePixel = 0
+    evilButton.AutoButtonColor = true
+    evilButton.Text = "Evil"
+    evilButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    evilButton.TextScaled = true
+    evilButton.Font = Enum.Font.GothamBold
+    evilButton.Visible = true
+    evilButton.Active = true
+    evilButton.ZIndex = 9999
+
+    local stroke = Instance.new("UIStroke")
+    stroke.Color = Color3.fromRGB(255,255,255)
+    stroke.Thickness = 1
+    stroke.Parent = evilButton
+
+    local function notify(title, text, dur)
+        pcall(function()
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = title or "Info", Text = text or "", Duration = dur or 2
+            })
+        end)
+    end
+
+    local function toggleFluent()
+        if typeof(Window) == "table" and Window.Minimize then
+            Window:Minimize()
+            notify("Fluent", "Toggled", 2)
+        else
+            notify("Fluent", "Window not ready", 2)
+        end
+    end
+
+    evilButton.AnchorPoint = Vector2.new(0, 0)
+    local dragging, dragStartPos, startOffset = false, nil, nil
+    local movedPixels = 0
+    local CLICK_MOVE_THRESHOLD = 6
+
+    local function clampToViewport(px, py)
+        local vs = (Camera and Camera.ViewportSize) or Vector2.new(1280, 720)
+        local bw, bh = evilButton.AbsoluteSize.X, evilButton.AbsoluteSize.Y
+        local minX, minY = 0, 0
+        local maxX, maxY = vs.X - bw, vs.Y - bh
+        return math.clamp(px, minX, maxX), math.clamp(py, minY, maxY)
+    end
+
+    local function beginDrag(startInput)
+        dragging = true
+        movedPixels = 0
+        dragStartPos = UIS:GetMouseLocation()
+        startOffset  = evilButton.Position
+
+        table.insert(MOD.conns, UIS.InputChanged:Connect(function(input)
+            if not dragging then return end
+            if input.UserInputType == Enum.UserInputType.MouseMovement
+            or input.UserInputType == Enum.UserInputType.Touch then
+                local now = UIS:GetMouseLocation()
+                local delta = now - dragStartPos
+                movedPixels = math.max(movedPixels, delta.Magnitude)
+
+                local newX = startOffset.X.Offset + delta.X
+                local newY = startOffset.Y.Offset + delta.Y
+                local cx, cy = clampToViewport(newX, newY)
+                evilButton.Position = UDim2.fromOffset(cx, cy)
+            end
+        end))
+
+        local endConn
+        endConn = startInput.Changed:Connect(function()
+            if startInput.UserInputState == Enum.UserInputState.End then
+                dragging = false
+                pcall(function() endConn:Disconnect() end)
+                if movedPixels < CLICK_MOVE_THRESHOLD then
+                    toggleFluent()
+                end
+            end
+        end)
+        table.insert(MOD.conns, endConn)
+    end
+
+    table.insert(MOD.conns, evilButton.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1
+        or input.UserInputType == Enum.UserInputType.Touch then
+            beginDrag(input)
+        end
+    end))
+
+    print("[Evil] ready. GUI:", quickGui.Parent, "Pos:", evilButton.Position)
+end
+------------------name
+wait(5)
+if not getgenv().Config then
+    getgenv().Config = {
+        FakeDisplayName = "God_BlackHole X", -- ชื่อที่ต้องการแสดงปลอม
+        FakeName = "กูไม่บอก"         -- ชื่อผู้เล่นที่ต้องการปลอม
+    }
+end
+
+local players = game:GetService('Players')
+local lp = players.LocalPlayer
+
+-- เก็บค่าชื่อจริง
+local oldName = lp.Name
+local oldDisplayName = lp.DisplayName
+
+-- เปลี่ยนชื่อปลอมใน LocalPlayer
+lp.Name = getgenv().Config.FakeName
+lp.DisplayName = getgenv().Config.FakeDisplayName
+
+-- ฟังก์ชันสำหรับเปลี่ยนชื่อใน GUI
+local function processtext(text)
+    if string.find(text, oldName) then
+        return string.gsub(text, oldName, getgenv().Config.FakeName)
+    elseif string.find(text, oldDisplayName) then
+        return string.gsub(text, oldDisplayName, getgenv().Config.FakeDisplayName)
+    end
+    return text
+end
+
+-- แก้ไขชื่อใน GUI ที่มีอยู่แล้ว
+for _, v in ipairs(game:GetDescendants()) do
+    if v:IsA("TextBox") or v:IsA("TextLabel") or v:IsA("TextButton") then
+        v.Text = processtext(v.Text)
+        v.Changed:Connect(function()
+            v.Text = processtext(v.Text)
+        end)
+    end
+end
+task.spawn(function()
+    repeat task.wait() until Fluent.Unloaded
+    SaveManager:Save("autosave")
+end)
+
+Window:SelectTab(1)
+Fluent:Notify({ Title = "Fluent", Content = "The script has been loaded fully successfully.", Duration = 8 })
