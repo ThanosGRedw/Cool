@@ -1553,8 +1553,8 @@ end
 wait(5)
 if not getgenv().Config then
     getgenv().Config = {
-        FakeDisplayName = "God_BlackHole X", -- ชื่อที่ต้องการแสดงปลอม
-        FakeName = "กูไม่บอก"         -- ชื่อผู้เล่นที่ต้องการปลอม
+        FakeDisplayName = "ThanosGRedw",  -- idk
+        FakeName = "ThanosGRedw"         -- pro
     }
 end
 
@@ -1569,7 +1569,7 @@ local oldDisplayName = lp.DisplayName
 lp.Name = getgenv().Config.FakeName
 lp.DisplayName = getgenv().Config.FakeDisplayName
 
--- ฟังก์ชันสำหรับเปลี่ยนชื่อใน GUI
+--  GUI
 local function processtext(text)
     if string.find(text, oldName) then
         return string.gsub(text, oldName, getgenv().Config.FakeName)
