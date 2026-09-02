@@ -1,0 +1,1064 @@
+-- This file was generated at discord.gg/syncrypt
+
+local t1 = {}
+local v2 = unpack or table.unpack
+t1.value1 = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+local value1 = t1.value1
+local CreateWindow = value1.CreateWindow
+local t2 = {
+	Enabled = false
+}
+local v6 = CreateWindow(value1, {
+	Name = "Home Alone Detection Script - By GAMER",
+	Icon = "eye",
+	LoadingTitle = "Loading in a sec...",
+	LoadingSubtitle = "Developed by Gamer",
+	Theme = "Default",
+	DisableRayfieldPrompts = true,
+	DisableBuildWarnings = false,
+	ConfigurationSaving = t2,
+	KeySystem = false
+})
+local v7 = v6:CreateTab("Detect", "eye")
+local v8 = v6:CreateTab("Player", "user")
+local v9 = v6:CreateTab("Task Highlight", "sun")
+
+t1.value2 = game:GetService("ReplicatedStorage")
+t1.value3 = game:GetService("ProximityPromptService")
+
+local _game = game
+t1.value4 = nil
+t1.value5 = _game:GetService("RunService")
+t1.value6 = game:GetService("UserInputService")
+t1.value7 = game:GetService("Players").LocalPlayer
+game:GetService("Workspace")
+t1.value8 = false
+t1.value9 = false
+t1.value10 = false
+t1.value11 = nil
+t1.value12 = nil
+t1.value13 = nil
+t1.value14 = {}
+t1.value15 = t1.value2:WaitForChild("Assets"):WaitForChild("Highlight"):WaitForChild("DetectionHighlight_Anomaly")
+t1.value16 = t1.value2:WaitForChild("Assets"):WaitForChild("Highlight"):WaitForChild("DetectionHighlight_Normal")
+t1.value17 = require(v2({ t1.value2:WaitForChild("Client"):WaitForChild("VisitorClient") }))
+t1.value18 = false
+t1.value19 = 1
+t1.value20 = false
+t1.value21 = false
+t1.value22 = 50
+t1.value23 = {}
+t1.value24 = false
+t1.value25 = v7:CreateLabel("Detection stopped.", v2({ Color3.fromRGB(255, 255, 255) }))
+
+function t1.value26()
+    if t1.value11 then
+        t1.value11:Destroy()
+    end
+end
+function t1.value27(p1)
+    t1.value26()
+
+    if not p1 or not p1.model then
+        return
+    end;
+
+    (p1.isAnomaly and t1.value15:Clone() or t1.value16:Clone()).Parent = p1.model
+end
+function t1.value28(p2)
+    if not p2 then
+        t1.value25:Set("No visitor present.")
+
+        return
+    end
+
+    local visitorDescription = p2.visitorDescription
+
+    if visitorDescription then
+        visitorDescription = p2.visitorDescription.displayName
+    end
+
+    local v27 = visitorDescription or "Unknown"
+    local isAnomaly = p2.isAnomaly
+    local v29 = not isAnomaly and "✅ SAFE" or "⚠\239\184\143 ANOMALY"
+    local v30 = not isAnomaly and "🟢 OPEN DOOR" or "❌ DO NOT OPEN"
+    local v31 = string.format("%s | %s | %s", v27, v29, v30)
+
+    t1.value25:Set(v31)
+end
+function t1.value29(p3)
+    local visitorDescription = p3.visitorDescription
+    if visitorDescription then
+        visitorDescription = p3.visitorDescription.displayName
+    end
+    local v20 = visitorDescription or "Unknown"
+    local isAnomaly = p3.isAnomaly
+    local v22 = "Visitor: " .. v20
+    local v23 = not isAnomaly and "✅ Normal Visitor - 🟢 YOU CAN OPEN THE DOOR" or "⚠\239\184\143 ANOMALY DETECTED! ❌ DO NOT OPEN THE DOOR"
+    local u24 = v23
+    pcall(function()
+        t1.value1:Notify({
+			Title = v22,
+			Content = u24,
+			Duration = 5
+		})
+    end)
+end
+t1.value30 = nil
+function t1.value30(p4)
+    if t1.value8 then
+        t1.value28(p4)
+
+        if p4 then
+            t1.value29(p4)
+        end
+    end
+
+    if t1.value9 then
+        if p4 then
+            t1.value27(p4)
+
+            return
+        end
+
+        t1.value26()
+    end
+end
+t1.value31 = nil
+function t1.value31()
+    while t1.value8 or t1.value9 do
+        task.wait(0.3)
+
+        if not (t1.value8 or t1.value9) then
+            break
+        end
+
+        local ok, result = pcall(t1.value17.get)
+
+        if ok then
+            local v36 = result and result.visitorId
+
+            if v36 ~= t1.value13 then
+                t1.value13 = v36
+
+                if result then
+                    pcall(t1.value30, result)
+                else
+                    pcall(t1.value30, nil)
+                end
+            end
+        end
+    end
+
+    t1.value26()
+
+    if t1.value8 then
+        t1.value25:Set("Detection stopped.")
+    end
+end
+function t1.value32()
+    if t1.value12 then
+        return
+    end
+
+    local v37 = false
+
+    for _ = 1, 5 do
+        local v39 = t1.value17.get()
+
+        if v39 then
+            local _ = v39.visitorId
+
+            pcall(t1.value30, v39)
+            v37 = true
+
+            break
+        end
+
+        task.wait(0.2)
+    end
+
+    if not v37 and t1.value8 then
+        t1.value25:Set("Waiting for visitor...")
+    end
+
+    t1.value12 = task.spawn(t1.value31)
+end
+function t1.value33()
+    if (not t1.value8 or t1.value9) and t1.value12 then
+        t1.value12 = nil
+    end
+end
+function t1.value34()
+    if #t1.value14 > 0 then
+        return
+    end
+
+    t1.value14 = {
+		t1.value3.PromptButtonHoldBegan:Connect(function(p5)
+        pcall(function()
+            p5.HoldDuration = 0
+            p5:InputHoldBegin()
+            task.spawn(function()
+                task.wait(0.05)
+                p5:InputHoldEnd()
+            end)
+        end)
+    end),
+		(t1.value3.PromptTriggered:Connect(function(p6)
+        print("[PoC] Prompt Triggered (instant):", p6:GetFullName())
+    end))
+	}
+end
+function t1.value35()
+    local Character = t1.value7.Character
+    local v17 = Character
+
+    if Character then
+        v17 = Character:FindFirstChild("HumanoidRootPart")
+    end
+
+    if v17 then
+        return Character
+    end
+
+    return nil
+end
+t1.value4 = nil
+function t1.value36()
+    if t1.value4 then
+        t1.value4:Disconnect()
+        t1.value4 = nil
+    end
+
+    if not t1.value20 and not t1.value18 then
+        return
+    end
+
+    t1.value4 = t1.value5.Stepped:Connect(function()
+        local v128 = t1.value35()
+
+        if not v128 then
+            return
+        end
+
+        if t1.value20 then
+            for _, descendant in ipairs(v128:GetDescendants()) do
+                if descendant:IsA("BasePart") then
+                    descendant.CanCollide = false
+                end
+            end
+        end
+
+        if t1.value18 then
+            local HumanoidRootPart = v128:FindFirstChild("HumanoidRootPart")
+            local v132 = HumanoidRootPart
+            local Humanoid = v128:FindFirstChildOfClass("Humanoid")
+            if HumanoidRootPart then
+                v132 = Humanoid and Humanoid.MoveDirection.Magnitude > 0
+            end
+            if v132 then
+                HumanoidRootPart.CFrame = HumanoidRootPart.CFrame + Humanoid.MoveDirection * t1.value19
+            end
+        end
+    end)
+end
+t1.value37 = nil
+function t1.value37()
+
+    for v59, v60 in ipairs(t1.value23) do
+
+        v60:Disconnect()
+    end
+    local v61 = t1.value35()
+    if v61 then
+        local Humanoid = v61:FindFirstChildOfClass("Humanoid")
+
+        if Humanoid then
+            Humanoid.PlatformStand = false
+        end
+
+        local HumanoidRootPart = v61:FindFirstChild("HumanoidRootPart")
+
+        if HumanoidRootPart then
+            if HumanoidRootPart:FindFirstChild("FlyVelocity") then
+                HumanoidRootPart.FlyVelocity:Destroy()
+            end
+
+            if HumanoidRootPart:FindFirstChild("FlyGyro") then
+                HumanoidRootPart.FlyGyro:Destroy()
+            end
+        end
+    end
+    pcall(function()
+        workspace.CurrentCamera.CameraType = Enum.CameraType.Custom
+    end)
+end
+function t1.value38()
+    t1.value37()
+    t1.value24 = true
+
+    local u43 = t1.value35()
+
+    if not u43 then
+        return
+    end
+
+    local Humanoid = u43:FindFirstChildOfClass("Humanoid")
+    local HumanoidRootPart = u43:FindFirstChild("HumanoidRootPart")
+
+    if not Humanoid or not HumanoidRootPart then
+        return
+    end
+
+    Humanoid.PlatformStand = true
+    pcall(function()
+        workspace.CurrentCamera.CameraType = Enum.CameraType.Track
+    end)
+
+    local BodyGyro = Instance.new("BodyGyro")
+
+    BodyGyro.Name = "FlyGyro"
+    BodyGyro.P = 90000
+    BodyGyro.MaxTorque = Vector3.new(9000000000, 9000000000, 9000000000)
+    BodyGyro.CFrame = HumanoidRootPart.CFrame
+    BodyGyro.Parent = HumanoidRootPart
+
+    local BodyVelocity = Instance.new("BodyVelocity")
+
+    BodyVelocity.Name = "FlyVelocity"
+    BodyVelocity.Velocity = Vector3.new(0, 0, 0)
+    BodyVelocity.MaxForce = Vector3.new(9000000000, 9000000000, 9000000000)
+    BodyVelocity.Parent = HumanoidRootPart
+
+    local TouchEnabled = t1.value6.TouchEnabled
+
+    if TouchEnabled then
+        TouchEnabled = not t1.value6.KeyboardEnabled
+    end
+
+    if TouchEnabled then
+        local u49
+        pcall(function()
+            u49 = require(t1.value7.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule"))
+        end)
+        local connection = t1.value5.RenderStepped:Connect(function()
+            if not t1.value24 then
+                return
+            end
+
+            u43 = t1.value35()
+
+            if not u43 then
+                return
+            end
+
+            HumanoidRootPart = u43:FindFirstChild("HumanoidRootPart")
+
+            if not HumanoidRootPart then
+                return
+            end
+
+            BodyGyro.CFrame = workspace.CurrentCamera.CFrame
+            BodyVelocity.Velocity = Vector3.new(0, 0, 0)
+
+            if u49 then
+                local MoveVector = u49:GetMoveVector()
+                local CurrentCamera = workspace.CurrentCamera
+
+                if MoveVector.X > 0 then
+                    local v136 = BodyVelocity
+                    local s1 = "Velocity"
+                    local v138 = CurrentCamera.CFrame.RightVector * (MoveVector.X * t1.value22)
+
+                    v136[s1] = v136[s1] + v138
+                end
+
+                if MoveVector.X < 0 then
+                    local v139 = BodyVelocity
+                    local s2 = "Velocity"
+                    local v141 = CurrentCamera.CFrame.RightVector * (MoveVector.X * t1.value22)
+
+                    v139[s2] = v139[s2] + v141
+                end
+
+                if MoveVector.Z > 0 then
+                    local v142 = BodyVelocity
+                    local s3 = "Velocity"
+                    local v144 = CurrentCamera.CFrame.LookVector * (MoveVector.Z * t1.value22)
+
+                    v142[s3] = v142[s3] - v144
+                end
+
+                if MoveVector.Z < 0 then
+                    local v145 = BodyVelocity
+                    local s4 = "Velocity"
+                    local v147 = CurrentCamera.CFrame.LookVector * (MoveVector.Z * t1.value22)
+
+                    v145[s4] = v145[s4] - v147
+                end
+            end
+        end)
+        table.insert(t1.value23, connection)
+    else
+        local t3 = {
+			F = 0,
+			B = 0,
+			L = 0,
+			R = 0,
+			Q = 0,
+			E = 0
+		}
+        local t4 = {
+			F = 0,
+			B = 0,
+			L = 0,
+			R = 0,
+			Q = 0,
+			E = 0
+		}
+        local n1 = 0
+        local connection = t1.value6.InputBegan:Connect(function(input, gameProcessed)
+            if gameProcessed then
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.W then
+                t3.F = 1
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.S then
+                t3.B = -1
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.A then
+                t3.L = -1
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.D then
+                t3.R = 1
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.E then
+                t3.Q = 1
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.Q then
+                t3.E = -1
+            end
+        end)
+        local connection2 = t1.value6.InputEnded:Connect(function(input, gameProcessed)
+            if gameProcessed then
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.W then
+                t3.F = 0
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.S then
+                t3.B = 0
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.A then
+                t3.L = 0
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.D then
+                t3.R = 0
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.E then
+                t3.Q = 0
+
+                return
+            end
+
+            if input.KeyCode == Enum.KeyCode.Q then
+                t3.E = 0
+            end
+        end)
+
+        table.insert(t1.value23, connection)
+        table.insert(t1.value23, connection2)
+
+        local connection3 = t1.value5.Heartbeat:Connect(function()
+            if not t1.value24 then
+                return
+            end
+
+            local CurrentCamera = workspace.CurrentCamera
+            local v153 = t3.L + t3.R ~= 0
+
+            if not v153 then
+                v153 = t3.F + t3.B ~= 0
+
+                if not v153 then
+                    v153 = t3.Q + t3.E ~= 0
+                end
+            end
+
+            if v153 then
+                n1 = t1.value22
+            elseif n1 ~= 0 then
+                n1 = 0
+            end
+
+            local v154 = t3.L + t3.R ~= 0
+
+            if not v154 then
+                v154 = t3.F + t3.B ~= 0
+
+                if not v154 then
+                    v154 = t3.Q + t3.E ~= 0
+                end
+            end
+
+            if v154 then
+                BodyVelocity.Velocity = (CurrentCamera.CFrame.LookVector * (t3.F + t3.B) + (CurrentCamera.CFrame * CFrame.new(t3.L + t3.R, (t3.F + t3.B + t3.Q + t3.E) * 0.2, 0).p - CurrentCamera.CFrame.p)) * n1
+
+                local F = t3.F
+                local B = t3.B
+                local L = t3.L
+                local R = t3.R
+
+                t4 = {
+					F = F,
+					B = B,
+					L = L,
+					R = R
+				}
+            else
+                local v159 = t3.L + t3.R == 0
+
+                if v159 then
+                    v159 = t3.F + t3.B == 0
+
+                    if v159 then
+                        v159 = t3.Q + t3.E == 0 and n1 ~= 0
+                    end
+                end
+
+                if v159 then
+                    BodyVelocity.Velocity = (CurrentCamera.CFrame.LookVector * (t4.F + t4.B) + (CurrentCamera.CFrame * CFrame.new(t4.L + t4.R, (t4.F + t4.B + t3.Q + t3.E) * 0.2, 0).p - CurrentCamera.CFrame.p)) * n1
+                else
+                    BodyVelocity.Velocity = Vector3.new(0, 0, 0)
+                end
+            end
+
+            BodyGyro.CFrame = CurrentCamera.CFrame
+        end)
+
+        table.insert(t1.value23, connection3)
+    end
+end
+local CharacterAdded = t1.value7.CharacterAdded
+t1.value39 = nil
+t1.value40 = nil
+CharacterAdded:Connect(function()
+    if t1.value21 then
+        task.wait(1)
+        t1.value38()
+    end
+end)
+t1.value41 = false
+t1.value42 = nil
+t1.value43 = nil
+t1.value40 = {}
+t1.value39 = {}
+function t1.value44(p7)
+    local p7Parent = p7.Parent
+
+    while p7Parent do
+        if p7Parent:IsA("Model") then
+            return p7Parent
+        end
+
+        p7Parent = p7Parent.Parent
+    end
+
+    return nil
+end
+function t1.value45(p8)
+    local v76 = p8:IsA("Highlight")
+
+    if v76 then
+        v76 = p8.Name ~= "CustomHighlight"
+
+        if v76 then
+            v76 = p8.Name ~= "DetectionHighlight_Anomaly"
+
+            if v76 then
+                v76 = p8.Name ~= "DetectionHighlight_Normal"
+
+                if v76 then
+                    v76 = p8.Name ~= "MonsterESP"
+                end
+            end
+        end
+    end
+
+    return v76
+end
+function t1.value46(p9)
+    if not p9 then
+        return
+    end
+    local v67 = false
+    local v68, v69, v70 = pairs(t1.value39)
+    local g72
+    repeat
+        local v71
+
+        v70, v71 = v68(v69, v70)
+
+        if not v70 then
+            g72 = true
+        end
+
+        if g72 then
+            break
+        end
+    until p9 == v71.model and v70.Enabled
+    if not g72 then
+        v67 = true
+    end
+    g72 = false
+    if v67 then
+        if not t1.value40[p9] then
+            local Highlight = Instance.new("Highlight")
+
+            Highlight.Name = "CustomHighlight"
+            Highlight.FillColor = Color3.fromRGB(0, 255, 0)
+            Highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+            Highlight.FillTransparency = 0.3
+            Highlight.Parent = p9
+            t1.value40[p9] = true
+
+            return
+        end
+    elseif t1.value40[p9] then
+        local CustomHighlight = p9:FindFirstChild("CustomHighlight")
+
+        if CustomHighlight then
+            CustomHighlight:Destroy()
+        end
+
+        t1.value40[p9] = nil
+    end
+end
+local function v12(p10)
+    if t1.value39[p10] then
+        return
+    end
+
+    local v80 = t1.value44(p10)
+
+    if not v80 then
+        return
+    end
+
+    local connection = p10:GetPropertyChangedSignal("Enabled"):Connect(function()
+        if t1.value41 then
+            t1.value46(v80)
+        end
+    end)
+
+    t1.value39[p10] = {
+		model = v80,
+		conn = connection
+	}
+
+    if t1.value41 then
+        t1.value46(v80)
+    end
+end
+function t1.value47(p11)
+    local v78 = t1.value39[p11]
+
+    if not v78 then
+        return
+    end
+
+    if v78.conn then
+        v78.conn:Disconnect()
+    end
+
+    t1.value39[p11] = nil
+
+    if t1.value41 and v78.model then
+        t1.value46(v78.model)
+    end
+end
+function t1.value48(p12)
+    if not t1.value45(p12) then
+        return
+    end
+
+    v12(p12)
+end
+local function v13(p13)
+    if not t1.value45(p13) then
+        return
+    end
+
+    t1.value47(p13)
+end
+t1.value49 = nil
+function t1.value49()
+    local function u84(p14)
+        for _, child in pairs(p14:GetChildren()) do
+            if t1.value45(child) then
+                v12(child)
+            end
+
+            if child:IsA("Model") or child:IsA("Folder") then
+                u84(child)
+            end
+        end
+    end
+
+    u84(workspace)
+end
+function t1.value50(p15)
+    if p15 then
+        if not t1.value42 then
+            t1.value42 = workspace.DescendantAdded:Connect(t1.value48)
+            t1.value43 = workspace.DescendantRemoving:Connect(v13)
+        end
+
+        task.spawn(function()
+            task.wait(0.5)
+            t1.value49()
+        end)
+    else
+        if t1.value42 then
+            t1.value42:Disconnect()
+        end
+        if t1.value43 then
+            t1.value43:Disconnect()
+        end
+        for v88, v89 in pairs(t1.value39) do
+
+            if v89.conn then
+                v89.conn:Disconnect()
+            end
+        end
+        for k in pairs(t1.value40) do
+            local CustomHighlight = k:FindFirstChild("CustomHighlight")
+
+            if CustomHighlight then
+                CustomHighlight:Destroy()
+            end
+        end
+    end
+
+    pcall(function()
+        local value1_2 = t1.value1
+        local v164 = not p15 and "Highlights removed." or "Zero‑lag highlighting ON."
+
+        value1_2:Notify({
+			Title = "Highlight all Tasks",
+			Content = v164,
+			Duration = 3
+		})
+    end)
+end
+v9:CreateToggle({
+	Name = "Highlight all Tasks",
+	CurrentValue = false,
+	Callback = function(p16)
+    t1.value50(p16)
+end
+})
+local v14 = v6:CreateTab("Monster ESP", "skull")
+
+t1.value51 = false
+t1.value52 = nil
+t1.value53 = {}
+t1.value52 = {}
+t1.value54 = nil
+t1.value55 = nil;
+(function()
+    local Assets = t1.value2:FindFirstChild("Assets")
+
+    if Assets then
+        Assets = Assets:FindFirstChild("Monsters")
+    end
+
+    if Assets then
+        for _, child in pairs(Assets:GetChildren()) do
+            local v100 = child:IsA("Model")
+
+            if not v100 then
+                v100 = child:IsA("Folder")
+            end
+
+            if v100 then
+                t1.value53[child.Name] = true
+            end
+        end
+    end
+end)()
+function t1.value56(p17)
+    if t1.value52[p17] then
+        return
+    end
+
+    local Highlight = Instance.new("Highlight")
+
+    Highlight.Name = "MonsterESP"
+    Highlight.FillColor = Color3.fromRGB(255, 0, 0)
+    Highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+    Highlight.FillTransparency = 0.3
+    Highlight.Parent = p17
+    t1.value52[p17] = true
+end
+function t1.value57(p18)
+    local MonsterESP = p18:FindFirstChild("MonsterESP")
+
+    if MonsterESP then
+        MonsterESP:Destroy()
+    end
+
+    t1.value52[p18] = nil
+end
+function t1.value58(p19)
+    if not t1.value51 then
+        return
+    end
+
+    local v102 = p19:IsA("Model")
+
+    if v102 then
+        v102 = t1.value53[p19.Name]
+    end
+
+    if v102 then
+        t1.value56(p19)
+    end
+end
+function t1.value59(p20)
+    if not t1.value51 then
+        return
+    end
+
+    local v104 = p20:IsA("Model")
+
+    if v104 then
+        v104 = t1.value53[p20.Name]
+    end
+
+    if v104 then
+        t1.value57(p20)
+    end
+end
+function t1.value60()
+    for _, child in pairs(workspace:GetChildren()) do
+        local v107 = child:IsA("Model")
+
+        if v107 then
+            v107 = t1.value53[child.Name]
+        end
+
+        if v107 then
+            t1.value56(child)
+        end
+    end
+end
+local function v15(p21)
+    if p21 then
+        if not t1.value54 then
+            t1.value54 = workspace.ChildAdded:Connect(t1.value58)
+            t1.value55 = workspace.ChildRemoved:Connect(t1.value59)
+        end
+
+        t1.value60()
+    else
+        if t1.value54 then
+            t1.value54:Disconnect()
+        end
+
+        if t1.value55 then
+            t1.value55:Disconnect()
+        end
+
+        for k in pairs(t1.value52) do
+            local MonsterESP = k:FindFirstChild("MonsterESP")
+
+            if MonsterESP then
+                MonsterESP:Destroy()
+            end
+        end
+    end
+
+    pcall(function()
+        local value1_3 = t1.value1
+        local v166 = not p21 and "Highlights removed." or "Red highlights ON."
+
+        value1_3:Notify({
+			Title = "Monster ESP",
+			Content = v166,
+			Duration = 3
+		})
+    end)
+end
+v14:CreateToggle({
+	Name = "Enable Monster ESP",
+	CurrentValue = false,
+	Callback = function(p22)
+    v15(p22)
+end
+})
+v7:CreateToggle({
+	Name = "Highlight Anomaly",
+	CurrentValue = false,
+	Callback = function(p23)
+    t1.value9 = p23
+
+    if p23 then
+        if not t1.value12 then
+            t1.value32()
+        end
+
+        for _ = 1, 5 do
+            local v114 = t1.value17.get()
+
+            if v114 and v114.model then
+                t1.value27(v114)
+
+                return
+            end
+
+            task.wait(0.2)
+        end
+
+        return
+    end
+
+    t1.value26()
+    t1.value33()
+end
+})
+v7:CreateToggle({
+	Name = "Auto Detect Anomaly",
+	CurrentValue = false,
+	Callback = function(p24)
+    t1.value8 = p24
+
+    if p24 then
+        if not t1.value12 then
+            t1.value32()
+
+            return
+        end
+
+        local v116 = t1.value17.get()
+
+        if v116 then
+            pcall(t1.value30, v116)
+
+            local _ = v116.visitorId
+
+            return
+        end
+    else
+        t1.value33()
+        t1.value25:Set("Detection stopped.")
+    end
+end
+})
+v7:CreateToggle({
+	Name = "Instant Proximity Prompts",
+	CurrentValue = false,
+	Callback = function(p25)
+    t1.value10 = p25
+
+    if p25 then
+        t1.value34()
+
+        return
+    end
+
+    for _, v in ipairs(t1.value14) do
+        v:Disconnect()
+    end
+end
+})
+v8:CreateToggle({
+	Name = "TP Walk",
+	CurrentValue = false,
+	Callback = function(p26)
+    t1.value18 = p26
+    t1.value36()
+end
+})
+v8:CreateSlider({
+	Name = "TP Walk Speed",
+	Range = {
+		0.1,
+		1
+	},
+	Increment = 0.1,
+	Suffix = " studs",
+	CurrentValue = 0.4,
+	Flag = "TPWalkSpeed",
+	Callback = function(p27)
+    t1.value19 = p27
+end
+})
+v8:CreateToggle({
+	Name = "Noclip",
+	CurrentValue = false,
+	Callback = function(p28)
+    t1.value20 = p28
+    t1.value36()
+end
+})
+v8:CreateToggle({
+	Name = "Fly",
+	CurrentValue = false,
+	Callback = function(p29)
+    t1.value21 = p29
+
+    if p29 then
+        t1.value38()
+
+        return
+    end
+
+    t1.value37()
+end
+})
+v8:CreateSlider({
+	Name = "Fly Speed",
+	Range = {
+		10,
+		80
+	},
+	Increment = 10,
+	Suffix = " studs/s",
+	CurrentValue = 50,
+	Flag = "FlySpeed",
+	Callback = function(p30)
+    t1.value22 = p30
+end
+})
