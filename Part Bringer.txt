@@ -639,7 +639,7 @@ TextButton1.Position = UDim2.new(0.5,0,1)
 TextButton1.Size = UDim2.new(0.08,0,0.1)
 TextButton1.Font = Enum.Font.Legacy
 TextButton1.TextColor3 = Color3.fromRGB(242,243,243)
-TextButton1.Text = "NAMELESS"
+TextButton1.Text = "Nameless"
 TextButton1.TextSize = 18
 TextButton1.TextScaled = true
 TextButton1.TextWrapped = true
@@ -647,7 +647,7 @@ TextButton1.Visible = true
 TextButton1.Active = true
 
 TextButton1.MouseButton1Click:Connect(function() 
-loadstring(game:HttpGet("https://scriptblox.com/raw/Universal-Script-Nameless-Admin-FE-11243"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs/heads/main/Nameless%20Admin.txt"))()
 end)
 
 -- fps
