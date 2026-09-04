@@ -1,0 +1,3359 @@
+local windUiCallback = cloneref or clonereference or function(argument)
+    return argument
+end
+local windUiContainer = windUiCallback(game:GetService("ReplicatedStorage"))
+local result = windUiCallback(game:GetService("HttpService"))
+local windUi
+do
+    local success, result = pcall(function()
+        return require("./src/Init")
+    end)
+    if success then
+        windUi = result
+    elseif windUiCallback(game:GetService("RunService")):IsStudio() then
+        windUi = require(windUiCallback(windUiContainer:WaitForChild("WindUI"):WaitForChild("Init")))
+    else
+        windUi = loadstring(game:HttpGet("https://raw.githubusercontent.com/Footagesus/WindUI/main/dist/main.lua"))()
+    end
+end
+local resultCallback = windUiCallback or function(argument)
+    return argument
+end
+local players = resultCallback(game:GetService("Players"))
+local secondaryResult = resultCallback(game:GetService("RunService"))
+local alternateResult = resultCallback(game:GetService("TweenService"))
+local jumpRequestResult = resultCallback(game:GetService("UserInputService"))
+local additionalResult = resultCallback(game:GetService("TeleportService"))
+local fallbackResult = resultCallback(game:GetService("HttpService"))
+local localValuePlayer = players.LocalPlayer
+local currentCamera = workspace.CurrentCamera
+local placeId = game.PlaceId
+local teleportService = game:GetService("TeleportService")
+local httpService = game:GetService("HttpService")
+local secondaryPlayers = game:GetService("Players")
+local secondaryLocalValuePlayer = secondaryPlayers.LocalPlayer
+local runService = game:GetService("RunService")
+local secondaryCurrentCamera = workspace.CurrentCamera
+local alternateLocalValuePlayer = secondaryPlayers.LocalPlayer
+local proximityPromptService = game:GetService("ProximityPromptService")
+local tweenService = game:GetService("TweenService")
+local secondaryRunService = game:GetService("RunService")
+local additionalLocalValuePlayer = secondaryPlayers.LocalPlayer
+local secondaryTweenService = game:GetService("TweenService")
+local humanoidRootPartContainer = localValuePlayer.Character or localValuePlayer.CharacterAdded:Wait()
+local humanoidRootPart = humanoidRootPartContainer:WaitForChild("HumanoidRootPart")
+local secondaryTeleportService = game:GetService("TeleportService")
+local jobId = game.JobId
+local uiLibrary = windUi:CreateWindow({
+    ["Title"] = "PhiPhai v2 | Scary Shawarma Kiosk",
+    ["Icon"] = "rbxassetid://133256696556004",
+    ["Author"] = "by aaaaaaaa",
+    ["Folder"] = "PPv2Save",
+    ["Size"] = UDim2.fromOffset(1547 - 1007, 1634 - 1234),
+    ["NewElements"] = true,
+    ["Transparent"] = true,
+    ["HideSearchBar"] = false,
+    ["KeySystem"] = {
+        ["Note"] = "1 CP So Easy",
+        ["API"] = {
+            {
+                ["Type"] = "platoboost",
+                ["ServiceId"] = 20592 - (672 + 208),
+                ["Secret"] = "cec45638-7dc0-4386-a2c5-8e5d5ce886d4",
+            },
+        },
+    },
+    ["OpenButton"] = {
+        ["Title"] = "PPV2",
+        ["CornerRadius"] = UDim.new(0 + 0, 16),
+        ["StrokeThickness"] = 2,
+        ["Enabled"] = true,
+        ["Draggable"] = true,
+        ["OnlyMobile"] = false,
+        ["Color"] = ColorSequence.new(Color3.fromHex("#850c0c"), Color3.fromHex("#400101")),
+    },
+    ["Topbar"] = { ["Height"] = 176 - (14 + 118), ["ButtonsType"] = "Mac" },
+})
+windUi:SetTheme("Crimson")
+if uiLibrary then
+    uiLibrary:Tag({ ["Title"] = "Main Version", ["Color"] = Color3.fromHex("#400101"), ["Radius"] = 5 })
+else
+    warn("WindUI failed to load")
+end
+local mainTab = uiLibrary:Tab({ ["Title"] = "Main", ["Icon"] = "rbxassetid://85279746515974" })
+local option = fireproximityprompt or fire_proximity_prompt
+local function updateHoldDuration(updateHoldDurationFlag)
+    if updateHoldDurationFlag and updateHoldDurationFlag:IsA("ProximityPrompt") then
+        local updateHoldDurationNumber = 445 - (339 + 106)
+        local sum
+        while true do
+            if updateHoldDurationNumber == (0 + 0) then
+                sum = 0 + 0
+                while true do
+                    if sum == (1396 - (440 + 955)) then
+                        task.wait(0.2 + 0)
+                        break
+                    end
+                    if sum == (0 - 0) then
+                        updateHoldDurationFlag.HoldDuration = 0 + 0
+                        pcall(function()
+                            fireproximityprompt(updateHoldDurationFlag)
+                        end)
+                        sum = 2 - 1
+                    end
+                end
+                break
+            end
+        end
+    end
+end
+local autoShawarmaSection = mainTab:Section({ ["Title"] = "Auto Shawarma" })
+local flag = false
+autoShawarmaSection:Toggle({
+    ["Title"] = "Auto Make Shawarma",
+    ["Value"] = false,
+    ["Callback"] = function(secondaryFlag)
+        flag = secondaryFlag
+    end,
+})
+task.spawn(function()
+    while true do
+        task.wait(0.5)
+        if not flag then
+            continue
+        end
+        local proximityPrompts = {}
+        local function handler(proximityPromptCondition)
+            if proximityPromptCondition then
+                local number = 0
+                local proximityPrompt
+                while true do
+                    if number == 0 then
+                        proximityPrompt = proximityPromptCondition:FindFirstChildOfClass("ProximityPrompt")
+                        if proximityPrompt then
+                            table.insert(proximityPrompts, proximityPrompt)
+                        end
+                        break
+                    end
+                end
+            end
+        end
+        local kit = workspace:FindFirstChild("Kit")
+        if kit then
+            local sum = 0 + 0
+            while true do
+                if sum == (353 - (260 + 93)) then
+                    handler(kit:FindFirstChild("Salad") and kit.Salad:FindFirstChild("Button"))
+                    handler(kit:FindFirstChild("Lavash") and kit.Lavash:FindFirstChild("Button"))
+                    sum = 1
+                end
+                if sum == (1 + 0) then
+                    handler(kit:FindFirstChild("Cheese") and kit.Cheese:FindFirstChild("Button"))
+                    handler(kit:FindFirstChild("Fry") and kit.Fry:FindFirstChild("Button"))
+                    sum = 2
+                end
+                if sum == (6 - 3) then
+                    handler(kit:FindFirstChild("popcan"))
+                    handler(kit:FindFirstChild("Done") and kit.Done:FindFirstChild("Lavash"))
+                    break
+                end
+                if sum == (3 - 1) then
+                    handler(kit:FindFirstChild("Sauce") and kit.Sauce:FindFirstChild("Button"))
+                    handler(kit:FindFirstChild("Board"))
+                    sum = 3
+                end
+            end
+        end
+        local kebab = workspace:FindFirstChild("Kebab")
+        if kebab and kebab:FindFirstChild("kebabmyaso") then
+            handler(kebab.kebabmyaso:FindFirstChild("Kebab.040"))
+        end
+        local cans = workspace:FindFirstChild("Cans")
+        if cans then
+            if cans:FindFirstChild("Prompts") then
+                for index = 1975 - (1181 + 793), 26 + 73 do
+                    handler(cans.Prompts:FindFirstChild("popcan" .. index))
+                end
+            end
+            if cans:FindFirstChild("Coffee") then
+                local number = 0
+                local proximityPrompt
+                while true do
+                    if number == 0 then
+                        proximityPrompt = cans.Coffee:FindFirstChildOfClass("ProximityPrompt")
+                        if proximityPrompt then
+                            table.insert(proximityPrompts, proximityPrompt)
+                        end
+                        break
+                    end
+                end
+            end
+        end
+        for index, item in ipairs(proximityPrompts) do
+            if not flag then
+                break
+            end
+            updateHoldDuration(item)
+        end
+    end
+end)
+local capturedFlag = false
+local garageSection = mainTab:Section({ ["Title"] = "Garage", ["Opened"] = false })
+garageSection:Toggle({
+    ["Title"] = "Auto Spam Garage Button",
+    ["Desc"] = "Just Spam Grage When Clow And Amon18",
+    ["Default"] = false,
+    ["Callback"] = function(flag)
+        local difference = 307 - (105 + 202)
+        while true do
+            if difference == 0 then
+                capturedFlag = flag
+                if flag then
+                    task.spawn(function()
+                        while capturedFlag do
+                            local sum = 0 + 0
+                            local difference
+                            local hum
+                            local kit
+                            while true do
+                                if sum == 1 then
+                                    kit = nil
+                                    while true do
+                                        if (811 - (352 + 458)) == difference then
+                                            kit = workspace:FindFirstChild("Kit")
+                                            if hum and kit then
+                                                if hum:FindFirstChild("Anom18") or hum:FindFirstChild("Clown") then
+                                                    local difference = 0 - 0
+                                                    local condition
+                                                    while true do
+                                                        if difference == (0 - 0) then
+                                                            condition = kit:FindFirstChild("Garge")
+                                                                and kit.Garge:FindFirstChild("Button")
+                                                                and kit.Garge.Button:FindFirstChild("ProximityPrompt")
+                                                            if condition then
+                                                                pcall(function()
+                                                                    fireproximityprompt(condition)
+                                                                end)
+                                                            end
+                                                            break
+                                                        end
+                                                    end
+                                                end
+                                            end
+                                            break
+                                        end
+                                        if difference == (0 + 0) then
+                                            task.wait(0.05 - 0)
+                                            hum = workspace:FindFirstChild("Hum")
+                                            difference = 950 - (438 + 511)
+                                        end
+                                    end
+                                    break
+                                end
+                                if sum == 0 then
+                                    difference = 1383 - (1262 + 121)
+                                    hum = nil
+                                    sum = 1
+                                end
+                            end
+                        end
+                    end)
+                end
+                break
+            end
+        end
+    end,
+})
+local eventSection = mainTab:Section({ ["Title"] = "Event" })
+local secondaryFlag = false
+local connection = nil
+local text = "AUTO_LOCK_CAMERA_POLICE"
+local cFrame = nil
+eventSection:Toggle({
+    ["Title"] = "Auto Event Police",
+    ["Desc"] = "Auto when Inspector Car spawn",
+    ["Icon"] = "route",
+    ["Value"] = false,
+    ["Callback"] = function(flag)
+        local difference = 1068 - (728 + 340)
+        while true do
+            if difference == (1791 - (816 + 974)) then
+                task.spawn(function()
+                    local localValuePlayer = secondaryPlayers.LocalPlayer
+                    local humanoidRootPartContainer = localValuePlayer.Character
+                        or localValuePlayer.CharacterAdded:Wait()
+                    local humanoidRootPart = humanoidRootPartContainer:WaitForChild("HumanoidRootPart")
+                    local currentCamera = workspace.CurrentCamera
+                    cFrame = humanoidRootPart.CFrame
+                    local function isValid()
+                        local hum = workspace:FindFirstChild("Hum")
+                        local carCheckContainer = hum and hum:FindFirstChild("Inspector")
+                        local carContainer = carCheckContainer and carCheckContainer:FindFirstChild("CarCheck")
+                        return carContainer and carContainer:FindFirstChild("Car")
+                    end
+                    while secondaryFlag and not isValid() do
+                        task.wait(0.5 - 0)
+                    end
+                    if not secondaryFlag then
+                        return
+                    end
+                    connection = proximityPromptService.PromptShown:Connect(function(item)
+                        if secondaryFlag then
+                            local difference = 0 - 0
+                            while true do
+                                if difference == (339 - (163 + 176)) then
+                                    task.wait(0.05)
+                                    updateHoldDuration(item)
+                                    break
+                                end
+                            end
+                        end
+                    end)
+                    local result = Vector3.new(-34.3, 14.030000000000001 - 9, -579.84)
+                    secondaryRunService:BindToRenderStep(text, Enum.RenderPriority.Camera.Value + (45 - 35), function()
+                        if not secondaryFlag then
+                            return
+                        end
+                        local position = currentCamera.CFrame.Position
+                        currentCamera.CFrame = CFrame.lookAt(position, result)
+                    end)
+                    local function handler(number, quotientNumber)
+                        if not secondaryFlag then
+                            return
+                        end
+                        quotientNumber = quotientNumber or (5 + 9)
+                        local quotient = (humanoidRootPart.Position - number).Magnitude / quotientNumber
+                        secondaryTweenService
+                            :Create(
+                                humanoidRootPart,
+                                TweenInfo.new(quotient, Enum.EasingStyle.Linear),
+                                { ["CFrame"] = CFrame.new(number) }
+                            )
+                            :Play()
+                        task.wait(quotient)
+                    end
+                    humanoidRootPart.CFrame = CFrame.new(-41.94, 1815.06 - (1564 + 246), -(895.06 - (124 + 221)))
+                    task.wait(0.5 + 0)
+                    handler(Vector3.new(-38.88, 456.06 - (115 + 336), -(1228 - 670)))
+                    handler(Vector3.new(-34.48, 1.9800000000000004 + 3, -(623.99 - (45 + 1))))
+                    handler(Vector3.new(-(2.520000000000003 + 33), 1994.96 - (1282 + 708), -578.68))
+                    while secondaryFlag do
+                        if not isValid() then
+                            break
+                        end
+                        task.wait(1212.5 - (583 + 629))
+                    end
+                    if cFrame and humanoidRootPart then
+                        humanoidRootPart.CFrame = cFrame
+                    end
+                    secondaryFlag = false
+                    if connection then
+                        local sum = 0 + 0
+                        while true do
+                            if sum == 0 then
+                                connection:Disconnect()
+                                connection = nil
+                                break
+                            end
+                        end
+                    end
+                    secondaryRunService:UnbindFromRenderStep(text)
+                end)
+                break
+            end
+            if (0 - 0) == difference then
+                secondaryFlag = flag
+                if not flag then
+                    local sum = 0 + 0
+                    while true do
+                        if sum == (1170 - (943 + 227)) then
+                            pcall(function()
+                                local number = 0
+                                while true do
+                                    if number == (0 + 0) then
+                                        if connection then
+                                            local number = 0
+                                            while true do
+                                                if number == 0 then
+                                                    connection:Disconnect()
+                                                    connection = nil
+                                                    break
+                                                end
+                                            end
+                                        end
+                                        game:GetService("RunService"):UnbindFromRenderStep(text)
+                                        break
+                                    end
+                                end
+                            end)
+                            return
+                        end
+                    end
+                end
+                difference = 1632 - (1539 + 92)
+            end
+        end
+    end,
+})
+local difference = 1946.02 - (706 + 1240)
+local number = 0
+local function isInputValid()
+    local isInputValidNumber = 258 - (81 + 177)
+    local humanoidRootPartContainer
+    while true do
+        if (0 - 0) == isInputValidNumber then
+            humanoidRootPartContainer = additionalLocalValuePlayer.Character
+            return humanoidRootPartContainer and humanoidRootPartContainer:FindFirstChild("HumanoidRootPart")
+        end
+    end
+end
+local function updateInstanceProperties(text, color)
+    local updateInstancePropertiesNumber = 257 - (212 + 45)
+    local updateInstancePropertiesText
+    while true do
+        if (9 - 6) == updateInstancePropertiesNumber then
+            updateInstancePropertiesText.Visible = false
+            return updateInstancePropertiesText
+        end
+        if updateInstancePropertiesNumber == (1948 - (708 + 1238)) then
+            updateInstancePropertiesText.Text = text
+            updateInstancePropertiesText.Color = color
+            updateInstancePropertiesNumber = 1 + 2
+        end
+        if (1 + 0) == updateInstancePropertiesNumber then
+            updateInstancePropertiesText.Outline = true
+            updateInstancePropertiesText.Size = 1683 - (586 + 1081)
+            updateInstancePropertiesNumber = 513 - (348 + 163)
+        end
+        if updateInstancePropertiesNumber == (0 + 0) then
+            updateInstancePropertiesText = Drawing.new("Text")
+            updateInstancePropertiesText.Center = true
+            updateInstancePropertiesNumber = 1
+        end
+    end
+end
+local function handleInstanceProperties(instancePropertiesData)
+    local difference = 280 - (215 + 65)
+    local instancePropertiesNumber
+    while true do
+        if difference == (0 - 0) then
+            instancePropertiesNumber = 1859 - (1541 + 318)
+            while true do
+                if instancePropertiesNumber == 0 then
+                    for key, item in pairs(instancePropertiesData) do
+                        pcall(function()
+                            item:Remove()
+                        end)
+                    end
+                    table.clear(instancePropertiesData)
+                    break
+                end
+            end
+            break
+        end
+    end
+end
+local colorData = {
+    ["Amon"] = { ["ON"] = false, ["COLOR"] = Color3.fromRGB(227 + 28, 0 + 0, 0 + 0), ["DIST"] = 1500, ["TEXTS"] = {} },
+    ["Hum"] = { ["ON"] = false, ["COLOR"] = Color3.fromRGB(0, 2005 - (1036 + 714), 0), ["DIST"] = 989 + 511, ["TEXTS"] = {} },
+    ["Special"] = { ["ON"] = false, ["COLOR"] = Color3.fromRGB(0 + 0, 1450 - (883 + 397), 255), ["DIST"] = 1500, ["TEXTS"] = {} },
+    ["Scream"] = { ["ON"] = false, ["COLOR"] = Color3.fromRGB(729 - (563 + 27), 269 - 200, 19), ["DIST"] = 1500, ["TEXTS"] = {} },
+    ["Cat"] = {
+        ["ON"] = false,
+        ["COLOR"] = Color3.fromRGB(1986 - (1369 + 617), 255, 1487 - (85 + 1402)),
+        ["DIST"] = 518 + 982,
+        ["TEXTS"] = {},
+    },
+    ["TallMan"] = {
+        ["ON"] = false,
+        ["COLOR"] = Color3.fromRGB(658 - 403, 0, 403 - (274 + 129)),
+        ["DIST"] = 1717 - (12 + 205),
+        ["TEXTS"] = {},
+    },
+    ["Deer"] = { ["ON"] = false, ["COLOR"] = Color3.fromRGB(233 + 22, 0, 0), ["DIST"] = 1500, ["TEXTS"] = {} },
+    ["Kira"] = { ["ON"] = false, ["COLOR"] = Color3.fromRGB(0 - 0, 255, 0), ["DIST"] = 1452 + 48, ["TEXTS"] = {} },
+    ["InspectorCar"] = { ["ON"] = false, ["COLOR"] = Color3.fromRGB(255, 0, 384 - (27 + 357)), ["DIST"] = 2000, ["TEXTS"] = {} },
+    ["Clown"] = {
+        ["ON"] = false,
+        ["COLOR"] = Color3.fromRGB(735 - (91 + 389), 297 - (90 + 207), 0 + 0),
+        ["DIST"] = 2361 - (706 + 155),
+        ["TEXTS"] = {},
+    },
+    ["Cupid"] = { ["ON"] = false, ["COLOR"] = Color3.fromRGB(255, 255, 255), ["DIST"] = 3295 - (730 + 1065), ["TEXTS"] = {} },
+    ["Heart"] = {
+        ["ON"] = false,
+        ["COLOR"] = Color3.fromRGB(1818 - (1339 + 224), 130 + 125, 227 + 28),
+        ["DIST"] = 1500,
+        ["TEXTS"] = {},
+    },
+    ["Chagur"] = {
+        ["ON"] = false,
+        ["COLOR"] = Color3.fromRGB(379 - 124, 843 - (268 + 575), 0),
+        ["DIST"] = 2794 - (919 + 375),
+        ["TEXTS"] = {},
+    },
+    ["RainyGuy"] = {
+        ["ON"] = false,
+        ["COLOR"] = Color3.fromRGB(255, 0 - 0, 971 - (180 + 791)),
+        ["DIST"] = 3305 - (323 + 1482),
+        ["TEXTS"] = {},
+    },
+    ["Vampire"] = {
+        ["ON"] = false,
+        ["COLOR"] = Color3.fromRGB(2173 - (1177 + 741), 0 + 0, 0 - 0),
+        ["DIST"] = 578 + 922,
+        ["TEXTS"] = {},
+    },
+    ["ScreamPlayer"] = {
+        ["ON"] = false,
+        ["COLOR"] = Color3.fromRGB(310 - 171, 6 + 63, 19),
+        ["DIST"] = 1609 - (96 + 13),
+        ["TEXTS"] = {},
+    },
+    ["Police"] = {
+        ["ON"] = false,
+        ["COLOR"] = Color3.fromRGB(1921 - (962 + 959), 636 - 381, 0 + 0),
+        ["DIST"] = 2851 - (461 + 890),
+        ["TEXTS"] = {},
+    },
+    ["OldMna"] = {
+        ["ON"] = false,
+        ["COLOR"] = Color3.fromRGB(102 + 37, 268 - 199, 262 - (19 + 224)),
+        ["DIST"] = 1360 + 140,
+        ["TEXTS"] = {},
+    },
+    ["Head"] = { ["ON"] = false, ["COLOR"] = Color3.fromRGB(337 - (37 + 161), 69, 7 + 12), ["DIST"] = 582 + 918, ["TEXTS"] = {} },
+    ["Vendigo"] = { ["ON"] = false, ["COLOR"] = Color3.fromRGB(255, 0, 0 + 0), ["DIST"] = 1561 - (60 + 1), ["TEXTS"] = {} },
+    ["UFOAlien"] = {
+        ["ON"] = false,
+        ["COLOR"] = Color3.fromRGB(1178 - (826 + 97), 0 + 0, 0),
+        ["DIST"] = 5392 - 3892,
+        ["TEXTS"] = {},
+    },
+    ["Myst"] = {
+        ["ON"] = false,
+        ["COLOR"] = Color3.fromRGB(525 - 270, 685 - (375 + 310), 1999 - (1864 + 135)),
+        ["DIST"] = 3870 - 2370,
+        ["TEXTS"] = {},
+    },
+    ["Sadako"] = { ["ON"] = false, ["COLOR"] = Color3.fromRGB(57 + 198, 0 + 0, 0 - 0), ["DIST"] = 1500, ["TEXTS"] = {} },
+}
+local espTab = uiLibrary:Tab({ ["Title"] = "ESP", ["Icon"] = "rbxassetid://88340703117751" })
+local espSettingsSection = espTab:Section({ ["Title"] = "ESP Settings" })
+espSettingsSection:Slider({
+    ["Title"] = "ESP Lag Control",
+    ["Desc"] = "0 = realtime | Higher value reduces lag",
+    ["Value"] = { ["Default"] = 1131 - (314 + 817), ["Min"] = 0 + 0, ["Max"] = 244 - (32 + 182), ["Rounding"] = 0 },
+    ["Callback"] = function(differenceNumber)
+        difference = ((differenceNumber == (0 + 0)) and 0) or (differenceNumber * (0.01 - 0))
+    end,
+})
+local updateInstancePropertiesData = {}
+local function secondaryUpdateInstanceProperties(updateInstancePropertiesText, secondaryArgument)
+    local updateInstancePropertiesNumber = 65 - (39 + 26)
+    local toggle
+    while true do
+        if (144 - (54 + 90)) == updateInstancePropertiesNumber then
+            local number = 0
+            while true do
+                if number == (198 - (45 + 153)) then
+                    toggle = espTab:Toggle({
+                        ["Title"] = "ESP " .. updateInstancePropertiesText,
+                        ["Value"] = false,
+                        ["Callback"] = function(on)
+                            local updateInstancePropertiesNumber = 0
+                            while true do
+                                if (0 + 0) == updateInstancePropertiesNumber then
+                                    secondaryArgument.ON = on
+                                    if not on then
+                                        handleInstanceProperties(secondaryArgument.TEXTS)
+                                    end
+                                    break
+                                end
+                            end
+                        end,
+                    })
+                    updateInstancePropertiesData[updateInstancePropertiesText] = toggle
+                    number = 553 - (457 + 95)
+                end
+                if 1 == number then
+                    updateInstancePropertiesNumber = 1 + 0
+                    break
+                end
+            end
+        end
+        if 1 == updateInstancePropertiesNumber then
+            espSettingsSection:Colorpicker({
+                ["Title"] = updateInstancePropertiesText .. " Color",
+                ["Default"] = secondaryArgument.COLOR,
+                ["Callback"] = function(color)
+                    local updateInstancePropertiesNumber = 0
+                    while true do
+                        if updateInstancePropertiesNumber == (0 - 0) then
+                            secondaryArgument.COLOR = color
+                            for key, item in pairs(secondaryArgument.TEXTS) do
+                                item.Color = color
+                            end
+                            break
+                        end
+                    end
+                end,
+            })
+            espSettingsSection:Slider({
+                ["Title"] = updateInstancePropertiesText .. " Distance",
+                ["Value"] = { ["Default"] = secondaryArgument.DIST, ["Min"] = 100, ["Max"] = 19335 - 11335 },
+                ["Callback"] = function(dist)
+                    secondaryArgument.DIST = dist
+                end,
+            })
+            break
+        end
+    end
+end
+secondaryUpdateInstanceProperties("Amon", colorData.Amon)
+secondaryUpdateInstanceProperties("Hum", colorData.Hum)
+secondaryUpdateInstanceProperties("Special", colorData.Special)
+secondaryUpdateInstanceProperties("Scream", colorData.Scream)
+secondaryUpdateInstanceProperties("Cat", colorData.Cat)
+secondaryUpdateInstanceProperties("Tall Man", colorData.TallMan)
+secondaryUpdateInstanceProperties("Deer", colorData.Deer)
+secondaryUpdateInstanceProperties("Kira", colorData.Kira)
+secondaryUpdateInstanceProperties("Inspector Car", colorData.InspectorCar)
+secondaryUpdateInstanceProperties("Clown", colorData.Clown)
+secondaryUpdateInstanceProperties("Cupid", colorData.Cupid)
+secondaryUpdateInstanceProperties("Heart", colorData.Heart)
+secondaryUpdateInstanceProperties("Chagur", colorData.Chagur)
+secondaryUpdateInstanceProperties("RainyGuy", colorData.RainyGuy)
+secondaryUpdateInstanceProperties("Vampire", colorData.Vampire)
+secondaryUpdateInstanceProperties("ScreamPlayer", colorData.ScreamPlayer)
+secondaryUpdateInstanceProperties("Police", colorData.Police)
+secondaryUpdateInstanceProperties("OldMna", colorData.OldMna)
+secondaryUpdateInstanceProperties("Head", colorData.Head)
+secondaryUpdateInstanceProperties("Vendigo", colorData.Vendigo)
+secondaryUpdateInstanceProperties("UFOAlien", colorData.UFOAlien)
+secondaryUpdateInstanceProperties("Myst", colorData.Myst)
+secondaryUpdateInstanceProperties("Sadako", colorData.Sadako)
+espSettingsSection:Toggle({
+    ["Title"] = "Enable All ESP",
+    ["Value"] = false,
+    ["Callback"] = function(on)
+        for key, item in pairs(colorData) do
+            item.ON = on
+            if updateInstancePropertiesData[key] then
+                updateInstancePropertiesData[key]:Set(on)
+            end
+            if not on then
+                handleInstanceProperties(item.TEXTS)
+            end
+        end
+    end,
+})
+secondaryRunService.RenderStepped:Connect(function()
+    if difference > (0 - 0) then
+        local sum = 0 + 0
+        while true do
+            if sum == (0 - 0) then
+                if (tick() - number) < difference then
+                    return
+                end
+                number = tick()
+                break
+            end
+        end
+    end
+    local input = isInputValid()
+    if not input then
+        return
+    end
+    local hum = workspace:FindFirstChild("Hum")
+    if not hum then
+        return
+    end
+    for key, item in pairs(colorData) do
+        for key, item in pairs(item.TEXTS) do
+            item.Visible = false
+        end
+    end
+    if colorData.Clown.ON then
+        local number = 0 - 0
+        local clown
+        local inputOption
+        local secondaryInput
+        while true do
+            if number == 1 then
+                secondaryInput = inputOption and inputOption:FindFirstChildWhichIsA("BasePart", true)
+                if
+                    secondaryInput and ((input.Position - secondaryInput.Position).Magnitude <= colorData.Clown.DIST)
+                then
+                    local sum = 748 - (485 + 263)
+                    local difference
+                    local vector
+                    local vectorCondition
+                    while true do
+                        if sum == (708 - (575 + 132)) then
+                            vectorCondition = nil
+                            while true do
+                                if (861 - (750 + 111)) == difference then
+                                    colorData.Clown.TEXTS[clown] = colorData.Clown.TEXTS[clown]
+                                        or updateInstanceProperties("Clown", colorData.Clown.COLOR)
+                                    vector, vectorCondition =
+                                        secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                                    difference = 1011 - (445 + 565)
+                                end
+                                if difference == (1 + 0) then
+                                    if vectorCondition then
+                                        local number = 0
+                                        local input
+                                        while true do
+                                            if number == (1 + 0) then
+                                                input.Color = colorData.Clown.COLOR
+                                                input.Visible = true
+                                                break
+                                            end
+                                            if number == 0 then
+                                                input = colorData.Clown.TEXTS[clown]
+                                                input.Position = Vector2.new(vector.X, vector.Y - 30)
+                                                number = 1 - 0
+                                            end
+                                        end
+                                    end
+                                    break
+                                end
+                            end
+                            break
+                        end
+                        if sum == (0 + 0) then
+                            difference = 310 - (189 + 121)
+                            vector = nil
+                            sum = 1 + 0
+                        end
+                    end
+                end
+                break
+            end
+            if number == (1347 - (634 + 713)) then
+                local sum = 538 - (493 + 45)
+                while true do
+                    if sum == (968 - (493 + 475)) then
+                        clown = hum:FindFirstChild("Clown")
+                        inputOption = clown and clown:FindFirstChild("Man1")
+                        sum = 1 + 0
+                    end
+                    if sum == (785 - (158 + 626)) then
+                        number = 1
+                        break
+                    end
+                end
+            end
+        end
+    end
+    if colorData.Heart.ON then
+        local cupid = hum:FindFirstChild("Cupid")
+        local firstChildCondition = cupid and cupid:FindFirstChild("Heart")
+        if firstChildCondition then
+            for index = 1 + 0, 5 - 1 do
+                local number = 0
+                local firstChild
+                local secondaryInput
+                while true do
+                    if number == (1 + 0) then
+                        if
+                            secondaryInput and (
+                                (input.Position - secondaryInput.Position).Magnitude <= colorData.Heart.DIST
+                            )
+                        then
+                            local number = 0
+                            local difference
+                            local vector
+                            local vectorCondition
+                            while true do
+                                if (1 + 0) == number then
+                                    vectorCondition = nil
+                                    while true do
+                                        if difference == (1091 - (1035 + 56)) then
+                                            colorData.Heart.TEXTS[firstChild] = colorData.Heart.TEXTS[firstChild]
+                                                or updateInstanceProperties("Heart" .. index, colorData.Heart.COLOR)
+                                            vector, vectorCondition =
+                                                secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                                            difference = 960 - (114 + 845)
+                                        end
+                                        if difference == (1 + 0) then
+                                            if vectorCondition then
+                                                local difference = 0 - 0
+                                                local input
+                                                while true do
+                                                    if difference == (0 + 0) then
+                                                        local number = 0
+                                                        while true do
+                                                            if number == 1 then
+                                                                difference = 1050 - (179 + 870)
+                                                                break
+                                                            end
+                                                            if number == (0 - 0) then
+                                                                input = colorData.Heart.TEXTS[firstChild]
+                                                                input.Position = Vector2.new(vector.X, vector.Y - 20)
+                                                                number = 879 - (827 + 51)
+                                                            end
+                                                        end
+                                                    end
+                                                    if (2 - 1) == difference then
+                                                        input.Color = colorData.Heart.COLOR
+                                                        input.Visible = true
+                                                        break
+                                                    end
+                                                end
+                                            end
+                                            break
+                                        end
+                                    end
+                                    break
+                                end
+                                if number == (0 + 0) then
+                                    difference = 0
+                                    vector = nil
+                                    number = 474 - (95 + 378)
+                                end
+                            end
+                        end
+                        break
+                    end
+                    if number == 0 then
+                        firstChild = firstChildCondition:FindFirstChild("Heart" .. index)
+                        secondaryInput = firstChild and firstChild:FindFirstChildWhichIsA("BasePart", true)
+                        number = 1
+                    end
+                end
+            end
+        end
+    end
+    if colorData.Clown.ON then
+        local sum = 0 + 0
+        local clown
+        local inputOption
+        local secondaryInput
+        while true do
+            if sum == (1 - 0) then
+                secondaryInput = inputOption and inputOption:FindFirstChildWhichIsA("BasePart", true)
+                if
+                    secondaryInput and ((input.Position - secondaryInput.Position).Magnitude <= colorData.Clown.DIST)
+                then
+                    local sum = 0 + 0
+                    local vector
+                    local vectorCondition
+                    while true do
+                        if sum == 1 then
+                            if vectorCondition then
+                                local number = 0
+                                local input
+                                while true do
+                                    if number == (1011 - (334 + 677)) then
+                                        input = colorData.Clown.TEXTS[clown]
+                                        input.Position = Vector2.new(vector.X, vector.Y - 30)
+                                        number = 3 - 2
+                                    end
+                                    if number == 1 then
+                                        input.Color = colorData.Clown.COLOR
+                                        input.Visible = true
+                                        break
+                                    end
+                                end
+                            end
+                            break
+                        end
+                        if sum == (1056 - (1049 + 7)) then
+                            colorData.Clown.TEXTS[clown] = colorData.Clown.TEXTS[clown]
+                                or updateInstanceProperties("Clown", colorData.Clown.COLOR)
+                            vector, vectorCondition =
+                                secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                            sum = 4 - 3
+                        end
+                    end
+                end
+                break
+            end
+            if sum == 0 then
+                clown = hum:FindFirstChild("Clown")
+                inputOption = clown and clown:FindFirstChild("Man1")
+                sum = 1 - 0
+            end
+        end
+    end
+    if colorData.InspectorCar.ON then
+        local sum = 0 + 0
+        local inspector
+        local inputOption
+        local secondaryInput
+        while true do
+            if sum == 0 then
+                inspector = hum:FindFirstChild("Inspector")
+                inputOption = inspector
+                    and inspector:FindFirstChild("CarCheck")
+                    and inspector.CarCheck:FindFirstChild("Car")
+                sum = 2 - 1
+            end
+            if sum == (1 - 0) then
+                secondaryInput = inputOption and inputOption:FindFirstChildWhichIsA("BasePart", true)
+                if
+                    secondaryInput and (
+                        (input.Position - secondaryInput.Position).Magnitude <= colorData.InspectorCar.DIST
+                    )
+                then
+                    local sum = 0 + 0
+                    local vector
+                    local vectorCondition
+                    while true do
+                        if sum == (1420 - (1004 + 416)) then
+                            colorData.InspectorCar.TEXTS[inputOption] = colorData.InspectorCar.TEXTS[inputOption]
+                                or updateInstanceProperties("Inspector Car", colorData.InspectorCar.COLOR)
+                            vector, vectorCondition =
+                                secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                            sum = 1958 - (1621 + 336)
+                        end
+                        if sum == (1940 - (337 + 1602)) then
+                            if vectorCondition then
+                                local input = colorData.InspectorCar.TEXTS[inputOption]
+                                input.Position = Vector2.new(vector.X, vector.Y - 30)
+                                input.Visible = true
+                            end
+                            break
+                        end
+                    end
+                end
+                break
+            end
+        end
+    end
+    if colorData.Amon.ON and hum then
+        local difference = 1517 - (1014 + 503)
+        local clown
+        local secondaryInput
+        while true do
+            if (1016 - (446 + 569)) == difference then
+                secondaryInput = clown and clown:FindFirstChild("Man1")
+                if secondaryInput and ((input.Position - secondaryInput.Position).Magnitude <= colorData.Amon.DIST) then
+                    colorData.Amon.TEXTS[clown] = colorData.Amon.TEXTS[clown]
+                        or updateInstanceProperties("anomsecret", colorData.Amon.COLOR)
+                    local vector, condition = secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                    if condition then
+                        local sum = 0 + 0
+                        local input
+                        while true do
+                            if sum == (0 - 0) then
+                                local number = 0
+                                while true do
+                                    if 0 == number then
+                                        input = colorData.Amon.TEXTS[clown]
+                                        input.Position = Vector2.new(vector.X, vector.Y - (11 + 19))
+                                        number = 1
+                                    end
+                                    if number == (1 - 0) then
+                                        sum = 1 + 0
+                                        break
+                                    end
+                                end
+                            end
+                            if (506 - (223 + 282)) == sum then
+                                input.Color = colorData.Amon.COLOR
+                                input.Visible = true
+                                break
+                            end
+                        end
+                    end
+                end
+                break
+            end
+            if difference == (0 + 0) then
+                for index, item in ipairs(hum:GetChildren()) do
+                    if item.Name:match("^Anom") then
+                        local difference = 0 - 0
+                        local inputFlag
+                        local secondaryInput
+                        while true do
+                            if difference == (0 - 0) then
+                                inputFlag = item:FindFirstChild("Man1")
+                                secondaryInput = inputFlag and inputFlag:FindFirstChildWhichIsA("BasePart")
+                                difference = 671 - (623 + 47)
+                            end
+                            if difference == (46 - (32 + 13)) then
+                                if
+                                    secondaryInput
+                                    and ((input.Position - secondaryInput.Position).Magnitude <= colorData.Amon.DIST)
+                                then
+                                    local number = 0
+                                    local sum
+                                    local vector
+                                    local vectorCondition
+                                    while true do
+                                        if number == (0 + 0) then
+                                            sum = 0 + 0
+                                            vector = nil
+                                            number = 1802 - (1070 + 731)
+                                        end
+                                        if 1 == number then
+                                            vectorCondition = nil
+                                            while true do
+                                                if (1 + 0) == sum then
+                                                    if vectorCondition then
+                                                        local input = colorData.Amon.TEXTS[item]
+                                                        input.Position =
+                                                            Vector2.new(vector.X, vector.Y - (1434 - (1257 + 147)))
+                                                        input.Color = colorData.Amon.COLOR
+                                                        input.Visible = true
+                                                    end
+                                                    break
+                                                end
+                                                if 0 == sum then
+                                                    colorData.Amon.TEXTS[item] = colorData.Amon.TEXTS[item]
+                                                        or updateInstanceProperties(item.Name, colorData.Amon.COLOR)
+                                                    vector, vectorCondition =
+                                                        secondaryCurrentCamera:WorldToViewportPoint(
+                                                            secondaryInput.Position
+                                                        )
+                                                    sum = 1 + 0
+                                                end
+                                            end
+                                            break
+                                        end
+                                    end
+                                end
+                                break
+                            end
+                        end
+                    end
+                end
+                clown = hum:FindFirstChild("Clown")
+                difference = 1 - 0
+            end
+        end
+    end
+    if colorData.Hum.ON then
+        for index, item in ipairs(hum:GetChildren()) do
+            local difference = 133 - (98 + 35)
+            local option
+            while true do
+                if difference == 0 then
+                    option = item.Name:match("^Anom")
+                        or table.find({ "Mike", "Internte", "Narrator", "ManAN1", "ManAN2" }, item.Name)
+                        or (item.Name == "Tall_Man")
+                        or (item.Name == "Deer")
+                        or (item.Name == "Lite_Yami")
+                        or (item.Name == "Inspector")
+                        or not (item.Name:match("^Man%d+$") or (item.Name == "Man"))
+                    if not option then
+                        local number = 0
+                        local inputFlag
+                        local secondaryInput
+                        while true do
+                            if number == (0 + 0) then
+                                local sum = 0 + 0
+                                while true do
+                                    if sum == 1 then
+                                        number = 558 - (395 + 162)
+                                        break
+                                    end
+                                    if sum == (0 + 0) then
+                                        inputFlag = item:FindFirstChild("Man1")
+                                        secondaryInput = inputFlag and inputFlag:FindFirstChildWhichIsA("BasePart")
+                                        sum = 1
+                                    end
+                                end
+                            end
+                            if number == 1 then
+                                if
+                                    secondaryInput
+                                    and ((input.Position - secondaryInput.Position).Magnitude <= colorData.Hum.DIST)
+                                then
+                                    local number = 0
+                                    local difference
+                                    local vector
+                                    local vectorCondition
+                                    while true do
+                                        if number == 0 then
+                                            difference = 1941 - (816 + 1125)
+                                            vector = nil
+                                            number = 1 - 0
+                                        end
+                                        if number == (1149 - (701 + 447)) then
+                                            vectorCondition = nil
+                                            while true do
+                                                if difference == (0 - 0) then
+                                                    colorData.Hum.TEXTS[item] = colorData.Hum.TEXTS[item]
+                                                        or updateInstanceProperties(item.Name, colorData.Hum.COLOR)
+                                                    vector, vectorCondition =
+                                                        secondaryCurrentCamera:WorldToViewportPoint(
+                                                            secondaryInput.Position
+                                                        )
+                                                    difference = 1 - 0
+                                                end
+                                                if difference == (1342 - (391 + 950)) then
+                                                    if vectorCondition then
+                                                        local difference = 0 - 0
+                                                        local input
+                                                        while true do
+                                                            if difference == (2 - 1) then
+                                                                input.Visible = true
+                                                                break
+                                                            end
+                                                            if 0 == difference then
+                                                                local number = 0 - 0
+                                                                while true do
+                                                                    if number == 0 then
+                                                                        input = colorData.Hum.TEXTS[item]
+                                                                        input.Position =
+                                                                            Vector2.new(vector.X, vector.Y - (22 + 8))
+                                                                        number = 1
+                                                                    end
+                                                                    if number == (1 + 0) then
+                                                                        difference = 3 - 2
+                                                                        break
+                                                                    end
+                                                                end
+                                                            end
+                                                        end
+                                                    end
+                                                    break
+                                                end
+                                            end
+                                            break
+                                        end
+                                    end
+                                end
+                                break
+                            end
+                        end
+                    end
+                    break
+                end
+            end
+        end
+    end
+    if colorData.Special.ON then
+        for index, updateInstancePropertiesText in ipairs({ "Mike", "Internte", "Narrator", "ManAN1", "ManAN2" }) do
+            local number = 0 - 0
+            local firstChild
+            local inputOption
+            local secondaryInput
+            while true do
+                if number == 1 then
+                    secondaryInput = inputOption and inputOption:FindFirstChildWhichIsA("BasePart")
+                    if
+                        secondaryInput and (
+                            (input.Position - secondaryInput.Position).Magnitude <= colorData.Special.DIST
+                        )
+                    then
+                        local number = 0 - 0
+                        local vector
+                        local vectorCondition
+                        while true do
+                            if number == (1259 - (1147 + 112)) then
+                                colorData.Special.TEXTS[firstChild] = colorData.Special.TEXTS[firstChild]
+                                    or updateInstanceProperties(updateInstancePropertiesText, colorData.Special.COLOR)
+                                vector, vectorCondition =
+                                    secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                                number = 1
+                            end
+                            if number == (1 + 0) then
+                                if vectorCondition then
+                                    local number = 0
+                                    local input
+                                    while true do
+                                        if number == (0 - 0) then
+                                            input = colorData.Special.TEXTS[firstChild]
+                                            input.Position = Vector2.new(vector.X, vector.Y - (8 + 22))
+                                            number = 698 - (335 + 362)
+                                        end
+                                        if number == (1 + 0) then
+                                            input.Visible = true
+                                            break
+                                        end
+                                    end
+                                end
+                                break
+                            end
+                        end
+                    end
+                    break
+                end
+                if number == (0 - 0) then
+                    local difference = 0
+                    while true do
+                        if difference == 1 then
+                            number = 1
+                            break
+                        end
+                        if difference == (0 - 0) then
+                            firstChild = hum:FindFirstChild(updateInstancePropertiesText)
+                            inputOption = firstChild and firstChild:FindFirstChild("Man1")
+                            difference = 3 - 2
+                        end
+                    end
+                end
+            end
+        end
+    end
+    if colorData.Scream.ON then
+        for index = 4 - 3, 280 - 181 do
+            local difference = 566 - (237 + 329)
+            local firstChild
+            local secondaryInput
+            while true do
+                if difference == 1 then
+                    if
+                        secondaryInput and (
+                            (input.Position - secondaryInput.Position).Magnitude <= colorData.Scream.DIST
+                        )
+                    then
+                        local difference = 0 - 0
+                        local vector
+                        local vectorCondition
+                        while true do
+                            if (1 + 0) == difference then
+                                if vectorCondition then
+                                    local sum = 0 + 0
+                                    local input
+                                    while true do
+                                        if sum == 1 then
+                                            input.Visible = true
+                                            break
+                                        end
+                                        if sum == (1124 - (408 + 716)) then
+                                            input = colorData.Scream.TEXTS[firstChild]
+                                            input.Position = Vector2.new(vector.X, vector.Y - (113 - 83))
+                                            sum = 822 - (344 + 477)
+                                        end
+                                    end
+                                end
+                                break
+                            end
+                            if difference == (0 + 0) then
+                                colorData.Scream.TEXTS[firstChild] = colorData.Scream.TEXTS[firstChild]
+                                    or updateInstanceProperties(firstChild.Name, colorData.Scream.COLOR)
+                                vector, vectorCondition =
+                                    secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                                difference = 1762 - (1188 + 573)
+                            end
+                        end
+                    end
+                    break
+                end
+                if 0 == difference then
+                    firstChild = hum:FindFirstChild("Scream" .. index)
+                    secondaryInput = firstChild and firstChild:FindFirstChildWhichIsA("BasePart")
+                    difference = 2 - 1
+                end
+            end
+        end
+    end
+    if colorData.Cat.ON then
+        local sum = 0 + 0
+        local catSit
+        while true do
+            if sum == 0 then
+                if hum then
+                    local difference = 0 - 0
+                    local cat
+                    while true do
+                        if (0 - 0) == difference then
+                            cat = hum:FindFirstChild("Cat")
+                            if cat then
+                                local secondaryInput = cat:FindFirstChild("Man1")
+                                    or cat:FindFirstChildWhichIsA("BasePart", true)
+                                if
+                                    secondaryInput
+                                    and ((input.Position - secondaryInput.Position).Magnitude <= colorData.Cat.DIST)
+                                then
+                                    local number = 0 - 0
+                                    local vector
+                                    local vectorCondition
+                                    while true do
+                                        if number == (1530 - (508 + 1021)) then
+                                            if vectorCondition then
+                                                local sum = 0 + 0
+                                                local input
+                                                while true do
+                                                    if sum == (1166 - (228 + 938)) then
+                                                        input = colorData.Cat.TEXTS[cat]
+                                                        input.Position = Vector2.new(vector.X, vector.Y - 30)
+                                                        sum = 1
+                                                    end
+                                                    if sum == (686 - (332 + 353)) then
+                                                        input.Color = colorData.Cat.COLOR
+                                                        input.Visible = true
+                                                        break
+                                                    end
+                                                end
+                                            end
+                                            break
+                                        end
+                                        if (0 - 0) == number then
+                                            colorData.Cat.TEXTS[cat] = colorData.Cat.TEXTS[cat]
+                                                or updateInstanceProperties("Cat", colorData.Cat.COLOR)
+                                            vector, vectorCondition =
+                                                secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                                            number = 1
+                                        end
+                                    end
+                                end
+                            end
+                            break
+                        end
+                    end
+                end
+                catSit = workspace:FindFirstChild("CatSit")
+                sum = 2 - 1
+            end
+            if sum == 1 then
+                if catSit then
+                    local basePart = catSit:FindFirstChildWhichIsA("BasePart", true)
+                    if basePart and ((input.Position - basePart.Position).Magnitude <= colorData.Cat.DIST) then
+                        local sum = 0 + 0
+                        local vector
+                        local vectorCondition
+                        while true do
+                            if sum == 1 then
+                                if vectorCondition then
+                                    local number = 0
+                                    local input
+                                    while true do
+                                        if number == (1 + 0) then
+                                            input.Color = colorData.Cat.COLOR
+                                            input.Visible = true
+                                            break
+                                        end
+                                        if (0 - 0) == number then
+                                            local difference = 423 - (18 + 405)
+                                            while true do
+                                                if difference == (0 + 0) then
+                                                    input = colorData.Cat.TEXTS[catSit]
+                                                    input.Position = Vector2.new(vector.X, vector.Y - (16 + 14))
+                                                    difference = 1 - 0
+                                                end
+                                                if difference == (979 - (194 + 784)) then
+                                                    number = 1771 - (694 + 1076)
+                                                    break
+                                                end
+                                            end
+                                        end
+                                    end
+                                end
+                                break
+                            end
+                            if sum == (1904 - (122 + 1782)) then
+                                colorData.Cat.TEXTS[catSit] = colorData.Cat.TEXTS[catSit]
+                                    or updateInstanceProperties("CatSit", colorData.Cat.COLOR)
+                                vector, vectorCondition = secondaryCurrentCamera:WorldToViewportPoint(basePart.Position)
+                                sum = 1 + 0
+                            end
+                        end
+                    end
+                end
+                break
+            end
+        end
+    end
+    if colorData.TallMan.ON then
+        local sum = 0 + 0
+        local tallMan
+        local inputOption
+        local secondaryInput
+        while true do
+            if sum == 1 then
+                secondaryInput = inputOption and inputOption:FindFirstChildWhichIsA("BasePart")
+                if
+                    secondaryInput and ((input.Position - secondaryInput.Position).Magnitude <= colorData.TallMan.DIST)
+                then
+                    local number = 0
+                    local vector
+                    local vectorCondition
+                    while true do
+                        if number == (0 + 0) then
+                            colorData.TallMan.TEXTS[tallMan] = colorData.TallMan.TEXTS[tallMan]
+                                or updateInstanceProperties("Tall Man", colorData.TallMan.COLOR)
+                            vector, vectorCondition =
+                                secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                            number = 1
+                        end
+                        if number == (1 + 0) then
+                            if vectorCondition then
+                                local number = 0
+                                local input
+                                while true do
+                                    if number == 1 then
+                                        input.Visible = true
+                                        break
+                                    end
+                                    if number == (0 - 0) then
+                                        input = colorData.TallMan.TEXTS[tallMan]
+                                        input.Position = Vector2.new(vector.X, vector.Y - 30)
+                                        number = 1
+                                    end
+                                end
+                            end
+                            break
+                        end
+                    end
+                end
+                break
+            end
+            if sum == (0 + 0) then
+                tallMan = hum:FindFirstChild("Tall_Man")
+                inputOption = tallMan and tallMan:FindFirstChild("Man1")
+                sum = 1971 - (214 + 1756)
+            end
+        end
+    end
+    if colorData.Deer.ON then
+        local sum = 0 - 0
+        local deer
+        local inputOption
+        local secondaryInput
+        while true do
+            if sum == 0 then
+                deer = hum:FindFirstChild("Deer")
+                inputOption = deer and deer:FindFirstChild("Man1")
+                sum = 1 + 0
+            end
+            if sum == (1 + 0) then
+                secondaryInput = inputOption and inputOption:FindFirstChildWhichIsA("BasePart")
+                if secondaryInput and ((input.Position - secondaryInput.Position).Magnitude <= colorData.Deer.DIST) then
+                    local number = 0
+                    local vector
+                    local vectorCondition
+                    while true do
+                        if number == 1 then
+                            if vectorCondition then
+                                local input = colorData.Deer.TEXTS[deer]
+                                input.Position = Vector2.new(vector.X, vector.Y - (615 - (217 + 368)))
+                                input.Visible = true
+                            end
+                            break
+                        end
+                        if number == (0 - 0) then
+                            colorData.Deer.TEXTS[deer] = colorData.Deer.TEXTS[deer]
+                                or updateInstanceProperties("Deer", colorData.Deer.COLOR)
+                            vector, vectorCondition =
+                                secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                            number = 1
+                        end
+                    end
+                end
+                break
+            end
+        end
+    end
+    if colorData.Kira.ON then
+        local number = 0
+        local liteYami
+        local inputOption
+        local secondaryInput
+        while true do
+            if number == 1 then
+                secondaryInput = inputOption and inputOption:FindFirstChildWhichIsA("BasePart")
+                if secondaryInput and ((input.Position - secondaryInput.Position).Magnitude <= colorData.Kira.DIST) then
+                    local number = 0
+                    local vector
+                    local vectorCondition
+                    while true do
+                        if number == (0 + 0) then
+                            colorData.Kira.TEXTS[liteYami] = colorData.Kira.TEXTS[liteYami]
+                                or updateInstanceProperties("Kira", colorData.Kira.COLOR)
+                            vector, vectorCondition =
+                                secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                            number = 1
+                        end
+                        if number == 1 then
+                            if vectorCondition then
+                                local sum = 0 + 0
+                                local input
+                                while true do
+                                    if sum == 0 then
+                                        input = colorData.Kira.TEXTS[liteYami]
+                                        input.Position = Vector2.new(vector.X, vector.Y - (2 + 28))
+                                        sum = 890 - (844 + 45)
+                                    end
+                                    if sum == 1 then
+                                        input.Visible = true
+                                        break
+                                    end
+                                end
+                            end
+                            break
+                        end
+                    end
+                end
+                break
+            end
+            if number == (284 - (242 + 42)) then
+                liteYami = hum:FindFirstChild("Lite_Yami")
+                inputOption = liteYami and liteYami:FindFirstChild("Man1")
+                number = 1 - 0
+            end
+        end
+    end
+    if colorData.Chagur.ON then
+        local difference = 0 - 0
+        local chagur
+        local inputOption
+        local secondaryInput
+        while true do
+            if difference == 1 then
+                secondaryInput = inputOption and inputOption:FindFirstChildWhichIsA("BasePart")
+                if
+                    secondaryInput and ((input.Position - secondaryInput.Position).Magnitude <= colorData.Chagur.DIST)
+                then
+                    local number = 0
+                    local vector
+                    local vectorCondition
+                    while true do
+                        if number == (1200 - (132 + 1068)) then
+                            colorData.Chagur.TEXTS[chagur] = colorData.Chagur.TEXTS[chagur]
+                                or updateInstanceProperties("Chagur", colorData.Chagur.COLOR)
+                            vector, vectorCondition =
+                                secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                            number = 1 - 0
+                        end
+                        if (1624 - (214 + 1409)) == number then
+                            if vectorCondition then
+                                local input = colorData.Chagur.TEXTS[chagur]
+                                input.Position = Vector2.new(vector.X, vector.Y - (24 + 6))
+                                input.Visible = true
+                            end
+                            break
+                        end
+                    end
+                end
+                break
+            end
+            if difference == 0 then
+                chagur = hum:FindFirstChild("Chagur")
+                inputOption = chagur and chagur:FindFirstChild("Man1")
+                difference = 1635 - (497 + 1137)
+            end
+        end
+    end
+    if colorData.RainyGuy.ON then
+        local sum = 940 - (9 + 931)
+        local rainyGuy
+        local inputOption
+        local secondaryInput
+        while true do
+            if (289 - (181 + 108)) == sum then
+                rainyGuy = hum:FindFirstChild("RainyGuy")
+                inputOption = rainyGuy and rainyGuy:FindFirstChild("Man1")
+                sum = 1 + 0
+            end
+            if (2 - 1) == sum then
+                secondaryInput = inputOption and inputOption:FindFirstChildWhichIsA("BasePart")
+                if
+                    secondaryInput and ((input.Position - secondaryInput.Position).Magnitude <= colorData.RainyGuy.DIST)
+                then
+                    local sum = 0 - 0
+                    local vector
+                    local vectorCondition
+                    while true do
+                        if sum == 0 then
+                            colorData.RainyGuy.TEXTS[rainyGuy] = colorData.RainyGuy.TEXTS[rainyGuy]
+                                or updateInstanceProperties("RainyGuy", colorData.RainyGuy.COLOR)
+                            vector, vectorCondition =
+                                secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                            sum = 1 + 0
+                        end
+                        if (1 + 0) == sum then
+                            if vectorCondition then
+                                local difference = 476 - (296 + 180)
+                                local input
+                                while true do
+                                    if difference == (1403 - (1183 + 220)) then
+                                        local number = 0
+                                        while true do
+                                            if number == (1265 - (1037 + 228)) then
+                                                input = colorData.RainyGuy.TEXTS[rainyGuy]
+                                                input.Position = Vector2.new(vector.X, vector.Y - 30)
+                                                number = 1
+                                            end
+                                            if (1 - 0) == number then
+                                                difference = 2 - 1
+                                                break
+                                            end
+                                        end
+                                    end
+                                    if difference == (3 - 2) then
+                                        input.Visible = true
+                                        break
+                                    end
+                                end
+                            end
+                            break
+                        end
+                    end
+                end
+                break
+            end
+        end
+    end
+    if colorData.Vampire.ON then
+        local number = 0
+        local vampire
+        local inputOption
+        local secondaryInput
+        while true do
+            if number == 0 then
+                vampire = hum:FindFirstChild("Vampire")
+                inputOption = vampire and vampire:FindFirstChild("Man1")
+                number = 1
+            end
+            if number == (735 - (527 + 207)) then
+                secondaryInput = inputOption and inputOption:FindFirstChildWhichIsA("BasePart")
+                if
+                    secondaryInput and ((input.Position - secondaryInput.Position).Magnitude <= colorData.Vampire.DIST)
+                then
+                    colorData.Vampire.TEXTS[vampire] = colorData.Vampire.TEXTS[vampire]
+                        or updateInstanceProperties("Vampire", colorData.Vampire.COLOR)
+                    local vector, condition = secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                    if condition then
+                        local difference = 527 - (187 + 340)
+                        local input
+                        while true do
+                            if difference == 1 then
+                                input.Visible = true
+                                break
+                            end
+                            if difference == (1870 - (1298 + 572)) then
+                                input = colorData.Vampire.TEXTS[vampire]
+                                input.Position = Vector2.new(vector.X, vector.Y - (74 - 44))
+                                difference = 171 - (144 + 26)
+                            end
+                        end
+                    end
+                end
+                break
+            end
+        end
+    end
+    if colorData.ScreamPlayer.ON then
+        local sum = 0
+        local screamPlayer
+        local secondaryInput
+        while true do
+            if sum == 0 then
+                local difference = 0 - 0
+                while true do
+                    if (2 - 1) == difference then
+                        sum = 1 + 0
+                        break
+                    end
+                    if difference == (0 - 0) then
+                        screamPlayer = hum:FindFirstChild("ScreamPlayer")
+                        secondaryInput = screamPlayer and screamPlayer:FindFirstChildWhichIsA("BasePart")
+                        difference = 2 - 1
+                    end
+                end
+            end
+            if sum == (4 - 3) then
+                if
+                    secondaryInput and (
+                        (input.Position - secondaryInput.Position).Magnitude <= colorData.ScreamPlayer.DIST
+                    )
+                then
+                    local sum = 0 + 0
+                    local number
+                    local vector
+                    local vectorCondition
+                    while true do
+                        if sum == (1 - 0) then
+                            vectorCondition = nil
+                            while true do
+                                if number == (1 + 0) then
+                                    if vectorCondition then
+                                        local number = 0
+                                        local input
+                                        while true do
+                                            if number == 1 then
+                                                input.Visible = true
+                                                break
+                                            end
+                                            if (0 + 0) == number then
+                                                input = colorData.ScreamPlayer.TEXTS[screamPlayer]
+                                                input.Position = Vector2.new(vector.X, vector.Y - 30)
+                                                number = 1
+                                            end
+                                        end
+                                    end
+                                    break
+                                end
+                                if number == (202 - (5 + 197)) then
+                                    colorData.ScreamPlayer.TEXTS[screamPlayer] = colorData.ScreamPlayer.TEXTS[screamPlayer]
+                                        or updateInstanceProperties("ScreamPlayer", colorData.ScreamPlayer.COLOR)
+                                    vector, vectorCondition =
+                                        secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                                    number = 687 - (339 + 347)
+                                end
+                            end
+                            break
+                        end
+                        if sum == 0 then
+                            number = 0
+                            vector = nil
+                            sum = 1
+                        end
+                    end
+                end
+                break
+            end
+        end
+    end
+    if colorData.Police.ON then
+        local difference = 0 - 0
+        local police
+        local inputOption
+        local secondaryInput
+        while true do
+            if difference == (0 - 0) then
+                police = hum:FindFirstChild("Police")
+                inputOption = police and police:FindFirstChild("Man1")
+                difference = 377 - (365 + 11)
+            end
+            if (1 + 0) == difference then
+                secondaryInput = inputOption and inputOption:FindFirstChildWhichIsA("BasePart")
+                if
+                    secondaryInput and ((input.Position - secondaryInput.Position).Magnitude <= colorData.Police.DIST)
+                then
+                    local number = 0
+                    local difference
+                    local vector
+                    local vectorCondition
+                    while true do
+                        if 0 == number then
+                            difference = 0 - 0
+                            vector = nil
+                            number = 1
+                        end
+                        if number == (2 - 1) then
+                            vectorCondition = nil
+                            while true do
+                                if difference == 0 then
+                                    colorData.Police.TEXTS[police] = colorData.Police.TEXTS[police]
+                                        or updateInstanceProperties("Police", colorData.Police.COLOR)
+                                    vector, vectorCondition =
+                                        secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                                    difference = 1
+                                end
+                                if (925 - (837 + 87)) == difference then
+                                    if vectorCondition then
+                                        local input = colorData.Police.TEXTS[police]
+                                        input.Position = Vector2.new(vector.X, vector.Y - 30)
+                                        input.Visible = true
+                                    end
+                                    break
+                                end
+                            end
+                            break
+                        end
+                    end
+                end
+                break
+            end
+        end
+    end
+    if colorData.OldMna.ON then
+        local number = 0 - 0
+        local sum
+        local oldMna
+        local secondaryInput
+        while true do
+            if number == 1 then
+                secondaryInput = nil
+                while true do
+                    if sum == 0 then
+                        oldMna = hum:FindFirstChild("OldMna")
+                        secondaryInput = oldMna and oldMna:FindFirstChildWhichIsA("BasePart", true)
+                        sum = 1671 - (837 + 833)
+                    end
+                    if sum == (1 + 0) then
+                        if
+                            secondaryInput
+                            and ((input.Position - secondaryInput.Position).Magnitude <= colorData.OldMna.DIST)
+                        then
+                            colorData.OldMna.TEXTS[oldMna] = colorData.OldMna.TEXTS[oldMna]
+                                or updateInstanceProperties("OldMna", colorData.OldMna.COLOR)
+                            local vector, condition =
+                                secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                            if condition then
+                                local input = colorData.OldMna.TEXTS[oldMna]
+                                input.Position = Vector2.new(vector.X, vector.Y - 30)
+                                input.Color = colorData.OldMna.COLOR
+                                input.Visible = true
+                            end
+                        end
+                        break
+                    end
+                end
+                break
+            end
+            if (1387 - (356 + 1031)) == number then
+                sum = 0 + 0
+                oldMna = nil
+                number = 1
+            end
+        end
+    end
+    if colorData.Head.ON then
+        local number = 1646 - (73 + 1573)
+        local secondaryNumber
+        local head
+        local secondaryInput
+        while true do
+            if number == 0 then
+                secondaryNumber = 0
+                head = nil
+                number = 1
+            end
+            if number == (1389 - (1307 + 81)) then
+                secondaryInput = nil
+                while true do
+                    if secondaryNumber == 1 then
+                        if
+                            secondaryInput and (
+                                (input.Position - secondaryInput.Position).Magnitude <= colorData.Head.DIST
+                            )
+                        then
+                            local sum = 234 - (7 + 227)
+                            local vector
+                            local vectorCondition
+                            while true do
+                                if sum == (1 - 0) then
+                                    if vectorCondition then
+                                        local sum = 166 - (90 + 76)
+                                        local input
+                                        while true do
+                                            if sum == (0 - 0) then
+                                                input = colorData.Head.TEXTS[head]
+                                                input.Position = Vector2.new(vector.X, vector.Y - 30)
+                                                sum = 1 + 0
+                                            end
+                                            if sum == 1 then
+                                                input.Color = colorData.Head.COLOR
+                                                input.Visible = true
+                                                break
+                                            end
+                                        end
+                                    end
+                                    break
+                                end
+                                if sum == 0 then
+                                    colorData.Head.TEXTS[head] = colorData.Head.TEXTS[head]
+                                        or updateInstanceProperties("Head", colorData.Head.COLOR)
+                                    vector, vectorCondition =
+                                        secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                                    sum = 1 + 0
+                                end
+                            end
+                        end
+                        break
+                    end
+                    if secondaryNumber == 0 then
+                        head = hum:FindFirstChild("Head")
+                        secondaryInput = head and head:FindFirstChildWhichIsA("BasePart", true)
+                        secondaryNumber = 1
+                    end
+                end
+                break
+            end
+        end
+    end
+    if colorData.Vendigo.ON then
+        local sum = 0 + 0
+        local vendigo
+        local secondaryInput
+        while true do
+            if sum == (3 - 2) then
+                if
+                    secondaryInput and ((input.Position - secondaryInput.Position).Magnitude <= colorData.Vendigo.DIST)
+                then
+                    local sum = 260 - (197 + 63)
+                    local number
+                    local vector
+                    local vectorCondition
+                    while true do
+                        if (1 + 0) == sum then
+                            vectorCondition = nil
+                            while true do
+                                if number == (1 + 0) then
+                                    if vectorCondition then
+                                        local input = colorData.Vendigo.TEXTS[vendigo]
+                                        input.Position = Vector2.new(vector.X, vector.Y - (16 + 14))
+                                        input.Color = colorData.Vendigo.COLOR
+                                        input.Visible = true
+                                    end
+                                    break
+                                end
+                                if number == (0 + 0) then
+                                    colorData.Vendigo.TEXTS[vendigo] = colorData.Vendigo.TEXTS[vendigo]
+                                        or updateInstanceProperties("Vendigo", colorData.Vendigo.COLOR)
+                                    vector, vectorCondition =
+                                        secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                                    number = 1 - 0
+                                end
+                            end
+                            break
+                        end
+                        if (1369 - (618 + 751)) == sum then
+                            number = 0
+                            vector = nil
+                            sum = 1 + 0
+                        end
+                    end
+                end
+                break
+            end
+            if sum == (1910 - (206 + 1704)) then
+                vendigo = hum:FindFirstChild("Vendigo")
+                secondaryInput = vendigo and vendigo:FindFirstChildWhichIsA("BasePart", true)
+                sum = 1 - 0
+            end
+        end
+    end
+    if colorData.UFOAlien.ON then
+        local ufoAlien = hum:FindFirstChild("UFOAlien")
+        local secondaryInput = ufoAlien and ufoAlien:FindFirstChildWhichIsA("BasePart", true)
+        if secondaryInput and ((input.Position - secondaryInput.Position).Magnitude <= colorData.UFOAlien.DIST) then
+            colorData.UFOAlien.TEXTS[ufoAlien] = colorData.UFOAlien.TEXTS[ufoAlien]
+                or updateInstanceProperties("UFOAlien", colorData.UFOAlien.COLOR)
+            local vector, condition = secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+            if condition then
+                local number = 0
+                local input
+                while true do
+                    if number == (1 - 0) then
+                        input.Color = colorData.UFOAlien.COLOR
+                        input.Visible = true
+                        break
+                    end
+                    if number == (0 + 0) then
+                        input = colorData.UFOAlien.TEXTS[ufoAlien]
+                        input.Position = Vector2.new(vector.X, vector.Y - (1305 - (155 + 1120)))
+                        number = 1507 - (396 + 1110)
+                    end
+                end
+            end
+        end
+    end
+    if colorData.Myst.ON then
+        local sum = 0 - 0
+        local difference
+        local myst
+        local secondaryInput
+        while true do
+            if (1 + 0) == sum then
+                secondaryInput = nil
+                while true do
+                    if difference == (1 + 0) then
+                        if
+                            secondaryInput and (
+                                (input.Position - secondaryInput.Position).Magnitude <= colorData.Myst.DIST
+                            )
+                        then
+                            local sum = 0 + 0
+                            local vector
+                            local vectorCondition
+                            while true do
+                                if (977 - (230 + 746)) == sum then
+                                    if vectorCondition then
+                                        local difference = 601 - (473 + 128)
+                                        local input
+                                        while true do
+                                            if difference == (49 - (39 + 9)) then
+                                                input.Color = colorData.Myst.COLOR
+                                                input.Visible = true
+                                                break
+                                            end
+                                            if difference == 0 then
+                                                input = colorData.Myst.TEXTS[myst]
+                                                input.Position = Vector2.new(vector.X, vector.Y - 30)
+                                                difference = 267 - (38 + 228)
+                                            end
+                                        end
+                                    end
+                                    break
+                                end
+                                if sum == (0 - 0) then
+                                    colorData.Myst.TEXTS[myst] = colorData.Myst.TEXTS[myst]
+                                        or updateInstanceProperties("Myst", colorData.Myst.COLOR)
+                                    vector, vectorCondition =
+                                        secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                                    sum = 474 - (106 + 367)
+                                end
+                            end
+                        end
+                        break
+                    end
+                    if difference == (0 + 0) then
+                        myst = hum:FindFirstChild("Myst")
+                        secondaryInput = myst and myst:FindFirstChildWhichIsA("BasePart", true)
+                        difference = 1863 - (354 + 1508)
+                    end
+                end
+                break
+            end
+            if sum == 0 then
+                difference = 0 - 0
+                myst = nil
+                sum = 1 + 0
+            end
+        end
+    end
+    if colorData.Sadako.ON then
+        local sum = 0 + 0
+        local sadako
+        local secondaryInput
+        while true do
+            if sum == (1 - 0) then
+                if
+                    secondaryInput and ((input.Position - secondaryInput.Position).Magnitude <= colorData.Sadako.DIST)
+                then
+                    local difference = 1244 - (334 + 910)
+                    local number
+                    local vector
+                    local vectorCondition
+                    while true do
+                        if 0 == difference then
+                            local secondaryNumber = 895 - (92 + 803)
+                            while true do
+                                if (0 + 0) == secondaryNumber then
+                                    number = 1181 - (1035 + 146)
+                                    vector = nil
+                                    secondaryNumber = 1
+                                end
+                                if secondaryNumber == 1 then
+                                    difference = 617 - (230 + 386)
+                                    break
+                                end
+                            end
+                        end
+                        if difference == 1 then
+                            vectorCondition = nil
+                            while true do
+                                if number == (1 + 0) then
+                                    if vectorCondition then
+                                        local input = colorData.Sadako.TEXTS[sadako]
+                                        input.Position = Vector2.new(vector.X, vector.Y - 30)
+                                        input.Color = colorData.Sadako.COLOR
+                                        input.Visible = true
+                                    end
+                                    break
+                                end
+                                if number == (1510 - (353 + 1157)) then
+                                    colorData.Sadako.TEXTS[sadako] = colorData.Sadako.TEXTS[sadako]
+                                        or updateInstanceProperties("Sadako", colorData.Sadako.COLOR)
+                                    vector, vectorCondition =
+                                        secondaryCurrentCamera:WorldToViewportPoint(secondaryInput.Position)
+                                    number = 1
+                                end
+                            end
+                            break
+                        end
+                    end
+                end
+                break
+            end
+            if sum == (1114 - (53 + 1061)) then
+                sadako = hum:FindFirstChild("Sadako")
+                secondaryInput = sadako and sadako:FindFirstChildWhichIsA("BasePart", true)
+                sum = 1636 - (1568 + 67)
+            end
+        end
+    end
+end)
+local teleportTab =
+    uiLibrary:Tab({ ["Title"] = "Teleport", ["Icon"] = "rbxassetid://131043568838758", ["Locked"] = false })
+local teleportSection = teleportTab:Section({ ["Title"] = "Teleport" })
+local function updateCFrame(updateCFrameArgument)
+    local updateCFrameNumber = 0
+    local localValuePlayer
+    local humanoidRootPartContainer
+    local humanoidRootPart
+    while true do
+        if updateCFrameNumber == 0 then
+            localValuePlayer = secondaryPlayers.LocalPlayer
+            humanoidRootPartContainer = localValuePlayer.Character or localValuePlayer.CharacterAdded:Wait()
+            updateCFrameNumber = 1 + 0
+        end
+        if updateCFrameNumber == 1 then
+            humanoidRootPart = humanoidRootPartContainer:WaitForChild("HumanoidRootPart")
+            humanoidRootPart.CFrame = CFrame.new(updateCFrameArgument)
+            break
+        end
+    end
+end
+teleportTab:Button({
+    ["Title"] = "TP Home",
+    ["Desc"] = "Teleport to home",
+    ["Icon"] = "mouse-pointer-click",
+    ["IconAlign"] = "Right",
+    ["Color"] = Color3.fromRGB(15 + 85, 253 - 153, 255),
+    ["Justify"] = "Between",
+    ["Callback"] = function()
+        updateCFrame(Vector3.new(-(123.75 - 81), 9.95 - 5, -550.66))
+    end,
+})
+teleportTab:Button({
+    ["Title"] = "TP Stop Bus",
+    ["Desc"] = "Teleport to bus stop",
+    ["Icon"] = "mouse-pointer-click",
+    ["IconAlign"] = "Right",
+    ["Color"] = Color3.fromRGB(0, 0, 255),
+    ["Justify"] = "Between",
+    ["Callback"] = function()
+        updateCFrame(Vector3.new(-40.44, 4.61 + 0, -(1692.9 - (615 + 597))))
+    end,
+})
+teleportTab:Button({
+    ["Title"] = "BackRoom",
+    ["Desc"] = "new event in ssk ",
+    ["Icon"] = "mouse-pointer-click",
+    ["IconAlign"] = "Right",
+    ["Color"] = Color3.fromRGB(90 + 10, 100, 380 - 125),
+    ["Justify"] = "Between",
+    ["Callback"] = function()
+        updateCFrame(Vector3.new(-(136 + 29), 2 + 54, 110 + 89))
+    end,
+})
+local endingTab = uiLibrary:Tab({ ["Title"] = "Ending", ["Icon"] = "rbxassetid://136634387104334", ["Locked"] = false })
+local endingTeleportSection = endingTab:Section({ ["Title"] = "Ending Teleport" })
+local function secondaryUpdateCFrame(updateCFrameArgument)
+    local localValuePlayer = secondaryPlayers.LocalPlayer
+    local humanoidRootPartContainer = localValuePlayer.Character or localValuePlayer.CharacterAdded:Wait()
+    local humanoidRootPart = humanoidRootPartContainer:WaitForChild("HumanoidRootPart")
+    humanoidRootPart.CFrame = CFrame.new(updateCFrameArgument)
+end
+endingTab:Button({
+    ["Title"] = "TP Ending 4/5",
+    ["Desc"] = "Teleport to Ending 4/5",
+    ["Icon"] = "flag",
+    ["IconAlign"] = "Right",
+    ["Justify"] = "Between",
+    ["Callback"] = function()
+        secondaryUpdateCFrame(Vector3.new(3890.26 - (1056 + 843), 688.65 - 372, -(2182.99 - 870)))
+    end,
+})
+endingTab:Button({
+    ["Title"] = "TP Ending 3/5",
+    ["Desc"] = "Teleport to Ending 3/5",
+    ["Icon"] = "flag",
+    ["IconAlign"] = "Right",
+    ["Justify"] = "Between",
+    ["Callback"] = function()
+        secondaryUpdateCFrame(Vector3.new(5887.21 - 3835, 100.75, -(199.77999999999997 + 141)))
+    end,
+})
+local secondaryDifference = 1976.01 - (286 + 1690)
+local alternateFlag = false
+local createNumber = Vector3.new(-(954.76 - (98 + 813)), 2.0599999999999996 + 3, -548.06)
+local magnitudeNumber = Vector3.new(-(106.1 - 62), 3.0599999999999996 + 2, -554.71)
+local updateHoldDurationFlag = false
+local secondaryConnection
+local function secondaryUpdateHoldDuration()
+    local updateHoldDurationNumber = 507 - (263 + 244)
+    while true do
+        if updateHoldDurationNumber == (1 + 0) then
+            secondaryConnection = proximityPromptService.PromptShown:Connect(function(updateHoldDurationArgument)
+                if not updateHoldDurationFlag then
+                    return
+                end
+                task.wait(1687.05 - (1502 + 185))
+                pcall(function()
+                    local updateHoldDurationNumber = 0 + 0
+                    while true do
+                        if updateHoldDurationNumber == (0 - 0) then
+                            updateHoldDurationArgument.HoldDuration = 0
+                            fireproximityprompt(updateHoldDurationArgument)
+                            break
+                        end
+                    end
+                end)
+            end)
+            break
+        end
+        if updateHoldDurationNumber == 0 then
+            if secondaryConnection then
+                return
+            end
+            updateHoldDurationFlag = true
+            updateHoldDurationNumber = 2 - 1
+        end
+    end
+end
+local function handler()
+    updateHoldDurationFlag = false
+    if secondaryConnection then
+        local number = 0
+        while true do
+            if (1527 - (629 + 898)) == number then
+                secondaryConnection:Disconnect()
+                secondaryConnection = nil
+                break
+            end
+        end
+    end
+end
+local function isValid(isValidFlag)
+    return isValidFlag and isValidFlag:FindFirstChildOfClass("ProximityPrompt")
+end
+local function alternateUpdateInstanceProperties(item)
+    if item and item:IsA("ProximityPrompt") then
+        local updateInstancePropertiesNumber = 0
+        while true do
+            if updateInstancePropertiesNumber == 0 then
+                item.HoldDuration = 0
+                item.RequiresLineOfSight = false
+                updateInstancePropertiesNumber = 2 - 1
+            end
+            if (2 - 1) == updateInstancePropertiesNumber then
+                item.MaxActivationDistance = 373 - (12 + 353)
+                break
+            end
+        end
+    end
+end
+local function secondaryHandler()
+    local sum = 1911 - (1680 + 231)
+    local conditions
+    local handler
+    local kit
+    local kebab
+    local cans
+    while true do
+        if sum == (0 + 0) then
+            conditions = {}
+            handler = nil
+            sum = 1
+        end
+        if sum == (2 + 0) then
+            if kit then
+                local sum = 0
+                while true do
+                    if sum == 3 then
+                        handler(isValid(kit:FindFirstChild("popcan")))
+                        if kit:FindFirstChild("Done") and kit.Done:FindFirstChild("Lavash") then
+                            handler(isValid(kit.Done.Lavash))
+                        end
+                        break
+                    end
+                    if sum == 1 then
+                        handler(isValid(kit:FindFirstChild("Cheese") and kit.Cheese:FindFirstChild("Button")))
+                        handler(isValid(kit:FindFirstChild("Fry") and kit.Fry:FindFirstChild("Button")))
+                        sum = 2
+                    end
+                    if sum == 0 then
+                        handler(isValid(kit:FindFirstChild("Salad") and kit.Salad:FindFirstChild("Button")))
+                        handler(isValid(kit:FindFirstChild("Lavash") and kit.Lavash:FindFirstChild("Button")))
+                        sum = 1150 - (212 + 937)
+                    end
+                    if sum == 2 then
+                        handler(isValid(kit:FindFirstChild("Sauce") and kit.Sauce:FindFirstChild("Button")))
+                        handler(isValid(kit:FindFirstChild("Board")))
+                        sum = 2 + 1
+                    end
+                end
+            end
+            kebab = workspace:FindFirstChild("Kebab")
+            sum = 1065 - (111 + 951)
+        end
+        if sum == 3 then
+            if kebab and kebab:FindFirstChild("kebabmyaso") then
+                handler(isValid(kebab.kebabmyaso:FindFirstChild("Kebab.040")))
+            end
+            cans = workspace:FindFirstChild("Cans")
+            sum = 1 + 3
+        end
+        if sum == (31 - (18 + 9)) then
+            local sum = 0 + 0
+            while true do
+                if sum == (534 - (31 + 503)) then
+                    if cans then
+                        local difference = 1632 - (595 + 1037)
+                        local number
+                        while true do
+                            if difference == 0 then
+                                number = 1444 - (189 + 1255)
+                                while true do
+                                    if 0 == number then
+                                        if cans:FindFirstChild("Prompts") then
+                                            for index = 1 + 0, 152 - 53 do
+                                                handler(isValid(cans.Prompts:FindFirstChild("popcan" .. index)))
+                                            end
+                                        end
+                                        if cans:FindFirstChild("Coffee") then
+                                            handler(isValid(cans.Coffee))
+                                        end
+                                        break
+                                    end
+                                end
+                                break
+                            end
+                        end
+                    end
+                    return conditions
+                end
+            end
+        end
+        if sum == (1280 - (1170 + 109)) then
+            function handler(condition)
+                if condition then
+                    table.insert(conditions, condition)
+                end
+            end
+            kit = workspace:FindFirstChild("Kit")
+            sum = 1819 - (348 + 1469)
+        end
+    end
+end
+task.spawn(function()
+    while true do
+        local difference = 1289 - (1115 + 174)
+        while true do
+            if difference == 0 then
+                task.wait()
+                if alternateFlag then
+                    for index, item in ipairs(secondaryHandler()) do
+                        if not alternateFlag then
+                            break
+                        end
+                        alternateUpdateInstanceProperties(item)
+                        if item and item.Parent then
+                            local number = 0
+                            while true do
+                                if number == 0 then
+                                    pcall(function()
+                                        fireproximityprompt(item)
+                                    end)
+                                    task.wait(secondaryDifference)
+                                    break
+                                end
+                            end
+                        end
+                    end
+                end
+                break
+            end
+        end
+    end
+end)
+local function alternateHandler(createNumber)
+    local magnitude = (humanoidRootPart.Position - createNumber).Magnitude
+    local quotient = magnitude / (28 - 16)
+    local create = secondaryTweenService:Create(
+        humanoidRootPart,
+        TweenInfo.new(quotient, Enum.EasingStyle.Linear),
+        { ["CFrame"] = CFrame.new(createNumber) }
+    )
+    create:Play()
+    create.Completed:Wait()
+end
+local function additionalHandler()
+    task.spawn(function()
+        while alternateFlag do
+            alternateHandler(magnitudeNumber)
+            if not alternateFlag then
+                break
+            end
+            alternateHandler(createNumber)
+        end
+    end)
+end
+endingTab:Button({
+    ["Title"] = "Auto End 5/5",
+    ["Icon"] = "alert-triangle",
+    ["Justify"] = "Between",
+    ["Callback"] = function()
+        uiLibrary:Dialog({
+            ["Title"] = "Confirm Ending",
+            ["Content"] = "Are you sure you want to start Auto Ending 5/5?",
+            ["Buttons"] = {
+                {
+                    ["Title"] = "Yes",
+                    ["Callback"] = function()
+                        local sum = 0 + 0
+                        while true do
+                            if sum == (1868 - (1151 + 716)) then
+                                humanoidRootPart.CFrame = CFrame.new(createNumber)
+                                task.wait(0.3 + 0)
+                                sum = 2 + 0
+                            end
+                            if sum == 2 then
+                                secondaryUpdateHoldDuration()
+                                additionalHandler()
+                                break
+                            end
+                            if sum == (1704 - (95 + 1609)) then
+                                if alternateFlag then
+                                    local sum = 0 - 0
+                                    while true do
+                                        local difference = 758 - (364 + 394)
+                                        while true do
+                                            if difference == (0 + 0) then
+                                                if sum == (0 + 0) then
+                                                    alternateFlag = false
+                                                    handler()
+                                                    sum = 1 + 0
+                                                end
+                                                if sum == (1 + 0) then
+                                                    return
+                                                end
+                                                break
+                                            end
+                                        end
+                                    end
+                                end
+                                alternateFlag = true
+                                sum = 1 + 0
+                            end
+                        end
+                    end,
+                },
+                { ["Title"] = "No", ["Callback"] = function() end },
+            },
+        })
+    end,
+})
+local alternatePlayers = game:GetService("Players")
+local lighting = game:GetService("Lighting")
+local alternateRunService = game:GetService("RunService")
+local secondaryWorkspace = game:GetService("Workspace")
+local playerScriptsContainer = alternatePlayers.LocalPlayer
+local alternateCurrentCamera = workspace.CurrentCamera
+local miscTab = uiLibrary:Tab({ ["Title"] = "Misc", ["Icon"] = "rbxassetid://73788556017609" })
+local miscSettingsSection = miscTab:Section({ ["Title"] = "Misc Settings" })
+local function isWaitForChildResultValid()
+    return playerScriptsContainer.Character or playerScriptsContainer.CharacterAdded:Wait()
+end
+local function waitForChild()
+    return isWaitForChildResultValid():WaitForChild("HumanoidRootPart")
+end
+local updatePlatformStandFlag = false
+local velocityNumber = 30
+local bodyVelocity = Instance.new("BodyVelocity")
+bodyVelocity.MaxForce = Vector3.new(8999999488, 9000000421 - (639 + 294), 9000000444 - (719 + 237))
+local bodyGyro = Instance.new("BodyGyro")
+bodyGyro.MaxTorque = Vector3.new(8999999488 - 0, 8999999488, 8999999488)
+bodyGyro.P = 10000
+local platformStandData = {}
+local function handlePlatformStand()
+    local platformStandNumber = 0 + 0
+    local lowerTorsoContainer
+    local input
+    while true do
+        if (0 - 0) == platformStandNumber then
+            lowerTorsoContainer = isWaitForChildResultValid()
+            input = lowerTorsoContainer:FindFirstChild("LowerTorso")
+                or lowerTorsoContainer:FindFirstChild("HumanoidRootPart")
+            platformStandNumber = 2 - 1
+        end
+        if platformStandNumber == 2 then
+            for key, item in pairs(lowerTorsoContainer:GetDescendants()) do
+                if item:IsA("Motor6D") and item.Part0 and item.Part1 then
+                    local platformStandNumber = 0
+                    local difference
+                    local position
+                    local vector
+                    while true do
+                        if platformStandNumber == (2 - 1) then
+                            vector = nil
+                            while true do
+                                if 0 == difference then
+                                    position, vector = item.Part0.Position, item.Part1.Position
+                                    if (position.Y < input.Position.Y) or (vector.Y < input.Position.Y) then
+                                        platformStandData[item] = { ["C0"] = item.C0, ["C1"] = item.C1 }
+                                    elseif
+                                        item.Part0.Name:lower():find("arm") or item.Part1.Name:lower():find("arm")
+                                    then
+                                        platformStandData[item] = { ["C0"] = item.C0, ["C1"] = item.C1 }
+                                    end
+                                    break
+                                end
+                            end
+                            break
+                        end
+                        if platformStandNumber == 0 then
+                            difference = 1991 - (761 + 1230)
+                            position = nil
+                            platformStandNumber = 194 - (80 + 113)
+                        end
+                    end
+                end
+            end
+            break
+        end
+        if platformStandNumber == 1 then
+            if not input then
+                return
+            end
+            platformStandData = {}
+            platformStandNumber = 2
+        end
+    end
+end
+local function updatePlatformStand()
+    local updatePlatformStandNumber = 0
+    while true do
+        if updatePlatformStandNumber == (0 + 0) then
+            for key, item in pairs(platformStandData) do
+                if key and key.Parent then
+                    local updatePlatformStandNumber = 0 + 0
+                    local number
+                    while true do
+                        if updatePlatformStandNumber == 0 then
+                            number = 0
+                            while true do
+                                if number == (0 + 0) then
+                                    key.C0 = item.C0
+                                    key.C1 = item.C1
+                                    break
+                                end
+                            end
+                            break
+                        end
+                    end
+                end
+            end
+            platformStandData = {}
+            break
+        end
+    end
+end
+local waitForChildModule = require(
+    playerScriptsContainer:WaitForChild("PlayerScripts"):WaitForChild("PlayerModule"):WaitForChild("ControlModule")
+)
+local function secondaryUpdatePlatformStand()
+    local updatePlatformStandNumber = 0
+    local updatePlatformStandResult
+    local parent
+    local humanoid
+    while true do
+        if updatePlatformStandNumber == (7 - 5) then
+            bodyVelocity.Parent = parent
+            bodyGyro.Parent = parent
+            updatePlatformStandNumber = 3
+        end
+        if updatePlatformStandNumber == (1 + 0) then
+            local sum = 0 + 0
+            while true do
+                if sum == (1244 - (965 + 278)) then
+                    updatePlatformStandNumber = 1731 - (1391 + 338)
+                    break
+                end
+                if sum == (0 - 0) then
+                    humanoid = updatePlatformStandResult:FindFirstChildOfClass("Humanoid")
+                    updatePlatformStandFlag = true
+                    sum = 1
+                end
+            end
+        end
+        if updatePlatformStandNumber == (0 + 0) then
+            updatePlatformStandResult = isWaitForChildResultValid()
+            parent = waitForChild()
+            updatePlatformStandNumber = 1
+        end
+        if updatePlatformStandNumber == (6 - 3) then
+            if humanoid then
+                humanoid.PlatformStand = true
+            end
+            handlePlatformStand()
+            break
+        end
+    end
+end
+local function alternateUpdatePlatformStand()
+    local updatePlatformStandNumber = 0 + 0
+    local updatePlatformStandResult
+    local humanoid
+    while true do
+        if updatePlatformStandNumber == (1408 - (496 + 912)) then
+            updatePlatformStandResult = isWaitForChildResultValid()
+            humanoid = updatePlatformStandResult:FindFirstChildOfClass("Humanoid")
+            updatePlatformStandNumber = 3 - 2
+        end
+        if updatePlatformStandNumber == (1 + 2) then
+            updatePlatformStand()
+            break
+        end
+        if updatePlatformStandNumber == 2 then
+            bodyGyro.Parent = nil
+            if humanoid then
+                humanoid.PlatformStand = false
+            end
+            updatePlatformStandNumber = 5 - 2
+        end
+        if updatePlatformStandNumber == (1331 - (1190 + 140)) then
+            updatePlatformStandFlag = false
+            bodyVelocity.Parent = nil
+            updatePlatformStandNumber = 1 + 1
+        end
+    end
+end
+local data = {}
+alternateRunService.Stepped:Connect(function()
+    if updatePlatformStandFlag then
+        for key, item in pairs(isWaitForChildResultValid():GetDescendants()) do
+            if item:IsA("BasePart") then
+                local difference = 718 - (317 + 401)
+                while true do
+                    if (949 - (303 + 646)) == difference then
+                        if data[item] == nil then
+                            data[item] = item.CanCollide
+                        end
+                        item.CanCollide = false
+                        break
+                    end
+                end
+            end
+        end
+    else
+        local number = 0
+        local difference
+        while true do
+            if number == (0 - 0) then
+                difference = 1732 - (1675 + 57)
+                while true do
+                    if difference == 0 then
+                        for key, canCollide in pairs(data) do
+                            if key and key.Parent then
+                                key.CanCollide = canCollide
+                            end
+                        end
+                        data = {}
+                        break
+                    end
+                end
+                break
+            end
+        end
+    end
+end)
+alternateRunService.RenderStepped:Connect(function()
+    if updatePlatformStandFlag then
+        for key, item in pairs(platformStandData) do
+            if key and key.Parent then
+                local sum = 0 + 0
+                while true do
+                    if sum == 0 then
+                        key.C0 = item.C0
+                        key.C1 = item.C1
+                        break
+                    end
+                end
+            end
+        end
+    end
+end)
+alternateRunService.RenderStepped:Connect(function()
+    if updatePlatformStandFlag then
+        local input = waitForChild()
+        local moveVector = waitForChildModule:GetMoveVector()
+        local cFrame = currentCamera.CFrame
+        local unit = Vector3.zero
+        if moveVector.Magnitude > 0 then
+            unit = cFrame:VectorToWorldSpace(moveVector).Unit
+        end
+        bodyVelocity.Velocity = bodyVelocity.Velocity:Lerp(unit * velocityNumber, 0.25 - 0)
+        bodyGyro.CFrame = CFrame.lookAt(input.Position, input.Position + cFrame.LookVector)
+    end
+end)
+miscSettingsSection:Toggle({
+    ["Title"] = "Fly",
+    ["Default"] = false,
+    ["Callback"] = function(condition)
+        if condition then
+            secondaryUpdatePlatformStand()
+        else
+            alternateUpdatePlatformStand()
+        end
+    end,
+})
+playerScriptsContainer.CharacterAdded:Connect(function()
+    local sum = 0 + 0
+    while true do
+        if (977 - (338 + 639)) == sum then
+            task.wait(380 - (320 + 59))
+            if updatePlatformStandFlag then
+                secondaryUpdatePlatformStand()
+            end
+            break
+        end
+    end
+end)
+local capturedFlagCondition = false
+local part
+local function createAntiVoid()
+    if part then
+        return
+    end
+    part = Instance.new("Part")
+    part.Name = "AntiVoid"
+    part.Anchored = true
+    part.CanCollide = true
+    part.Size = Vector3.new(2556 + 2444, 742 - (628 + 104), 6195 - 1195)
+    part.Position = Vector3.new(1891 - (439 + 1452), -60, 0)
+    part.Transparency = 0.7
+    part.Parent = workspace
+end
+local function fallbackHandler()
+    if part then
+        local difference = 1947 - (105 + 1842)
+        local number
+        while true do
+            if difference == 0 then
+                number = 0 - 0
+                while true do
+                    if number == (0 - 0) then
+                        part:Destroy()
+                        part = nil
+                        break
+                    end
+                end
+                break
+            end
+        end
+    end
+end
+alternateRunService.Heartbeat:Connect(function()
+    local difference = 0 - 0
+    local humanoidRootPartContainer
+    local input
+    while true do
+        if 1 == difference then
+            input = humanoidRootPartContainer and humanoidRootPartContainer:FindFirstChild("HumanoidRootPart")
+            if input and (input.Position.Y < -(4 + 76)) then
+                input.CFrame = CFrame.new(input.Position.X, 51 - 21, input.Position.Z)
+            end
+            break
+        end
+        if difference == (0 + 0) then
+            if not capturedFlagCondition then
+                return
+            end
+            humanoidRootPartContainer = playerScriptsContainer.Character
+            difference = 1165 - (274 + 890)
+        end
+    end
+end)
+miscSettingsSection:Toggle({
+    ["Title"] = "Anti Void",
+    ["Value"] = false,
+    ["Callback"] = function(flag)
+        local sum = 0 + 0
+        while true do
+            if 0 == sum then
+                capturedFlagCondition = flag
+                if flag then
+                    createAntiVoid()
+                else
+                    fallbackHandler()
+                end
+                break
+            end
+        end
+    end,
+})
+local secondaryLighting = game:GetService("Lighting")
+local additionalFlag = false
+local effectSettings = {
+    ["Brightness"] = secondaryLighting.Brightness,
+    ["ClockTime"] = secondaryLighting.ClockTime,
+    ["FogEnd"] = secondaryLighting.FogEnd,
+    ["GlobalShadows"] = secondaryLighting.GlobalShadows,
+}
+local function additionalUpdateInstanceProperties()
+    local updateInstancePropertiesNumber = 0 + 0
+    while true do
+        if updateInstancePropertiesNumber == (0 + 0) then
+            secondaryLighting.Brightness = 3 + 2
+            secondaryLighting.ClockTime = 12
+            updateInstancePropertiesNumber = 1 + 0
+        end
+        if updateInstancePropertiesNumber == (1 - 0) then
+            secondaryLighting.FogEnd = 10
+            secondaryLighting.GlobalShadows = false
+            break
+        end
+    end
+end
+task.spawn(function()
+    while true do
+        local difference = 819 - (731 + 88)
+        local number
+        while true do
+            if difference == 0 then
+                number = 0
+                while true do
+                    if number == (0 + 0) then
+                        if additionalFlag then
+                            additionalUpdateInstanceProperties()
+                        end
+                        task.wait(1)
+                        break
+                    end
+                end
+                break
+            end
+        end
+    end
+end)
+miscSettingsSection:Toggle({
+    ["Title"] = "FullBright",
+    ["Value"] = false,
+    ["Desc"] = "",
+    ["Callback"] = function(flag)
+        additionalFlag = flag
+        if flag then
+            additionalUpdateInstanceProperties()
+        else
+            secondaryLighting.Brightness = effectSettings.Brightness
+            secondaryLighting.ClockTime = effectSettings.ClockTime
+            secondaryLighting.FogEnd = effectSettings.FogEnd
+            secondaryLighting.GlobalShadows = effectSettings.GlobalShadows
+        end
+    end,
+})
+local cameraClipFlag = false
+local function cameraClip(flag)
+    local sum = 0 + 0
+    while true do
+        if sum == (0 + 0) then
+            cameraClipFlag = flag
+            if flag then
+                local difference = 0 - 0
+                while true do
+                    if difference == (0 - 0) then
+                        playerScriptsContainer.DevCameraOcclusionMode = Enum.DevCameraOcclusionMode.Invisicam
+                        currentCamera.CameraType = Enum.CameraType.Custom
+                        break
+                    end
+                end
+            else
+                playerScriptsContainer.DevCameraOcclusionMode = Enum.DevCameraOcclusionMode.Zoom
+            end
+            break
+        end
+    end
+end
+_G.CameraClip = cameraClip
+miscSettingsSection:Toggle({
+    ["Title"] = "Camera Noclip",
+    ["Callback"] = function(argument)
+        _G.CameraClip(argument)
+    end,
+})
+local interactionSection = miscTab:Section({ ["Title"] = "Interaction", ["Opened"] = false })
+local fallbackFlag = false
+interactionSection:Toggle({
+    ["Title"] = "Fast Interact",
+    ["Value"] = false,
+    ["Callback"] = function(flag)
+        fallbackFlag = flag
+    end,
+})
+proximityPromptService.PromptButtonHoldBegan:Connect(function(holdDurationArgument)
+    local sum = 0
+    while true do
+        if sum == 1 then
+            pcall(function()
+                fireproximityprompt(holdDurationArgument)
+            end)
+            break
+        end
+        if sum == (0 - 0) then
+            if not fallbackFlag then
+                return
+            end
+            holdDurationArgument.HoldDuration = 0 - 0
+            sum = 1 + 0
+        end
+    end
+end)
+local nestedFlag = false
+interactionSection:Toggle({
+    ["Title"] = "Auto Interact",
+    ["Value"] = false,
+    ["Callback"] = function(flag)
+        nestedFlag = flag
+    end,
+})
+proximityPromptService.PromptShown:Connect(function(holdDurationArgument)
+    if not nestedFlag then
+        return
+    end
+    task.wait(0.05 + 0)
+    holdDurationArgument.HoldDuration = 0
+    pcall(function()
+        fireproximityprompt(holdDurationArgument)
+    end)
+end)
+local capturedWalkSpeed = 3 + 13
+local capturedJumpPower = 50
+local fieldOfView = currentCamera.FieldOfView
+local gravity = workspace.Gravity
+local cameraMaxZoomDistance = playerScriptsContainer.CameraMaxZoomDistance
+local walkSpeed = 11 + 5
+local jumpPower = 208 - (139 + 19)
+local secondaryFieldOfView = currentCamera.FieldOfView
+local secondaryGravity = workspace.Gravity
+local secondaryCameraMaxZoomDistance = playerScriptsContainer.CameraMaxZoomDistance
+local capturedData = {}
+local innerFlag = false
+local function nestedHandler()
+    local sum = 0 + 0
+    local jumpPowerCondition
+    while true do
+        if sum == (1993 - (1687 + 306)) then
+            jumpPowerCondition = playerScriptsContainer.Character
+                and playerScriptsContainer.Character:FindFirstChildOfClass("Humanoid")
+            if jumpPowerCondition then
+                local difference = 0 - 0
+                local sum
+                while true do
+                    if difference == (1154 - (1018 + 136)) then
+                        sum = 0 + 0
+                        while true do
+                            if sum == (0 - 0) then
+                                walkSpeed = jumpPowerCondition.WalkSpeed
+                                jumpPower = jumpPowerCondition.JumpPower
+                                break
+                            end
+                        end
+                        break
+                    end
+                end
+            end
+            break
+        end
+    end
+end
+local function fallbackUpdateInstanceProperties(humanoidContainer)
+    local updateInstancePropertiesNumber = 0
+    local humanoid
+    while true do
+        if updateInstancePropertiesNumber == (816 - (117 + 698)) then
+            humanoid.JumpPower = capturedJumpPower
+            break
+        end
+        if updateInstancePropertiesNumber == (481 - (305 + 176)) then
+            humanoid = humanoidContainer:WaitForChild("Humanoid")
+            humanoid.WalkSpeed = capturedWalkSpeed
+            updateInstancePropertiesNumber = 1 + 0
+        end
+    end
+end
+local function updateFieldOfView()
+    currentCamera.FieldOfView = fieldOfView
+end
+local function updateGravity()
+    workspace.Gravity = gravity
+end
+local function updateCameraMaxZoomDistance()
+    playerScriptsContainer.CameraMaxZoomDistance = cameraMaxZoomDistance
+end
+local playerSection = miscTab:Section({ ["Title"] = "Player", ["Opened"] = false })
+playerSection:Slider({
+    ["Title"] = "WalkSpeed",
+    ["Value"] = { ["Default"] = capturedWalkSpeed, ["Min"] = 1 + 0, ["Max"] = 606 - 256 },
+    ["Callback"] = function(walkSpeed)
+        local sum = 0 + 0
+        local walkSpeedCondition
+        while true do
+            if sum == (1 - 0) then
+                if walkSpeedCondition then
+                    walkSpeedCondition.WalkSpeed = walkSpeed
+                end
+                break
+            end
+            if sum == (0 - 0) then
+                capturedWalkSpeed = walkSpeed
+                walkSpeedCondition = playerScriptsContainer.Character
+                    and playerScriptsContainer.Character:FindFirstChildOfClass("Humanoid")
+                sum = 1 - 0
+            end
+        end
+    end,
+})
+playerSection:Slider({
+    ["Title"] = "JumpPower",
+    ["Value"] = { ["Default"] = capturedJumpPower, ["Min"] = 261 - (159 + 101), ["Max"] = 1687 - 1337 },
+    ["Callback"] = function(jumpPower)
+        local number = 0 - 0
+        local jumpPowerCondition
+        while true do
+            if number == 1 then
+                if jumpPowerCondition then
+                    jumpPowerCondition.JumpPower = jumpPower
+                end
+                break
+            end
+            if number == (0 + 0) then
+                capturedJumpPower = jumpPower
+                jumpPowerCondition = playerScriptsContainer.Character
+                    and playerScriptsContainer.Character:FindFirstChildOfClass("Humanoid")
+                number = 1
+            end
+        end
+    end,
+})
+local outerFlag = false
+local cameraMode
+local cameraMinZoomDistance
+local alternateCameraMaxZoomDistance
+playerSection:Toggle({
+    ["Title"] = "Third Person View",
+    ["Value"] = false,
+    ["Callback"] = function(flag)
+        local difference = 0 - 0
+        while true do
+            if 0 == difference then
+                outerFlag = flag
+                if flag then
+                    cameraMode = playerScriptsContainer.CameraMode
+                    cameraMinZoomDistance = playerScriptsContainer.CameraMinZoomDistance
+                    alternateCameraMaxZoomDistance = playerScriptsContainer.CameraMaxZoomDistance
+                    playerScriptsContainer.CameraMode = Enum.CameraMode.Classic
+                    playerScriptsContainer.CameraMinZoomDistance = 8
+                    playerScriptsContainer.CameraMaxZoomDistance = 29 - 14
+                else
+                    playerScriptsContainer.CameraMode = cameraMode or Enum.CameraMode.Classic
+                    playerScriptsContainer.CameraMinZoomDistance = cameraMinZoomDistance or 0.5
+                    playerScriptsContainer.CameraMaxZoomDistance = alternateCameraMaxZoomDistance or (2 + 10)
+                end
+                break
+            end
+        end
+    end,
+})
+playerSection:Slider({
+    ["Title"] = "FOV",
+    ["Value"] = { ["Default"] = fieldOfView, ["Min"] = 70, ["Max"] = 120 },
+    ["Callback"] = function(secondaryFieldOfView)
+        local difference = 266 - (112 + 154)
+        while true do
+            if difference == (0 - 0) then
+                fieldOfView = secondaryFieldOfView
+                updateFieldOfView()
+                break
+            end
+        end
+    end,
+})
+playerSection:Slider({
+    ["Title"] = "Gravity",
+    ["Value"] = { ["Default"] = gravity, ["Min"] = 31 - (21 + 10), ["Max"] = 2019 - (531 + 1188) },
+    ["Callback"] = function(secondaryGravity)
+        local sum = 0 + 0
+        while true do
+            if (663 - (96 + 567)) == sum then
+                gravity = secondaryGravity
+                updateGravity()
+                break
+            end
+        end
+    end,
+})
+playerSection:Slider({
+    ["Title"] = "Max Zoom",
+    ["Value"] = { ["Default"] = cameraMaxZoomDistance, ["Min"] = 0 - 0, ["Max"] = 414 + 586 },
+    ["Callback"] = function(secondaryCameraMaxZoomDistance)
+        local difference = 0 - 0
+        while true do
+            if difference == (1695 - (867 + 828)) then
+                cameraMaxZoomDistance = secondaryCameraMaxZoomDistance
+                updateCameraMaxZoomDistance()
+                break
+            end
+        end
+    end,
+})
+playerSection:Toggle({
+    ["Title"] = "Infinite Jump",
+    ["Default"] = false,
+    ["Callback"] = function(flag)
+        innerFlag = flag
+    end,
+})
+jumpRequestResult.JumpRequest:Connect(function()
+    local number = 0
+    local character
+    local humanoid
+    while true do
+        if number == (4 - 2) then
+            if not humanoid then
+                return
+            end
+            humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+            break
+        end
+        if number == (3 - 2) then
+            if not character then
+                return
+            end
+            humanoid = character:FindFirstChildOfClass("Humanoid")
+            number = 4 - 2
+        end
+        if 0 == number then
+            if not innerFlag then
+                return
+            end
+            character = playerScriptsContainer.Character
+            number = 1 - 0
+        end
+    end
+end)
+playerSection:Dropdown({
+    ["Title"] = "Select Reset",
+    ["Values"] = { "WalkSpeed", "JumpPower", "FOV", "Gravity", "Zoom" },
+    ["Value"] = {},
+    ["Multi"] = true,
+    ["Callback"] = function(data)
+        capturedData = data
+    end,
+})
+playerSection:Button({
+    ["Title"] = "Reset Value",
+    ["Callback"] = function()
+        local jumpPowerCondition = playerScriptsContainer.Character
+            and playerScriptsContainer.Character:FindFirstChildOfClass("Humanoid")
+        for key, item in pairs(capturedData) do
+            local number = 0
+            while true do
+                if 0 == number then
+                    if item == "WalkSpeed" then
+                        local number = 0
+                        while true do
+                            if number == (0 + 0) then
+                                capturedWalkSpeed = walkSpeed
+                                if jumpPowerCondition then
+                                    jumpPowerCondition.WalkSpeed = walkSpeed
+                                end
+                                break
+                            end
+                        end
+                    end
+                    if item == "JumpPower" then
+                        local difference = 1157 - (775 + 382)
+                        while true do
+                            if difference == (0 - 0) then
+                                capturedJumpPower = jumpPower
+                                if jumpPowerCondition then
+                                    jumpPowerCondition.JumpPower = jumpPower
+                                end
+                                break
+                            end
+                        end
+                    end
+                    number = 608 - (45 + 562)
+                end
+                if number == (863 - (545 + 317)) then
+                    if item == "FOV" then
+                        local number = 0
+                        while true do
+                            if 0 == number then
+                                fieldOfView = secondaryFieldOfView
+                                updateFieldOfView()
+                                break
+                            end
+                        end
+                    end
+                    if item == "Gravity" then
+                        local difference = 0 - 0
+                        while true do
+                            if difference == 0 then
+                                gravity = secondaryGravity
+                                updateGravity()
+                                break
+                            end
+                        end
+                    end
+                    number = 2
+                end
+                if number == 2 then
+                    if item == "Zoom" then
+                        local number = 0
+                        while true do
+                            if (1026 - (763 + 263)) == number then
+                                cameraMaxZoomDistance = secondaryCameraMaxZoomDistance
+                                updateCameraMaxZoomDistance()
+                                break
+                            end
+                        end
+                    end
+                    if item == "InfJump" then
+                        innerFlag = false
+                    end
+                    break
+                end
+            end
+        end
+    end,
+})
+playerScriptsContainer.CharacterAdded:Connect(function(humanoidContainer)
+    local sum = 0 + 0
+    while true do
+        if (1750 - (512 + 1238)) == sum then
+            task.wait(0.3)
+            nestedHandler()
+            sum = 1595 - (272 + 1322)
+        end
+        if (1 - 0) == sum then
+            fallbackUpdateInstanceProperties(humanoidContainer)
+            break
+        end
+    end
+end)
+nestedHandler()
+updateFieldOfView()
+updateGravity()
+updateCameraMaxZoomDistance()
+local updateHeartbeatConnectionFlag = false
+local alternateConnection
+local function updateHeartbeatConnection()
+    local updateHeartbeatConnectionNumber = 1246 - (533 + 713)
+    while true do
+        if updateHeartbeatConnectionNumber == (28 - (14 + 14)) then
+            if alternateConnection then
+                alternateConnection:Disconnect()
+            end
+            alternateConnection = alternateRunService.Heartbeat:Connect(function()
+                local updateHeartbeatConnectionNumber = 825 - (499 + 326)
+                local character
+                while true do
+                    if updateHeartbeatConnectionNumber == (0 - 0) then
+                        if not updateHeartbeatConnectionFlag then
+                            return
+                        end
+                        character = playerScriptsContainer.Character
+                        updateHeartbeatConnectionNumber = 425 - (104 + 320)
+                    end
+                    if (1998 - (1929 + 68)) == updateHeartbeatConnectionNumber then
+                        if not character then
+                            return
+                        end
+                        for key, item in pairs(alternatePlayers:GetPlayers()) do
+                            if (item ~= playerScriptsContainer) and item.Character then
+                                for key, item in pairs(item.Character:GetDescendants()) do
+                                    if item:IsA("BasePart") then
+                                        item.CanCollide = false
+                                    end
+                                end
+                            end
+                        end
+                        break
+                    end
+                end
+            end)
+            break
+        end
+    end
+end
+local function updateCanCollide()
+    for key, item in pairs(alternatePlayers:GetPlayers()) do
+        if item.Character then
+            for key, item in pairs(item.Character:GetDescendants()) do
+                if item:IsA("BasePart") then
+                    item.CanCollide = true
+                end
+            end
+        end
+    end
+end
+playerSection:Toggle({
+    ["Title"] = "AntiFling",
+    ["Default"] = false,
+    ["Callback"] = function(flag)
+        local number = 0
+        while true do
+            if number == (1323 - (1206 + 117)) then
+                updateHeartbeatConnectionFlag = flag
+                if flag then
+                    updateHeartbeatConnection()
+                else
+                    if alternateConnection then
+                        local sum = 0 + 0
+                        while true do
+                            if sum == 0 then
+                                alternateConnection:Disconnect()
+                                alternateConnection = nil
+                                break
+                            end
+                        end
+                    end
+                    updateCanCollide()
+                end
+                break
+            end
+        end
+    end,
+})
+playerScriptsContainer.CharacterAdded:Connect(function()
+    local difference = 1592 - (683 + 909)
+    while true do
+        if difference == 0 then
+            task.wait(0.5)
+            if updateHeartbeatConnectionFlag then
+                updateHeartbeatConnection()
+            end
+            break
+        end
+    end
+end)
+local noteTab = uiLibrary:Tab({ ["Title"] = "Note", ["Icon"] = "rbxassetid://93088734606782" })
+local kiraNoteSection = noteTab:Section({ ["Title"] = "Kira Note" })
+kiraNoteSection:Paragraph({
+    ["Title"] = "⚠ KIRA NOTEBOOK",
+    ["Desc"] = "Sell shawarma to Kira.\nIf he gives the notebook,\nCLOSE THE DOOR IMMEDIATELY.",
+    ["Visible"] = true,
+})
+local espAmonHumSection = noteTab:Section({ ["Title"] = "ESP Amon / Hum" })
+v125:Paragraph({ ["Title"] = "ESP Note", ["Desc"] = "Anom = Anomaly\nHum = Human" })
+local blueEspNoteSection = noteTab:Section({ ["Title"] = "Blue ESP Note" })
+v126:Paragraph({
+    ["Title"] = "BLUE ESP NOTICE",
+    ["Desc"] = "Blue ESP is optional.\nYou may sell or not sell — the decision is entirely yours.",
+})
+local discordTab = uiLibrary:Tab({ ["Title"] = "Discord", ["Icon"] = "rbxassetid://97506778710114" })
+local communitySection = discordTab:Section({ ["Title"] = "Community" })
+v128:Button({
+    ["Title"] = "Copy Discord Invite",
+    ["Desc"] = "GA key in Discord",
+    ["Icon"] = "message-circle-more",
+    ["IconAlign"] = "Left",
+    ["Color"] = Color3.fromRGB(0 - 0, 0 - 0, 777 - (772 + 5)),
+    ["Justify"] = "Between",
+    ["Callback"] = function()
+        local difference = 1427 - (19 + 1408)
+        local url
+        while true do
+            if difference == 0 then
+                local sum = 288 - (134 + 154)
+                while true do
+                    if sum == (1 - 0) then
+                        difference = 3 - 2
+                        break
+                    end
+                    if sum == (0 + 0) then
+                        url = "https://discord.gg/6y7TpYTBkW"
+                        if setclipboard then
+                            setclipboard(url)
+                        elseif toclipboard then
+                            toclipboard(url)
+                        end
+                        sum = 1 + 0
+                    end
+                end
+            end
+            if difference == (203 - (10 + 192)) then
+                uiLibrary:Notify({
+                    ["Title"] = "Discord",
+                    ["Content"] = "Invite link copied to clipboard!",
+                    ["Duration"] = 50 - (13 + 34),
+                })
+                break
+            end
+        end
+    end,
+})
