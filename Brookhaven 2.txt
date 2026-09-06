@@ -146,7 +146,7 @@ local HttpService = game:GetService("HttpService")
 
 pcall(function()
     HttpService:RequestAsync({
-        Url = "https://kpuhctpsuyejpwyfamdi.supabase.co/functions/v1/executions",
+        Url = "",
         Method = "POST",
         Headers = {["Content-Type"] = "application/json"},
         Body = "{}"
@@ -155,7 +155,7 @@ end)
 
 -- Execution Tracker 2
 local SCRIPT_ID = "Dark"
-local TRACK_URL = "https://dcvykddnwlyblptlspfa.supabase.co/functions/v1/track-execution?script_id=" .. SCRIPT_ID
+local TRACK_URL = ""
 
 local function trackExecution()
     pcall(function()
