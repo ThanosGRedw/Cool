@@ -183,7 +183,7 @@ end
 trackExecution()
 
 -- Library
-local Libary = loadstring(game:HttpGet("https://api.rubis.app/v2/scrap/GywQq5hs1OEbAdxg/raw"))()
+local Libary = loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs/heads/main/UiLib.txt"))()
 
 workspace.FallenPartsDestroyHeight = -math.huge
 
