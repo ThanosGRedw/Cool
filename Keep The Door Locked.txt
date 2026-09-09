@@ -1,0 +1,2348 @@
+-- This file was generated at discord.gg/syncrypt
+
+local t1 = {}
+local t2 = {
+	value1 = "https://raw.githubusercontent.com/joustingmatch/ObsidianUltra/main/"
+}
+t2.value2 = loadstring(game:HttpGet(t2.value1 .. "Library.lua"))()
+pcall(function()
+    local function u39(p1)
+        local v202 = not p1
+
+        if not v202 then
+            v202 = typeof(p1) ~= "table"
+        end
+
+        if v202 then
+            return
+        end
+
+        local Groupboxes = p1.Groupboxes
+
+        if Groupboxes then
+            Groupboxes = typeof(p1.Groupboxes) == "table"
+        end
+
+        if Groupboxes then
+            for _, v in pairs(p1.Groupboxes) do
+                local v206 = typeof(v) == "table"
+
+                if v206 then
+                    v206 = v.Elements
+
+                    if v206 then
+                        v206 = typeof(v.Elements) == "table"
+                    end
+                end
+
+                if v206 then
+                    for _, v2 in pairs(v.Elements) do
+                        local v209 = v2
+                        local v210 = typeof(v209) == "table"
+
+                        if v210 then
+                            v210 = v209.Holder
+                        end
+
+                        if v210 then
+                            pcall(function()
+                                v209.Holder.Visible = v209.Visible ~= false
+                            end)
+                        end
+                    end
+                end
+            end
+        end
+
+        local Tabboxes = p1.Tabboxes
+
+        if Tabboxes then
+            Tabboxes = typeof(p1.Tabboxes) == "table"
+        end
+
+        if Tabboxes then
+            for _, v in pairs(p1.Tabboxes) do
+                local v214 = typeof(v) == "table"
+
+                if v214 then
+                    v214 = v.Tabs
+
+                    if v214 then
+                        v214 = typeof(v.Tabs) == "table"
+                    end
+                end
+
+                if v214 then
+                    for _, v3 in pairs(v.Tabs) do
+                        local v217 = typeof(v3) == "table"
+
+                        if v217 then
+                            v217 = v3.Elements
+
+                            if v217 then
+                                v217 = typeof(v3.Elements) == "table"
+                            end
+                        end
+
+                        if v217 then
+                            for _, v4 in pairs(v3.Elements) do
+                                local v220 = v4
+                                local v221 = typeof(v220) == "table"
+
+                                if v221 then
+                                    v221 = v220.Holder
+                                end
+
+                                if v221 then
+                                    pcall(function()
+                                        v220.Holder.Visible = v220.Visible ~= false
+                                    end)
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+
+        local SubTabs = p1.SubTabs
+
+        if SubTabs then
+            SubTabs = typeof(p1.SubTabs) == "table"
+        end
+
+        if SubTabs then
+            for _, v in pairs(p1.SubTabs) do
+                if typeof(v) == "table" then
+                    u39(v)
+                end
+            end
+        end
+    end
+
+    function t2.value2.UpdateSearch(_, p3)
+        t2.value2.SearchText = p3 or ""
+
+        local v227 = tostring(p3 or ""):lower()
+        local v228 = v227 == ""
+
+        if not v228 then
+            v228 = v227:match("^%s*$")
+        end
+
+        if v228 then
+            t2.value2.Searching = false
+            t2.value2.LastSearchTab = nil
+
+            return
+        end
+
+        t2.value2.Searching = true
+        pcall(function()
+            local Tabs = t2.value2.Tabs
+
+            if Tabs then
+                Tabs = typeof(t2.value2.Tabs) == "table"
+            end
+
+            if Tabs then
+                for _, v in pairs(t2.value2.Tabs) do
+                    u39(v)
+                end
+            end
+        end)
+    end
+end)
+pcall(function()
+    local CoreGui = game:GetService("CoreGui")
+    local LocalPlayer = game:GetService("Players").LocalPlayer
+    local Obsidian = CoreGui:FindFirstChild("Obsidian")
+
+    if not Obsidian then
+        Obsidian = CoreGui:FindFirstChild("ObsidianUltra") or CoreGui:FindFirstChild("STANNY")
+    end
+
+    if Obsidian then
+        Obsidian:Destroy()
+    end
+
+    local v43 = LocalPlayer
+
+    if LocalPlayer then
+        v43 = LocalPlayer:FindFirstChild("PlayerGui")
+    end
+
+    if v43 then
+        local Obsidian2 = LocalPlayer.PlayerGui:FindFirstChild("Obsidian")
+
+        if not Obsidian2 then
+            Obsidian2 = LocalPlayer.PlayerGui:FindFirstChild("ObsidianUltra")
+
+            if not Obsidian2 then
+                Obsidian2 = LocalPlayer.PlayerGui:FindFirstChild("STANNY")
+            end
+        end
+
+        if Obsidian2 then
+            Obsidian2:Destroy()
+        end
+    end
+end)
+t2.value3 = nil
+t2.value3 = nil
+t2.value4 = nil
+pcall(function()
+    t2.value3 = loadstring(game:HttpGet(t2.value1 .. "addons/ThemeManager.lua"))()
+end)
+pcall(function()
+    t2.value4 = loadstring(game:HttpGet(t2.value1 .. "addons/SaveManager.lua"))()
+end)
+
+function t2.value5(p4, p5)
+    pcall(function()
+        local value2 = t2.value2
+
+        if value2 then
+            value2 = typeof(t2.value2.Notify) == "function"
+        end
+
+        if value2 then
+            t2.value2:Notify(tostring(p4), p5 or 4)
+        end
+    end)
+end
+function t2.value6(p6)
+    local v48 = not p6
+
+    if not v48 then
+        v48 = not p6:IsA("ProximityPrompt")
+
+        if not v48 then
+            v48 = not p6.Enabled
+        end
+    end
+
+    if v48 then
+        return
+    end
+
+    if fireproximityprompt then
+        pcall(function()
+            fireproximityprompt(p6, 0)
+        end)
+
+        return
+    end
+
+    pcall(function()
+        p6:InputHoldBegin()
+        task.wait(p6.HoldDuration or 0.1)
+        p6:InputHoldEnd()
+    end)
+end
+if t2.value2 then
+    t2.value2.CornerRadius = 20
+    t1.value1 = typeof(t2.value2.SetCornerRadius)
+
+    if t1.value1 == "function" then
+        t2.value2:SetCornerRadius(20)
+    end
+end
+local Players = game:GetService("Players")
+
+t1.value1 = game:GetService("ReplicatedStorage")
+t2.value7 = t1.value1
+local RunService = game:GetService("RunService")
+
+t2.value8 = game:GetService("Workspace")
+t2.value9 = game:GetService("Lighting")
+t2.value10 = Players.LocalPlayer
+t2.value11 = t2.value7:WaitForChild("Systems", 5)
+
+local value11 = t2.value11
+if value11 then
+    value11 = t2.value11:FindFirstChild("Legacy")
+end
+t2.value12 = value11
+t2.value13 = t2.value2.Options
+t2.value14 = t2.value2.Toggles
+t2.value15 = {}
+local value9Ambient = t2.value9.Ambient
+local OutdoorAmbient = t2.value9.OutdoorAmbient
+local value9Brightness = t2.value9.Brightness
+local ClockTime = t2.value9.ClockTime
+local FogEnd = t2.value9.FogEnd
+t2.value16 = {
+	Ambient = value9Ambient,
+	OutdoorAmbient = OutdoorAmbient,
+	Brightness = value9Brightness,
+	ClockTime = ClockTime,
+	FogEnd = FogEnd
+}
+t2.value17 = t2.value2:CreateWindow({
+	Title = "STANNY",
+	Center = true,
+	AutoShow = true,
+	TabPadding = 8,
+	MenuFadeTime = 0.2,
+	CornerRadius = 20
+})
+task.spawn(function()
+    task.wait(0.2)
+    t2.value2.CornerRadius = 20
+
+    if t2.value2.ScreenGui then
+        for _, descendant in ipairs(t2.value2.ScreenGui:GetDescendants()) do
+            if descendant:IsA("UICorner") then
+                descendant.CornerRadius = UDim.new(0, 20)
+            end
+        end
+    end
+end)
+
+local v11 = t2.value17:AddTab({
+	Name = "Main",
+	Icon = "home",
+	Description = "Core survival & automation"
+})
+local v12 = v11:AddSubTab("Survival", "shield")
+local v13 = v11:AddSubTab("Defense", "swords")
+local v14 = v11:AddSubTab("Tasks", "check-square")
+local v15 = t2.value17:AddTab({
+	Name = "Economy & Admin",
+	Icon = "coins",
+	Description = "Currency, night cycle & upgrades"
+})
+local v16 = v15:AddSubTab("Economy", "dollar-sign")
+local v17 = v15:AddSubTab("Night Cycle", "moon")
+local v18 = t2.value17:AddTab({
+	Name = "Player Hacks",
+	Icon = "zap",
+	Description = "Movement, stamina & environment cheats"
+})
+local v19 = v18:AddSubTab("Movement", "footprints")
+local v20 = v18:AddSubTab("Cheats", "skull")
+local v21 = t2.value17:AddTab({
+	Name = "Visuals",
+	Icon = "eye",
+	Description = "ESP & entity highlights"
+})
+local v22 = v21:AddSubTab("ESP Highlights", "scan")
+local v23 = v21:AddSubTab("Anomaly Detector", "alert-triangle")
+local v24 = t2.value17:AddTab({
+	Name = "Teleports",
+	Icon = "map-pin",
+	Description = "Instant position shortcuts"
+}):AddSubTab("Locations", "compass")
+
+t2.value18 = t2.value17:AddTab({
+	Name = "Settings",
+	Icon = "settings",
+	Description = "Themes & Configuration"
+})
+local v25 = v12:AddLeftGroupbox("Automation & Survival")
+
+v25:AddToggle("AutoHideBed", {
+	Text = "Auto Hide (Bed)",
+	Default = false,
+	Tooltip = "Automatically triggers hide under bed remote when active"
+})
+t2.value14.AutoHideBed:OnChanged(function(p7)
+    if p7 then
+        task.spawn(function()
+            while t2.value14.AutoHideBed.Value do
+                local value11_2 = t2.value11
+
+                if value11_2 then
+                    value11_2 = t2.value11:FindFirstChild("Hiding")
+
+                    if value11_2 then
+                        value11_2 = t2.value11.Hiding.Remotes:FindFirstChild("BedHide")
+                    end
+                end
+
+                if value11_2 then
+                    value11_2:FireServer(true)
+                end
+
+                task.wait(1)
+            end
+        end)
+
+        return
+    end
+
+    local value11_3 = t2.value11
+
+    if value11_3 then
+        value11_3 = t2.value11:FindFirstChild("Hiding")
+
+        if value11_3 then
+            value11_3 = t2.value11.Hiding.Remotes:FindFirstChild("BedHide")
+        end
+    end
+
+    if value11_3 then
+        value11_3:FireServer(false)
+    end
+end)
+v25:AddToggle("AutoSleep", {
+	Text = "Auto Sleep (Pass Night)",
+	Default = false,
+	Tooltip = "Automatically triggers sleep remotes and bed prompts to pass the night"
+})
+t2.value14.AutoSleep:OnChanged(function(p8)
+    if p8 then
+        task.spawn(function()
+            while t2.value14.AutoSleep.Value do
+                local value11_4 = t2.value11
+
+                if value11_4 then
+                    value11_4 = t2.value11:FindFirstChild("Sleeping")
+
+                    if value11_4 then
+                        value11_4 = t2.value11.Sleeping:FindFirstChild("Remotes")
+                    end
+                end
+
+                if value11_4 then
+                    if value11_4:FindFirstChild("Sleep") then
+                        value11_4.Sleep:FireServer(true)
+                    end
+
+                    if value11_4:FindFirstChild("SleepDone") then
+                        value11_4.SleepDone:FireServer()
+                    end
+
+                    if value11_4:FindFirstChild("RoomHiderSleep") then
+                        value11_4.RoomHiderSleep:FireServer(true)
+                    end
+                end
+
+                for _, descendant in ipairs(t2.value8:GetDescendants()) do
+                    local v234 = descendant:IsA("ProximityPrompt")
+
+                    if v234 then
+                        v234 = descendant.Enabled
+
+                        if v234 then
+                            v234 = descendant.Name:lower():find("sleep")
+                        end
+                    end
+
+                    if v234 then
+                        t2.value6(descendant)
+                    end
+                end
+
+                task.wait(1.5)
+            end
+        end)
+    end
+end)
+v25:AddToggle("AutoTurnOffAlarm", {
+	Text = "Auto Turn Off Alarm",
+	Default = false,
+	Tooltip = "Automatically silences and turns off the morning day alarm clock"
+})
+t2.value14.AutoTurnOffAlarm:OnChanged(function(p9)
+    if p9 then
+        task.spawn(function()
+            while t2.value14.AutoTurnOffAlarm.Value do
+                local value11_5 = t2.value11
+
+                if value11_5 then
+                    value11_5 = t2.value11:FindFirstChild("Sleeping")
+
+                    if value11_5 then
+                        value11_5 = t2.value11.Sleeping:FindFirstChild("Remotes")
+                    end
+                end
+
+                if value11_5 then
+                    if value11_5:FindFirstChild("DayAlarmReady") then
+                        value11_5.DayAlarmReady:FireServer()
+                    end
+
+                    if value11_5:FindFirstChild("DayAlarmStart") then
+                        value11_5.DayAlarmStart:FireServer(false)
+                    end
+                end
+
+                for _, descendant in ipairs(t2.value8:GetDescendants()) do
+                    local v238 = descendant:IsA("ProximityPrompt")
+
+                    if v238 then
+                        v238 = descendant.Enabled
+
+                        if v238 then
+                            v238 = descendant.Name:lower():find("alarm")
+
+                            if not v238 then
+                                v238 = descendant.Parent
+
+                                if v238 then
+                                    v238 = descendant.Parent.Name:lower():find("clock")
+                                end
+                            end
+                        end
+                    end
+
+                    if v238 then
+                        t2.value6(descendant)
+                    end
+                end
+
+                task.wait(1)
+            end
+        end)
+    end
+end)
+v25:AddToggle("AutoHoldDoor", {
+	Text = "Auto Hold Door Shut",
+	Default = false,
+	Tooltip = "Sends continuous signal to hold the door shut against monsters"
+})
+t2.value14.AutoHoldDoor:OnChanged(function(_)
+    task.spawn(function()
+        while t2.value14.AutoHoldDoor.Value do
+            local value11_6 = t2.value11
+
+            if value11_6 then
+                value11_6 = t2.value11:FindFirstChild("HoldingDoorRemote")
+            end
+
+            if value11_6 then
+                value11_6:FireServer(true)
+            end
+
+            task.wait(0.5)
+        end
+    end)
+end)
+t2.value19 = nil
+pcall(function()
+    t2.value19 = require(t2.value7.Modules.NPC.people)
+end)
+t2.value20 = {
+	human = true,
+	["homeless guy"] = true,
+	["real friend"] = true,
+	person = true
+}
+t2.value21 = {
+	anomaly = true,
+	monster = true,
+	monster1 = true,
+	["knife man"] = true,
+	["roach king"] = true,
+	ghostknock = true,
+	doorbreaker = true,
+	toiletghost = true,
+	securitynoiseanomaly = true,
+	["fake friend"] = true,
+	fakefriend = true,
+	wendigo = true,
+	shadow = true
+}
+function t2.value22()
+    local v56 = tostring(workspace:GetAttribute("CurrentActiveEncounter") or ""):lower()
+
+    if v56 ~= "" then
+        if t2.value21[v56] then
+            return true, v56
+        end
+
+        if t2.value20[v56] then
+            return false, v56
+        end
+
+        if t2.value19 and t2.value19[v56] then
+            if t2.value19[v56].isDeadly == true then
+                return true, v56
+            end
+
+            if t2.value19[v56].isDeadly == false then
+                return false, v56
+            end
+        end
+    end
+
+    local DoorBox = t2.value8:FindFirstChild("DoorBox")
+
+    if not DoorBox then
+        DoorBox = t2.value8:FindFirstChild("door1", true)
+
+        if not DoorBox then
+            DoorBox = t2.value8:FindFirstChild("DoorModel2", true)
+        end
+    end
+
+    if DoorBox then
+        local v58 = DoorBox:IsA("BasePart") and DoorBox.CFrame
+
+        if not v58 then
+            v58 = DoorBox:IsA("Model") and DoorBox:GetPivot()
+        end
+
+        if v58 then
+            for _, descendant in ipairs(t2.value8:GetDescendants()) do
+                local v61 = descendant
+                local v62 = v61:IsA("Model")
+
+                if v62 then
+                    v62 = v61 ~= t2.value10.Character
+
+                    if v62 then
+                        v62 = not v61:IsDescendantOf(t2.value10.Character)
+                    end
+                end
+
+                if v62 then
+                    local v63 = v61.Name:lower()
+                    local v64 = not v63:find("tree")
+
+                    if v64 then
+                        v64 = not v63:find("light")
+
+                        if v64 then
+                            v64 = not v63:find("bed")
+
+                            if v64 then
+                                v64 = not v63:find("breaker")
+                            end
+                        end
+                    end
+
+                    if v64 then
+                        local ok, result = pcall(function()
+                            return v61:GetPivot().Position
+                        end)
+
+                        if ok then
+                            if result then
+                                result = (result - v58.Position).Magnitude < 35
+                            end
+
+                            ok = result
+                        end
+
+                        if ok then
+                            local v67 = v63:find("ghost")
+
+                            if not v67 then
+                                v67 = v63:find("wendigo")
+
+                                if not v67 then
+                                    v67 = v63:find("shadow")
+
+                                    if not v67 then
+                                        v67 = v63:find("fake")
+
+                                        if not v67 then
+                                            v67 = v63:find("clown")
+
+                                            if not v67 then
+                                                v67 = v63:find("monster")
+
+                                                if not v67 then
+                                                    v67 = v63:find("anomaly")
+
+                                                    if not v67 then
+                                                        v67 = v61:GetAttribute("IsAnomaly") == true
+                                                    end
+                                                end
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+
+                            if v67 then
+                                return true, v61.Name
+                            end
+
+                            local v68 = v63:find("human")
+
+                            if not v68 then
+                                v68 = v63:find("person")
+
+                                if not v68 then
+                                    v68 = v63:find("homeless") or v63:find("npc")
+                                end
+                            end
+
+                            if v68 then
+                                return false, v61.Name
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    return nil, nil
+end
+v25:AddToggle("AutoDoorDecider", {
+	Text = "Auto Door Decider (Lock Anomaly / Open Normal)",
+	Default = false,
+	Tooltip = "Reads game engine encounters: LOCKS door if Anomaly, OPENS door if Normal human"
+})
+t2.value14.AutoDoorDecider:OnChanged(function(p11)
+    if p11 then
+        task.spawn(function()
+            local s1 = ""
+
+            while t2.value14.AutoDoorDecider.Value do
+                local v241, v242 = t2.value22()
+                local value11_7 = t2.value11
+
+                if value11_7 then
+                    value11_7 = t2.value11:FindFirstChild("HoldingDoorRemote")
+                end
+
+                if v241 ~= nil then
+                    if v241 == true then
+                        if value11_7 then
+                            value11_7:FireServer(true)
+                        end
+
+                        local v244 = "ANOMALY_" .. tostring(v242)
+
+                        if s1 ~= v244 then
+                            s1 = v244
+                            t2.value5("⚠\239\184\143 ANOMALY AT DOOR (" .. tostring(v242):upper() .. ") -> DOOR LOCKED SHUT!", 4)
+                        end
+                    elseif v241 == false then
+                        if value11_7 then
+                            value11_7:FireServer(false)
+                        end
+                        for v247, v248 in ipairs(t2.value8:GetDescendants()) do
+
+                            local v249 = v248:IsA("ProximityPrompt")
+
+                            if v249 then
+                                v249 = v248.Enabled
+
+                                if v249 then
+                                    v249 = v248.Name:lower():find("door")
+
+                                    if not v249 then
+                                        v249 = v248.Name:lower():find("peek")
+
+                                        if not v249 then
+                                            v249 = v248.Name:lower():find("open")
+                                        end
+                                    end
+                                end
+                            end
+
+                            if v249 then
+                                t2.value6(v248)
+                            end
+                        end
+                        local v250 = "NORMAL_" .. tostring(v242)
+                        if s1 ~= v250 then
+                            s1 = v250
+                            t2.value5("✅ SAFE VISITOR AT DOOR (" .. tostring(v242):upper() .. ") -> DOOR OPENED!", 4)
+                        end
+                    end
+                else
+                    s1 = ""
+                end
+
+                task.wait(0.3)
+            end
+        end)
+    end
+end)
+workspace:GetAttributeChangedSignal("CurrentActiveEncounter"):Connect(function()
+    local AutoDoorDecider = t2.value14.AutoDoorDecider
+
+    if AutoDoorDecider then
+        AutoDoorDecider = t2.value14.AutoDoorDecider.Value
+    end
+
+    if AutoDoorDecider then
+        local v71, v72 = t2.value22()
+        local value11_8 = t2.value11
+
+        if value11_8 then
+            value11_8 = t2.value11:FindFirstChild("HoldingDoorRemote")
+        end
+
+        if v71 == true and value11_8 then
+            value11_8:FireServer(true)
+            t2.value5("⚠\239\184\143 INSTANT ANOMALY ENCOUNTER (" .. tostring(v72):upper() .. ") -> LOCKED DOOR SHUT!", 4)
+
+            return
+        end
+
+        if v71 == false and value11_8 then
+            value11_8:FireServer(false)
+
+            for _, descendant in ipairs(t2.value8:GetDescendants()) do
+                local v76 = descendant:IsA("ProximityPrompt")
+
+                if v76 then
+                    v76 = descendant.Enabled
+
+                    if v76 then
+                        v76 = descendant.Name:lower():find("door")
+
+                        if not v76 then
+                            v76 = descendant.Name:lower():find("peek")
+
+                            if not v76 then
+                                v76 = descendant.Name:lower():find("open")
+                            end
+                        end
+                    end
+                end
+
+                if v76 then
+                    t2.value6(descendant)
+                end
+            end
+
+            t2.value5("✅ INSTANT SAFE VISITOR (" .. tostring(v72):upper() .. ") -> OPENED DOOR!", 4)
+        end
+    end
+end)
+v25:AddToggle("AutoAnswerPhone", {
+	Text = "Auto Answer & Skip Phone",
+	Default = false,
+	Tooltip = "Automatically handles incoming phone call events"
+})
+t2.value14.AutoAnswerPhone:OnChanged(function(_)
+    task.spawn(function()
+        while t2.value14.AutoAnswerPhone.Value do
+            local value11_9 = t2.value11
+
+            if value11_9 then
+                value11_9 = t2.value11:FindFirstChild("PhoneCall")
+            end
+
+            if value11_9 then
+                if value11_9:FindFirstChild("CallStart") then
+                    value11_9.CallStart:FireServer()
+                end
+
+                if value11_9:FindFirstChild("SkipVote") then
+                    value11_9.SkipVote:FireServer()
+                end
+            end
+
+            task.wait(2)
+        end
+    end)
+end)
+v25:AddToggle("AutoSkipIntro", {
+	Text = "Auto Skip Intro Cutscenes",
+	Default = false,
+	Tooltip = "Automatically votes to skip cutscenes"
+})
+t2.value14.AutoSkipIntro:OnChanged(function(_)
+    task.spawn(function()
+        while t2.value14.AutoSkipIntro.Value do
+            local value11_10 = t2.value11
+
+            if value11_10 then
+                value11_10 = t2.value11:FindFirstChild("Intro")
+            end
+
+            local v253 = value11_10
+
+            if value11_10 then
+                v253 = value11_10:FindFirstChild("VoteSkip")
+            end
+
+            if v253 then
+                value11_10.VoteSkip:FireServer()
+            end
+
+            task.wait(2)
+        end
+    end)
+end)
+v25:AddToggle("AutoFreeRevive", {
+	Text = "Auto Free Revive On Down",
+	Default = false,
+	Tooltip = "Automatically requests a free revive upon down"
+})
+t2.value14.AutoFreeRevive:OnChanged(function(_)
+    task.spawn(function()
+        while t2.value14.AutoFreeRevive.Value do
+            local value11_11 = t2.value11
+
+            if value11_11 then
+                value11_11 = t2.value11:FindFirstChild("Sleeping")
+
+                if value11_11 then
+                    value11_11 = t2.value11.Sleeping.Remotes
+                end
+            end
+
+            if value11_11 and value11_11:FindFirstChild("FreeRevive") then
+                value11_11.FreeRevive:FireServer()
+            end
+
+            local value12 = t2.value12
+
+            if value12 then
+                value12 = t2.value12:FindFirstChild("AdminFreeRevive")
+            end
+
+            if value12 then
+                t2.value12.AdminFreeRevive:FireServer()
+            end
+
+            task.wait(1.5)
+        end
+    end)
+end)
+
+local v26 = v13:AddLeftGroupbox("Active Defense Controls")
+
+v26:AddButton({
+	Text = "Trigger Spider Spray Blast",
+	Func = function()
+    local value11_12 = t2.value11
+
+    if value11_12 then
+        value11_12 = t2.value11:FindFirstChild("SpiderSprayEffect")
+    end
+
+    if value11_12 then
+        value11_12:FireServer()
+        t2.value5("Spider spray triggered!", 3)
+    end
+end,
+	Tooltip = "Clears spiders around player"
+})
+v26:AddButton({
+	Text = "Clear All Active Ghosts",
+	Func = function()
+    local value12 = t2.value12
+
+    if value12 then
+        value12 = t2.value12:FindFirstChild("ClearActiveGhosts")
+    end
+
+    if value12 then
+        t2.value12.ClearActiveGhosts:FireServer()
+        t2.value5("Active ghosts cleared!", 3)
+
+        return
+    end
+
+    t2.value5("Legacy remote unverified on server", 3)
+end,
+	Tooltip = "Forces server to despawn active horror entities"
+})
+local v27 = v14:AddLeftGroupbox("Master Automation")
+local v28 = v14:AddRightGroupbox("Individual Task Controls")
+
+t2.value23 = nil
+function t2.value23(p15)
+    local v83 = p15.Name:lower()
+    local p15Parent = p15.Parent
+
+    if p15Parent then
+        p15Parent = p15.Parent.Name:lower()
+    end
+
+    local v85 = p15Parent or ""
+    local v86 = p15:GetFullName():lower()
+    local v87 = v83:find("hide")
+
+    if not v87 then
+        v87 = v83:find("sleep")
+
+        if not v87 then
+            v87 = v85:find("hide")
+
+            if not v87 then
+                v87 = v85:find("sleep")
+            end
+        end
+    end
+
+    if v87 then
+        return false
+    end
+
+    local TaskBreaker = t2.value14.TaskBreaker
+
+    if TaskBreaker then
+        TaskBreaker = t2.value14.TaskBreaker.Value
+
+        if TaskBreaker then
+            TaskBreaker = v83:find("breaker")
+
+            if not TaskBreaker then
+                TaskBreaker = v86:find("breaker")
+            end
+        end
+    end
+
+    if TaskBreaker then
+        return true
+    end
+
+    local TaskTrash = t2.value14.TaskTrash
+
+    if TaskTrash then
+        TaskTrash = t2.value14.TaskTrash.Value
+
+        if TaskTrash then
+            TaskTrash = v83:find("trash")
+
+            if not TaskTrash then
+                TaskTrash = v86:find("trash")
+            end
+        end
+    end
+
+    if TaskTrash then
+        return true
+    end
+
+    local TaskCat = t2.value14.TaskCat
+
+    if TaskCat then
+        TaskCat = t2.value14.TaskCat.Value
+
+        if TaskCat then
+            TaskCat = v83:find("food")
+
+            if not TaskCat then
+                TaskCat = v83:find("water")
+
+                if not TaskCat then
+                    TaskCat = v86:find("catbowl")
+                end
+            end
+        end
+    end
+
+    if TaskCat then
+        return true
+    end
+
+    local TaskCurtains = t2.value14.TaskCurtains
+
+    if TaskCurtains then
+        TaskCurtains = t2.value14.TaskCurtains.Value
+
+        if TaskCurtains then
+            TaskCurtains = v83:find("curtain")
+
+            if not TaskCurtains then
+                TaskCurtains = v86:find("curtain")
+            end
+        end
+    end
+
+    if TaskCurtains then
+        return true
+    end
+
+    local TaskFlyers = t2.value14.TaskFlyers
+
+    if TaskFlyers then
+        TaskFlyers = t2.value14.TaskFlyers.Value
+
+        if TaskFlyers then
+            TaskFlyers = v83:find("flyer")
+
+            if not TaskFlyers then
+                TaskFlyers = v83:find("paper")
+
+                if not TaskFlyers then
+                    TaskFlyers = v86:find("paper") or v86:find("flyer")
+                end
+            end
+        end
+    end
+
+    if TaskFlyers then
+        return true
+    end
+
+    local TaskPlants = t2.value14.TaskPlants
+
+    if TaskPlants then
+        TaskPlants = t2.value14.TaskPlants.Value
+
+        if TaskPlants then
+            TaskPlants = v83:find("plant")
+
+            if not TaskPlants then
+                TaskPlants = v86:find("plant")
+            end
+        end
+    end
+
+    if TaskPlants then
+        return true
+    end
+
+    local TaskClock = t2.value14.TaskClock
+
+    if TaskClock then
+        TaskClock = t2.value14.TaskClock.Value
+
+        if TaskClock then
+            TaskClock = v83:find("clock") or v86:find("clock")
+        end
+    end
+
+    if TaskClock then
+        return true
+    end
+
+    local TaskLights = t2.value14.TaskLights
+
+    if TaskLights then
+        TaskLights = t2.value14.TaskLights.Value
+
+        if TaskLights then
+            TaskLights = v83:find("light") or v86:find("light")
+        end
+    end
+
+    if TaskLights then
+        return true
+    end
+
+    local TaskPhone = t2.value14.TaskPhone
+
+    if TaskPhone then
+        TaskPhone = t2.value14.TaskPhone.Value
+
+        if TaskPhone then
+            TaskPhone = v83:find("phone")
+
+            if not TaskPhone then
+                TaskPhone = v86:find("telephone")
+            end
+        end
+    end
+
+    if TaskPhone then
+        return true
+    end
+
+    return false
+end
+function t2.value24()
+    local n1 = 0
+
+    for _, descendant in ipairs(t2.value8:GetDescendants()) do
+        local v100 = descendant:IsA("ProximityPrompt")
+
+        if v100 then
+            v100 = descendant.Enabled and t2.value23(descendant)
+        end
+
+        if v100 then
+            t2.value6(descendant)
+            n1 += 1
+        end
+    end
+
+    return n1
+end
+v27:AddToggle("AutoMasterTasks", {
+	Text = "ALL TASKS (Master Toggle)",
+	Default = false,
+	Tooltip = "Master toggle: Enables/Disables all task toggles simultaneously"
+})
+t2.value14.AutoMasterTasks:OnChanged(function(p16)
+    for _, v in ipairs({
+		"TaskBreaker",
+		"TaskTrash",
+		"TaskCat",
+		"TaskCurtains",
+		"TaskFlyers",
+		"TaskPlants",
+		"TaskClock",
+		"TaskLights",
+		"TaskPhone"
+	}) do
+        if t2.value14[v] then
+            t2.value14[v]:SetValue(p16)
+        end
+    end
+end)
+v27:AddToggle("AutoLoopTasks", {
+	Text = "Auto Loop Completion",
+	Default = false,
+	Tooltip = "Continuously completes enabled tasks every 1.5 seconds"
+})
+t2.value14.AutoLoopTasks:OnChanged(function(p17)
+    if p17 then
+        task.spawn(function()
+            while t2.value14.AutoLoopTasks.Value do
+                t2.value24()
+                task.wait(1.5)
+            end
+        end)
+    end
+end)
+v27:AddButton({
+	Text = "Complete All Tasks Now",
+	Func = function()
+    local n2 = 0
+
+    for _, descendant in ipairs(t2.value8:GetDescendants()) do
+        if descendant:IsA("ProximityPrompt") and descendant.Enabled then
+            local v108 = descendant.Name:lower()
+            local descendantParent = descendant.Parent
+
+            if descendantParent then
+                descendantParent = descendant.Parent.Name:lower()
+            end
+
+            local v110 = descendantParent or ""
+            local v111 = not v108:find("hide")
+
+            if v111 then
+                v111 = not v108:find("sleep")
+
+                if v111 then
+                    v111 = not v110:find("hide") and not v110:find("sleep")
+                end
+            end
+
+            if v111 then
+                t2.value6(descendant)
+                n2 += 1
+            end
+        end
+    end
+
+    t2.value5("Completed " .. tostring(n2) .. " task prompts!", 4)
+end
+})
+v28:AddToggle("TaskBreaker", {
+	Text = "Fix Breaker Box",
+	Default = false
+})
+v28:AddToggle("TaskTrash", {
+	Text = "Clean Trash Piles",
+	Default = false
+})
+v28:AddToggle("TaskCat", {
+	Text = "Feed & Water Cat",
+	Default = false
+})
+v28:AddToggle("TaskCurtains", {
+	Text = "Close Curtains",
+	Default = false
+})
+v28:AddToggle("TaskFlyers", {
+	Text = "Collect Flyers & Notes",
+	Default = false
+})
+v28:AddToggle("TaskPlants", {
+	Text = "Water Plants",
+	Default = false
+})
+v28:AddToggle("TaskClock", {
+	Text = "Set Digital Clock",
+	Default = false
+})
+v28:AddToggle("TaskLights", {
+	Text = "Fix Light Switches",
+	Default = false
+})
+v28:AddToggle("TaskPhone", {
+	Text = "Answer Telephone",
+	Default = false
+})
+local v29 = v16:AddLeftGroupbox("Currency & Progression")
+
+v29:AddButton({
+	Text = "Give +$10,000 Cash",
+	Func = function()
+    local value12 = t2.value12
+
+    if value12 then
+        value12 = t2.value12:FindFirstChild("DeveloperCashGive")
+    end
+
+    if value12 then
+        t2.value12.DeveloperCashGive:FireServer(10000)
+        t2.value5("Granted $10,000 Cash!", 3)
+
+        return
+    end
+
+    t2.value5("DeveloperCashGive remote unverified", 3)
+end
+})
+v29:AddButton({
+	Text = "Grant Revive & Jumpscare Tokens",
+	Func = function()
+    local value12 = t2.value12
+
+    if value12 then
+        value12 = t2.value12:FindFirstChild("GrantTokenRemote")
+    end
+
+    if value12 then
+        t2.value12.GrantTokenRemote:FireServer(10)
+        t2.value5("Granted 10 Tokens!", 3)
+    end
+end
+})
+v29:AddButton({
+	Text = "Max Out All Upgrades",
+	Func = function()
+    local value12 = t2.value12
+
+    if value12 then
+        value12 = t2.value12:FindFirstChild("DebugGiveAllUpgrades")
+    end
+
+    if value12 then
+        t2.value12.DebugGiveAllUpgrades:FireServer()
+        t2.value5("Maxed all upgrades!", 3)
+    end
+end
+})
+v29:AddButton({
+	Text = "Unlock All Endings",
+	Func = function()
+    local value12 = t2.value12
+
+    if value12 then
+        value12 = t2.value12:FindFirstChild("UnlockAllEndings")
+    end
+
+    if value12 then
+        t2.value12.UnlockAllEndings:FireServer()
+        t2.value5("Unlocked all endings!", 3)
+    end
+end
+})
+v29:AddButton({
+	Text = "Unlock Shop Items",
+	Func = function()
+    local value12 = t2.value12
+
+    if value12 then
+        value12 = t2.value12:FindFirstChild("UnlockShopItems")
+    end
+
+    if value12 then
+        t2.value12.UnlockShopItems:FireServer()
+        t2.value5("Shop items unlocked!", 3)
+    end
+end
+})
+v29:AddButton({
+	Text = "FIRE ALL REMOTES (Mass Execution)",
+	Func = function()
+    local n3 = 0
+
+    if t2.value11 then
+        for _, descendant in ipairs(t2.value11:GetDescendants()) do
+            local v120 = descendant
+
+            if v120:IsA("RemoteEvent") then
+                local v121 = v120.Name:lower()
+                local v122 = false
+
+                for _, v in ipairs({
+						"leavetolobby",
+						"death",
+						"retryvote",
+						"forceleavecam",
+						"jumpscare",
+						"doorbreakerjumpscare",
+						"anomalysleepjumpscare",
+						"windowghostjumpscare"
+					}) do
+                    if v121:find(v) then
+                        v122 = true
+
+                        break
+                    end
+                end
+
+                if not v122 then
+                    pcall(function()
+                        local v256 = v121:find("cash")
+
+                        if not v256 then
+                            v256 = v121:find("give")
+                        end
+
+                        if v256 then
+                            v120:FireServer(100000)
+
+                            return
+                        end
+
+                        if v121:find("token") then
+                            v120:FireServer(50)
+
+                            return
+                        end
+
+                        v120:FireServer()
+                    end)
+                    n3 += 1
+                end
+            end
+        end
+    end
+
+    t2.value5("Safely fired " .. tostring(n3) .. " benefit remotes!", 4)
+end,
+	Tooltip = "Triggers all safe benefit remotes (excludes LeaveToLobby, Death, and Jumpscares)"
+})
+local v30 = v17:AddLeftGroupbox("Game Cycle Overrides")
+
+v30:AddButton({
+	Text = "Skip Current Night",
+	Func = function()
+    local value12 = t2.value12
+
+    if value12 then
+        value12 = t2.value12:FindFirstChild("SkipNightRemote")
+    end
+
+    if value12 then
+        t2.value12.SkipNightRemote:FireServer()
+        t2.value5("Skipped Night!", 3)
+    end
+end
+})
+v30:AddInput("SetDayInput", {
+	Default = "1",
+	Numeric = true,
+	Finished = true,
+	Text = "Target Day Number",
+	Placeholder = "Enter Day (1-10)..."
+})
+v30:AddButton({
+	Text = "Set Day Level",
+	Func = function()
+    local v126 = tonumber(t2.value13.SetDayInput.Value) or 1
+    local value12 = t2.value12
+
+    if value12 then
+        value12 = t2.value12:FindFirstChild("SetDayValue")
+    end
+
+    if value12 then
+        t2.value12.SetDayValue:FireServer(v126)
+        t2.value5("Set day to: " .. tostring(v126), 3)
+    end
+end
+})
+local v31 = v19:AddLeftGroupbox("Speed & Stamina Hacks")
+
+v31:AddSlider("WalkSpeedSlider", {
+	Text = "Walk / Sprint Speed",
+	Default = 16,
+	Min = 16,
+	Max = 120,
+	Rounding = 0
+})
+t2.value13.WalkSpeedSlider:OnChanged(function(p18)
+    local Character = t2.value10.Character
+
+    if Character then
+        Character = t2.value10.Character:FindFirstChild("Humanoid")
+    end
+
+    if Character then
+        t2.value10.Character.Humanoid.WalkSpeed = p18
+    end
+
+    t2.value10:SetAttribute("SprintSpeed", p18)
+    t2.value10:SetAttribute("WalkSpeed", p18)
+end)
+v31:AddToggle("InfiniteStamina", {
+	Text = "Infinite Stamina",
+	Default = false,
+	Tooltip = "Locks stamina attribute to 100%"
+})
+t2.value14.InfiniteStamina:OnChanged(function(_)
+    task.spawn(function()
+        while t2.value14.InfiniteStamina.Value do
+            t2.value10:SetAttribute("Stamina", 100)
+            t2.value10:SetAttribute("MaxStamina", 100)
+            task.wait(0.2)
+        end
+    end)
+end)
+t2.value25 = 50
+t2.value26 = false
+t2.value27 = nil
+t2.value28 = nil
+v31:AddSlider("FlySpeedSlider", {
+	Text = "Fly Speed",
+	Default = 50,
+	Min = 10,
+	Max = 200,
+	Rounding = 0
+})
+t2.value13.FlySpeedSlider:OnChanged(function(p20)
+    t2.value25 = p20
+end)
+v31:AddToggle("FlyToggle", {
+	Text = "Fly (Flight Mode)",
+	Default = false,
+	Tooltip = "Allows you to fly around freely (WASD + Space/Shift)"
+})
+t2.value14.FlyToggle:OnChanged(function(p21)
+    t2.value26 = p21
+
+    local Character = t2.value10.Character
+
+    if Character then
+        Character = Character:FindFirstChild("HumanoidRootPart")
+    end
+
+    if not Character then
+        return
+    end
+
+    if t2.value26 then
+        t2.value27 = Instance.new("BodyVelocity")
+        t2.value27.Name = "UltraFlyVel"
+        t2.value27.MaxForce = Vector3.new(1000000000, 1000000000, 1000000000)
+        t2.value27.Velocity = Vector3.zero
+        t2.value27.Parent = Character
+        t2.value28 = Instance.new("BodyGyro")
+        t2.value28.Name = "UltraFlyGyro"
+        t2.value28.MaxTorque = Vector3.new(1000000000, 1000000000, 1000000000)
+        t2.value28.P = 90000
+        t2.value28.CFrame = Character.CFrame
+        t2.value28.Parent = Character
+        task.spawn(function()
+            local CurrentCamera = t2.value8.CurrentCamera
+            local UserInputService = game:GetService("UserInputService")
+
+            while true do
+                local value26 = t2.value26
+
+                if value26 then
+                    value26 = t2.value27
+
+                    if value26 then
+                        value26 = t2.value27.Parent
+                    end
+                end
+
+                if not value26 then
+                    break
+                end
+
+                local zero = Vector3.zero
+
+                if UserInputService:IsKeyDown(Enum.KeyCode.W) then
+                    zero += CurrentCamera.CFrame.LookVector
+                end
+
+                if UserInputService:IsKeyDown(Enum.KeyCode.S) then
+                    zero -= CurrentCamera.CFrame.LookVector
+                end
+
+                if UserInputService:IsKeyDown(Enum.KeyCode.A) then
+                    zero -= CurrentCamera.CFrame.RightVector
+                end
+
+                if UserInputService:IsKeyDown(Enum.KeyCode.D) then
+                    zero += CurrentCamera.CFrame.RightVector
+                end
+
+                if UserInputService:IsKeyDown(Enum.KeyCode.Space) then
+                    zero += Vector3.new(0, 1, 0)
+                end
+
+                if UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) then
+                    zero -= Vector3.new(0, 1, 0)
+                end
+
+                t2.value27.Velocity = zero * t2.value25
+                t2.value28.CFrame = CurrentCamera.CFrame
+                task.wait()
+            end
+        end)
+
+        return
+    end
+
+    if t2.value27 then
+        t2.value27:Destroy()
+    end
+
+    if t2.value28 then
+        t2.value28:Destroy()
+    end
+end)
+
+local v32 = v20:AddLeftGroupbox("Invincibility & Environment")
+
+v32:AddToggle("InfiniteSanity", {
+	Text = "Infinite Sanity",
+	Default = false,
+	Tooltip = "Locks sanity attribute to 100 and fires SanityInfinity"
+})
+t2.value14.InfiniteSanity:OnChanged(function(_)
+    task.spawn(function()
+        while t2.value14.InfiniteSanity.Value do
+            t2.value10:SetAttribute("Sanity", 100)
+            t2.value10:SetAttribute("SanityMax", 100)
+
+            local value12 = t2.value12
+
+            if value12 then
+                value12 = t2.value12:FindFirstChild("SanityInfinity")
+            end
+
+            if value12 then
+                t2.value12.SanityInfinity:FireServer(true)
+            end
+
+            task.wait(0.5)
+        end
+    end)
+end)
+v32:AddToggle("GodMode", {
+	Text = "Infinite Health (Anomaly Immunity)",
+	Default = false,
+	Tooltip = "Prevents all anomalies and monsters from killing or damaging you"
+})
+t2.value14.GodMode:OnChanged(function(p23)
+    local value12 = t2.value12
+
+    if value12 then
+        value12 = t2.value12:FindFirstChild("GodModeToggle")
+    end
+
+    if value12 then
+        t2.value12.GodModeToggle:FireServer(p23)
+    end
+
+    if p23 then
+        task.spawn(function()
+            while t2.value14.GodMode.Value do
+                local Character = t2.value10.Character
+
+                if Character then
+                    local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+
+                    if Humanoid then
+                        Humanoid.MaxHealth = 1000000
+                        Humanoid.Health = 1000000
+                    end
+                end
+
+                task.wait(0.1)
+            end
+        end)
+    end
+end)
+t2.value10.CharacterAdded:Connect(function(character)
+    local GodMode = t2.value14.GodMode
+
+    if GodMode then
+        GodMode = t2.value14.GodMode.Value
+    end
+
+    if GodMode then
+        task.wait(0.5)
+
+        local Humanoid = character:WaitForChild("Humanoid", 3)
+
+        if Humanoid then
+            Humanoid.MaxHealth = 1000000
+            Humanoid.Health = 1000000
+        end
+    end
+end)
+v32:AddToggle("NoClip", {
+	Text = "NoClip (Pass Through Walls)",
+	Default = false
+})
+RunService.Stepped:Connect(function()
+    local NoClip = t2.value14.NoClip
+
+    if NoClip then
+        NoClip = t2.value14.NoClip.Value
+
+        if NoClip then
+            NoClip = t2.value10.Character
+        end
+    end
+
+    if NoClip then
+        for _, descendant in ipairs(t2.value10.Character:GetDescendants()) do
+            if descendant:IsA("BasePart") and descendant.CanCollide then
+                descendant.CanCollide = false
+            end
+        end
+    end
+end)
+v32:AddToggle("InfiniteFlashlight", {
+	Text = "Infinite Flashlight Battery",
+	Default = false
+})
+t2.value14.InfiniteFlashlight:OnChanged(function(p24)
+    local value12 = t2.value12
+
+    if value12 then
+        value12 = t2.value12:FindFirstChild("FlashlightInfinite")
+    end
+
+    if value12 then
+        t2.value12.FlashlightInfinite:FireServer(p24)
+    end
+end)
+v32:AddToggle("Fullbright", {
+	Text = "Fullbright (Max Illumination)",
+	Default = false
+})
+t2.value14.Fullbright:OnChanged(function(p25)
+    if p25 then
+        t2.value9.Ambient = Color3.fromRGB(255, 255, 255)
+        t2.value9.OutdoorAmbient = Color3.fromRGB(255, 255, 255)
+        t2.value9.Brightness = 3
+        t2.value9.FogEnd = 1000000
+
+        return
+    end
+
+    t2.value9.Ambient = t2.value16.Ambient
+    t2.value9.OutdoorAmbient = t2.value16.OutdoorAmbient
+    t2.value9.Brightness = t2.value16.Brightness
+    t2.value9.FogEnd = t2.value16.FogEnd
+end)
+
+local v33 = v22:AddLeftGroupbox("ESP Highlights")
+
+function t2.value29(p26, p27, p28)
+    if not p26 or t2.value15[p26] then
+        return
+    end
+
+    local Highlight = Instance.new("Highlight")
+
+    Highlight.Name = "UltraESP_" .. p28
+    Highlight.Adornee = p26
+    Highlight.FillColor = p27
+    Highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+    Highlight.FillTransparency = 0.5
+    Highlight.OutlineTransparency = 0
+    Highlight.Parent = p26
+    t2.value15[p26] = Highlight
+end
+local function v34()
+    for _, v in pairs(t2.value15) do
+        if v and v.Parent then
+            v:Destroy()
+        end
+    end
+
+    table.clear(t2.value15)
+end
+v33:AddToggle("ESPMonsters", {
+	Text = "Highlight Monsters / Entities",
+	Default = false
+})
+t2.value14.ESPMonsters:OnChanged(function(p29)
+    if not p29 then
+        v34()
+
+        return
+    end
+
+    task.spawn(function()
+        while t2.value14.ESPMonsters.Value do
+            for _, descendant in ipairs(t2.value8:GetDescendants()) do
+                local v266 = descendant:IsA("Model")
+
+                if v266 then
+                    v266 = descendant.Name:find("Ghost")
+
+                    if not v266 then
+                        v266 = descendant.Name:find("Wendigo")
+
+                        if not v266 then
+                            v266 = descendant.Name:find("Spider")
+
+                            if not v266 then
+                                v266 = descendant.Name:find("Shadow")
+
+                                if not v266 then
+                                    v266 = descendant:FindFirstChildOfClass("Humanoid")
+                                end
+                            end
+                        end
+                    end
+                end
+
+                if v266 and descendant ~= t2.value10.Character then
+                    t2.value29(descendant, Color3.fromRGB(255, 50, 50), "Monster")
+                end
+            end
+
+            task.wait(2)
+        end
+    end)
+end)
+v33:AddToggle("ESPBreakerBox", {
+	Text = "Highlight Breaker Box",
+	Default = false
+})
+t2.value14.ESPBreakerBox:OnChanged(function(p30)
+    if p30 then
+        local BreakerBox = t2.value8:FindFirstChild("BreakerBox", true)
+
+        if BreakerBox then
+            t2.value29(BreakerBox, Color3.fromRGB(255, 255, 0), "Breaker")
+        end
+    end
+end)
+v33:AddToggle("ESPBedDoor", {
+	Text = "Highlight Bed & Doors",
+	Default = false
+})
+t2.value14.ESPBedDoor:OnChanged(function(p31)
+    if p31 then
+        for _, descendant in ipairs(t2.value8:GetDescendants()) do
+            local v158 = descendant:IsA("Model")
+
+            if v158 then
+                v158 = descendant.Name:lower():find("bed")
+
+                if not v158 then
+                    v158 = descendant.Name:lower():find("door")
+                end
+            end
+
+            if v158 then
+                t2.value29(descendant, Color3.fromRGB(50, 150, 255), "Interactable")
+            end
+        end
+    end
+end)
+
+local v35 = v23:AddLeftGroupbox("Anomaly Radar & Detection")
+
+t2.value30 = nil
+t2.value31 = {}
+t2.value30 = {}
+function t2.value32(p32, p33)
+    if not p32 or t2.value30[p32] then
+        return
+    end
+
+    local v166 = p32:IsA("Model")
+
+    if v166 then
+        v166 = p32.PrimaryPart
+
+        if not v166 then
+            v166 = p32:FindFirstChildOfClass("BasePart")
+        end
+    end
+
+    local v167 = v166 or p32
+    local v168 = not v167
+
+    if not v168 then
+        v168 = not v167:IsA("BasePart")
+    end
+
+    if v168 then
+        return
+    end
+
+    local BillboardGui = Instance.new("BillboardGui")
+
+    BillboardGui.Name = "AnomalyRadarLabel"
+    BillboardGui.Adornee = v167
+    BillboardGui.Size = UDim2.new(0, 200, 0, 50)
+    BillboardGui.StudsOffset = Vector3.new(0, 3, 0)
+    BillboardGui.AlwaysOnTop = true
+
+    local TextLabel = Instance.new("TextLabel")
+
+    TextLabel.Size = UDim2.new(1, 0, 1, 0)
+    TextLabel.BackgroundTransparency = 1
+    TextLabel.Text = "⚠\239\184\143 ANOMALY: " .. p33
+    TextLabel.TextColor3 = Color3.fromRGB(255, 50, 50)
+    TextLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel.TextStrokeTransparency = 0
+    TextLabel.Font = Enum.Font.SourceSansBold
+    TextLabel.TextSize = 18
+    TextLabel.Parent = BillboardGui
+    BillboardGui.Parent = v167
+    t2.value30[p32] = BillboardGui
+end
+function t2.value33()
+    for _, v in pairs(t2.value30) do
+        if v and v.Parent then
+            v:Destroy()
+        end
+    end
+
+    table.clear(t2.value30)
+end
+function t2.value34()
+    local t3 = {}
+
+    for _, descendant in ipairs(t2.value8:GetDescendants()) do
+        if descendant:IsA("Model") or descendant:IsA("BasePart") then
+            local descendantName = descendant.Name
+            local v163 = descendantName:find("Ghost")
+
+            if not v163 then
+                v163 = descendantName:find("Wendigo")
+
+                if not v163 then
+                    v163 = descendantName:find("Shadow")
+
+                    if not v163 then
+                        v163 = descendantName:find("FakeFriend")
+
+                        if not v163 then
+                            v163 = descendantName:find("Anomaly")
+
+                            if not v163 then
+                                v163 = descendantName:find("CarpetModel2")
+
+                                if not v163 then
+                                    v163 = descendantName:find("Trashcan2")
+
+                                    if not v163 then
+                                        v163 = descendantName:find("Plant2")
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+
+            if v163 then
+                table.insert(t3, {
+					instance = descendant,
+					name = descendantName
+				})
+            end
+        end
+    end
+
+    return t3
+end
+v35:AddToggle("AutoDetectAnomalies", {
+	Text = "Enable Live Anomaly Radar",
+	Default = false,
+	Tooltip = "Continuously scans and highlights active anomalies with alerts"
+})
+t2.value14.AutoDetectAnomalies:OnChanged(function(p34)
+    if not p34 then
+        t2.value33()
+
+        return
+    end
+
+    task.spawn(function()
+        while t2.value14.AutoDetectAnomalies.Value do
+            local v267 = t2.value34()
+
+            if #v267 > 0 then
+                for _, v in ipairs(v267) do
+                    if not t2.value31[v.instance] then
+                        t2.value31[v.instance] = true
+                        t2.value5("⚠\239\184\143 ANOMALY DETECTED: " .. v.name, 4)
+                    end
+
+                    t2.value29(v.instance, Color3.fromRGB(255, 0, 255), "AnomalyRadar")
+                    t2.value32(v.instance, v.name)
+                end
+            else
+                table.clear(t2.value31)
+            end
+
+            task.wait(1.5)
+        end
+    end)
+end)
+
+local value11_13 = t2.value11
+if value11_13 then
+    value11_13 = t2.value11:FindFirstChild("AnomalyItemSpotted")
+end
+t2.value35 = value11_13
+local value35 = t2.value35
+if value35 then
+    value35 = t2.value35:IsA("RemoteEvent")
+end
+if value35 then
+    t2.value35.OnClientEvent:Connect(function(...)
+        t2.value5("⚠\239\184\143 SERVER ANOMALY ALERT: " .. tostring(... or "Spotted"), 5)
+    end)
+end
+v35:AddButton({
+	Text = "Scan & Auto-Report Anomalies",
+	Func = function()
+    local v174 = t2.value34()
+
+    if #v174 == 0 then
+        t2.value5("No active anomalies detected nearby.", 3)
+
+        return
+    end
+
+    for _, v in ipairs(v174) do
+        if t2.value35 then
+            t2.value35:FireServer(v.instance)
+        end
+
+        t2.value5("Reported anomaly: " .. v.name, 3)
+    end
+end,
+	Tooltip = "Triggers server spot remote for all active anomalies"
+})
+local v38 = v24:AddLeftGroupbox("Shortcuts & Teleports")
+
+function t2.value36(p35)
+    if not p35 then
+        return nil
+    end
+
+    if p35:IsA("BasePart") then
+        return p35.CFrame
+    end
+
+    if p35:IsA("Model") then
+        if p35.PrimaryPart then
+            return p35.PrimaryPart.CFrame
+        end
+
+        local ok, result = pcall(function()
+            return p35:GetPivot()
+        end)
+
+        if ok and result then
+            return result
+        end
+
+        local BasePart = p35:FindFirstChildWhichIsA("BasePart", true)
+
+        if BasePart then
+            return BasePart.CFrame
+        end
+    end
+
+    return nil
+end
+t2.value37 = nil
+function t2.value37(p36)
+    if not p36 then
+        return nil
+    end
+
+    local p36Position = p36.Position
+    local raycastParams = RaycastParams.new()
+
+    pcall(function()
+        if Enum.RaycastFilterType.Exclude then
+            raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+
+            return
+        end
+
+        if Enum.RaycastFilterType.Blacklist then
+            raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+        end
+    end)
+
+    if t2.value10.Character then
+        raycastParams.FilterDescendantsInstances = { t2.value10.Character }
+    end
+
+    local raycastResult = t2.value8:Raycast(p36Position + Vector3.new(0, 15, 0), Vector3.new(0, -60, 0), raycastParams)
+
+    if raycastResult then
+        return CFrame.new(raycastResult.Position + Vector3.new(0, 3.5, 0))
+    end
+
+    return p36 + Vector3.new(0, 3.5, 0)
+end
+function t2.value38(p37)
+    if not p37 then
+        return false
+    end
+
+    local Character = t2.value10.Character
+
+    if not Character then
+        return false
+    end
+
+    local HumanoidRootPart = Character:FindFirstChild("HumanoidRootPart")
+
+    if not HumanoidRootPart then
+        return false
+    end
+
+    local v188 = t2.value37(p37)
+
+    pcall(function()
+        HumanoidRootPart.Anchored = true
+        HumanoidRootPart.AssemblyLinearVelocity = Vector3.zero
+        HumanoidRootPart.AssemblyAngularVelocity = Vector3.zero
+        Character:PivotTo(v188)
+        HumanoidRootPart.CFrame = v188
+    end)
+    task.delay(0.4, function()
+        local v270 = HumanoidRootPart
+
+        if v270 then
+            v270 = HumanoidRootPart.Parent
+        end
+
+        if v270 then
+            HumanoidRootPart.Anchored = false
+            HumanoidRootPart.AssemblyLinearVelocity = Vector3.zero
+            HumanoidRootPart.AssemblyAngularVelocity = Vector3.zero
+        end
+    end)
+
+    return true
+end
+task.spawn(function()
+    while task.wait(1) do
+        local Character = t2.value10.Character
+        local v190 = Character and Character:FindFirstChild("HumanoidRootPart")
+
+        if v190 then
+            v190 = v190.Position.Y < -30
+        end
+
+        if v190 then
+            local DoorBox = t2.value8:FindFirstChild("DoorBox")
+
+            if not DoorBox then
+                DoorBox = t2.value8:FindFirstChild("bed", true)
+            end
+
+            local v192 = t2.value36(DoorBox)
+
+            if not v192 then
+                v192 = CFrame.new(0, 5, 0)
+            end
+
+            t2.value38(v192)
+            t2.value5("⚠\239\184\143 Anti-Void Triggered: Teleported back to Room!", 3)
+        end
+    end
+end)
+v38:AddButton({
+	Text = "Teleport to Bed",
+	Func = function()
+    local BedBox = t2.value8:FindFirstChild("BedBox")
+
+    if not BedBox then
+        BedBox = t2.value8:FindFirstChild("bed", true)
+    end
+
+    local v194 = t2.value36(BedBox)
+
+    if v194 then
+        t2.value38(v194)
+        t2.value5("Teleported to Bed!", 3)
+
+        return
+    end
+
+    t2.value5("Bed target not found in Workspace", 3)
+end
+})
+v38:AddButton({
+	Text = "Teleport to Breaker Box",
+	Func = function()
+    local BreakerBox = t2.value8:FindFirstChild("BreakerBox")
+
+    if not BreakerBox then
+        BreakerBox = t2.value8:FindFirstChild("LocationMarkers")
+
+        if BreakerBox then
+            BreakerBox = t2.value8.LocationMarkers:FindFirstChild("Breaker")
+        end
+
+        if not BreakerBox then
+            BreakerBox = t2.value8:FindFirstChild("Breaker", true)
+        end
+    end
+
+    local v196 = t2.value36(BreakerBox)
+
+    if v196 then
+        t2.value38(v196)
+        t2.value5("Teleported to Breaker Box!", 3)
+
+        return
+    end
+
+    t2.value5("Breaker Box target not found in Workspace", 3)
+end
+})
+v38:AddButton({
+	Text = "Teleport to Door",
+	Func = function()
+    local DoorBox = t2.value8:FindFirstChild("DoorBox")
+
+    if not DoorBox then
+        DoorBox = t2.value8:FindFirstChild("door1", true)
+
+        if not DoorBox then
+            DoorBox = t2.value8:FindFirstChild("DoorModel2", true)
+        end
+    end
+
+    local v198 = t2.value36(DoorBox)
+
+    if v198 then
+        t2.value38(v198)
+        t2.value5("Teleported to Door!", 3)
+
+        return
+    end
+
+    t2.value5("Door target not found in Workspace", 3)
+end
+})
+v38:AddButton({
+	Text = "Teleport to Hallways",
+	Func = function()
+    local TheHallways = t2.value8:FindFirstChild("TheHallways")
+
+    if not TheHallways then
+        TheHallways = t2.value8:FindFirstChild("Hallway", true)
+    end
+
+    local v200 = t2.value36(TheHallways)
+
+    if v200 then
+        t2.value38(v200)
+        t2.value5("Teleported to Hallways!", 3)
+
+        return
+    end
+
+    t2.value5("Hallways target not found in Workspace", 3)
+end
+})
+pcall(function()
+    if t2.value3 then
+        t2.value3:SetLibrary(t2.value2)
+        t2.value3:SetFolder("KeepTheDoorLockedHub")
+
+        if t2.value3.BuiltInThemes then
+            t2.value3.BuiltInThemes.v3million = {
+				99,
+				{
+					FontColor = "ffffff",
+					MainColor = "1b1b1b",
+					AccentColor = "c82a2a",
+					BackgroundColor = "141414",
+					OutlineColor = "2e2e2e",
+					BackgroundImage = ""
+				}
+			}
+            t2.value3.BuiltInThemes.V3rmillion = t2.value3.BuiltInThemes.v3million
+        end
+
+        if typeof(t2.value3.ApplyToTab) == "function" then
+            t2.value3:ApplyToTab(t2.value18)
+        end
+
+        if typeof(t2.value3.ApplyTheme) == "function" then
+            t2.value3:ApplyTheme("v3million")
+
+            return
+        end
+
+        if typeof(t2.value3.SetTheme) == "function" then
+            t2.value3:SetTheme("v3million")
+        end
+    end
+end)
+pcall(function()
+    if t2.value4 then
+        t2.value4:SetLibrary(t2.value2)
+
+        if typeof(t2.value4.IgnoreThemeSettings) == "function" then
+            t2.value4:IgnoreThemeSettings()
+        end
+
+        if typeof(t2.value4.SetIgnoreIndexes) == "function" then
+            t2.value4:SetIgnoreIndexes({ "MenuKeybind" })
+        end
+
+        if typeof(t2.value4.SetFolder) == "function" then
+            t2.value4:SetFolder("KeepTheDoorLockedHub/configs")
+        end
+
+        if typeof(t2.value4.BuildConfigSection) == "function" then
+            t2.value4:BuildConfigSection(t2.value18)
+        end
+
+        if typeof(t2.value4.LoadAutoloadConfig) == "function" then
+            t2.value4:LoadAutoloadConfig()
+        end
+    end
+end)
+task.spawn(function()
+    task.wait(0.2)
+    pcall(function()
+        local value2 = t2.value2
+
+        if value2 then
+            value2 = t2.value2.ScreenGui
+        end
+
+        if value2 then
+            t2.value2.ScreenGui.Enabled = true
+
+            local v272 = not t2.value2.ScreenGui.Parent
+
+            if not v272 then
+                v272 = t2.value2.ScreenGui.Parent == game:GetService("CoreGui")
+            end
+
+            if v272 then
+                t2.value2.ScreenGui.Parent = t2.value10:WaitForChild("PlayerGui")
+            end
+        end
+
+        local value17 = t2.value17
+
+        if value17 then
+            value17 = typeof(t2.value17.Show) == "function"
+        end
+
+        if value17 then
+            t2.value17:Show()
+        end
+
+        if t2.value2 then
+            t2.value2.Toggled = true
+        end
+    end)
+end)
+t2.value5("STANNY | Hub Loaded! Press [RightControl] to Toggle Menu", 7)
