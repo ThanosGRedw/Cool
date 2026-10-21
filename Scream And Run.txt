@@ -1,0 +1,1228 @@
+-- This file was generated at discord.gg/syncrypt
+
+local capturedValues1 = {}
+local v689 = loadstring(game:HttpGet("https://raw.githubusercontent.com/IcantAffordSynapse/calmlib/refs/heads/main/src.lua"))()
+pcall(function()
+    if setclipboard then
+        setclipboard("https://discord.gg/JUje9bvk9")
+    else
+        if toclipboard then
+            toclipboard("https://discord.gg/JUje9bvk9")
+        end
+    end
+    return
+end)
+local v691 = print
+v691("[CatHub] Discord invite copied to clipboard")
+v691 = v689:win("@cmon-rblx on yt | ui credits to vaehz")
+local v693 = game:GetService("Players")
+local v692 = game
+local v696 = v692.GetService
+v696 = v696(v692, "RunService")
+capturedValues1.value1 = v696
+local v695 = game:GetService("UserInputService")
+capturedValues1.value2 = v695
+local v698 = game:GetService("ContextActionService")
+capturedValues1.value3 = v698
+v698 = v693.LocalPlayer
+capturedValues1.value4 = v698
+v698 = UserSettings
+local v697 = v698()
+v698 = v697:GetService("UserGameSettings")
+capturedValues1.value5 = v698
+capturedValues1.value6 = false
+capturedValues1.value7 = false
+capturedValues1.value8 = false
+capturedValues1.value9 = false
+capturedValues1.value10 = false
+capturedValues1.value11 = false
+capturedValues1.value12 = false
+capturedValues1.value13 = false
+capturedValues1.value14 = false
+capturedValues1.value15 = false
+local v721 = Color3.fromRGB(255, 70, 70)
+local v723 = Color3.fromRGB(255, 200, 40)
+local v731 = Color3.fromRGB(255, 255, 255)
+capturedValues1.value16 = {["FillColor"] = v721, ["OutlineColor"] = v723, ["FillTransparency"] = 0.5, ["OutlineTransparency"] = 0, ["ShowName"] = true, ["NameColor"] = v731}
+capturedValues1.value17 = {}
+capturedValues1.value18 = {}
+capturedValues1.value19 = {}
+capturedValues1.value20 = nil
+capturedValues1.value21 = nil
+capturedValues1.value22 = nil
+v698 = {"red", "blue", "green", "yellow", "orange", "purple", "pink", "black", "white", "cyan", "magenta", "brown", "grey", "gray", "lime", "teal", "navy", "maroon", "gold", "silver"}
+local v727 = function(arg8_1)
+    local v138, v139, v148
+    v138, v139 = "string", arg8_1
+    local v140 = string.lower(v139.Name or "")
+    v138 = string.lower(v139.ObjectText or "")
+    local v144 = string.lower
+    local v145 = v139.ActionText
+    local v141 = v144(v145 or "")
+    v144 = string.lower
+    local v143 = tostring
+    local v155 = v139.Parent
+    local v149 = v155
+    if v155 then
+        v149 = v139.Parent.Name
+    end
+    local v146 = v149 or ""
+    v148, v144 = {v140, v138, v141, v144(v143(v146))}, "ipairs"
+    v140 = v148
+    v148 = ipairs
+    for v141, v145 in v148(v140) do
+        v146 = string.find(v145, "lock", 1, true)
+        if v146 then
+            v148 = true
+            return v148
+        end
+    end
+    return false
+end
+capturedValues1.value23 = nil
+local v728 = function(arg9_1)
+    local v157, v158, v167, v173
+    v157, v158 = "string", arg9_1
+    local v159 = string.lower(v158.Name or "")
+    v157 = string.lower(v158.ObjectText or "")
+    local v163 = string.lower
+    local v164 = v158.ActionText
+    local v160 = v163(v164 or "")
+    v163 = string.lower
+    local v162 = tostring
+    local v174 = v158.Parent
+    local v168 = v174
+    if v174 then
+        v174 = v158.Parent.Name
+        v168 = v174
+    end
+    local v165 = v168 or ""
+    v163, v167 = "ipairs", {v159, v157, v160, v163(v162(v165))}
+    v159 = v167
+    v167 = ipairs
+    for v160, v164 in v167(v159) do
+        v167 = ipairs
+        for v168, v174 in v167(capturedValues1.value23) do
+            v173 = string.find(v164, v174, 1, true)
+            if v173 then
+                v167 = true
+                return v167
+            end
+        end
+    end
+    return false
+end
+capturedValues1.value23 = v698
+local v738 = function()
+    local v178, v179, v180, v181, v182, v183
+    local v176 = capturedValues1.value22
+    local v177 = v176
+    if v176 then
+        v177 = capturedValues1.value22.Parent
+    end
+    if v177 then
+        return
+    else
+        v176 = (Instance.new("ScreenGui"))
+        v176.Name = "CatDistanceUI"
+        v176.ResetOnSpawn = false
+        v176.IgnoreGuiInset = true
+        v178 = capturedValues1.value4:WaitForChild("PlayerGui")
+        v176.Parent = v178
+        v178 = (Instance.new("Frame"))
+        v182 = UDim2.new(0, 160, 0, 36)
+        v178.Size = v182
+        v182 = UDim2.new(1, -175, 0, 20)
+        v178.Position = v182
+        v182 = Color3.fromRGB(20, 20, 30)
+        v178.BackgroundColor3 = v182
+        v178.BackgroundTransparency = 0.25
+        v178.BorderSizePixel = 0
+        v178.Parent = v176
+        v177 = Instance.new("UICorner", v178)
+        v179 = UDim.new(0, 8)
+        v177.CornerRadius = v179
+        v182 = (Instance.new("UIStroke"))
+        v179 = Color3.fromRGB(255, 80, 80)
+        v182.Color = v179
+        v182.Thickness = 1.5
+        v182.Parent = v178
+        capturedValues1.value22 = (Instance.new("TextLabel"))
+        v183 = capturedValues1.value22
+        v181 = UDim2.new(1, 0, 1, 0)
+        v183.Size = v181
+        v183 = capturedValues1.value22
+        v183.BackgroundTransparency = 1
+        v183 = capturedValues1.value22
+        v181 = Color3.fromRGB(255, 220, 70)
+        v183.TextColor3 = v181
+        v183 = capturedValues1.value22
+        v180 = Enum.Font.GothamBold
+        v183.Font = v180
+        v183 = capturedValues1.value22
+        v183.TextSize = 14
+        v183 = capturedValues1.value22
+        v183.Text = "Cat: -- studs"
+        v183 = capturedValues1.value22
+        v183.Parent = v178
+        return
+    end
+end
+local v730 = function()
+    local v193 = capturedValues1.value4.Character
+    local v189 = v193
+    if v193 then
+        v189 = (v193:FindFirstChildOfClass("Humanoid"))
+    end
+    return v189
+end
+v731 = function()
+    local v197, v200, v201, v202, v203, v204
+    v197, v200, v201 = pairs(capturedValues1.value17)
+    local v199 = v197
+    while true do
+        v201, v202 = v199(v200, v201)
+        if not v201 then
+            break
+        end
+        local up1 = v202
+        v203 = up1
+        v204 = v203
+        if v203 then
+            v204 = up1.Parent
+        end
+        if v204 then
+            v203 = function()
+                up1:Destroy()
+                return
+            end
+            pcall(v203)
+        end
+    end
+    for v199, v202 in pairs(capturedValues1.value18) do
+        local up2 = v202
+        v203 = up2
+        v204 = v203
+        if v203 then
+            v204 = up2.Parent
+        end
+        if v204 then
+            pcall(function()
+                up2:Destroy()
+                return
+            end)
+        end
+        v202 = nil
+    end
+    table.clear(capturedValues1.value17)
+    table.clear(capturedValues1.value18)
+
+    return
+end
+local v729 = function()
+    local v215 = capturedValues1.value4.Character
+    local v211 = v215
+    if v215 then
+        v211 = (v215:FindFirstChild("HumanoidRootPart"))
+    end
+    return v211
+end
+capturedValues1.value24 = nil
+local v735 = function(arg14_1)
+    local v220, v221, v222, v223, v224, v225, v226, v227, v228
+    local v219 = arg14_1
+    if capturedValues1.value19[v219] then
+        return
+    else
+        v221 = capturedValues1.value24(v219)
+        if v221 then
+            return
+        else
+            v220 = v219.Parent
+            v222 = v220
+            if (not v222) then
+                return
+            else
+                v221 = v222:IsA("BasePart")
+                if (not v221) then
+                    v220 = v222:FindFirstChildWhichIsA("BasePart", true)
+                    v222 = v220
+                end
+                if (not v222) then
+                    return
+                else
+                    v227, v224 = "\175*>", "Instance"
+                    v223 = Instance.new("BillboardGui")
+                    v223.Name = "PromptESP"
+                    v223.AlwaysOnTop = true
+                    v224 = UDim2.new
+                    v226, v228 = 0, 150
+                    v225 = v224(v226, v228, 0, 36)
+                    v223.Size = v225
+                    v224 = Vector3.new
+                    v228, v227, v226 = 2.8, 0, 0
+                    v225 = v224(v226, v228, v227)
+                    v223.StudsOffset = v225
+                    v227, v228 = 5552344730137, "X\158h\008[\148\205"
+                    v228, v224 = "\252\242\159,{C", v222
+                    v223.Adornee = v224
+                    v223.Parent = v222
+                    v224 = Instance.new("TextLabel")
+                    v225 = UDim2.new
+                    v227, v228 = 0, 1
+                    v226 = v225(v228, v227, 1, 0)
+                    v224.Size = v226
+                    v224.BackgroundTransparency = .3
+                    v225 = Color3.fromRGB
+                    v228, v227 = 15, 15
+                    v226 = v225(v228, v227, 25)
+                    v224.BackgroundColor3 = v226
+                    v225 = Color3.fromRGB
+                    v228, v227 = 255, 220
+                    v226 = v225(v228, v227, 70)
+                    v224.TextColor3 = v226
+                    v225 = Enum.Font.GothamBold
+                    v224.Font = v225
+                    v224.TextSize = 12
+                    v221 = "Text"
+                    v227 = v220
+                    v228 = (v219.ObjectText ~= "") and v219.ObjectText
+                    v220, v225 = v227, v228
+                    if not (v228) then
+                        v227 = v220
+                        v228 = (v219.ActionText ~= "") and v219.ActionText or "Prompt"
+                        v220, v225 = v227, v228
+                    end
+                    v224[v221] = v225
+                    v224.Parent = v223
+                    v225 = Instance.new("UICorner", v224)
+                    v228 = UDim.new(0, 6)
+                    v225.CornerRadius = v228
+                    v221 = capturedValues1.value19
+                    v221[v219] = v223
+                    return
+                end
+            end
+        end
+    end
+end
+capturedValues1.value24 = v727
+local v733 = function(arg15_1)
+    local v238, v239, v240, v241, v242, v243, v244
+    local v237 = arg15_1
+    if capturedValues1.value17[v237] then
+        v241 = capturedValues1.value17[v237]
+        v238 = capturedValues1.value16.FillColor
+        v241.FillColor = v238
+        v238 = capturedValues1.value16.OutlineColor
+        v241.OutlineColor = v238
+        v238 = capturedValues1.value16.FillTransparency
+        v241.FillTransparency = v238
+        v238 = capturedValues1.value16.OutlineTransparency
+        v241.OutlineTransparency = v238
+        return
+    else
+        v241 = (Instance.new("Highlight"))
+        v241.Name = "CatESP"
+        v241.Adornee = v237
+        v238 = capturedValues1.value16.FillColor
+        v241.FillColor = v238
+        v238 = capturedValues1.value16.OutlineColor
+        v241.OutlineColor = v238
+        v238 = capturedValues1.value16.FillTransparency
+        v241.FillTransparency = v238
+        v238 = capturedValues1.value16.OutlineTransparency
+        v241.OutlineTransparency = v238
+        v238 = Enum.HighlightDepthMode.AlwaysOnTop
+        v241.DepthMode = v238
+        v241.Parent = v237
+        v239 = capturedValues1.value17
+        v239[v237] = v241
+        v238 = capturedValues1.value16
+        if v238["ShowName"] then
+            v240 = ((v237:IsA("BasePart")) and v237)
+            v238 = v240
+            if not (v240) then
+                v242 = v239
+                v240 = (v237:FindFirstChildWhichIsA("BasePart")) or v237.PrimaryPart
+                v238, v239 = v240, v242
+            end
+            v240 = v238
+            if v240 then
+                v242 = (Instance.new("BillboardGui"))
+                v242.Name = "CatNameTag"
+                v242.AlwaysOnTop = true
+                v243 = UDim2.new(0, 120, 0, 30)
+                v242.Size = v243
+                v243 = Vector3.new(0, 4, 0)
+                v242.StudsOffset = v243
+                v242.Adornee = v240
+                v242.Parent = v240
+                v243 = (Instance.new("TextLabel"))
+                v244 = UDim2.new(1, 0, 1, 0)
+                v243.Size = v244
+                v243.BackgroundTransparency = 1
+                v238 = capturedValues1.value16.NameColor
+                v243.TextColor3 = v238
+                v238 = Enum.Font.GothamBold
+                v243.Font = v238
+                v243.TextSize = 14
+                v243.TextStrokeTransparency = .3
+                v243.Text = "CatInTheHat"
+                v243.Parent = v242
+                v239 = capturedValues1.value18
+                v239[v237] = v242
+            end
+        end
+        return
+    end
+end
+capturedValues1.value25 = v728
+capturedValues1.value26 = v729
+local v736 = function(arg16_1)
+    local v250 = arg16_1
+    local v253 = typeof(fireproximityprompt)
+    if (v253 == "function") then
+        fireproximityprompt(v250)
+        return
+    else
+        v253 = v250.HoldDuration
+        v250.HoldDuration = 0
+        v250:InputHoldBegin()
+        task.wait (.05)
+        v250:InputHoldEnd()
+        v250.HoldDuration = v253
+        return
+    end
+end
+capturedValues1.value27 = v730
+capturedValues1.value28 = v731
+local v732 = function()
+    local v264, v265
+    for v262, v263 in pairs(capturedValues1.value19) do
+        local up3 = v263
+        v264 = up3
+        v265 = v264
+        if v264 then
+            v265 = up3.Parent
+        end
+        if v265 then
+            pcall(function()
+                up3:Destroy()
+                return
+            end)
+        end
+        v263 = nil
+    end
+    table.clear(capturedValues1.value19)
+
+    return
+end
+local v742 = function()
+    if capturedValues1.value20 then
+        capturedValues1.value20:Disconnect()
+        capturedValues1.value20 = nil
+    end
+    if capturedValues1.value21 then
+        capturedValues1.value21:Disconnect()
+        capturedValues1.value21 = nil
+    end
+    local v275 = capturedValues1.value27()
+    if v275 then
+        v275.WalkSpeed = 16
+    end
+    return
+end
+capturedValues1.value29 = v732
+capturedValues1.value30 = nil
+local v734 = function()
+    local v279, v283, v284, v288, v289
+    local v280 = ipairs
+    local v281 = workspace
+    local v282 = v281.GetDescendants
+    v279, v283, v284 = v280(v282(v281))
+    v281 = v279
+    while true do
+        v284, v282 = v281(v283, v284)
+        if not v284 then
+            break
+        end
+        v289 = v282.Name
+        if (v289 == "CatInTheHat") then
+            capturedValues1.value30(v282)
+        end
+    end
+    v280 = pairs
+    local v290 = capturedValues1.value17
+    for v281, v282 in v280(v290) do
+        v290 = v281
+        local up4 = v290
+        local up5 = v282
+        v288 = (not up4.Parent)
+        v289 = v288
+        if not (v288) then
+            v289 = (not up5.Parent)
+        end
+        if v289 then
+            if up5 then
+                pcall(function()
+                    up5:Destroy()
+                    return
+                end)
+            end
+            v280 = capturedValues1.value17
+            v289 = up4
+            v280[v289] = nil
+            if capturedValues1.value18[up4] then
+                pcall(function()
+                    capturedValues1.value18[up4]:Destroy()
+                    return
+                end)
+                v280 = capturedValues1.value18
+                v289 = up4
+                v280[v289] = nil
+            end
+        end
+        v282 = nil
+    end
+    return
+end
+capturedValues1.value30 = v733
+capturedValues1.value31 = v734
+capturedValues1.value32 = v735
+local v739 = function()
+    local v298 = (capturedValues1.value4.PlayerGui:FindFirstChild("CatDistanceUI"))
+    if v298 then
+        v298:Destroy()
+    end
+    capturedValues1.value22 = nil
+    return
+end
+capturedValues1.value33 = v736
+local up69 = function(arg21_1)
+    local v301, v304
+    local v300 = arg21_1.Parent
+    if (not v300) then
+        v304 = nil
+        return v304
+    else
+        v304 = v300:IsA("BasePart")
+        if v304 then
+            v304 = (v300.CFrame * (CFrame.new(0, 3, 0)))
+
+            return v304
+        else
+            v304 = v300:IsA("Model")
+            if v304 then
+                v301 = v300.PrimaryPart or (v300:FindFirstChildWhichIsA("BasePart"))
+                if v301 then
+                    v304 = (v301.CFrame * (CFrame.new(0, 3, 0)))
+
+                    return v304
+                end
+            else
+                v301 = (v300:FindFirstChildWhichIsA("BasePart"))
+                if v301 then
+                    v304 = (v301.CFrame * (CFrame.new(0, 3, 0)))
+
+                    return v304
+                end
+            end
+            v304 = nil
+            return v304
+        end
+    end
+end
+capturedValues1.value34 = v738
+local v741 = function()
+    if capturedValues1.value20 then
+        capturedValues1.value20:Disconnect()
+    end
+    if capturedValues1.value21 then
+        capturedValues1.value21:Disconnect()
+    end
+    local up6 = function()
+        local v91 = (capturedValues1.value27())
+        if v91 then
+            v91.WalkSpeed = 50
+        end
+        return
+    end
+    up6()
+    local v310 = capturedValues1.value1.Heartbeat
+    local v315 = function()
+        if capturedValues1.value12 then
+            up6()
+        end
+        return
+    end
+    v310:Connect(v315)
+    v310 = capturedValues1.value27
+    local up7 = (v310())
+    if up7 then
+        up7:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+            local v685
+            local v677 = capturedValues1.value12
+            local v678 = v677
+            if v677 then
+                v678 = (up7.WalkSpeed ~= 50)
+            end
+            if v678 then
+                v685 = up7
+                v685.WalkSpeed = 50
+            end
+            return
+        end)
+    end
+    return
+end
+capturedValues1.value35 = v739
+local v740 = function()
+    local v319, v320, v322, v323, v324, v325, v326, v327, v328, v329, v330, v331, v332, v338
+    local v321 = (not capturedValues1.value15) or (not capturedValues1.value22)
+    if v321 then
+        return
+    else
+        v320 = (capturedValues1.value26())
+        if (not v320) then
+            v322 = capturedValues1.value22
+            v322.Text = "Cat: -- studs"
+            return
+        else
+            v321 = math
+            v319 = nil
+            v322 = v321.huge
+            v323, v321 = v322, "ipairs"
+            v322 = ipairs
+            v321, v324, v325 = v322(workspace:GetDescendants())
+            v326 = v321
+            while true do
+                v325, v327 = v326(v324, v325)
+                if not v325 then
+                    break
+                end
+                v332 = v327.Name
+                if (v332 == "CatInTheHat") then
+                    v328 = v322
+                    v331 = ((v327:IsA("BasePart")) and v327)
+                    v322, v332 = v328, v331
+                    if not (v331) then
+                        v328 = v322
+                        v329 = v327:FindFirstChildWhichIsA("BasePart")
+                        v331 = v329
+                        if not (v329) then
+                            v330 = v322
+                            v329 = (v327:IsA("Model")) and v327.PrimaryPart
+                            v322, v331 = v330, v329
+                        end
+                        v332, v322 = v331, v328
+                    end
+                    if v332 then
+                        v322 = (v320.Position - v332.Position).Magnitude
+                        v331 = v322
+                        if (v331 < v323) then
+                            v322 = v331
+                            v323 = v322
+                            v319 = v332
+                        end
+                    end
+                end
+            end
+            if v319 then
+                v324 = capturedValues1.value22
+                v338 = string.format("Cat: %.1f studs", v323)
+                v324.Text = v338
+            else
+                v324 = capturedValues1.value22
+                v324.Text = "Cat: not found"
+            end
+            return
+        end
+    end
+end
+capturedValues1.value36 = v740
+capturedValues1.value37 = v741
+capturedValues1.value38 = v742
+capturedValues1.value39 = false
+capturedValues1.value40 = 1.75
+capturedValues1.value41 = 0
+capturedValues1.value42 = 18
+local v748 = function(arg24_1)
+    local up8 = arg24_1
+    pcall(function()
+        local v598 = capturedValues1.value5
+        local v603 = up8
+        local v601 = v603
+        if v603 then
+            v601 = Enum.RotationType.CameraRelative
+        end
+        local v599 = v601
+        if not (v601) then
+            v599 = Enum.RotationType.MovementRelative
+        end
+        v598.RotationType = v599
+        return
+    end)
+
+    return
+end
+capturedValues1.value43 = "CatHub_DisableRightClick"
+capturedValues1.value44 = v748
+capturedValues1.value45 = nil
+local v750 = function()
+    local v344, v345, v346, v349
+    if capturedValues1.value39 then
+        return
+    else
+        capturedValues1.value39 = true
+        v345 = capturedValues1.value4:GetMouse()
+        v345.Icon = "rbxasset://textures/MouseLockedCursor.png"
+        capturedValues1.value44(true)
+        v346 = function()
+            local v634 = function()
+                return Enum.ContextActionResult.Sink
+            end
+            capturedValues1.value3:BindActionAtPriority(capturedValues1.value43, v634, false, (Enum.ContextActionPriority.High.Value + 100), Enum.UserInputType.MouseButton2)
+
+            return
+        end
+        pcall(v346)
+        v344 = capturedValues1.value1
+        v349 = Enum.RenderPriority.Camera
+        v344:BindToRenderStep("CatHub_ShiftLock", (v349.Value + 1), capturedValues1.value45)
+
+        return
+    end
+end
+local v749 = function(arg26_1)
+    local v356, v357, v360, v361, v363, v364, v365, v367, v368, v369
+    v356, v357 = .016, arg26_1
+    v357 = (v357 or v356)
+    v356 = workspace.CurrentCamera
+    local v359 = (not v356) or (not capturedValues1.value39)
+    if v359 then
+        return
+    else
+        v359 = capturedValues1.value4.Character
+        v363, v360 = v359, 12721988
+        if v359 then
+            v363 = (v359:FindFirstChild("HumanoidRootPart"))
+        end
+        v367 = v360
+        v360, v361 = v359, v367
+        if v359 then
+            v360 = (v359:FindFirstChildOfClass("Humanoid"))
+        end
+        v364, v367 = (not v363), v361
+        v361 = v364
+        if not (v364) then
+            v361 = (not v360) or (v360.Health <= 0)
+        end
+        if v361 then
+            return
+        else
+            v361 = capturedValues1.value2
+            v364 = Enum.MouseBehavior.LockCenter
+            v361.MouseBehavior = v364
+            capturedValues1.value44(true)
+            v361 = 10
+            if v356["Focus"] then
+                v361 = (v356.Focus.Position - v356.CFrame.Position).Magnitude
+            end
+            v365 = ((not (v361 <= .65)) and capturedValues1.value40 or 0)
+            capturedValues1.value41 = (capturedValues1.value41 + ((v365 - capturedValues1.value41) * (1 - (math.exp(((-capturedValues1.value42) * v357))))))
+            if (capturedValues1.value41 ~= 0) then
+                v368 = (v356.CFrame * (CFrame.new(capturedValues1.value41, 0, 0)))
+                v356.CFrame = v368
+                v369 = (v368 * (CFrame.new(0, 0, (-v361))))
+                v356.Focus = v369
+            end
+            return
+        end
+    end
+end
+capturedValues1.value45 = v749
+local v751 = function()
+    local v380, v381, v382
+    if (not capturedValues1.value39) then
+        return
+    else
+        capturedValues1.value39 = false
+        v381 = capturedValues1.value4:GetMouse()
+        v381.Icon = ""
+        v380 = capturedValues1.value2
+        v382 = Enum.MouseBehavior.Default
+        v380.MouseBehavior = v382
+        capturedValues1.value44(false)
+        v382 = function()
+            capturedValues1.value3:UnbindAction(capturedValues1.value43)
+            return
+        end
+        pcall(v382)
+        v382 = function()
+            capturedValues1.value1:UnbindFromRenderStep("CatHub_ShiftLock")
+            return
+        end
+        pcall(v382)
+
+        return
+    end
+end
+capturedValues1.value46 = v750
+capturedValues1.value47 = v751
+v751 = v691:tab("Main", "rbxassetid://7733960981")
+v751:label("ESP")
+local v754 = function(arg28_1)
+    capturedValues1.value6 = arg28_1
+    if arg28_1 then
+        capturedValues1.value31()
+    else
+        capturedValues1.value28()
+    end
+    return
+end
+v751:toggle("Cat ESP", false, v754)
+v751:toggle("Backpack ESP", false, function(arg29_1)
+    local v392, v393
+    v392, v393 = (not arg29_1), arg29_1
+    capturedValues1.value7 = v393
+    if v392 then
+        capturedValues1.value29()
+    end
+    return
+end)
+v751:label("KEYS")
+local v753 = function()
+    if capturedValues1.value9 then
+        return
+    else
+        capturedValues1.value9 = true
+        task.spawn(function()
+            local v649, v650, v651, v652, v653, v654, v655, v656, v657, v658, v659, v661, v663
+            while true do
+                if not capturedValues1.value9 then
+                    break
+                end
+                v649, v650 = "ipairs", {}
+                v651 = v650
+                v650 = ipairs
+                v649, v654, v655 = v650(workspace:GetDescendants())
+                v652 = v649
+                while true do
+                    v655, v653 = v652(v654, v655)
+                    if not v655 then
+                        break
+                    end
+                    v658 = v653:IsA("ProximityPrompt")
+                    v661 = v658
+                    if v658 then
+                        v656 = v653.Enabled
+                        v658 = v656
+                        if v656 then
+                            v663 = capturedValues1.value24(v653)
+                            v657, v659 = v650, (not v663)
+                            v656 = v659 and (not (capturedValues1.value25(v653)))
+                            v658, v650 = v656, v657
+                        end
+                        v661 = v658
+                    end
+                    if v661 then
+                        v661 = table
+                        v650 = v661.insert
+                        v650(v651, v653)
+                    end
+                end
+                if ((#v651) == 0) then
+                    print("[CatHub] All normal prompts gone")
+                    capturedValues1.value9 = false
+                else
+                    v654 = (capturedValues1.value26())
+                    if v654 then
+                        for v653, v661 in ipairs(v651) do
+                            if not ((not capturedValues1.value9))then
+                                v658 = (up69(v661))
+                                if v658 then
+                                    v654.CFrame = v658
+                                    task.wait(.09)
+                                    capturedValues1.value33(v661)
+                                    task.wait(.06)
+                                end
+                                continue
+                            end
+                            break
+                        end
+                    end
+                    task.wait(.15)
+
+                    continue
+                end
+                break
+            end
+            return
+        end)
+        return
+    end
+end
+v751:button("Auto Get Keys", v753)
+v751:button("Stop Key Farm", function()
+    return
+end)
+v751:toggle("Lock Prompt Farm", false, function(arg32_1)
+    capturedValues1.value8 = arg32_1
+    return
+end)
+v751:label("Prompts")
+v754 = function(arg33_1)
+    local v404, v407, v408
+    local v405 = arg33_1
+    capturedValues1.value13 = v405
+    local v406 = print
+    v408, v404 = v405, v405
+    local v409 = arg33_1
+    if arg33_1 then
+        v409 = "ON"
+    end
+    v405, v407 = v404, v409
+    if not (v409) then
+        v407 = "OFF"
+    end
+    v406("[CatHub] Auto-Prompt", v407)
+
+    return
+end
+v751:toggle("Auto-Prompt", false, v754)
+v754 = function(arg34_1)
+    local v418, v419, v420, v421
+    local v416 = arg34_1
+    capturedValues1.value14 = v416
+    local v417 = print
+    v420, v421, v418 = v416, arg34_1, v416
+    if arg34_1 then
+        v421 = "ON"
+    end
+    v416, v419 = v418, v421
+    if not (v421) then
+        v419 = "OFF"
+    end
+    v417("[CatHub] Instant Prompt", v419)
+
+    return
+end
+v751:toggle("Instant Prompt", false, v754)
+v754 = function(arg35_1)
+    capturedValues1.value15 = arg35_1
+    if arg35_1 then
+        capturedValues1.value34()
+    else
+        capturedValues1.value35()
+    end
+    return
+end
+v751:toggle("Cat Distance UI", false, v754)
+v751:label("Useful")
+v751:button("Instant Win", function()
+    local v434
+    local v433 = (capturedValues1.value26())
+    if v433 then
+        v434 = CFrame.new(501.464722, 4, -86.246704, .962956, 0, -0.269657, 0, 1, 0, .269657, 0, .962956)
+        v433.CFrame = v434
+    end
+    return
+end)
+v754 = function(arg37_1)
+    local v440, v441
+    capturedValues1.value10 = arg37_1
+    if arg37_1 then
+        v440 = capturedValues1.value4
+        v440.CameraMaxZoomDistance = 99999
+        v440 = capturedValues1.value4
+        v441 = Enum.CameraMode.Classic
+        v440.CameraMode = v441
+    else
+        v440 = capturedValues1.value4
+        v440.CameraMaxZoomDistance = 128
+    end
+    return
+end
+v751:toggle("Third Person", false, v754)
+v751:toggle("Shiftlock", false, function(arg38_1)
+    capturedValues1.value11 = arg38_1
+    if arg38_1 then
+        capturedValues1.value46()
+    else
+        capturedValues1.value47()
+    end
+    return
+end)
+v754 = function(arg39_1)
+    capturedValues1.value12 = arg39_1
+    if arg39_1 then
+        capturedValues1.value37()
+    else
+        capturedValues1.value38()
+    end
+    return
+end
+v751:toggle("Outrun Cat (Speed 50)", false, v754)
+v753 = function()
+    capturedValues1.value28()
+    capturedValues1.value29()
+    capturedValues1.value6 = false
+    capturedValues1.value7 = false
+    return
+end
+v751:button("Clear All ESP", v753)
+local v755 = v691:tab("ESP Settings", "rbxassetid://7733960981")
+v755:label("Cat Highlight Settings")
+v755:toggle("Show Name Tag", true, function(arg41_1)
+    capturedValues1.value16.ShowName = arg41_1
+    if capturedValues1.value6 then
+        capturedValues1.value28()
+        capturedValues1.value31()
+    end
+    return
+end)
+v755:slider("Fill Transparency", 0, 100, 50, function(arg42_1)
+    local v468
+    capturedValues1.value16.FillTransparency = (arg42_1 / 100)
+    for v464, v467 in pairs(capturedValues1.value17) do
+        if v467 then
+            v468 = capturedValues1.value16.FillTransparency
+            v467.FillTransparency = v468
+        end
+    end
+    return
+end)
+v755:slider("Outline Transparency", 0, 100, 0, function(arg43_1)
+    local v480
+    capturedValues1.value16.OutlineTransparency = (arg43_1 / 100)
+    for v476, v479 in pairs(capturedValues1.value17) do
+        if v479 then
+            v480 = capturedValues1.value16.OutlineTransparency
+            v479.OutlineTransparency = v480
+        end
+    end
+    return
+end)
+v754 = function()
+    local v493
+    capturedValues1.value16.FillColor = Color3.fromRGB(255, 70, 70)
+    capturedValues1.value16.OutlineColor = Color3.fromRGB(255, 200, 40)
+    local v486 = capturedValues1.value16
+    local v488 = Color3.fromRGB(255, 255, 255)
+    v486.NameColor = v488
+    for v488, v492 in pairs(capturedValues1.value17) do
+        if v492 then
+            v493 = capturedValues1.value16.FillColor
+            v492.FillColor = v493
+            v493 = capturedValues1.value16.OutlineColor
+            v492.OutlineColor = v493
+        end
+    end
+    return
+end
+v755:button("Reset ESP Colors", v754)
+task.spawn(function()
+    while true do
+        if capturedValues1.value6 then
+            capturedValues1.value31()
+        end
+        task.wait(1.5)
+    end
+end)
+task.spawn(function()
+    local v505, v506, v507, v508, v509, v510, v511, v514, v516, v517
+    while true do
+        if capturedValues1.value7 then
+            v505 = ipairs
+            v507 = workspace
+            v508 = v507.GetDescendants
+            v506, v509, v510 = v505(v508(v507))
+            v507 = v506
+            while true do
+                v510, v508 = v507(v509, v510)
+                if not v510 then
+                    break
+                end
+                v516 = (v508:IsA("ProximityPrompt")) and v508.Enabled
+                if v516 then
+                    capturedValues1.value32(v508)
+                end
+            end
+            v505 = pairs
+            v517 = capturedValues1.value19
+            for v507, v508 in v505(v517) do
+                local up9 = v508
+                v517 = v507
+                v514 = (not v517.Parent)
+                v516 = v514
+                if not (v514) then
+                    v511 = (not v517.Enabled)
+                    v514 = v511
+                    if not (v511) then
+                        v514 = (not up9.Parent)
+                    end
+                    v516 = v514
+                end
+                if v516 then
+                    if up9 then
+                        pcall(function()
+                            up9:Destroy()
+                            return
+                        end)
+                    end
+                    v505 = capturedValues1.value19
+                    v505[v517] = nil
+                end
+                v508 = nil
+            end
+        end
+        task.wait(1.2)
+    end
+end)
+task.spawn(function()
+    local v522, v523, v524, v526, v527, v528, v530, v533, v534, v537
+    while true do
+        if capturedValues1.value8 then
+            v523, v524 = {}, "ipairs"
+            v522 = ipairs
+            for v528, v526 in v522(workspace:GetDescendants()) do
+                v530 = v526:IsA("ProximityPrompt")
+                v534 = v530
+                if v530 then
+                    v533 = v522
+                    v530 = v526.Enabled and (capturedValues1.value24(v526))
+                    v534, v522 = v530, v533
+                end
+                if v534 then
+                    v534 = table
+                    v522 = v534.insert
+                    v522(v523, v526)
+                end
+            end
+            v527 = capturedValues1.value26()
+            if v527 then
+                for v537, v534 in ipairs(v523) do
+                    if (not capturedValues1.value8) then
+                        break
+                    else
+                        v530 = (up69(v534))
+                        if v530 then
+                            v527.CFrame = v530
+                            task.wait(.09)
+                            capturedValues1.value33(v534)
+                            task.wait(.06)
+                        end
+                    end
+                end
+            end
+        end
+        task.wait(.2)
+    end
+end)
+task.spawn(function()
+    local v538, v540, v541, v543, v544, v545, v547, v548, v549
+    while true do
+        if capturedValues1.value13 then
+            v538 = ipairs
+            v540 = workspace
+            v541 = v540.GetDescendants
+            for v543, v541 in v538(v541(v540)) do
+                v548 = v541:IsA("ProximityPrompt")
+                v549 = v548
+                if v548 then
+                    v547 = v538
+                    v544 = v541.Enabled
+                    v548 = v544
+                    if v544 then
+                        v545 = v538
+                        v544 = (not (capturedValues1.value24(v541))) and (not (capturedValues1.value25(v541)))
+                        v548, v538 = v544, v545
+                    end
+                    v549, v538 = v548, v547
+                end
+                if v549 then
+                    v538 = pcall
+                    v538(capturedValues1.value33, v541)
+                end
+            end
+        end
+        task.wait(.35)
+    end
+end)
+task.spawn(function()
+    local v553, v555, v556, v558
+    while true do
+        if capturedValues1.value14 then
+            v553 = ipairs
+            v555 = workspace
+            v556 = v555.GetDescendants
+            for v558, v556 in v553(v556(v555)) do
+                v553 = v556:IsA("ProximityPrompt")
+                if v553 then
+                    v556.HoldDuration = 0
+                end
+            end
+        end
+        task.wait(0.5)
+    end
+end)
+task.spawn(function()
+    while true do
+        if capturedValues1.value15 then
+            capturedValues1.value36()
+        end
+        task.wait(.15)
+    end
+end)
+local v752 = capturedValues1.value2.InputBegan
+v754 = function(arg51_1, arg51_2)
+    local v571, v572, v581
+    local v570 = arg51_1
+    if arg51_2 then
+        return
+    else
+        v571 = capturedValues1.value11
+        v572 = v571
+        if v571 then
+            v581 = (v570.KeyCode == Enum.KeyCode.LeftShift)
+            v571 = v581
+            if not (v581) then
+                v571 = (v570.KeyCode == Enum.KeyCode.RightShift)
+            end
+            v572 = v571
+        end
+        if v572 then
+            if capturedValues1.value39 then
+                capturedValues1.value47()
+            else
+                capturedValues1.value46()
+            end
+        end
+        return
+    end
+end
+v752:Connect(v754)
+v752 = capturedValues1.value4.CharacterAdded
+v754 = function()
+    local v587, v588
+    task.wait(.6)
+    if capturedValues1.value10 then
+        v588 = capturedValues1.value4
+        v588.CameraMaxZoomDistance = 99999
+        v588 = capturedValues1.value4
+        v587 = Enum.CameraMode.Classic
+        v588.CameraMode = v587
+    end
+    if capturedValues1.value11 then
+        capturedValues1.value46()
+    end
+    if capturedValues1.value12 then
+        capturedValues1.value37()
+    end
+    return
+end
+v752:Connect(v754)
+print("[Cat in the Hat] loaded \226\128\162 Discord invite copied")
+
+return
