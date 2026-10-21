@@ -1,13 +1,11 @@
--- This file was generated at discord.gg/syncrypt
-
 local capturedValues1 = {}
 local v689 = loadstring(game:HttpGet("https://raw.githubusercontent.com/IcantAffordSynapse/calmlib/refs/heads/main/src.lua"))()
 pcall(function()
     if setclipboard then
-        setclipboard("https://discord.gg/JUje9bvk9")
+        setclipboard("")
     else
         if toclipboard then
-            toclipboard("https://discord.gg/JUje9bvk9")
+            toclipboard("")
         end
     end
     return
