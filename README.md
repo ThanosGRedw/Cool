@@ -2,5 +2,5 @@
 
 Made by @ᴛʜᴀɴᴏꜱɢʀᴇᴅᴡ 🇬🇷
 
-[![Reviewed on ScriptBlox](https://scriptblox.com/badge/Prison-Life-Parallax-Hub-OPEN-SRC-BY-ME-235397)
+![Reviewed on ScriptBlox](https://scriptblox.com/badge/Prison-Life-Parallax-Hub-OPEN-SRC-BY-ME-235397)
 
