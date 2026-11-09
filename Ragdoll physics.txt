@@ -1,0 +1,635 @@
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+
+local function FindShooterDebug()
+    local function tryGet(parent)
+        if not parent then return nil end
+        local ok, result = pcall(function() return parent:FindFirstChild("ShooterDebug", true) end)
+        if ok and result and result:IsA("BindableFunction") then return result end
+    end
+    return tryGet(LocalPlayer:FindFirstChild("PlayerScripts"))
+        or tryGet(LocalPlayer:FindFirstChild("PlayerGui"))
+        or tryGet(LocalPlayer.Character)
+        or tryGet(LocalPlayer:FindFirstChild("Backpack"))
+        or tryGet(LocalPlayer)
+end
+
+local ShooterDebug = FindShooterDebug()
+
+local repo = "https://raw.githubusercontent.com/deividcomsono/Obsidian/main/"
+local Library = loadstring(game:HttpGet(repo .. "Library.lua"))()
+local ThemeManager = loadstring(game:HttpGet(repo .. "addons/ThemeManager.lua"))()
+local SaveManager = loadstring(game:HttpGet(repo .. "addons/SaveManager.lua"))()
+
+local Window = Library:CreateWindow({
+    Title = "Shooter All-in-One",
+    Footer = "v2.1",
+    Icon = 95816097006870,
+    NotifySide = "Right",
+    ShowCustomCursor = true,
+})
+
+local Tabs = {
+    Ragebot = Window:AddTab("Ragebot", "crosshair"),
+    Unlock = Window:AddTab("Unlock", "key"),
+    Godmode = Window:AddTab("Godmode", "shield"),
+    Farm = Window:AddTab("Farm", "zap"),
+    Visual = Window:AddTab("Visual", "eye"),
+    Nuke = Window:AddTab("Nuke", "bomb"),
+    Debug = Window:AddTab("Debug", "wrench"),
+    ["UI Settings"] = Window:AddTab("UI Settings", "settings"),
+}
+
+local function Invoke(...)
+    if not ShooterDebug then return false, "ShooterDebug not found" end
+    local ok, res = pcall(ShooterDebug.Invoke, ShooterDebug, ...)
+    return ok, res
+end
+
+local Config = {
+    RagebotEnabled = false,
+    FireMode = "Shoot",
+    TargetPart = "Head",
+    StrikeKind = "slash",
+    MaxDistance = 100,
+    FireInterval = 80,
+    WallCheck = false,
+    AliveCheck = true,
+    ConsciousCheck = true,
+    NadeMinDist = 5,
+
+    Godmode = false,
+    AutoPumpkin = false,
+    NoGravity = false,
+
+    AutoReset = false,
+    ResetThreshold = 0,
+    AutoPool = false,
+    PoolRadius = 6,
+
+    ESP = false,
+}
+
+local rayParams = RaycastParams.new()
+rayParams.FilterType = Enum.RaycastFilterType.Exclude
+rayParams.IgnoreWater = true
+
+local function IsVisible(fromPos, toPos)
+    local char = LocalPlayer.Character
+    if not char then return false end
+    rayParams.FilterDescendantsInstances = { char }
+    local dir = toPos - fromPos
+    if dir.Magnitude < 0.01 then return true end
+    return Workspace:Raycast(fromPos, dir, rayParams) == nil
+end
+
+local function GetMyPos()
+    local char = LocalPlayer.Character
+    if not char then return nil end
+    local hrp = char:FindFirstChild("HumanoidRootPart")
+    return hrp and hrp.Position or nil
+end
+
+local function FindBestTarget()
+    local ok, state = Invoke("state")
+    if not ok or not state or not state.ready then return nil end
+    local npcCount = state.npcs or 0
+    if npcCount == 0 then return nil end
+    local myPos = GetMyPos()
+    if not myPos then return nil end
+
+    local bestIndex, bestDist = nil, Config.MaxDistance
+    for i = 1, npcCount do
+        local ok2, info = Invoke("npc", i)
+        if ok2 and info and info.position then
+            local aliveOk = (not Config.AliveCheck) or (info.alive == true)
+            local consOk = (not Config.ConsciousCheck) or (info.conscious == true)
+            if aliveOk and consOk then
+                local dist = (info.position - myPos).Magnitude
+                if dist < bestDist then
+                    if (not Config.WallCheck) or IsVisible(myPos, info.position) then
+                        bestDist = dist
+                        bestIndex = i
+                    end
+                end
+            end
+        end
+    end
+    return bestIndex, bestDist
+end
+
+local lastFireAt = 0
+
+local function FireOnce()
+    local target, dist = FindBestTarget()
+    if not target then return end
+    if Config.FireMode == "Nade" and dist and dist < Config.NadeMinDist then return end
+
+    if Config.FireMode == "Shoot" then
+        Invoke("shoot", target, Config.TargetPart)
+    elseif Config.FireMode == "Strike" then
+        Invoke("strike", target, Config.TargetPart, Config.StrikeKind)
+    elseif Config.FireMode == "Throw" then
+        Invoke("throwat", target, Config.TargetPart)
+    elseif Config.FireMode == "Nade" then
+        Invoke("nade", target)
+    end
+end
+
+local function ClearVelocities(model)
+    for _, part in ipairs(model:GetDescendants()) do
+        if part:IsA("BasePart") and not part.Anchored then
+            part.AssemblyLinearVelocity = Vector3.zero
+            part.AssemblyAngularVelocity = Vector3.zero
+        end
+    end
+end
+
+local function PoolAll()
+    if not ShooterDebug then return 0, "ShooterDebug not found" end
+    local ok, state = Invoke("state")
+    if not ok or not state or not state.ready then
+        return 0, "Game not ready"
+    end
+    local npcCount = state.npcs or 0
+    if npcCount == 0 then return 0, "No NPCs" end
+
+    Invoke("pool", 1)
+    task.wait(0.15)
+
+    local ok0, firstInfo = Invoke("npc", 1)
+    if not ok0 or not firstInfo or not firstInfo.position then
+        return 0, "Calibration failed"
+    end
+    local basePos = firstInfo.position
+    local moved = 1
+
+    local radius = Config.PoolRadius
+    for i = 2, npcCount do
+        local ok2, info = Invoke("npc", i)
+        if ok2 and info and info.alive and info.name then
+            local model = Workspace:FindFirstChild(info.name)
+            if model and model:IsA("Model") then
+                local angle = ((i - 2) / math.max(npcCount - 1, 1)) * math.pi * 2
+                local offset = Vector3.new(math.cos(angle) * radius, 0, math.sin(angle) * radius)
+                local targetPos = basePos + offset
+                local success = pcall(function()
+                    model:PivotTo(CFrame.new(targetPos))
+                    ClearVelocities(model)
+                end)
+                if success then
+                    moved = moved + 1
+                end
+            end
+        end
+        task.wait(0.04)
+    end
+
+    return moved
+end
+
+task.spawn(function()
+    while true do
+        if Config.RagebotEnabled and ShooterDebug then
+            local now = tick()
+            if now - lastFireAt >= (Config.FireInterval / 1000) then
+                pcall(FireOnce)
+                lastFireAt = now
+            end
+        end
+        task.wait(0.02)
+    end
+end)
+
+task.spawn(function()
+    while true do
+        task.wait(0.15)
+        if Config.Godmode and ShooterDebug then
+            pcall(Invoke, "hp", 99999)
+        end
+    end
+end)
+
+task.spawn(function()
+    while true do
+        task.wait(1)
+        if Config.AutoPumpkin and ShooterDebug then
+            pcall(Invoke, "pumpkins", "set", 999999999)
+        end
+    end
+end)
+
+task.spawn(function()
+    while true do
+        task.wait(0.5)
+        if Config.NoGravity and ShooterDebug then
+            pcall(Invoke, "gravity", 0)
+        end
+    end
+end)
+
+task.spawn(function()
+    while true do
+        task.wait(1)
+        if ShooterDebug and Config.AutoReset then
+            local ok, state = Invoke("state")
+            if ok and state and state.ready then
+                local aliveCount = 0
+                for i = 1, (state.npcs or 0) do
+                    local ok2, info = Invoke("npc", i)
+                    if ok2 and info and info.alive then
+                        aliveCount = aliveCount + 1
+                    end
+                end
+                if aliveCount <= Config.ResetThreshold then
+                    Invoke("reset")
+                end
+            end
+        end
+    end
+end)
+
+local autoPoolIndex = 0
+task.spawn(function()
+    while true do
+        task.wait(0.8)
+        if Config.AutoPool and ShooterDebug then
+            local ok, state = Invoke("state")
+            if ok and state and state.ready then
+                local count = state.npcs or 0
+                if count > 0 then
+                    autoPoolIndex = autoPoolIndex + 1
+                    if autoPoolIndex > count then autoPoolIndex = 1 end
+                    pcall(Invoke, "pool", autoPoolIndex)
+                end
+            end
+        end
+    end
+end)
+
+local espHighlights = {}
+local function SetESP(enabled)
+    if enabled then
+        for _, obj in ipairs(Workspace:GetDescendants()) do
+            if obj:IsA("Model") and obj:FindFirstChildOfClass("Humanoid") then
+                if not Players:GetPlayerFromCharacter(obj) and not espHighlights[obj] then
+                    local hl = Instance.new("Highlight")
+                    hl.Name = "NPCEsp"
+                    hl.Adornee = obj
+                    hl.FillColor = Color3.fromRGB(255, 50, 50)
+                    hl.OutlineColor = Color3.fromRGB(255, 255, 255)
+                    hl.FillTransparency = 0.5
+                    hl.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+                    hl.Parent = obj
+                    espHighlights[obj] = hl
+                end
+            end
+        end
+    else
+        for _, hl in pairs(espHighlights) do
+            pcall(function() hl:Destroy() end)
+        end
+        espHighlights = {}
+    end
+end
+
+task.spawn(function()
+    while true do
+        task.wait(2)
+        if Config.ESP then SetESP(true) end
+    end
+end)
+
+local function NukeAll()
+    local ok, state = Invoke("state")
+    if not ok or not state then return end
+    local count = 0
+    for i = 1, (state.npcs or 0) do
+        local ok2, info = Invoke("npc", i)
+        if ok2 and info and info.alive then
+            Invoke("nade", i)
+            count = count + 1
+        end
+    end
+    Library:Notify("Dropped " .. count .. " grenades")
+    task.delay(3, function() Invoke("boom") end)
+end
+
+local RageGroup = Tabs.Ragebot:AddLeftGroupbox("Ragebot")
+local FilterGroup = Tabs.Ragebot:AddRightGroupbox("Filter")
+
+RageGroup:AddToggle("Enabled", {
+    Text = "Ragebot", Default = false,
+    Callback = function(v) Config.RagebotEnabled = v end
+})
+RageGroup:AddDropdown("FireMode", {
+    Text = "Fire Mode", Default = "Shoot",
+    Values = {"Shoot", "Strike", "Throw", "Nade"},
+    Callback = function(v) Config.FireMode = v end
+})
+RageGroup:AddDropdown("TargetPart", {
+    Text = "Target Part", Default = "Head",
+    Values = {
+        "Head", "UpperTorso", "LowerTorso", "Torso", "HumanoidRootPart",
+        "Left Arm", "Right Arm", "Left Leg", "Right Leg",
+        "LeftUpperArm", "RightUpperArm", "LeftLowerArm", "RightLowerArm",
+        "LeftUpperLeg", "RightUpperLeg", "LeftLowerLeg", "RightLowerLeg",
+    },
+    Callback = function(v) Config.TargetPart = v end
+})
+RageGroup:AddDropdown("StrikeKind", {
+    Text = "Strike Kind", Default = "slash",
+    Values = {"knife", "slash", "stab", "punch", "heavy", "smash", "bat", "blunt"},
+    Callback = function(v) Config.StrikeKind = v end
+})
+RageGroup:AddSlider("Distance", {
+    Text = "Max Distance", Default = 100,
+    Min = 10, Max = 500, Rounding = 1, Compact = false,
+    Callback = function(v) Config.MaxDistance = v end
+})
+RageGroup:AddSlider("Interval", {
+    Text = "Fire Interval (ms)", Default = 80,
+    Min = 20, Max = 500, Rounding = 1, Compact = false,
+    Callback = function(v) Config.FireInterval = v end
+})
+
+FilterGroup:AddToggle("WallCheck", {
+    Text = "Wall Check", Default = false,
+    Callback = function(v) Config.WallCheck = v end
+})
+FilterGroup:AddToggle("AliveCheck", {
+    Text = "Alive Check", Default = true,
+    Callback = function(v) Config.AliveCheck = v end
+})
+FilterGroup:AddToggle("ConsciousCheck", {
+    Text = "Conscious Check", Default = true,
+    Callback = function(v) Config.ConsciousCheck = v end
+})
+FilterGroup:AddSlider("NadeMinDist", {
+    Text = "Grenade Min Distance", Default = 5,
+    Min = 0, Max = 30, Rounding = 1, Compact = false,
+    Callback = function(v) Config.NadeMinDist = v end
+})
+
+local UnlockGroup = Tabs.Unlock:AddLeftGroupbox("One-Click Unlock")
+
+UnlockGroup:AddButton("Unlock Sandbox (Free)", function()
+    local ok, res = Invoke("sandbox", true, false)
+    Library:Notify(ok and "Sandbox unlocked" or tostring(res))
+end)
+UnlockGroup:AddButton("Unlock All Pumpkin Shop", function()
+    local ok = Invoke("pumpkins", "ownall", true)
+    Library:Notify(ok and "Pumpkin shop unlocked" or "Failed")
+end)
+UnlockGroup:AddButton("Infinite Pumpkins", function()
+    Invoke("pumpkins", "set", 999999999)
+    Library:Notify("Pumpkins set")
+end)
+UnlockGroup:AddButton("Unlock TASER 7", function()
+    local ok, res = Invoke("taserowned", true)
+    Library:Notify(ok and ("TASER: " .. tostring(res)) or "Failed")
+end)
+UnlockGroup:AddButton("Equip Ghostface", function()
+    local ok, res = Invoke("ghost", "equip")
+    Library:Notify(ok and "Ghostface equipped" or tostring(res))
+end)
+UnlockGroup:AddButton("Unlock Everything (Combo)", function()
+    Invoke("sandbox", true, false)
+    Invoke("pumpkins", "ownall", true)
+    Invoke("pumpkins", "set", 999999999)
+    Invoke("taserowned", true)
+    Invoke("ghost", "equip")
+    Library:Notify("Attempted full unlock")
+end)
+
+local GodGroup = Tabs.Godmode:AddLeftGroupbox("Player Buffs")
+local GravityGroup = Tabs.Godmode:AddRightGroupbox("Physics")
+
+GodGroup:AddToggle("Godmode", {
+    Text = "Godmode (HP locked to 99999)", Default = false,
+    Callback = function(v) Config.Godmode = v end
+})
+GodGroup:AddToggle("AutoPumpkin", {
+    Text = "Infinite Pumpkins (continuous)", Default = false,
+    Callback = function(v) Config.AutoPumpkin = v end
+})
+GodGroup:AddButton("Heal to Full (once)", function()
+    Invoke("hp", 99999)
+    Library:Notify("HP restored")
+end)
+GodGroup:AddButton("Toggle Slow Motion", function()
+    local ok, info = Invoke("slowmo")
+    Library:Notify(ok and "Toggled" or "Failed")
+end)
+GodGroup:AddSlider("SlowSpeed", {
+    Text = "Slow Motion Speed (0.1~2)", Default = 1,
+    Min = 0.1, Max = 2, Rounding = 2, Compact = false,
+    Callback = function(v)
+        Invoke("slowmo", "speed", v)
+    end
+})
+GodGroup:AddButton("Toggle Third Person", function()
+    Invoke("view", "toggle")
+end)
+GodGroup:AddButton("Toggle Crouch", function()
+    Invoke("crouch", "toggle")
+end)
+
+GravityGroup:AddToggle("NoGravity", {
+    Text = "Zero Gravity (Fly)", Default = false,
+    Callback = function(v)
+        Config.NoGravity = v
+        if not v then Invoke("gravity", 1) end
+    end
+})
+GravityGroup:AddButton("Restore Gravity", function()
+    Invoke("gravity", 1)
+    Library:Notify("Gravity restored")
+end)
+GravityGroup:AddSlider("GravitySet", {
+    Text = "Manual Gravity Multiplier", Default = 1,
+    Min = 0, Max = 5, Rounding = 2, Compact = false,
+    Callback = function(v) Invoke("gravity", v) end
+})
+
+local FarmGroup = Tabs.Farm:AddLeftGroupbox("Farming")
+local FarmExtra = Tabs.Farm:AddRightGroupbox("AFK")
+
+FarmGroup:AddToggle("AutoReset", {
+    Text = "Auto Reset NPCs", Default = false,
+    Callback = function(v) Config.AutoReset = v end
+})
+FarmGroup:AddSlider("ResetThreshold", {
+    Text = "Alive Threshold", Default = 0,
+    Min = 0, Max = 20, Rounding = 1, Compact = false,
+    Callback = function(v) Config.ResetThreshold = v end
+})
+FarmGroup:AddToggle("AutoPool", {
+    Text = "Auto Pool (smooth polling)", Default = false,
+    Callback = function(v)
+        Config.AutoPool = v
+        autoPoolIndex = 0
+    end
+})
+FarmGroup:AddSlider("PoolRadius", {
+    Text = "Pool Ring Radius", Default = 6,
+    Min = 2, Max = 20, Rounding = 1, Compact = false,
+    Callback = function(v) Config.PoolRadius = v end
+})
+
+FarmGroup:AddButton("Pool Once (Ring Layout)", function()
+    local moved, err = PoolAll()
+    if moved and moved > 0 then
+        Library:Notify("Pooled " .. moved .. " NPCs")
+    else
+        Library:Notify("Pool failed: " .. tostring(err or "Unknown"))
+    end
+end)
+
+FarmGroup:AddButton("Manual Reset NPCs", function()
+    local ok, res = Invoke("reset")
+    Library:Notify(ok and ("Revived " .. tostring(res)) or "Failed")
+end)
+
+FarmGroup:AddButton("Spawn One NPC", function()
+    Invoke("spawn")
+    Library:Notify("NPC spawned")
+end)
+
+FarmExtra:AddButton("Trigger Pumpkin Wave Reward", function()
+    Invoke("pumpkins", "debugLastRun", nil, true)
+    Library:Notify("Attempted trigger")
+end)
+FarmExtra:AddButton("Check Pumpkin Balance", function()
+    local ok, info = Invoke("pumpkins", "info")
+    if ok and info then
+        for k, v in pairs(info) do print(k, v) end
+        Library:Notify("Printed to console")
+    end
+end)
+
+local VisualGroup = Tabs.Visual:AddLeftGroupbox("Visual")
+
+VisualGroup:AddToggle("ESP", {
+    Text = "NPC ESP", Default = false,
+    Callback = function(v)
+        Config.ESP = v
+        SetESP(v)
+    end
+})
+VisualGroup:AddButton("Disable Blood", function()
+    Invoke("blood", false)
+    Library:Notify("Blood disabled")
+end)
+VisualGroup:AddButton("Enable Blood", function()
+    Invoke("blood", true)
+    Library:Notify("Blood enabled")
+end)
+VisualGroup:AddButton("Disable Damage Reports", function()
+    Invoke("settings", "reports", false)
+    Library:Notify("Reports disabled")
+end)
+VisualGroup:AddButton("Open Weapon Menu (Q)", function()
+    Invoke("menu", true)
+end)
+
+local NukeGroup = Tabs.Nuke:AddLeftGroupbox("Nuke")
+
+NukeGroup:AddButton("Grenade All + Detonate", function()
+    NukeAll()
+end)
+NukeGroup:AddButton("Detonate All Grenades", function()
+    local ok, count = Invoke("boom")
+    Library:Notify(ok and ("Detonated " .. tostring(count) .. " grenades") or "Failed")
+end)
+NukeGroup:AddButton("Knife All Heads (Melee)", function()
+    local ok, state = Invoke("state")
+    if not ok or not state then return end
+    local count = 0
+    for i = 1, (state.npcs or 0) do
+        local ok2, info = Invoke("npc", i)
+        if ok2 and info and info.alive then
+            Invoke("strike", i, "Head", "knife")
+            count = count + 1
+        end
+    end
+    Library:Notify("Hit " .. count .. " NPCs")
+end)
+NukeGroup:AddButton("Shoot All Heads", function()
+    local ok, state = Invoke("state")
+    if not ok or not state then return end
+    local count = 0
+    for i = 1, (state.npcs or 0) do
+        local ok2, info = Invoke("npc", i)
+        if ok2 and info and info.alive then
+            Invoke("shoot", i, "Head")
+            count = count + 1
+        end
+    end
+    Library:Notify("Shot " .. count .. " NPCs")
+end)
+
+local DebugGroup = Tabs.Debug:AddLeftGroupbox("Debug")
+
+DebugGroup:AddButton("Show Game State", function()
+    local ok, state = Invoke("state")
+    if ok and state then
+        for k, v in pairs(state) do print(k, v) end
+        Library:Notify("Printed to F9")
+    end
+end)
+DebugGroup:AddButton("List All NPCs", function()
+    local ok, state = Invoke("state")
+    if not ok or not state then
+        Library:Notify("Failed")
+        return
+    end
+    print("=== NPCs ===")
+    for i = 1, (state.npcs or 0) do
+        local ok2, info = Invoke("npc", i)
+        if ok2 and info then
+            print(string.format("[%d] alive=%s conscious=%s posture=%s pos=%s",
+                i, tostring(info.alive), tostring(info.conscious),
+                tostring(info.posture), tostring(info.position)))
+        end
+    end
+    Library:Notify("Printed")
+end)
+DebugGroup:AddButton("View NPC Vitals (First)", function()
+    local ok, info = Invoke("vitals", 1)
+    if ok and info then
+        for k, v in pairs(info) do print(k, v) end
+        Library:Notify("Printed")
+    end
+end)
+DebugGroup:AddButton("Refind ShooterDebug", function()
+    ShooterDebug = FindShooterDebug()
+    Library:Notify(ShooterDebug and "Found" or "Not found")
+end)
+DebugGroup:AddLabel("ShooterDebug: " .. (ShooterDebug and "Found" or "Not found"))
+
+local MenuGroup = Tabs["UI Settings"]:AddLeftGroupbox("Menu", "wrench")
+MenuGroup:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", {
+    Default = "RightShift",
+    NoUI = true,
+    Text = "Menu keybind"
+})
+MenuGroup:AddButton("Unload", function()
+    SetESP(false)
+    Library:Unload()
+end)
+Library.ToggleKeybind = Library.Options.MenuKeybind
+
+SaveManager:SetLibrary(Library)
+SaveManager:IgnoreThemeSettings()
+SaveManager:SetIgnoreIndexes({ "MenuKeybind" })
+SaveManager:BuildConfigSection(Tabs["UI Settings"])
+ThemeManager:SetLibrary(Library)
+ThemeManager:ApplyToTab(Tabs["UI Settings"])
+
+Library:OnUnload(function()
+    SetESP(false)
+    print("Unloaded!")
+end)
