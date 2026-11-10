@@ -56,7 +56,7 @@ MainTab:Button({
     Title = "empty",
     Desc = "empty.",
     Callback = function()
-        print("hi"
+        print("hi")
         WindUI:Notify({
             Title = "Executed",
             Content = "Executed successfully.",
