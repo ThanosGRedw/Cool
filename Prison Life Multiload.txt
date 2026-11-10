@@ -26,7 +26,7 @@ MainTab:Button({
     Title = "Precision hub",
     Desc = "best script",
     Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs/heads/main/Precision%20Hub.txt"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs/heads/main/Precision%20Hub.txt"))()
         WindUI:Notify({
             Title = "Executed",
             Content = "Executed successfully.",
@@ -38,10 +38,10 @@ MainTab:Button({
 
 -- BUTTON 2
 MainTab:Button({
-    Title = "Button Two",
+    Title = "Kx admin",
     Desc = "Kx admin",
     Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Keraunius/213sadd23/refs/heads/main/kxadm.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Keraunius/213sadd23/refs/heads/main/kxadm.lua"))()
         WindUI:Notify({
             Title = "Executed",
             Content = "Executed successfully.",
