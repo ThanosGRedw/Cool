@@ -4,9 +4,9 @@ local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/rel
 
 -- Create Main Window
 local Window = WindUI:CreateWindow({
-    Title = "Prison life ezload",
+    Title = "Prison Life rzload",
     Icon = "sparkles",
-    Author = "goathanos",
+    Author = "by goathanos",
     Folder = "WindUI_Config",
     Size = UDim2.fromOffset(580, 460),
     Transparent = true,
@@ -23,7 +23,7 @@ local MainTab = Window:Tab({
 
 -- BUTTON 1 (Added directly to the tab)
 MainTab:Button({
-    Title = "Precision hub",
+    Title = "Precision Hub",
     Callback = function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs/heads/main/Precision%20Hub.txt"))()
         WindUI:Notify({
@@ -37,7 +37,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs
 
 -- BUTTON 2
 MainTab:Button({
-    Title = "Kx admin",
+    Title = "KX Admin",
     Callback = function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Keraunius/213sadd23/refs/heads/main/kxadm.lua"))()
         WindUI:Notify({
@@ -65,7 +65,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs
 
 -- BUTTON 4
 MainTab:Button({
-    Title = "Silly scripts",
+    Title = "Silly Scripts",
     Callback = function()
 loadstring(game:HttpGet(""))()
         WindUI:Notify({
