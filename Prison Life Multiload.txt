@@ -63,5 +63,18 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs
     end,
 })
 
+-- BUTTON 4
+MainTab:Button({
+    Title = "Silly scripts",
+    Callback = function()
+loadstring(game:HttpGet(""))()
+        WindUI:Notify({
+            Title = "Executed",
+            Content = "Executed successfully.",
+            Duration = 3,
+            Icon = "check"
+        })
+    end,
+})
 -- Select initial tab
 Window:SelectTab(1)
