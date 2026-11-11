@@ -13,6 +13,7 @@ local Window = WindUI:CreateWindow({
     Theme = "Dark",
     SideBarWidth = 170,
     HasOutline = true,
+    Theme = "Midnight",
 })
 
 -- Create Tab
