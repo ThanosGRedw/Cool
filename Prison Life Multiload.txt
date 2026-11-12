@@ -4,12 +4,12 @@ local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/rel
 
 -- Create Main Window
 local Window = WindUI:CreateWindow({
-    Title = "Prison Life rzload",
+    Title = "Prison Life ezload",
     Icon = "sparkles",
     Author = "by goathanos",
     Folder = "WindUI_Config",
     Size = UDim2.fromOffset(580, 460),
-    Transparent = true,
+    Transparent = false,
     Theme = "Dark",
     SideBarWidth = 170,
     HasOutline = true,
