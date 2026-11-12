@@ -80,6 +80,19 @@ MainTab:Button({
     end,
 })
 
+MainTab:Button({
+    Title = "Ludowig.cc",
+    Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs/heads/main/Ludowig%20Prison%20Life.txt"))()
+        WindUI:Notify({
+            Title = "Executed",
+            Content = "Ludowig.cc executed successfully.",
+            Duration = 3,
+            Icon = "check"
+        })
+    end,
+})
+
 -- ==================== SETTINGS TAB ====================
 
 -- Native WindUI Transparency Slider (Moves smoothly by 1)
