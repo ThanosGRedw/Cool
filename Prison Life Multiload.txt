@@ -68,7 +68,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs
 MainTab:Button({
     Title = "Silly Scripts",
     Callback = function()
-loadstring(game:HttpGet(""))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs/heads/main/Silly%20Prison%20Life.txt"))()
         WindUI:Notify({
             Title = "Executed",
             Content = "Executed successfully.",
