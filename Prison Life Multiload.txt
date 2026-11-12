@@ -18,7 +18,7 @@ local Window = WindUI:CreateWindow({
 -- Create Tabs
 local MainTab = Window:Tab({
     Title = "Main",
-    Icon = "home",
+    Icon = "house",
 })
 
 local SettingsTab = Window:Tab({
@@ -28,7 +28,6 @@ local SettingsTab = Window:Tab({
 
 -- ==================== MAIN TAB BUTTONS ====================
 
--- BUTTON 1
 MainTab:Button({
     Title = "Precision Hub",
     Callback = function()
@@ -42,7 +41,6 @@ MainTab:Button({
     end,
 })
 
--- BUTTON 2
 MainTab:Button({
     Title = "KX Admin",
     Callback = function()
@@ -56,7 +54,6 @@ MainTab:Button({
     end,
 })
 
--- BUTTON 3
 MainTab:Button({
     Title = "Parallax",
     Callback = function()
@@ -70,7 +67,6 @@ MainTab:Button({
     end,
 })
 
--- BUTTON 4
 MainTab:Button({
     Title = "Silly Scripts",
     Callback = function()
@@ -86,36 +82,25 @@ MainTab:Button({
 
 -- ==================== SETTINGS TAB ====================
 
--- Toggle Transparency
-SettingsTab:Toggle({
-    Title = "Window Transparency",
-    Desc = "Toggle background transparency on or off.",
-    Default = false,
-    Callback = function(state)
-        Window:ToggleTransparency(state)
-        WindUI:Notify({
-            Title = "Settings Updated",
-            Content = "Transparency set to: " .. tostring(state),
-            Duration = 2,
-            Icon = "sliders"
-        })
-    end,
-})
-
--- Theme Selector Dropdown
-SettingsTab:Dropdown({
-    Title = "UI Theme",
-    Desc = "Change the look of the script hub.",
-    Values = {"Midnight", "Dark", "Light", "Darker"},
-    Default = "Midnight",
-    Callback = function(selectedTheme)
-        Window:SetTheme(selectedTheme)
-        WindUI:Notify({
-            Title = "Theme Changed",
-            Content = "Switched theme to " .. selectedTheme,
-            Duration = 2,
-            Icon = "palette"
-        })
+-- Native WindUI Transparency Slider (Moves smoothly by 1)
+SettingsTab:Slider({
+    Title = "Transparency Level",
+    Desc = "0 = Solid, 100 = Max Transparency",
+    Step = 1,
+    Value = {
+        Min = 0,
+        Max = 100,
+        Default = 0,
+    },
+    Callback = function(value)
+        local alpha = value / 100
+        WindUI.TransparencyValue = alpha
+        
+        if value > 0 then
+            Window:ToggleTransparency(true)
+        else
+            Window:ToggleTransparency(false)
+        end
     end,
 })
 
