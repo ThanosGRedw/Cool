@@ -10,26 +10,32 @@ local Window = WindUI:CreateWindow({
     Folder = "WindUI_Config",
     Size = UDim2.fromOffset(580, 460),
     Transparent = false,
-    Theme = "Dark",
+    Theme = "Midnight",
     SideBarWidth = 170,
     HasOutline = true,
-    Theme = "Midnight",
 })
 
--- Create Tab
+-- Create Tabs
 local MainTab = Window:Tab({
     Title = "Main",
     Icon = "home",
 })
 
--- BUTTON 1 (Added directly to the tab)
+local SettingsTab = Window:Tab({
+    Title = "Settings",
+    Icon = "settings",
+})
+
+-- ==================== MAIN TAB BUTTONS ====================
+
+-- BUTTON 1
 MainTab:Button({
     Title = "Precision Hub",
     Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs/heads/main/Precision%20Hub.txt"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs/heads/main/Precision%20Hub.txt"))()
         WindUI:Notify({
             Title = "Executed",
-            Content = "Executed successfully.",
+            Content = "Precision Hub executed successfully.",
             Duration = 3,
             Icon = "check"
         })
@@ -40,10 +46,10 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs
 MainTab:Button({
     Title = "KX Admin",
     Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Keraunius/213sadd23/refs/heads/main/kxadm.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Keraunius/213sadd23/refs/heads/main/kxadm.lua"))()
         WindUI:Notify({
             Title = "Executed",
-            Content = "Executed successfully.",
+            Content = "KX Admin executed successfully.",
             Duration = 3,
             Icon = "check"
         })
@@ -54,10 +60,10 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Keraunius/213sadd23/r
 MainTab:Button({
     Title = "Parallax",
     Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs/heads/main/parallax.txt"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs/heads/main/parallax.txt"))()
         WindUI:Notify({
             Title = "Executed",
-            Content = "Executed successfully.",
+            Content = "Parallax executed successfully.",
             Duration = 3,
             Icon = "check"
         })
@@ -68,14 +74,50 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs
 MainTab:Button({
     Title = "Silly Scripts",
     Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs/heads/main/Silly%20Prison%20Life.txt"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ThanosGRedw/Cool/refs/heads/main/Silly%20Prison%20Life.txt"))()
         WindUI:Notify({
             Title = "Executed",
-            Content = "Executed successfully.",
+            Content = "Silly Scripts executed successfully.",
             Duration = 3,
             Icon = "check"
         })
     end,
 })
+
+-- ==================== SETTINGS TAB ====================
+
+-- Toggle Transparency
+SettingsTab:Toggle({
+    Title = "Window Transparency",
+    Desc = "Toggle background transparency on or off.",
+    Default = false,
+    Callback = function(state)
+        Window:ToggleTransparency(state)
+        WindUI:Notify({
+            Title = "Settings Updated",
+            Content = "Transparency set to: " .. tostring(state),
+            Duration = 2,
+            Icon = "sliders"
+        })
+    end,
+})
+
+-- Theme Selector Dropdown
+SettingsTab:Dropdown({
+    Title = "UI Theme",
+    Desc = "Change the look of the script hub.",
+    Values = {"Midnight", "Dark", "Light", "Darker"},
+    Default = "Midnight",
+    Callback = function(selectedTheme)
+        Window:SetTheme(selectedTheme)
+        WindUI:Notify({
+            Title = "Theme Changed",
+            Content = "Switched theme to " .. selectedTheme,
+            Duration = 2,
+            Icon = "palette"
+        })
+    end,
+})
+
 -- Select initial tab
 Window:SelectTab(1)
